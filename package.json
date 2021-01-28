@@ -57,7 +57,7 @@
   "scripts": {
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
-    "test": "jest",
+    "test": "jest ./src tests",
     "lint": "eslint ./src"
   },
   "browserslist": [

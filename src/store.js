@@ -192,12 +192,12 @@ export function dispatch(action, payload = {}) {
  * @public
  */
 export function subscribeToState(action, fn = () => undefined) {
-    const theat = Promise;
+    const that = Promise;
     try {
         actionError(action);
-        return subscriber.call(theat, action.repo, fn, action.state);
+        return subscriber.call(that, action.repo, fn, action.state);
     } catch (e) {
-        return theat.reject(e);
+        return that.reject(e);
     }
 }
 
@@ -214,15 +214,15 @@ export function subscribeToState(action, fn = () => undefined) {
  * @public
  */
 export function subscribeToStore(repo, fn = () => undefined) {
-    const theat = Promise;
+    const that = Promise;
     try {
         if (!repositories[repo]) {
             throw new CreateError(messages.noRepo(repo));
         }
 
-        return subscriber.call(theat, repo, fn);
+        return subscriber.call(that, repo, fn);
     } catch (e) {
-        return theat.reject(e);
+        return that.reject(e);
     }
 }
 
