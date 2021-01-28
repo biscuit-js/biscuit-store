@@ -52,7 +52,9 @@ it('getState write error', () => {
     const { testStep } = target.actions;
     expect(() => {
         getState(testStep).data = 'test';
-    }).toThrowError(new Error('Cannot assign to read only property \'data\' of object \'#<Object>\''));
+    }).toThrowError(
+        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+    );
 });
 
 it('action.getState write error', () => {
@@ -60,5 +62,7 @@ it('action.getState write error', () => {
     const { testStep } = target.actions;
     expect(() => {
         testStep.getState().data = 'test';
-    }).toThrowError(new Error('Cannot assign to read only property \'data\' of object \'#<Object>\''));
+    }).toThrowError(
+        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+    );
 });

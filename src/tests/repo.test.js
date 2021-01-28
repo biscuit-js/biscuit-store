@@ -46,7 +46,9 @@ it('change newRepo.get write error', () => {
     const testRepo = newRepo('test-4', { data: 'test-4' });
     expect(() => {
         testRepo.get().data = 'error';
-    }).toThrowError(new Error('Cannot assign to read only property \'data\' of object \'#<Object>\''));
+    }).toThrowError(
+        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+    );
 });
 
 it('change newRepo not name', () => {

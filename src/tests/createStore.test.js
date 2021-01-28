@@ -1,5 +1,13 @@
 import { createStore } from '../index.js';
 
+const testStart = 'TEST/START';
+
+const states = {
+    testStart,
+    testStep: 'TEST/STEP',
+    testStop: 'TEST/STOP',
+};
+
 it('check new store', () => {
     const testStore = createStore({
         repo: {
@@ -45,11 +53,7 @@ it('check store action instance', () => {
             name: 'test-4',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-            testStep: 'TEST/STEP',
-            testStop: 'TEST/STOP',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart).not.toBeUndefined();
@@ -67,11 +71,7 @@ it('check store action functions', () => {
             name: 'test-5',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-            testStep: 'TEST/STEP',
-            testStop: 'TEST/STOP',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart).not.toBeUndefined();
@@ -89,9 +89,7 @@ it('check store action functions', () => {
             name: 'test-6',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart.repo).not.toBeUndefined();
@@ -113,13 +111,11 @@ it('check store repo and state', () => {
             name: 'test-7',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart.repo).toEqual('test-7');
-    expect(testStore.actions.testStart.state).toEqual('TEST/START');
+    expect(testStore.actions.testStart.state).toEqual(testStart);
 });
 
 it('check store change repo', () => {
@@ -128,9 +124,7 @@ it('check store change repo', () => {
             name: 'test-8',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart.getState()).toEqual({ data: 'test' });
@@ -149,9 +143,7 @@ it('check store change state', (done) => {
             name: 'test-9',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
     });
 
     expect(testStore.actions.testStart.getState()).toEqual({ data: 'test' });
@@ -173,7 +165,7 @@ it('check store branch state', (done) => {
         },
         states: {
             testStart: {
-                name: 'TEST/START',
+                name: testStart,
                 initial: { id: 0, data: 'test-1' },
                 branch: true,
             },
@@ -197,14 +189,12 @@ it('check store middleware', (done) => {
             name: 'test-11',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
         strictMode: false,
         middleware: [
             (context, next) => {
                 expect(context).toEqual({
-                    action: 'TEST/START',
+                    action: testStart,
                     payload: { data: 'test-2', id: 2 },
                     repo: 'test-11',
                     state: { data: 'test' },
@@ -227,9 +217,7 @@ it('check store debugger', (done) => {
             name: 'test-12',
             initial: { data: 'test' },
         },
-        states: {
-            testStart: 'TEST/START',
-        },
+        states,
         strictMode: false,
         debugger: (e) => {
             if (e.type === 'log') {
@@ -310,9 +298,7 @@ it('check store invalid middleware type', () => {
                 name: 'test-15',
                 initial: {},
             },
-            states: {
-                testState: 'TEST/START',
-            },
+            states,
             middleware: [null],
         });
     }).toThrowError(new Error('Middleware should be provided as a feature.'));
@@ -325,9 +311,7 @@ it('check store invalid middleware type', () => {
                 name: 'test-16',
                 initial: {},
             },
-            states: {
-                testState: 'TEST/START',
-            },
+            states,
             debugger: [],
         });
     }).toThrowError(new Error('Debugger should be provided as a feature.'));

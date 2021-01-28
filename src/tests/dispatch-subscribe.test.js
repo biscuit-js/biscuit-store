@@ -212,7 +212,7 @@ it('dispatch state not found', () => {
 
 it('subscribeToStore repo not found', (done) => {
     expect.assertions(1);
-    subscribeToStore('errorTest', () => { }).catch((e) => {
+    subscribeToStore('errorTest', () => undefined).catch((e) => {
         expect(e.message).toEqual('repository <errorTest> not found.');
         done();
     });
@@ -220,7 +220,7 @@ it('subscribeToStore repo not found', (done) => {
 
 it('subscribeToState repo not found', (done) => {
     expect.assertions(1);
-    subscribeToState({ repo: 'sdsd', state: 'test' }, () => { }).catch((e) => {
+    subscribeToState({ repo: 'sdsd', state: 'test' }, () => undefined).catch((e) => {
         expect(e.message).toEqual('repository <sdsd> not found.');
         done();
     });
@@ -229,15 +229,18 @@ it('subscribeToState repo not found', (done) => {
 it('subscribeToState state not found', (done) => {
     expect.assertions(1);
     const target = testStore(11);
-    subscribeToState({ repo: target.store.repo, state: 'testError' }, () => { }).catch((e) => {
-        expect(e.message).toEqual('state <testError> not found.');
-        done();
-    });
+    subscribeToState(
+        { repo: target.store.repo, state: 'testError' },
+        () => undefined)
+        .catch((e) => {
+            expect(e.message).toEqual('state <testError> not found.');
+            done();
+        });
 });
 
 it('subscribeToState invalid action type', (done) => {
     expect.assertions(1);
-    subscribeToState(null, () => { }).catch((e) => {
+    subscribeToState(null, () => undefined).catch((e) => {
         expect(e.message).toEqual('Invalid action parameters.');
         done();
     });
