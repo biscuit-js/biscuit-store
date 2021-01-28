@@ -12,6 +12,11 @@
     "state",
     "library"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.(js|ts)": [
       "yarn run lint",
@@ -34,6 +39,7 @@
     "eslint-loader": "3.0.3",
     "eslint-plugin-flowtype": "4.6.0",
     "eslint-plugin-import": "2.20.1",
+    "husky": "^4.3.8",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
