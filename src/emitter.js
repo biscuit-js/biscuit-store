@@ -1,9 +1,9 @@
-import { Warning, CreateError, Log } from "./debugger";
+import { Warning, CreateError, Log } from './debugger';
 
 const messages = {
-    noListener: `The subscriber's listener must be a function.`,
-    noValidAction: `An invalid dependencies was processed.`,
-}
+    noListener: 'The subscriber\'s listener must be a function.',
+    noValidAction: 'An invalid dependencies was processed.',
+};
 
 /**
  * Module of the library responsible for creating tasks and subscribing to them.
@@ -12,11 +12,11 @@ const messages = {
  * @public
 */
 function createEmmitor() {
-    let taskBuffer = {};
+    const taskBuffer = {};
 
     return {
         /**
-         * This method allows you to subscribe to an action. 
+         * This method allows you to subscribe to an action.
          * Creates a task that puts its own callback function,
          * which should then be started by the dispatcher
          * @param {string} stateName name of the state to subscribe to
@@ -26,7 +26,7 @@ function createEmmitor() {
          * @public
         */
         subscribeAction: (taskName, listener, state) => {
-            if (typeof listener !== "function") {
+            if (typeof listener !== 'function') {
                 throw new CreateError(messages.noListener, taskName);
             }
 
@@ -38,7 +38,7 @@ function createEmmitor() {
                 state,
                 name: taskName,
                 todo: listener,
-                id: taskBuffer[taskName].length
+                id: taskBuffer[taskName].length,
             };
             /** write task to buffer */
             taskBuffer[task.name][task.id] = task;
@@ -52,9 +52,9 @@ function createEmmitor() {
                 */
                 remove: () => {
                     new Log(`unsubscribe -> store: ${task.name}, state: ${task.state}`);
-                    taskBuffer[task.name].splice(task.id, 1)
-                }
-            }
+                    taskBuffer[task.name].splice(task.id, 1);
+                },
+            };
         },
 
         /**
@@ -65,12 +65,12 @@ function createEmmitor() {
          * @return {}
          */
         subscribeActions: (actions, listener) => {
-            if (typeof listener !== "function") {
+            if (typeof listener !== 'function') {
                 throw new CreateError(messages.noListener);
             }
 
             const tasks = [];
-            for (let action of actions) {
+            for (const action of actions) {
                 new Log(`subscribe -> store: ${action.repo}, state: ${action.state}`);
 
                 if (!action.repo) {
@@ -78,14 +78,14 @@ function createEmmitor() {
                 }
 
                 if (!taskBuffer[action.repo]) {
-                    taskBuffer[action.repo] = [];     
+                    taskBuffer[action.repo] = [];
                 }
                 /** create task */
                 const task = {
                     state: action.state,
                     name: action.repo,
                     todo: listener,
-                    id: taskBuffer[action.repo].length
+                    id: taskBuffer[action.repo].length,
                 };
                 /** write task to buffer */
                 taskBuffer[task.name][task.id] = task;
@@ -96,17 +96,17 @@ function createEmmitor() {
 
             return {
                 /** tasks array */
-                params: tasks, 
+                params: tasks,
                 /**
                  * Remove listners
                 */
                 remove: () => {
-                    for (let task of tasks) {
+                    for (const task of tasks) {
                         new Log(`unsubscribe -> store: ${task.name}, state: ${task.state}`);
-                        taskBuffer[task.name].splice(task.id, 1)
+                        taskBuffer[task.name].splice(task.id, 1);
                     }
-                }
-            }
+                },
+            };
         },
 
         /**
@@ -118,22 +118,23 @@ function createEmmitor() {
         */
         dispatchAction: (action) => {
             new Log(`dispatch -> store: ${action.repo}, state: ${action.state}`);
-            
+
             if (taskBuffer[action.repo]) {
                 taskBuffer[action.repo].forEach((task) => {
                     /**
-                     * If the status field is not defined, 
-                     * then run the task without additional checks, if the field is found, 
+                     * If the status field is not defined,
+                     * then run the task without additional checks, if the field is found,
                      * then perform a state comparison
                      */
                     if (task.state === action.state) {
-                        task.todo(task); 
+                        task.todo(task);
                     }
 
-                    if (task.state === undefined) {;
-                        task.todo(task); 
+                    if (task.state === undefined) {
+                        ;
+                        task.todo(task);
                     }
-                
+
                 });
                 return;
             }
@@ -142,9 +143,9 @@ function createEmmitor() {
                 `store "${action.repo}" has no active subscriptions.`,
                 action.repo
             );
-        }
-    }
+        },
+    };
 }
 
 
-export const emitter = createEmmitor()
+export const emitter = createEmmitor();

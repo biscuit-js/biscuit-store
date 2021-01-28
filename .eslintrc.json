@@ -56,15 +56,17 @@
     "block-scoped-var": "error",
     "curly": ["error", "all"],
     "eqeqeq": "error",
-    "max-classes-per-file": ["error", 1],
+    "max-classes-per-file": "off",
     "no-alert": "warn",
+    "prefer-const": "off",
     "no-console": "warn",
+    "prefer-rest-params": "off",
     "no-lone-blocks": "error",
     "no-multi-spaces": "error",
-    "no-new": "error",
+    "no-new": "off",
     "no-new-func": "error",
     "no-new-wrappers": "error",
-    "no-return-await": "error",
+    "no-return-await": "off",
     "no-self-compare": "error",
     "no-sequences": "error",
     "no-useless-call": "error",
@@ -121,14 +123,12 @@
     "semi": ["error", "always"],
     "semi-spacing": "error",
     "quotes": ["error", "single"],
-    "max-len": ["error", 80],
+    "max-len": ["error", 100],
     "global-require": 0,
     "no-unused-vars": [2, { "ignoreRestSiblings": true }],
     "sonarjs/no-identical-functions": 0,
 
-   
-    
-    "promise/prefer-await-to-then": "error",
+  
     "optimize-regex/optimize-regex": "warn",
 
     
@@ -143,7 +143,7 @@
     "@typescript-eslint/member-delimiter-style": ["error", { "multiline": { "delimiter": "semi", "requireLast": true } }],
     "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/brace-style": ["error", "1tbs"],
-    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/indent": ["error", 4],
     "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/func-call-spacing": ["error", "never"],
     "@typescript-eslint/no-useless-constructor": ["error"],
@@ -154,6 +154,7 @@
     "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-var-requires":"off",
-    "@typescript-eslint/prefer-optional-chain": ["error"]
+    "@typescript-eslint/prefer-optional-chain": ["error"],
+    "@typescript-eslint/prefer-regexp-exec": "off"
   }
 }

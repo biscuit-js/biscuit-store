@@ -1,6 +1,6 @@
 /**
- * Creates a throttled function that only invokes func 
- * at most once per every wait milliseconds. 
+ * Creates a throttled function that only invokes func
+ * at most once per every wait milliseconds.
  * @param {function} callback target function
  * @param {number} limit counter
  * @return {function}
@@ -11,7 +11,7 @@ export function throttle(callback, limit) {
         if (!waiting) {
             callback.apply(this, arguments);
             waiting = true;
-            setTimeout(function () {
+            setTimeout(() => {
                 waiting = false;
             }, limit);
         }
@@ -19,8 +19,8 @@ export function throttle(callback, limit) {
 }
 
 /**
- * Creates a debounced function that delays invoking func 
- * until after wait milliseconds have elapsed since 
+ * Creates a debounced function that delays invoking func
+ * until after wait milliseconds have elapsed since
  * the last time the debounced function was invoked.
  * @param {function} callback target function
  * @param {number} limit counter
@@ -30,17 +30,19 @@ export function debounce(callback, limit) {
     let isCooldown = false;
 
     return function () {
-        if (isCooldown) return;
+        if (isCooldown) {
+            return;
+        }
         callback.apply(this, arguments);
         isCooldown = true;
-        setTimeout(() => (isCooldown = false), limit);
+        setTimeout(() => isCooldown = false, limit);
     };
 }
 
-/** 
- * This method set allows you to. save the state of functions 
- * tied to the timer. Required for the case when the timer 
- * function is initialized in a method with a frequent call, 
+/**
+ * This method set allows you to. save the state of functions
+ * tied to the timer. Required for the case when the timer
+ * function is initialized in a method with a frequent call,
  * for example, in the react function component.
  * @param {function} fn target function
 */
@@ -49,7 +51,7 @@ export const sandbox = (fn) => {
         run: (function () {
             let throt = null;
 
-            /** initial run  
+            /** initial run
              * @param {function} call target function
              * @param {number} timer timeout
             */
@@ -59,7 +61,7 @@ export const sandbox = (fn) => {
                 }
             };
 
-            /** initial run 
+            /** initial run
              * @param {args[any]} args arguments
              * @return {function}
              */
@@ -76,23 +78,23 @@ export const sandbox = (fn) => {
                 initialThrottle(call, timer);
                 return throttleCaller;
             };
-        })()
+        })(),
     };
 };
 
 /**
- * memoized function 
+ * memoized function
  * @param {function} fn target function
  * @return {function}
 */
 export const memoize = (fn) => {
-    let cache = {};
+    const cache = {};
     return (...args) => {
-        let n = args[0];
+        const n = args[0];
         if (n in cache) {
             return cache[n];
         } else {
-            let result = fn(n);
+            const result = fn(n);
             cache[n] = result;
             return result;
         }
@@ -104,7 +106,7 @@ export const memoize = (fn) => {
  * @param {*} value any value
  */
 export function type(value) {
-    const regex = /^\[object (\S+?)\]$/;
+    const regex = /^\[object (\S+?)]$/;
     const matches = Object.prototype.toString.call(value).match(regex) || [];
     return (matches[1] || 'undefined').toLowerCase();
 }

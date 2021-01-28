@@ -1,5 +1,5 @@
 
-import { settings } from "./repositories";
+import { settings } from './repositories';
 
 /** debuger list */
 export const debugCollection = {};
@@ -11,26 +11,26 @@ export const debugCollection = {};
  */
 const writeLog = function (type, message, repoName) {
     if (Object.keys(debugCollection).length > 0) {
-        const line = this.stack.split("\n")[1].split(':')[2];
+        const line = this.stack.split('\n')[1].split(':')[2];
         createLog({
-            message: this.name + ": " + message,
+            message: this.name + ': ' + message,
             file: line,
-            level: repoName ? "local" : "global",
+            level: repoName ? 'local' : 'global',
             repo: repoName,
             type,
-        }, repoName)
+        }, repoName);
     }
-}
+};
 
 /**
- * This method processes the storage logs 
+ * This method processes the storage logs
  * and outputs them to the debugger if necessary.
  * @param {any} data is error -> new Error, is warn -> string
  * @param {string} repoName repository name
  * @public
  */
 export const createLog = function (data, repoName) {
-    for (let key in debugCollection) {
+    for (const key in debugCollection) {
         if (key === repoName) {
             debugCollection[key](data);
         }
@@ -50,8 +50,8 @@ export const createLog = function (data, repoName) {
 export class Log extends Error {
     constructor(message, repoName) {
         super(message);
-        this.name = "Biscuit log";
-        writeLog.call(this, "log", message, repoName);
+        this.name = 'Biscuit log';
+        writeLog.call(this, 'log', message, repoName);
     }
 }
 
@@ -66,11 +66,12 @@ export class Warning extends Error {
         super(message);
 
         if (settings.strictMode[repoName]) {
+            // eslint-disable-next-line no-console
             console.warn(message);
         }
 
-        this.name = "Biscuit warn";
-        writeLog.call(this, "warning", message, repoName);
+        this.name = 'Biscuit warn';
+        writeLog.call(this, 'warning', message, repoName);
     }
 }
 
@@ -83,7 +84,7 @@ export class Warning extends Error {
 export class CreateError extends Error {
     constructor(message, repoName) {
         super(message);
-        this.name = "Biscuit error";
-        writeLog.call(this, "error", message, repoName);
+        this.name = 'Biscuit error';
+        writeLog.call(this, 'error', message, repoName);
     }
 }

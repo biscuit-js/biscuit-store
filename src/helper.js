@@ -2,14 +2,14 @@ import {
     middlewares,
     states,
     repositories,
-} from "./repositories";
+} from './repositories';
 
 export function getStateRepo(action) {
-    return states[`"${action.state}"`][action.repo]
+    return states[`"${action.state}"`][action.repo];
 }
 
 export function getRepository(name) {
-    return repositories[name].content
+    return repositories[name].content;
 }
 
 /**
@@ -30,7 +30,8 @@ export async function activeMiddlewares(context, fn = () => null) {
 }
 
 /**
- * This method is used to get the values of the object without the possibility of overwriting. 
+ * This method is used to get the values of the object without
+ * the possibility of overwriting.
  * by attempting to write generates an error.
  * @param {object} instance object to extract
  * @return {object} returns a modified copy of the object
@@ -58,10 +59,10 @@ export function compareObject(firstState, lastState) {
     }
 
     if (
-        firstState == null ||
-    typeof firstState !== "object" ||
-    lastState == null ||
-    typeof lastState !== "object"
+        firstState === null ||
+    typeof firstState !== 'object' ||
+    lastState === null ||
+    typeof lastState !== 'object'
     ) {
         return false;
     }

@@ -1,11 +1,11 @@
-import { debugCollection, CreateError } from "./debugger";
+import { debugCollection, CreateError } from './debugger';
 import {
     collections,
     repositories,
     states,
     middlewares,
-    settings
-} from "./repositories";
+    settings,
+} from './repositories';
 
 import {
     dispatch,
@@ -14,25 +14,25 @@ import {
     getRepo,
     subscribeToStore,
     addRepo,
-} from "./store"
-import { type } from "./utils"
+} from './store';
+import { type } from './utils';
 
 /** debug messages */
 const messages = {
     storageNameError: (fnName) => `biscuit ${fnName} error: storage name is not a string.`,
-    noStoreParams: "The createStore method must contain the storage parameters.",
-    noRepoName: "The repository name is a required field.",
-    middleNoFunc: "Middleware should be provided as a feature.",
-    debuggerNoFunc: "Debugger should be provided as a feature.",
-    actionString: "The state name must be a string.",
-    repoNotFind: `Repository not found.`,
-    initialType: "The initial must be an object.",
-    repoExists: "A repository with this name already exists."
+    noStoreParams: 'The createStore method must contain the storage parameters.',
+    noRepoName: 'The repository name is a required field.',
+    middleNoFunc: 'Middleware should be provided as a feature.',
+    debuggerNoFunc: 'Debugger should be provided as a feature.',
+    actionString: 'The state name must be a string.',
+    repoNotFind: 'Repository not found.',
+    initialType: 'The initial must be an object.',
+    repoExists: 'A repository with this name already exists.',
 };
 
 /**
- * This method is responsible for creating a new repository. 
- * Takes as the first argument a string with the repository name. 
+ * This method is responsible for creating a new repository.
+ * Takes as the first argument a string with the repository name.
  * and the initial state of the storage as the second argument
  * @param {string} name storage name
  * @param {object} initial initial object
@@ -48,15 +48,15 @@ export function newRepo(name, initial = {}) {
         throw new CreateError(messages.repoExists);
     }
 
-    if (typeof name !== "string") {
-        throw new CreateError(messages.storageNameError("newRepo"));
+    if (typeof name !== 'string') {
+        throw new CreateError(messages.storageNameError('newRepo'));
     }
 
-    if (type(initial) !== "object") {
+    if (type(initial) !== 'object') {
         throw new CreateError(messages.initialType, name);
     }
 
-    repositories[name] = { content : initial };
+    repositories[name] = { content: initial };
 
     return {
         repo: name,
@@ -67,7 +67,7 @@ export function newRepo(name, initial = {}) {
         get: () => getRepo(name),
         /** add to reposiory @param {object} instance */
         add: (instance) => addRepo(name, instance),
-    }
+    };
 }
 
 /**
@@ -82,26 +82,26 @@ export function createStateTo(params) {
         throw new CreateError(messages.repoNotFind);
     }
 
-    const createNewState = (settings) => {
-        if (!settings.branch) {
-            return repositories[params.repo]
+    const createNewState = (stns) => {
+        if (!stns.branch) {
+            return repositories[params.repo];
         }
 
         return {
             content: {
                 ...repositories[params.repo].content,
-                ...settings.initial
-            }
-        }
-    }
+                ...stns.initial,
+            },
+        };
+    };
 
     return {
         /** This method binds the state to the selected storagee
          * @param {string} action state name
          * @public
          */
-        bind: (action, settings = { branch: false, initial: {} }) => {
-            if (typeof action !== "string") {
+        bind: (action, options = { branch: false, initial: {} }) => {
+            if (typeof action !== 'string') {
                 throw new CreateError(messages.actionString, params.repo);
             }
 
@@ -109,12 +109,12 @@ export function createStateTo(params) {
 
             states[actionStr] = {
                 ...states[actionStr],
-                [params.repo]: createNewState(settings)
+                [params.repo]: createNewState(options),
             };
-            
+
             const actionParams = {
                 repo: params.repo,
-                state: action
+                state: action,
             };
 
             return {
@@ -131,30 +131,30 @@ export function createStateTo(params) {
                  * @param {function} fn callback
                  * @public
                 */
-                subscribe: (fn) => 
+                subscribe: (fn) =>
                     subscribeToState(actionParams, fn),
-                
-                /** 
-                 * Get state 
+
+                /**
+                 * Get state
                  * @public
                  */
-                getState: () => 
-                    getState(actionParams)
+                getState: () =>
+                    getState(actionParams),
             };
         },
         /** repository key */
-        repo: params.repo
+        repo: params.repo,
     };
 }
 
 /**
- * This helper method takes the first parameter "createactionsTo" 
+ * This helper method takes the first parameter "createactionsTo"
  * and adds actions to it from the string array of the second argument.
  * @param {object} createActions createactionsto(storage name) method
  * @param {array[string]} actions actions string array
  * @public
  */
-export function initialActions(createActions, actions) {    
+export function initialActions(createActions, actions) {
     actions.forEach((item) => {
         createActions.bind(item);
     });
@@ -162,11 +162,11 @@ export function initialActions(createActions, actions) {
 
 /**
  * This helper method converts the actions received via the argument to an array
- * @param {args[string]} action accepts multiple actions as arguments
+ * @param {args[string]} actions accepts multiple actions as arguments
  * @return {object} returns the "compile" method
  * @public
  */
-export function stateCollection(...action) {
+export function stateCollection(...actions) {
     const collection = {};
     return {
         /**
@@ -175,12 +175,12 @@ export function stateCollection(...action) {
          * @public
          */
         compile: () => {
-            for (let i = 0; i < action.length; i++) {
-                collection[action[i].repo].push({ ...action[i] });
+            for (let action of actions) {
+                collection[action.repo].push({ ...action });
             }
 
             return collection;
-        }
+        },
     };
 }
 
@@ -230,7 +230,7 @@ export const getStateCollection = {
         });
 
         return out;
-    }
+    },
 };
 
 /**
@@ -248,7 +248,7 @@ export function middleware(action) {
          * @public
          */
         add: (fn) => {
-            if (typeof fn !== "function") {
+            if (typeof fn !== 'function') {
                 throw new CreateError(messages.middleNoFunc, s);
             }
 
@@ -257,19 +257,19 @@ export function middleware(action) {
             } else {
                 middlewares[s] = [fn];
             }
-        }
+        },
     };
 }
 
 /**
- * This method allows you to add your own debugger. 
+ * This method allows you to add your own debugger.
  * The debugger will accept and output logs instead of the standard debugger.
  * @param {string} repo a string with the name of the repository
  * @param {function} fn debugger callback function
  * @public
  */
 export function createDebuger(repo, fn) {
-    if (typeof fn !== "function") {
+    if (typeof fn !== 'function') {
         throw new CreateError(messages.debuggerNoFunc);
     }
 
@@ -291,22 +291,22 @@ export function createStore(options) {
 
     /** DefaultParams */
     const params = { strictMode: true, ...options };
-    
+
     /** Create a new storage */
-    const repo  = newRepo(params.repo.name, params.repo.initial);
+    const repo = newRepo(params.repo.name, params.repo.initial);
     const target = createStateTo(repo);
-    
+
     /** Set of storage parameters */
     const output = {
         store: { ...repo },
-        actions: {}
+        actions: {},
     };
 
     /** Adding States to the repository */
     if (params.states) {
-        for (let key in params.states) {
+        for (const key in params.states) {
             const param = params.states[key];
-            const paramType = typeof param === "string"
+            const paramType = typeof param === 'string';
             output.actions[key] = target.bind(
                 paramType ? param : param.name,
                 paramType
@@ -319,7 +319,7 @@ export function createStore(options) {
     /** Adding middleware to the repository */
     if (params.middleware && params.middleware.length > 0) {
         const middle = middleware(target);
-        for (let fn of params.middleware) {
+        for (const fn of params.middleware) {
             middle.add(fn);
         }
     }

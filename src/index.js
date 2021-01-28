@@ -1,4 +1,4 @@
-import { createStore, newRepo } from "./creator";
+import { createStore, newRepo } from './creator';
 import {
     manager,
     dispatch,
@@ -7,7 +7,7 @@ import {
     addRepo,
     subscribeToState,
     subscribeToStore,
-} from "./store";
+} from './store';
 
 export {
     createStore,
@@ -18,5 +18,5 @@ export {
     addRepo,
     subscribeToState,
     subscribeToStore,
-    newRepo
-}
+    newRepo,
+};

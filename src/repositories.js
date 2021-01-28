@@ -9,4 +9,4 @@ export const middlewares = {};
 /** store settings */
 export const settings = {
     strictMode: {},
-}
+};
