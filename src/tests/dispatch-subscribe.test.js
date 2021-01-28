@@ -220,10 +220,12 @@ it('subscribeToStore repo not found', (done) => {
 
 it('subscribeToState repo not found', (done) => {
     expect.assertions(1);
-    subscribeToState({ repo: 'sdsd', state: 'test' }, () => undefined).catch((e) => {
-        expect(e.message).toEqual('repository <sdsd> not found.');
-        done();
-    });
+    subscribeToState({ repo: 'sdsd', state: 'test' }, () => undefined).catch(
+        (e) => {
+            expect(e.message).toEqual('repository <sdsd> not found.');
+            done();
+        }
+    );
 });
 
 it('subscribeToState state not found', (done) => {
@@ -231,11 +233,11 @@ it('subscribeToState state not found', (done) => {
     const target = testStore(11);
     subscribeToState(
         { repo: target.store.repo, state: 'testError' },
-        () => undefined)
-        .catch((e) => {
-            expect(e.message).toEqual('state <testError> not found.');
-            done();
-        });
+        () => undefined
+    ).catch((e) => {
+        expect(e.message).toEqual('state <testError> not found.');
+        done();
+    });
 });
 
 it('subscribeToState invalid action type', (done) => {

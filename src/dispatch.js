@@ -1,24 +1,22 @@
 import { repositories } from './repositories';
 import { activeMiddlewares, getStateRepo } from './helper';
-import {
-    emitter,
-} from './emitter';
+import { emitter } from './emitter';
 
 export function dispatchProto({ action, prev, act, payData }) {
     /**
-     * Call before state change
-     * @param {function} fn callback
-     * @public
-     */
+	 * Call before state change
+	 * @param {function} fn callback
+	 * @public
+	 */
     this.before = (fn) => {
         fn(prev);
         return this;
     };
 
     /**
-     * Merge state into repository
-     * @public
-     */
+	 * Merge state into repository
+	 * @public
+	 */
     this.merge = () => {
         repositories[action.repo].content = {
             ...act,
@@ -29,11 +27,11 @@ export function dispatchProto({ action, prev, act, payData }) {
     };
 
     /**
-     * Call after state change
-     * @param {function} fn callback
-     * @async
-     * @public
-     */
+	 * Call after state change
+	 * @param {function} fn callback
+	 * @async
+	 * @public
+	 */
     this.after = async (fn) => {
         let task;
         const call = function (resolve) {
@@ -45,8 +43,9 @@ export function dispatchProto({ action, prev, act, payData }) {
 
         await new Promise((resolve) => {
             task = emitter.subscribeAction(
-                action.repo, () =>
-                    call(resolve), action.state
+                action.repo,
+                () => call(resolve),
+                action.state
             );
         }).then(fn);
         return this;

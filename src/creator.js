@@ -19,8 +19,10 @@ import { type } from './utils';
 
 /** debug messages */
 const messages = {
-    storageNameError: (fnName) => `biscuit ${fnName} error: storage name is not a string.`,
-    noStoreParams: 'The createStore method must contain the storage parameters.',
+    storageNameError: (fnName) =>
+        `biscuit ${fnName} error: storage name is not a string.`,
+    noStoreParams:
+		'The createStore method must contain the storage parameters.',
     noRepoName: 'The repository name is a required field.',
     middleNoFunc: 'Middleware should be provided as a feature.',
     debuggerNoFunc: 'Debugger should be provided as a feature.',
@@ -39,7 +41,6 @@ const messages = {
  * @public
  */
 export function newRepo(name, initial = {}) {
-
     if (!name) {
         throw new CreateError(messages.noRepoName);
     }
@@ -61,8 +62,7 @@ export function newRepo(name, initial = {}) {
     return {
         repo: name,
         /** Subscribe by change @param {function} fn */
-        subscribe: (fn) =>
-            subscribeToStore(name, fn),
+        subscribe: (fn) => subscribeToStore(name, fn),
         /** get reposiory */
         get: () => getRepo(name),
         /** add to reposiory @param {object} instance */
@@ -97,9 +97,9 @@ export function createStateTo(params) {
 
     return {
         /** This method binds the state to the selected storagee
-         * @param {string} action state name
-         * @public
-         */
+		 * @param {string} action state name
+		 * @public
+		 */
         bind: (action, options = { branch: false, initial: {} }) => {
             if (typeof action !== 'string') {
                 throw new CreateError(messages.actionString, params.repo);
@@ -120,26 +120,23 @@ export function createStateTo(params) {
             return {
                 ...actionParams,
                 /**
-                 * Update state
-                 * @param {object} payload
-                 * @public
-                */
-                dispatch: (payload = {}) =>
-                    dispatch(actionParams, payload),
+				 * Update state
+				 * @param {object} payload
+				 * @public
+				 */
+                dispatch: (payload = {}) => dispatch(actionParams, payload),
                 /**
-                 * Subscribe to state
-                 * @param {function} fn callback
-                 * @public
-                */
-                subscribe: (fn) =>
-                    subscribeToState(actionParams, fn),
+				 * Subscribe to state
+				 * @param {function} fn callback
+				 * @public
+				 */
+                subscribe: (fn) => subscribeToState(actionParams, fn),
 
                 /**
-                 * Get state
-                 * @public
-                 */
-                getState: () =>
-                    getState(actionParams),
+				 * Get state
+				 * @public
+				 */
+                getState: () => getState(actionParams),
             };
         },
         /** repository key */
@@ -170,10 +167,10 @@ export function stateCollection(...actions) {
     const collection = {};
     return {
         /**
-         * compile state collection
-         * @return {object} actions collection
-         * @public
-         */
+		 * compile state collection
+		 * @return {object} actions collection
+		 * @public
+		 */
         compile: () => {
             for (let action of actions) {
                 collection[action.repo].push({ ...action });
@@ -203,26 +200,26 @@ export function combineStateCollections(...collection) {
  */
 export const getStateCollection = {
     /**
-   * Get the entire collection actions
-   * @return {object} collections instance
-   * @public
-   */
+	 * Get the entire collection actions
+	 * @return {object} collections instance
+	 * @public
+	 */
     all: () => ({ ...collections }),
 
     /**
-   * Get a collection by matching the storage name
-   * @param {string} repo storage name
-   * @return {object} collections instance
-   * @public
-   */
+	 * Get a collection by matching the storage name
+	 * @param {string} repo storage name
+	 * @return {object} collections instance
+	 * @public
+	 */
     fromRepo: (repo) => ({ ...collections[repo] }),
 
     /**
-   * Get the result filtered by state name
-   * @param {string} stateName state name
-   * @return {array[object]} state list
-   * @public
-   */
+	 * Get the result filtered by state name
+	 * @param {string} stateName state name
+	 * @return {array[object]} state list
+	 * @public
+	 */
     outOfState: (stateName) => {
         let out = null;
         Object.keys(collections).forEach((key) => {
@@ -243,10 +240,10 @@ export function middleware(action) {
     const s = action.repo;
     return {
         /**
-         * Adds a handler to the middleware task list.
-         * @param {function} fn middle function
-         * @public
-         */
+		 * Adds a handler to the middleware task list.
+		 * @param {function} fn middle function
+		 * @public
+		 */
         add: (fn) => {
             if (typeof fn !== 'function') {
                 throw new CreateError(messages.middleNoFunc, s);
@@ -275,7 +272,6 @@ export function createDebuger(repo, fn) {
 
     debugCollection[repo] = fn;
 }
-
 
 /**
  * Monolithic method for creating a biscuit storage.

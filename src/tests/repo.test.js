@@ -1,8 +1,4 @@
-import {
-    newRepo,
-    getRepo,
-    addRepo,
-} from '../index';
+import { newRepo, getRepo, addRepo } from '../index';
 
 it('change new repository function not error', () => {
     expect(() => {
@@ -47,7 +43,9 @@ it('change newRepo.get write error', () => {
     expect(() => {
         testRepo.get().data = 'error';
     }).toThrowError(
-        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+        new Error(
+            'Cannot assign to read only property \'data\' of object \'#<Object>\''
+        )
     );
 });
 

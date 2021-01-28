@@ -12,13 +12,16 @@ export const debugCollection = {};
 const writeLog = function (type, message, repoName) {
     if (Object.keys(debugCollection).length > 0) {
         const line = this.stack.split('\n')[1].split(':')[2];
-        createLog({
-            message: this.name + ': ' + message,
-            file: line,
-            level: repoName ? 'local' : 'global',
-            repo: repoName,
-            type,
-        }, repoName);
+        createLog(
+            {
+                message: this.name + ': ' + message,
+                file: line,
+                level: repoName ? 'local' : 'global',
+                repo: repoName,
+                type,
+            },
+            repoName
+        );
     }
 };
 

@@ -3,6 +3,8 @@
   "version": "0.8.1 beta",
   "license": "MIT",
   "description": "Library for managing javascript application states",
+  "repository": "https://github.com/Biscuit-javascript/biscuit-store",
+  "bugs": "https://github.com/Biscuit-javascript/biscuit-store/issues",
   "keywords": [
     "javascript",
     "react",
@@ -10,11 +12,16 @@
     "state",
     "library"
   ],
+  "lint-staged": {
+    "*.(js|ts)": [
+      "yarn run lint",
+      "yarn run test"
+    ]
+  },
   "main": "src/index.js",
   "dependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@svgr/webpack": "4.3.3",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "babel-eslint": "10.1.0",
@@ -31,6 +38,7 @@
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
+    "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "sonarjs": "^1.0.0"
   },
@@ -43,7 +51,8 @@
   "scripts": {
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src"
   },
   "browserslist": [
     ">0.2%",

@@ -150,7 +150,9 @@ it('check store change state', (done) => {
     expect(testStore.store.get()).toEqual({ data: 'test' });
 
     testStore.actions.testStart.dispatch({ data: 'test-1' }).after(() => {
-        expect(testStore.actions.testStart.getState()).toEqual({ data: 'test-1' });
+        expect(testStore.actions.testStart.getState()).toEqual({
+            data: 'test-1',
+        });
         expect(testStore.store.get()).toEqual({ data: 'test-1' });
         done();
     });
@@ -173,13 +175,21 @@ it('check store branch state', (done) => {
     });
 
     expect(testStore.store.get()).toEqual({ data: 'test' });
-    expect(testStore.actions.testStart.getState()).toEqual({ data: 'test-1', id: 0 });
-
-    testStore.actions.testStart.dispatch({ data: 'test-2', id: 2 }).after(() => {
-        expect(testStore.actions.testStart.getState()).toEqual({ data: 'test-2', id: 2 });
-        expect(testStore.store.get()).toEqual({ data: 'test' });
-        done();
+    expect(testStore.actions.testStart.getState()).toEqual({
+        data: 'test-1',
+        id: 0,
     });
+
+    testStore.actions.testStart
+        .dispatch({ data: 'test-2', id: 2 })
+        .after(() => {
+            expect(testStore.actions.testStart.getState()).toEqual({
+                data: 'test-2',
+                id: 2,
+            });
+            expect(testStore.store.get()).toEqual({ data: 'test' });
+            done();
+        });
 });
 
 it('check store middleware', (done) => {
@@ -233,7 +243,11 @@ it('check store debugger', (done) => {
                 done();
             }
 
-            if (e.type === 'error' && e.level === 'local' && e.repo === 'test-12') {
+            if (
+                e.type === 'error' &&
+				e.level === 'local' &&
+				e.repo === 'test-12'
+            ) {
                 expect(e).not.toBeUndefined();
                 expect(e).not.toBeNull();
                 expect(typeof e).toEqual('object');
@@ -253,7 +267,9 @@ it('check store debugger', (done) => {
 it('check store no params', () => {
     expect(() => {
         createStore();
-    }).toThrowError(new Error('The createStore method must contain the storage parameters.'));
+    }).toThrowError(
+        new Error('The createStore method must contain the storage parameters.')
+    );
 });
 
 it('check store no repo name', () => {

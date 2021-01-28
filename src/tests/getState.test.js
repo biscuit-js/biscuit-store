@@ -1,7 +1,4 @@
-import {
-    getState,
-    createStore,
-} from '../index';
+import { getState, createStore } from '../index';
 
 const testStore = (value) => {
     return createStore({
@@ -53,7 +50,9 @@ it('getState write error', () => {
     expect(() => {
         getState(testStep).data = 'test';
     }).toThrowError(
-        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+        new Error(
+            'Cannot assign to read only property \'data\' of object \'#<Object>\''
+        )
     );
 });
 
@@ -63,6 +62,8 @@ it('action.getState write error', () => {
     expect(() => {
         testStep.getState().data = 'test';
     }).toThrowError(
-        new Error('Cannot assign to read only property \'data\' of object \'#<Object>\'')
+        new Error(
+            'Cannot assign to read only property \'data\' of object \'#<Object>\''
+        )
     );
 });
