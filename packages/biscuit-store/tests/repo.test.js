@@ -55,13 +55,6 @@ it('change newRepo not name', () => {
     }).toThrowError(new Error('The repository name is a required field.'));
 });
 
-it('change newRepo already exists', () => {
-    expect(() => {
-        newRepo('test-6', {});
-        newRepo('test-6', {});
-    }).toThrowError(new Error('A repository with this name already exists.'));
-});
-
 it('change newRepo initial type', () => {
     expect(() => {
         newRepo('test-7', []);

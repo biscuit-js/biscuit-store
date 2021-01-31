@@ -1,4 +1,4 @@
-# [![N|Solid](./docs/assets/biscuit2.png)](https://nodesource.com/products/nsolid)
+# [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
 Library for managing javascript application states
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)

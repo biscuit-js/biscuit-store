@@ -31,10 +31,6 @@ export function newRepo(name, initial = {}) {
         throw new CreateError(messages.noRepoName);
     }
 
-    if (repositories[name]) {
-        throw new CreateError(messages.repoExists);
-    }
-
     if (typeof name !== 'string') {
         throw new CreateError(messages.storageNameError('newRepo'));
     }
