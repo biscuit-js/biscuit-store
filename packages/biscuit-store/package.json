@@ -1,10 +1,10 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
-  "repository": "https://github.com/Biscuit-javascript/biscuit-store/tree/master/packages/core",
+  "repository": "https://github.com/Biscuit-javascript/biscuit-store",
   "keywords": [
     "javascript",
     "react",

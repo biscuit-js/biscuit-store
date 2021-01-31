@@ -2,7 +2,7 @@
   "private": true,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "workspaces": [
     "packages/*",
     "expemples/*"
@@ -26,11 +26,7 @@
     "test": "lerna run --parallel test",
     "lint": "eslint ./packages/*/{src,tests}"
   },
-  "dependencies": {
-    "@changesets/cli": "^2.14.0",
-    "dtslint": "^4.0.6",
-    "np": "^7.2.0"
-  },
+  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && yarn run test"
