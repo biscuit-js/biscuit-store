@@ -29,8 +29,11 @@
     "test": "lerna run --parallel test",
     "lint": "eslint ./packages/*/{src,tests}"
   },
-  "dependencies": {},
-    "husky": {
+  "dependencies": {
+    "@changesets/cli": "^2.14.0",
+    "dtslint": "^4.0.6"
+  },
+  "husky": {
     "hooks": {
       "pre-commit": "lint-staged && yarn run test"
     }

@@ -4,7 +4,7 @@
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
-  "keywords": [ 
+  "keywords": [
     "javascript",
     "react",
     "state",
@@ -15,13 +15,16 @@
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
-      "@babel/core": "7.9.0"
+    "@babel/core": "7.9.0"
   },
   "scripts": {
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
-    "test": "jest"
+    "test": "yarn test:jest",
+    "test:jest": "jest"
   },
-  "browserslist": [ "last 2 Chrome versions" ],
-  "types": "./src/types/index.d.ts"
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "types": "./types/index.d.ts"
 }
