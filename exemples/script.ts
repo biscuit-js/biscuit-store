@@ -13,7 +13,7 @@ import {
     middleware,
     createDebuger,
     manager,
-} from './';
+} from '../packages/core/src';
 
 interface Initial {
     value: number;
@@ -40,7 +40,7 @@ const { store, actions } = createStore({
     },
 });
 
-middleware(actions.testAdd).add((context, next) => {
+middleware(store).add((context, next) => {
     console.log('context', context);
     next();
 });

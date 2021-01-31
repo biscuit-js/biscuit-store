@@ -1418,15 +1418,18 @@ function combineStateCollections(...collections) {
 }
 /**
  * This method allows you to add middleware for the state handler.
- * @param {import('../types/state').StateAction} action the parameters of the action
+ * @param {import('../types/store').Store} store the store params
  * @return {import('../types/store').MiddlewareParams} returns a set of methods
  * @public
  */
 
 
-function middleware(action) {
-  (0, _helper.actionError)(action);
-  const s = action.repo;
+function middleware(store) {
+  if (!_repositories.repositories[store.repo]) {
+    throw new _debugger.CreateError(_messages.messages.noRepo(store.repo));
+  }
+
+  const s = store.repo;
   return {
     /**
     * Adds a handler to the middleware task list.
@@ -1491,7 +1494,7 @@ function createStore(options) {
   /** Create a new storage */
 
   const repo = newRepo(params.repo.name, params.repo.initial);
-  const target = createStateTo(repo);
+  const createAction = createStateTo(repo);
   /** Set of storage parameters */
 
   const output = {
@@ -1505,7 +1508,7 @@ function createStore(options) {
     for (const key in params.states) {
       const param = params.states[key];
       const paramType = typeof param === 'string';
-      output.actions[key] = target.bind(paramType ? param : param.name, paramType ? {} : {
+      output.actions[key] = createAction.bind(paramType ? param : param.name, paramType ? {} : {
         initial: param.initial,
         branch: param.branch
       });
@@ -1515,7 +1518,7 @@ function createStore(options) {
 
 
   if (params.middleware && params.middleware.length > 0) {
-    const middle = middleware(target);
+    const middle = middleware(repo);
 
     for (const fn of params.middleware) {
       middle.add(fn);
@@ -1525,7 +1528,7 @@ function createStore(options) {
 
 
   if (params.debugger) {
-    createDebuger(params.repo.name, params.debugger);
+    createDebuger(repo, params.debugger);
   }
   /** Strict mod */
 
@@ -1664,7 +1667,7 @@ var _a = _1.createStore({
     store = _a.store,
     actions = _a.actions;
 
-_1.middleware(actions.testAdd).add(function (context, next) {
+_1.middleware(store).add(function (context, next) {
   console.log('context', context);
   next();
 });
@@ -1795,7 +1798,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58820" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53321" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

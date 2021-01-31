@@ -1,4 +1,4 @@
-import { getState, createStore } from '../index';
+import { getState, createStore } from '../src/index';
 
 const testStore = (value) => {
     return createStore({

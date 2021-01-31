@@ -1,10 +1,51 @@
 {
   "private": true,
   "name": "biscuit-store",
+  "description": "Library for managing javascript application states",
+  "author": "Zhulev Philipp",
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {
+  "keywords": [
+    "javascript",
+    "react",
+    "state",
+    "library",
+    "state-managment",
+    "es6"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Biscuit-javascript/biscuit-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Biscuit-javascript/biscuit-store/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel ./exemples/index.html --open",
+    "build": "parcel build ./exemples/index.html",
+    "test": "lerna run --parallel test",
+    "lint": "eslint ./packages/*/{src,tests}"
+  },
+  "dependencies": {},
+    "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./packages/*/{src,tests}.(js|ts)": [
+      "yarn run lint",
+      "yarn run test"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.20",
+    "parcel-bundler": "^1.6.1",
+    "typescript": "3.8.3",
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
@@ -28,18 +69,8 @@
     "prettier": "^2.2.1",
     "sonarjs": "^1.0.0"
   },
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.12.7",
-    "@types/jest": "^26.0.20",
-    "parcel-bundler": "^1.6.1",
-    "typescript": "3.8.3"
-  },
-  "scripts": {
-    "start": "parcel ./exemples/index.html --open",
-    "build": "parcel build ./exemples/index.html",
-    "test": "jest",
-    "lint": "eslint ./packages"
-  },
-  "browserslist": [ "last 2 Chrome versions" ],
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
   "types": "./src/types/index.d.ts"
 }

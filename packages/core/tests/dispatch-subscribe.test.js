@@ -3,7 +3,7 @@ import {
     dispatch,
     subscribeToState,
     subscribeToStore,
-} from '../index';
+} from '../src/index';
 
 const testStore = (value) => {
     return createStore({
@@ -52,7 +52,7 @@ it('check callback state.dispatch -> async state.subscribe', (done) => {
     const { testStart } = target.actions;
 
     testStart.subscribe().then((repo) => {
-        expect(repo.data).toEqual('test-1');
+        expect(repo.data).toEqual({ data: 'test-1' });
         done();
     });
 
@@ -78,7 +78,7 @@ it('check store.dispatch -> async store.subscribe', (done) => {
     const { testStep } = target.actions;
 
     target.store.subscribe().then((repo) => {
-        expect(repo.data).toEqual('test-2');
+        expect(repo.data).toEqual({ data: 'test-2' });
         done();
     });
 
@@ -127,7 +127,7 @@ it('check unsubscriber', (done) => {
     const task = subscribeToState(testStep, (state) => {
         expect(state.data).toEqual('test-6');
     });
-    console.log(task);
+
     task.unsubscribe();
 
     dispatch(testStep, { data: 'test-6' }).after(() => {

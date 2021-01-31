@@ -1,4 +1,4 @@
-import { newRepo, getRepo, addRepo } from '../index';
+import { newRepo, getRepo, addRepo } from '../src/index';
 
 it('change new repository function not error', () => {
     expect(() => {

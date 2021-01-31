@@ -142,11 +142,11 @@ export function combineStateCollections(...collections: StateCollection[]): Stat
 
 /**
  * This method allows you to add middleware for the state handler.
- * @param {StateAction} action the parameters of the action
+ * @param {Store} store the store params
  * @return {MiddlewareParams} returns a set of methods
  * @public
  */
-export function middleware(action: StateAction): MiddlewareParams;
+export function middleware<T = {}>(store: Store<T>): MiddlewareParams;
 
 /**
  * This method allows you to add your own debugger.

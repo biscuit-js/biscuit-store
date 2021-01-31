@@ -232,13 +232,16 @@ export function combineStateCollections(...collections) {
 
 /**
  * This method allows you to add middleware for the state handler.
- * @param {import('../types/state').StateAction} action the parameters of the action
+ * @param {import('../types/store').Store} store the store params
  * @return {import('../types/store').MiddlewareParams} returns a set of methods
  * @public
  */
-export function middleware(action) {
-    actionError(action);
-    const s = action.repo;
+export function middleware(store) {
+    if (!repositories[store.repo]) {
+        throw new CreateError(messages.noRepo(store.repo));
+    }
+
+    const s = store.repo;
     return {
         /**
 		 * Adds a handler to the middleware task list.
@@ -297,7 +300,7 @@ export function createStore(options) {
 
     /** Create a new storage */
     const repo = newRepo(params.repo.name, params.repo.initial);
-    const target = createStateTo(repo);
+    const createAction = createStateTo(repo);
 
     /** Set of storage parameters */
     const output = {
@@ -310,7 +313,7 @@ export function createStore(options) {
         for (const key in params.states) {
             const param = params.states[key];
             const paramType = typeof param === 'string';
-            output.actions[key] = target.bind(
+            output.actions[key] = createAction.bind(
                 paramType ? param : param.name,
                 paramType
                     ? {}
@@ -321,7 +324,7 @@ export function createStore(options) {
 
     /** Adding middleware to the repository */
     if (params.middleware && params.middleware.length > 0) {
-        const middle = middleware(target);
+        const middle = middleware(repo);
         for (const fn of params.middleware) {
             middle.add(fn);
         }
@@ -329,7 +332,7 @@ export function createStore(options) {
 
     /** Adding debuger to the repository */
     if (params.debugger) {
-        createDebuger(params.repo.name, params.debugger);
+        createDebuger(repo, params.debugger);
     }
 
     /** Strict mod */

@@ -1,4 +1,4 @@
-import { createStore } from '../index.js';
+import { createStore } from '../src/index.js';
 
 const testStart = 'TEST/START';
 
