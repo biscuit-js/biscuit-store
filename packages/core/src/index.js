@@ -18,4 +18,3 @@ export {
     subscribeToState,
     subscribeToStore,
 } from './internal/store';
-console.log();

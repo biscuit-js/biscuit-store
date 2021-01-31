@@ -31,13 +31,12 @@
   "dependencies": {},
     "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn run test"
     }
   },
   "lint-staged": {
     "./packages/*/{src,tests}/*.(js|ts)": [
-      "yarn run lint",
-      "yarn run test"
+      "yarn run lint"
     ]
   },
   "devDependencies": {
