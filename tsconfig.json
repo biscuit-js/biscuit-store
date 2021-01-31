@@ -10,7 +10,7 @@
       "es6",
       "dom"
     ],
-    "rootDir": "packages/core/src",
+    "rootDir": "packages/biscuit-store/src",
     "moduleResolution": "node"
   }
 }
