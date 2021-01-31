@@ -94,7 +94,7 @@ export function getRepo(name) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "dispatch (...)"
  * method or with an implementation via "manager".
- * @param {import('../types/state').StateAction} action the parameters of the action
+ * @param {import('../../types/state').StateAction} action the parameters of the action
  * @return {object} state data
  * @public
  */
@@ -113,10 +113,10 @@ export function getState(action) {
  * as an argument and returns a new state.
  *
  * Dispatch also returns several methods for working with states.
- * @param {import('../types/state').StateAction} action the parameters of the action
- * @param {object | import('../types/state').DispatchPayload} payload
+ * @param {import('../../types/state').StateAction} action the parameters of the action
+ * @param {object | import('../../types/state').DispatchPayload} payload
  * payload data or callback function
- * @return {import('../types/state').Dispatcher}
+ * @return {import('../../types/state').Dispatcher}
  * returns methods: before, after, merge
  * @async
  * @public
@@ -169,8 +169,8 @@ export function dispatch(action, payload = {}) {
  * The first argument takes the parameters of the action.
  * results can be obtained through the callback of the second
  * argument or through the return promise.
- * @param {import('../types/state').StateAction} action the parameters of the action
- * @param {import('../types/subscribe').SubscribeListner} fn callback
+ * @param {import('../../types/state').StateAction} action the parameters of the action
+ * @param {import('../../types/subscribe').SubscribeListner} fn callback
  * @return {Promise<any>}
  * @async
  * @public
@@ -192,7 +192,7 @@ export function subscribeToState(action, fn = () => undefined) {
  * results can be obtained through the callback of the
  * second argument or through the return promise.
  * @param {string} repo repository name
- * @param {import('../types/state').SubscribeListner} fn callback
+ * @param {import('../../types/state').SubscribeListner} fn callback
  * @callback
  * @async
  * @public
@@ -266,7 +266,7 @@ export function manager(action) {
         /**
          * This method will merge the data of the selected state
          * with the data of the state specified in the arguments.
-         * @param {import('../types/state').StateAction} targetAction
+         * @param {import('../../types/state').StateAction} targetAction
          * the action that you want to merge
          * @public
          */
@@ -300,7 +300,7 @@ export function manager(action) {
         /**
          * This method compares two states for identity
          * WARNING: states should not contain methods
-         * @param {import('../types/state').StateAction} targetAction
+         * @param {import('../../types/state').StateAction} targetAction
          * the action that you want to compare
          * @return {bool}
          * @public

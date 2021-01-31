@@ -23,7 +23,7 @@ import { messages } from './messages';
  * Takes as the first argument a string with the repository name.
  * and the initial state of the storage as the second argument
  * @param {string} name storage name
- * @param {import('../types/store').Store} initial initial object
+ * @param {import('../../types/store').Store} initial initial object
  * @public
  */
 export function newRepo(name, initial = {}) {
@@ -59,8 +59,8 @@ export function newRepo(name, initial = {}) {
 /**
  * This method binds states to the storage via the "add" method.
  * Gets the storage name string as an argument.
- * @param {import('../types/store').Store} params name of the linked storage
- * @return {import('../types/state').ActionCreator} returns the "add" method
+ * @param {import('../../types/store').Store} params name of the linked storage
+ * @return {import('../../types/state').ActionCreator} returns the "add" method
  * @public
  */
 export function createStateTo(params) {
@@ -84,8 +84,8 @@ export function createStateTo(params) {
     return {
         /** This method binds the state to the selected storagee
 		 * @param {string} action state name
-         * @param {import('../types/state').StateOptions} options state options
-         * @return {import('../types/state').StateAction}
+         * @param {import('../../types/state').StateOptions} options state options
+         * @return {import('../../types/state').StateAction}
 		 * @public
 		 */
         bind: (action, options = { branch: false, initial: {} }) => {
@@ -109,13 +109,13 @@ export function createStateTo(params) {
                 ...actionParams,
                 /**
 				 * Update state
-				 * @param {import('../types/state').DispatchPayload} payload
+				 * @param {import('../../types/state').DispatchPayload} payload
 				 * @public
 				 */
                 dispatch: (payload = {}) => dispatch(actionParams, payload),
                 /**
 				 * Subscribe to state
-				 * @param {import('../types/subscribe').SubscribeListner} fn callback
+				 * @param {import('../../types/subscribe').SubscribeListner} fn callback
 				 * @public
 				 */
                 subscribe: (fn) => subscribeToState(actionParams, fn),
@@ -135,7 +135,7 @@ export function createStateTo(params) {
 /**
  * This helper method takes the first parameter "createactionsTo"
  * and adds actions to it from the string array of the second argument.
- * @param {import('../types/state').ActionCreator} createActions
+ * @param {import('../../types/state').ActionCreator} createActions
  * createactionsto(storage name) method
  * @param {array[string]} actions actions string array
  * @return {{import('../types/state').StateAction}[]} actions
@@ -153,7 +153,7 @@ export function initialActions(createActions, actions) {
 
 /**
  * This helper method converts the actions received via the argument to an array
- * @return {import('../types/state').StateCollection} returns the "compile" method
+ * @return {import('../../types/state').StateCollection} returns the "compile" method
  * @public
  */
 export function stateCollection() {
@@ -161,7 +161,7 @@ export function stateCollection() {
     return {
         /**
 		 * compile state collection
-		 * @return {import('../types/state').StateCollectionRepo} actions collection
+		 * @return {import('../../types/state').StateCollectionRepo} actions collection
 		 * @public
 		 */
         compile: (...actions) => {
@@ -181,7 +181,7 @@ export function stateCollection() {
         },
         /**
          * Get the entire collection actions
-         * @return {import('../types/state').StateCollectionRepo} collections instance
+         * @return {import('../../types/state').StateCollectionRepo} collections instance
          * @public
          */
         all: () => ({ ...collection }),
@@ -189,7 +189,7 @@ export function stateCollection() {
         /**
          * Get a collection by matching the storage name
          * @param {string} repo storage name
-         * @return {import('../types/state').StateAction[]} collections instance
+         * @return {import('../../types/state').StateAction[]} collections instance
          * @public
          */
         fromRepo: (repo) => [ ...collection[repo] ],
@@ -197,7 +197,7 @@ export function stateCollection() {
         /**
          * Get the result filtered by state name
          * @param {string} stateName state name
-         * @return {import('../types/state').StateAction[]} state list
+         * @return {import('../../types/state').StateAction[]} state list
          * @public
          */
         outOfState: (stateName) => {
@@ -214,7 +214,7 @@ export function stateCollection() {
 /**
  * This helper method can combine multiple collections of actions.
  * Accepts "stateCollection(...action)"
- * @param {import('../types/state').StateCollection} collection array StateCollection
+ * @param {import('../../types/state').StateCollection} collection array StateCollection
  * @public
  */
 export function combineStateCollections(...collections) {
@@ -232,8 +232,8 @@ export function combineStateCollections(...collections) {
 
 /**
  * This method allows you to add middleware for the state handler.
- * @param {import('../types/store').Store} store the store params
- * @return {import('../types/store').MiddlewareParams} returns a set of methods
+ * @param {import('../../types/store').Store} store the store params
+ * @return {import('../../types/store').MiddlewareParams} returns a set of methods
  * @public
  */
 export function middleware(store) {
@@ -265,8 +265,8 @@ export function middleware(store) {
 /**
  * This method allows you to add your own debugger.
  * The debugger will accept and output logs instead of the standard debugger.
- * @param {import('../types/store').Store} store store object
- * @param {import('../types/store').DebuggerListener} fn debugger callback function
+ * @param {import('../../types/store').Store} store store object
+ * @param {import('../../types/store').DebuggerListener} fn debugger callback function
  * @public
  */
 export function createDebuger(store, fn) {
@@ -284,9 +284,9 @@ export function createDebuger(store, fn) {
 /**
  * Monolithic method for creating a biscuit storage.
  * This is the preferred method for creating a repository.
- * @param {import('../types/store').StoreSettings} options
+ * @param {import('../../types/store').StoreSettings} options
  * an object containing the store settings
- * @return {import('../types/store').StoreParams}
+ * @return {import('../../types/store').StoreParams}
  * returns a set of actions
  * @public
  */

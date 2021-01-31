@@ -13,13 +13,9 @@
     "__BASENAME__": true
   },
   "extends": [
-    /** Базовый набор правил eslint */
     "eslint:recommended",
-    /** Отключаем правила из базового набора для TypeScript */
     "plugin:@typescript-eslint/eslint-recommended",
-    /** Базовые правила для TypeScript */
     "plugin:@typescript-eslint/recommended",
-    /** Правила TS, требующие инфо о типах */
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:sonarjs/recommended",
     "prettier",
