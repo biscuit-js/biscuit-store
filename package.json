@@ -1,7 +1,8 @@
 {
-  "private": true,
+  "private": false,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
+  "version": "0.8.5",
   "workspaces": [
     "packages/*",
     "expemples/*"
@@ -14,7 +15,7 @@
     "state-managment",
     "es6"
   ],
-  "repository": "https://github.com/Biscuit-javascript/biscuit-store/tree/master",
+  "repository": "https://github.com/Biscuit-javascript/biscuit-store.git",
   "bugs": {
     "url": "https://github.com/Biscuit-javascript/biscuit-store/issues"
   },
@@ -69,5 +70,8 @@
   "browserslist": [
     "last 2 Chrome versions"
   ],
-  "types": "./src/types/index.d.ts"
+  "types": "./src/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
 }

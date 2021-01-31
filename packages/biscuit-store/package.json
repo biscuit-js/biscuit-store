@@ -4,7 +4,6 @@
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
-  "readme": "../../",
   "keywords": [
     "javascript",
     "react",
