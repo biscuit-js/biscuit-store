@@ -1,5 +1,3 @@
-/** actions collection */
-export let collections = {};
 /** storage instance */
 export const repositories = {};
 /** states instance */

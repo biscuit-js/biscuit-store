@@ -16,30 +16,12 @@ import {
     getStateRepo,
     getRepository,
     compareObject,
+    actionError,
 } from './helper';
 import { dispatchProto, dispatchInitMiddleware } from './dispatch';
 import { CreateError } from './debugger';
 import { type } from './utils';
-
-const messages = {
-    noRepo: (name) => `repository <${name}> not found.`,
-    noState: (name) => `state <${name}> not found.`,
-    initialType: 'The initial must be an object.',
-};
-
-const actionError = (action) => {
-    if (!action || !action.repo || !action.state) {
-        throw new CreateError('Invalid action parameters.');
-    }
-
-    if (!repositories[action.repo]) {
-        throw new CreateError(messages.noRepo(action.repo));
-    }
-
-    if (!states[`"${action.state}"`]) {
-        throw new CreateError(messages.noState(action.state), action.repo);
-    }
-};
+import { messages } from './messages';
 
 /**
  * Allows you to subscribe to the store. and tracks its change.
@@ -58,7 +40,7 @@ const subscriber = function (repo, fn, state) {
                 ? getState({ repo, state })
                 : getRepo(repo);
             fn(data, task);
-            resolve(data);
+            resolve({ data });
         }, state);
     });
 
@@ -112,7 +94,7 @@ export function getRepo(name) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "dispatch (...)"
  * method or with an implementation via "manager".
- * @param {object{repo: string, state: string}} action the parameters of the action
+ * @param {import('../types/state').StateAction} action the parameters of the action
  * @return {object} state data
  * @public
  */
@@ -131,9 +113,11 @@ export function getState(action) {
  * as an argument and returns a new state.
  *
  * Dispatch also returns several methods for working with states.
- * @param {object{repo: string, state: string}} action the parameters of the action
- * @param {object | function} payload payload data or callback function
- * @return {object} returns methods: before, after, merge
+ * @param {import('../types/state').StateAction} action the parameters of the action
+ * @param {object | import('../types/state').DispatchPayload} payload
+ * payload data or callback function
+ * @return {import('../types/state').Dispatcher}
+ * returns methods: before, after, merge
  * @async
  * @public
  */
@@ -185,9 +169,9 @@ export function dispatch(action, payload = {}) {
  * The first argument takes the parameters of the action.
  * results can be obtained through the callback of the second
  * argument or through the return promise.
- * @param {object{repo: string, state: string}} action the parameters of the action
- * @param {function} fn callback
- * @callback
+ * @param {import('../types/state').StateAction} action the parameters of the action
+ * @param {import('../types/subscribe').SubscribeListner} fn callback
+ * @return {Promise<any>}
  * @async
  * @public
  */
@@ -208,7 +192,7 @@ export function subscribeToState(action, fn = () => undefined) {
  * results can be obtained through the callback of the
  * second argument or through the return promise.
  * @param {string} repo repository name
- * @param {function} fn callback
+ * @param {import('../types/state').SubscribeListner} fn callback
  * @callback
  * @async
  * @public
@@ -282,7 +266,7 @@ export function manager(action) {
         /**
          * This method will merge the data of the selected state
          * with the data of the state specified in the arguments.
-         * @param {object{repo: string, state: string}} targetAction
+         * @param {import('../types/state').StateAction} targetAction
          * the action that you want to merge
          * @public
          */
@@ -316,7 +300,7 @@ export function manager(action) {
         /**
          * This method compares two states for identity
          * WARNING: states should not contain methods
-         * @param {object{repo: string, state: string}} targetAction
+         * @param {import('../types/state').StateAction} targetAction
          * the action that you want to compare
          * @return {bool}
          * @public
@@ -376,9 +360,9 @@ export function manager(action) {
          * @public
          */
         clone: (name) => {
-            repositories[name] = { ...getRepository(action.repo) };
+            repositories[name] = { content: { ...getRepository(action.repo) } };
             states[`"${action.state}"`][name] = {
-                ...getStateRepo(action).content,
+                content: { ...getStateRepo(action).content },
             };
         },
 

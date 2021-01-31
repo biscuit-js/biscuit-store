@@ -1,10 +1,34 @@
 {
-  "private": true,
-  "name": "biscuit-store",
-  "workspaces": [
-    "packages/*"
+  "name": "@biscuit-store/core",
+  "version": "0.8.1",
+  "description": "Library for managing javascript application states",
+  "author": "Zhulev Philipp",
+  "keywords": [ 
+    "javascript",
+    "react",
+    "state",
+    "library",
+    "state-managment",
+    "es6"
   ],
-  "dependencies": {
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|ts)": [
+      "yarn run lint",
+      "yarn run test"
+    ]
+  },
+  "main": "src/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.20",
+    "parcel-bundler": "^1.6.1",
+    "typescript": "3.8.3",
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
@@ -28,17 +52,11 @@
     "prettier": "^2.2.1",
     "sonarjs": "^1.0.0"
   },
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.12.7",
-    "@types/jest": "^26.0.20",
-    "parcel-bundler": "^1.6.1",
-    "typescript": "3.8.3"
-  },
   "scripts": {
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
-    "test": "jest",
-    "lint": "eslint ./packages"
+    "test": "jest ./src tests",
+    "lint": "eslint ./src"
   },
   "browserslist": [ "last 2 Chrome versions" ],
   "types": "./src/types/index.d.ts"

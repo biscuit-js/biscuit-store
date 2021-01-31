@@ -1,4 +1,6 @@
 import { middlewares, states, repositories } from './repositories';
+import { CreateError } from './debugger';
+import { messages } from './messages';
 
 export function getStateRepo(action) {
     return states[`"${action.state}"`][action.repo];
@@ -7,6 +9,20 @@ export function getStateRepo(action) {
 export function getRepository(name) {
     return repositories[name].content;
 }
+
+export const actionError = (action) => {
+    if (!action || !action.repo || !action.state) {
+        throw new CreateError('Invalid action parameters.');
+    }
+
+    if (!repositories[action.repo]) {
+        throw new CreateError(messages.noRepo(action.repo));
+    }
+
+    if (!states[`"${action.state}"`]) {
+        throw new CreateError(messages.noState(action.state), action.repo);
+    }
+};
 
 /**
  * Helper method for running middleware

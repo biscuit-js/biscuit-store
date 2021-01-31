@@ -127,7 +127,7 @@ it('check unsubscriber', (done) => {
     const task = subscribeToState(testStep, (state) => {
         expect(state.data).toEqual('test-6');
     });
-
+    console.log(task);
     task.unsubscribe();
 
     dispatch(testStep, { data: 'test-6' }).after(() => {

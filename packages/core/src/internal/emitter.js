@@ -1,10 +1,5 @@
 import { Warning, CreateError, Log } from './debugger';
-
-const messages = {
-    noListener: 'The subscriber\'s listener must be a function.',
-    noValidAction: 'An invalid dependencies was processed.',
-};
-
+import { messages } from './messages';
 /**
  * Module of the library responsible for creating tasks and subscribing to them.
  * @param  {string} action action name
@@ -43,7 +38,7 @@ function createEmmitor() {
             /** write task to buffer */
             taskBuffer[task.name][task.id] = task;
 
-            new Log(`subscribe -> store: ${taskName}, state: ${state}`);
+            new Log(`subscribe -> store: ${taskName}, state: ${state}`, taskName);
             return {
                 /** task params */
                 params: task,
@@ -52,7 +47,8 @@ function createEmmitor() {
 				 */
                 remove: () => {
                     new Log(
-                        `unsubscribe -> store: ${task.name}, state: ${task.state}`
+                        `unsubscribe -> store: ${task.name}, state: ${task.state}`,
+                        task.name
                     );
                     taskBuffer[task.name].splice(task.id, 1);
                 },
@@ -74,7 +70,8 @@ function createEmmitor() {
             const tasks = [];
             for (const action of actions) {
                 new Log(
-                    `subscribe -> store: ${action.repo}, state: ${action.state}`
+                    `subscribe -> store: ${action.repo}, state: ${action.state}`,
+                    action.repo
                 );
 
                 if (!action.repo) {
@@ -107,7 +104,8 @@ function createEmmitor() {
                 remove: () => {
                     for (const task of tasks) {
                         new Log(
-                            `unsubscribe -> store: ${task.name}, state: ${task.state}`
+                            `unsubscribe -> store: ${task.name}, state: ${task.state}`,
+                            task.name,
                         );
                         taskBuffer[task.name].splice(task.id, 1);
                     }
@@ -124,7 +122,8 @@ function createEmmitor() {
 		 */
         dispatchAction: (action) => {
             new Log(
-                `dispatch -> store: ${action.repo}, state: ${action.state}`
+                `dispatch -> store: ${action.repo}, state: ${action.state}`,
+                action.repo
             );
 
             if (taskBuffer[action.repo]) {
