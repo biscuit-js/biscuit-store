@@ -2,7 +2,6 @@
   "private": true,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
-  "version": "0.8.4",
   "workspaces": [
     "packages/*",
     "expemples/*"
@@ -24,7 +23,8 @@
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
     "test": "lerna run --parallel test",
-    "lint": "eslint ./packages/*/{src,tests}"
+    "lint": "eslint ./packages/*/{src,tests}",
+    "release:publish": "lerna publish from-package --dist-tag next --contents build"
   },
   "dependencies": {},
   "husky": {

@@ -1,10 +1,10 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.8.5",
+  "version": "0.8.4",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
-  "repository": "https://github.com/Biscuit-javascript/biscuit-store",
+  "readme": "../../",
   "keywords": [
     "javascript",
     "react",
@@ -13,6 +13,11 @@
     "state-managment",
     "es6"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
+    "directory": "packages/biscuit-store"
+  },
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
@@ -27,5 +32,8 @@
   "browserslist": [
     "last 2 Chrome versions"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./types/index.d.ts"
 }
