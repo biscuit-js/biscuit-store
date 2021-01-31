@@ -35,7 +35,7 @@
     }
   },
   "lint-staged": {
-    "./packages/*/{src,tests}.(js|ts)": [
+    "./packages/*/{src,tests}/*.(js|ts)": [
       "yarn run lint",
       "yarn run test"
     ]
