@@ -24,7 +24,7 @@
     "build": "parcel build ./exemples/index.html",
     "test": "lerna run --parallel test",
     "lint": "eslint ./packages/*/{src,tests}",
-    "release:publish": "lerna publish from-package --dist-tag next --contents build"
+    "release:publish": "lerna publish from-package --dist-tag next"
   },
   "dependencies": {},
   "husky": {
