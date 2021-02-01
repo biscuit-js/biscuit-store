@@ -2,7 +2,7 @@
 
 The Biscuit-store is a library containing a set of tools for flexible work with the states of your javascript application.
 
-The Biscuit-store allows you to build virtual storages and bind managed states to them. Also, biscuit has built-in React support.
+This library allows you to build virtual storages and bind managed states to them. Also, biscuit has built-in React support.
 
 ### Instalation
 
@@ -29,6 +29,8 @@ Done!!! Biscuit is installed in our project.
 ### Our first store
 
 If you have previously used [Redux](https://redux.js.org/), then you are used to the fact that you have one store for the entire application. On the contrary, the Biscuit-store encourages the creation of multiple stores for different abstract segments of your application.
+
+You can find out more about this in the [FAQ](https://redux.js.org/) section
 
 Let's try to create our first store, for this we will need the createStore method, we can get it from the Biscuit core.
 
