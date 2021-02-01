@@ -4,7 +4,7 @@ In this section, we will look at how stores are created in biscuit.
 ### Concept
 If you have previously used [Redux](https://redux.js.org/), then you are used to the fact that you have one store for the entire application. On the contrary, the Biscuit-store encourages the creation of multiple stores for different abstract segments of your application.
 
-At the same time, you should understand that creating a repository, for example, through the createStore method, is in fact an abstraction. In fact, all the stores are in the same object.
+At the same time, you should understand that creating a store, for example, through the createStore method, is in fact an abstraction. In fact, all the stores are in the same object.
 
 It will also be useful for you to know that the state entity is also stored in a separate object and refers to the object with the repository data.
 
