@@ -6,7 +6,7 @@ If you have previously used [Redux](https://redux.js.org/), then you are used to
 
 At the same time, you should understand that creating a store, for example, through the createStore method, is in fact an abstraction. In fact, all the stores are in the same object.
 
-It will also be useful for you to know that the state entity is also stored in a separate object and linked to the object with the repository data.
+It will also be useful for you to know that the state entity is also stored in a separate object and referenced with the repository data object.
 
 ![N|Solid](../../docs/assets/store.png)
 
