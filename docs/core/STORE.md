@@ -10,9 +10,9 @@ It will also be useful for you to know that the state object is also stored in a
 
 ![N|Solid](../../docs/assets/store.png)
 
-It is also worth mentioning that in the biscuit-store there is such a thing as a state-branch. 
+It is also worth mentioning that in the biscuit-store there is such a thing as a branch. 
 
-*"State-branch is a state branched from a repository with isolated data".*
+*"Branch is a state branched from a repository with isolated data".*
 
 If a state-branch is created, a copy of the repository data object is created in the state, not a reference to it.
 
