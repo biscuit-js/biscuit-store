@@ -20,7 +20,7 @@ If a state-branch is created, a copy of the repository data object is created in
 
 There are two ways to create a new store...
 
-### Creating a store using the createStore method (Monolithic method)
+### Creating a store using the createStore method (Monolithic)
 The first method, (Recommended) you've already seen it in the get started section. This is a monolithic createStore method:
 
 ```javascript
