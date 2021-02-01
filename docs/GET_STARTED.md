@@ -4,6 +4,9 @@ The Biscuit-store is a library containing a set of tools for flexible work with 
 
 This library allows you to build virtual storages and bind managed states to them. Also, biscuit has built-in React support.
 
+### When do I need to use the Biscuit-store?
+You will find the answer to this question in the [FAQ](./FAQ.md) section
+
 ### Instalation
 
 To install the biscuit-store in your project, you need to use the team of one of the package managers:
@@ -30,7 +33,7 @@ Done!!! Biscuit is installed in our project.
 
 If you have previously used [Redux](https://redux.js.org/), then you are used to the fact that you have one store for the entire application. On the contrary, the Biscuit-store encourages the creation of multiple stores for different abstract segments of your application.
 
-You can find out more about this in the [FAQ](https://redux.js.org/) section
+You can find out more about this in the [FAQ](./FAQ.md) section
 
 Let's try to create our first store, for this we will need the createStore method, we can get it from the Biscuit core.
 
@@ -87,7 +90,7 @@ export const { store } = helloWorldStore;
 export const { addAction } = helloWorldStore.actions;
 ```
 
-### First Subscribe and dispatch
+### First subscribe and dispatch
 We just created our first state, and now we need to try out the mechanism for subscribing to it:
 
 *script.js*
@@ -122,7 +125,7 @@ store.subscribe((state) => {
 // dispatching
 addAction.dispatch({value: 1});
 ```
-Read more in the section: [subscribe](https://breakdance.github.io/breakdance/).
+Read more in the section: [subscribe](./core/SUBSCRIBE.md).
 
 Also you need to know that dispatch has several built in methods:
 
@@ -142,7 +145,7 @@ addAction.dispatch({value: 1}).after((state) => {
     console.log(state);
 });
 ```
-Read more in the section: [dispatch](https://breakdance.github.io/breakdance/).
+Read more in the section: [dispatch](./core/DISPATCH.md).
 
 ### First middleware
 
@@ -150,6 +153,8 @@ Now we are able to create a state and subscribe to it and cause a change.
 But this is not enough for us! We want to create fully managed states with encapsulated logic that will be stored in one place.
 
 In the implementation of such functionality, middleware functions will help you. You can either take a ready-made adapter module or write your own function.
+
+Read more in the section: [middleware](./core/MIDDLEWARE.md).
 
 Let's start with the second option:
 
@@ -214,7 +219,7 @@ increment.dispatch({value: 1});
 
 decrement.dispatch({value: 3});
 ```
-Now you know how to create a simple middleware. However, I recommend using the [Adapter](https://breakdance.github.io/breakdance/) module to create encapsulated states.
+Now you know how to create a simple middleware. However, I recommend using the [Adapter](./adapter/ADAPTER.md) module to create encapsulated states.
 
 ### First Adapter
 Adapter is a lightweight module for the biscuit-store middleware that allows you to create asynchronous, encapsulated, unified, states.
@@ -271,9 +276,9 @@ const helloWorldStore = createStore({
 Congratulations! You have familiarized yourself with the basic features of the Biscuit-store. 
 
 But this is not all... Biscuit has many great features such as:
- - [Integration with React](https://breakdance.github.io/breakdance/)
- - [The creation of a state-branches](https://breakdance.github.io/breakdance/)
- - [Management state-branch](https://breakdance.github.io/breakdance/)
- - [Dynamic creation of States](https://breakdance.github.io/breakdance/)
- - [Composite store](https://breakdance.github.io/breakdance/)
- - [Debugging](https://breakdance.github.io/breakdance/)
+ - [Integration with React](./react/REACT.md)
+ - [The creation of a state-branches](./core/STATE.md)
+ - [Management state-branch](./core/MANAGER.md)
+ - [Dynamic creation of states](./core/STATE.md)
+ - [Composite store](./core/CREATE_STORE_METHODS.md)
+ - [Debugging](./core/DEBUGGER.md)
