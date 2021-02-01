@@ -34,11 +34,13 @@ npm install @biscuit-store/react
 
 - [Get started](./docs/GET_STARTED.md)
 - [Create store](https://breakdance.github.io/breakdance/)
-- [Subscribe state](https://breakdance.github.io/breakdance/)
+- [Subscribe](https://breakdance.github.io/breakdance/)
 - [Dispatch](https://breakdance.github.io/breakdance/)
 - [Middleware](https://breakdance.github.io/breakdance/)
 - [Manager](https://breakdance.github.io/breakdance/)
 - [Debuger](https://breakdance.github.io/breakdance/)
+
+- [Recommendations](https://breakdance.github.io/breakdance/)
 - [API Reference](https://breakdance.github.io/breakdance/)
 - [FAQ](https://breakdance.github.io/breakdance/)
 
