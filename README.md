@@ -20,11 +20,6 @@ Installation of core files
 npm install @biscuit-store/core
 ```
 
-Installation of middleware
-``` javascript
-npm install @biscuit-store/middleware
-```
-
 Installing an extension to share with react
 ``` javascript
 npm install @biscuit-store/react
@@ -104,6 +99,11 @@ setInterval(() => {
 ```
 ### Basic example with state encapsulation
 Well, what if we want to encapsulate state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of encapsulation. If you need it just use the built-in middleware "Adapter"
+
+Installation of adapter:
+``` javascript
+npm install @biscuit-store/adapter
+```
 
 store/adapter.js
 ``` javascript
