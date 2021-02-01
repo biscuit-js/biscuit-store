@@ -245,7 +245,7 @@ adapter.action("DECREMENT/ACTION", (payload, state, send) => {
     send({ ...payload, value: state.value - value });
 });
 
-export default adapter;
+export adapter;
 ```
 As you probably noticed, the adapter can synchronously return updated data via return, or asynchronously via the third argument-method.
 
