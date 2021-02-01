@@ -107,7 +107,7 @@ npm install @biscuit-store/adapter
 
 store/adapter.js
 ``` javascript
-import { createAdapter } from "@biscuit-store/middlewares/adapter";
+import { createAdapter } from "@biscuit-store/adapter";
 
 // Creating a new adapter
 const adapter = createAdapter();
