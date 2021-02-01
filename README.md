@@ -39,11 +39,13 @@ npm install @biscuit-store/react
 - [Middleware](https://breakdance.github.io/breakdance/)
 - [Manager](https://breakdance.github.io/breakdance/)
 - [Debuger](https://breakdance.github.io/breakdance/)
-----------
+
+### Help
 - [Recommendations](https://breakdance.github.io/breakdance/)
 - [API Reference](https://breakdance.github.io/breakdance/)
 - [FAQ](https://breakdance.github.io/breakdance/)
 
+--------
 ### Basic exemple
 The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware, debug. repo is a required field.
 
