@@ -5,7 +5,7 @@ Library for managing javascript application states.
 
 ### Description
 
-Biscuit is a set of tools for working with the state of your javascript application. The Biscuit architecture allows you to create a repository and bind managed states to it with encapsulated logic. The library can also perform asynchronous state changes and merge states with the repository and with each other.
+Biscuit-allows you to create managed state containers for your javascript application. And provides an extensive set of tools for subscriptions and updates.
 
 - Flexible architecture
 - Asynchronous out of the box
