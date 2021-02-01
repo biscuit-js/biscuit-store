@@ -1,8 +1,5 @@
 ## Get started with Вiscuit-store
-
-The Biscuit-store is a library containing a set of tools for flexible work with the states of your javascript application.
-
-This library allows you to build virtual storages and bind managed states to them. Also, biscuit has built-in React support.
+Biscuit is a set of tools for working with the state of your javascript application. The Biscuit architecture allows you to create a repository and bind managed states to it with encapsulated logic. The library can also perform asynchronous state changes and merge states with the repository and with each other.
 
 ### When do I need to use the Biscuit-store?
 You will find the answer to this question in the [FAQ](./FAQ.md) section
