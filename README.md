@@ -42,7 +42,7 @@ npm install @biscuit-store/react
 
 --------
 ### Basic exemple
-The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware, debug. repo is a required field.
+The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
 store/root.js
 ``` javascript
