@@ -62,7 +62,7 @@ let's take a closer look at the fields of this method in more detail:
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
 
 
-Description for the status object:
+Description for the states object:
 | field   | description                                                      | type    | default   | require |
 |---------|------------------------------------------------------------------|---------|-----------|---------|
 | name    | State name, see the recommendations for the format above.        | string  | undefined | yes     |
