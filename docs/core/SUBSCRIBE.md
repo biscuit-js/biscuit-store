@@ -9,5 +9,6 @@ Subscribers can also subscribe to the entire store and to the event separately, 
 It is also worth noting that the subscriber is asynchronous and in addition to the callback can return a promise. 
 
 The dispatcher function also has a number of interesting features, such as the ability to return the previous state and asynchronously process middleware.
+
 ![N|Solid](../../docs/assets/biscuit-subscribe.png)
 
