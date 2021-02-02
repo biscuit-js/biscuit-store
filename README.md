@@ -216,5 +216,5 @@ ReactDOM.render(
 );
 ```
 
-## inspiration
+## Inspiration
 The idea of developing this library was inspired by the Redux project. During the introduction to the biscuit-store, you will see several patterns that are similar to the concepts of Redux. Nevertheless, biscuit is a separate library that uses completely different architectural principles.
