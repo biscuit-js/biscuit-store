@@ -76,8 +76,6 @@ counter.js
 import { counterAdd, counterClear, store } from "./store/root.js";
 
 // You can subscribe to the store change via the store.subscribe method. 
-// You can also subscribe to a specific state change 
-// via the [actionName].subscribe method.
 store.subscribe((state) => {
     console.log(state.value);
 });
@@ -88,11 +86,6 @@ setInterval(() => {
     counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 }, 1000);
 
-// Dispatch has several built-in methods. 
-// - the before method work before the change and return the previous state, 
-// - the after method work after the change and return the new state. 
-// - There are also "merge" methods. and "pull" they are 
-//   needed for states converted to branches.
 setInterval(() => {
     counterClear.dispatch({ value: 0 }).after((state) => {
         console.log("A reset was made to:", state.value);
@@ -114,12 +107,7 @@ import { createAdapter } from "@biscuit-store/adapter";
 // Creating a new adapter
 const adapter = createAdapter();
 
-// As you can see the adapters are very easy to read. 
-// Just call the action method from the variable with the adapter instance, 
-// specify the name of the action as the first argument, 
-// and pass the callback function as the second.
 adapter.action("COUNTER/ADD", (payload, state) => {
-    // Next, just return the new object configuration
     return { ...payload, value: state.value + 1 };
 });
 
@@ -127,10 +115,6 @@ adapter.action("COUNTER/ADD", (payload, state) => {
 // this means that you can use asynchronous capabilities in the adapter.
 // Just pass the data through calling the third argument instead of "return".
 adapter.action("COUNTER/CLEAR", (payload, state, send) => {
-    // The callback function provides you with three arguments:
-    // - The first is the payload, 
-    // - The second is the store data, 
-    // - The third is the function returned to send changes.
     const value = state.value;
     setTimeout(() => {
         send({ ...payload, value: state.value - value });
@@ -183,8 +167,6 @@ const App = observer(
             </div>
         );
     },
-    // The obvious indication of dependencies makes 
-    // it easier to maintain the application.
     [counterAdd, counterClear]
 );
 
