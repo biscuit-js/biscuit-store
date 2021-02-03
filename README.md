@@ -155,10 +155,8 @@ import ReactDOM from "react-dom";
 import { observer, useDispatch } from "@biscuit-store/react";
 import { counterAdd, counterClear } from "./store/root.js";
 
-// Observer, allows you to update the component 
-// and sends data from the store to the component. 
-// for a component to work with specific states, 
-// actions are specified as dependencies in the second argument.
+// The observer allows you to update the component 
+// and get data from the associated stores.
 const App = observer(
     ({ value }) => {
         return (
