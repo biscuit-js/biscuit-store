@@ -108,7 +108,10 @@ import { createAdapter } from "@biscuit-store/adapter";
 const adapter = createAdapter();
 
 adapter.action("COUNTER/ADD", (payload, state) => {
-    return { ...payload, value: state.value + 1 };
+    return { 
+		...payload, 
+		value: state.value + 1 
+	};
 });
 
 // You should also know that Biscuit out of the box is asynchronous. 
@@ -116,7 +119,10 @@ adapter.action("COUNTER/ADD", (payload, state) => {
 adapter.action("COUNTER/CLEAR", (payload, state, send) => {
     const value = state.value;
     setTimeout(() => {
-        send({ ...payload, value: state.value - value });
+        send({ 
+			...payload, 
+			value: state.value - value 
+		});
     }, 100)
 });
 
