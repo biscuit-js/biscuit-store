@@ -177,7 +177,6 @@ const Counter = () => {
         counterClear
     );
 
-    // Here we just hang up the dispatches on the buttons
     return (
         <div>
             <button onClick={add}>Add</ button>
