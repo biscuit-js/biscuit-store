@@ -287,3 +287,6 @@ But this is not all... Biscuit has many great features such as:
  - [Dynamic creation of states](./core/STATE.md)
  - [Composite store](./core/CREATE_STORE_METHODS.md)
  - [Debugging](./core/DEBUGGER.md)
+
+### Learn more
+ - [Subscribe](./core/STORE.md)
