@@ -113,7 +113,6 @@ adapter.action("COUNTER/ADD", (payload, state) => {
 
 // You should also know that Biscuit out of the box is asynchronous. 
 // this means that you can use asynchronous capabilities in the adapter.
-// Just pass the data through calling the third argument instead of "return".
 adapter.action("COUNTER/CLEAR", (payload, state, send) => {
     const value = state.value;
     setTimeout(() => {
