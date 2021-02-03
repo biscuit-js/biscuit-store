@@ -50,9 +50,7 @@ store/root.js
 ``` javascript
 import { createStore } from "@biscuit-store/core";
 
-// In this example, we created a store containing the repository with name "counter"
-// with the standard parameter {value: 0}
-// and bound two states to it, counterTimer and counterReady
+// Creating a new store
 const counterStore = createStore({
     repo: {
         name: "counter",
