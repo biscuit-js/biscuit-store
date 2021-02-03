@@ -5,6 +5,5 @@
   "linked": [["@biscuit-store/core"]],
   "access": "public",
   "baseBranch": "master",
-  "updateInternalDependencies": "patch",
   "ignore": []
 }

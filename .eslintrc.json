@@ -24,8 +24,8 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-		"project": "tsconfig.json",
-    "tsconfigRootDir": ".",
+		"project": "./packages/*/tsconfig.json",
+    "tsconfigRootDir": "./",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -37,14 +37,6 @@
     "optimize-regex",
     "@typescript-eslint"
   ],
-
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.js"
-      }
-    }
-  },
   "rules": {
     "no-shadow": ["error"],
     "no-duplicate-imports": ["error"],
