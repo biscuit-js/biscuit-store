@@ -31,6 +31,9 @@ npm install @biscuit-store/react
 ### Documentation
 
 - [Get started](./docs/GET_STARTED.md)
+
+### License
+[MIT](./LICENSE.md)
 - [Store](./docs/core/STORE.md)
 - [Subscribe](./docs/core/SUBSCRIBE.md)
 - [Middleware](https://breakdance.github.io/breakdance/)
