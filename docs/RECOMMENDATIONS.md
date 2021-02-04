@@ -137,6 +137,9 @@ store.subscribe(() => {
     });
 }));
 ```
+### Unsubscribe
+Don't forget to unsubscribe from unused or expired listeners.
+
 ### The open/close principle
 No need to try to change the state directly. You should only modify the states through the dispatch method.
 
