@@ -31,9 +31,6 @@ npm install @biscuit-store/react
 ### Documentation
 
 - [Get started](./docs/GET_STARTED.md)
-
-### License
-[MIT](./LICENSE.md)
 - [Store](./docs/core/STORE.md)
 - [Subscribe](./docs/core/SUBSCRIBE.md)
 - [Middleware](https://breakdance.github.io/breakdance/)
@@ -194,3 +191,7 @@ ReactDOM.render(
 
 ### Inspiration
 The idea of developing this library was inspired by the [Redux](https://redux.js.org/) project. During the introduction to the biscuit-store, you will see several patterns that are similar to the concepts of [Redux](https://redux.js.org/). Nevertheless, biscuit is a separate library that uses completely different architectural principles.
+
+
+### License
+[MIT](./LICENSE.md)
