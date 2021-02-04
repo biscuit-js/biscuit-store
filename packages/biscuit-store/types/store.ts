@@ -21,6 +21,8 @@ export interface Context {
     payload: object;
     /** current state */
     state: object;
+    /** get action */
+    getAction: (actionName: string) => StateAction;
 }
 
 /**
@@ -98,7 +100,6 @@ export interface StoreSettings {
     /** Enable or disable strict mode */
     strictMode?: boolean;
 }
-
 /**
  * The interface describes
  * the object returned by the debugger function

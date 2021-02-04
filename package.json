@@ -24,8 +24,8 @@
     "start": "parcel ./exemples/index.html --open",
     "build": "parcel build ./exemples/index.html",
     "test": "lerna run --parallel test",
-    "prettier": "prettier ./packages/*/{src,tests}",
-    "lint": "eslint ./packages/*/{src,tests}",
+    "prettier": "prettier ./packages/*/**/*.{js,ts}",
+    "lint": "eslint ./packages/*/**/*.{js,ts}",
     "release:publish": "lerna publish from-package --dist-tag next"
   },
   "dependencies": {},

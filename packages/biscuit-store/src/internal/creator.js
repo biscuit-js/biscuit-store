@@ -39,7 +39,7 @@ export function newRepo(name, initial = {}) {
         throw new CreateError(messages.initialType, name);
     }
 
-    repositories[name] = { content: initial };
+    repositories[name] = { content: initial, actions: {} };
 
     return {
         repo: name,
@@ -101,7 +101,7 @@ export function createStateTo(params) {
                 state: action,
             };
 
-            return {
+            const returnedParams = {
                 ...actionParams,
                 /**
 				 * Update state
@@ -122,6 +122,9 @@ export function createStateTo(params) {
 				 */
                 getState: () => getState(actionParams),
             };
+
+            repositories[params.repo].actions[`"${action}"`] = returnedParams;
+            return returnedParams;
         },
         /** repository key */
         repo: params.repo,

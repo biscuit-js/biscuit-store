@@ -193,7 +193,7 @@ it('check store branch state', (done) => {
 });
 
 it('check store middleware', (done) => {
-    expect.assertions(2);
+    expect.assertions(6);
     const testStore = createStore({
         repo: {
             name: 'test-11',
@@ -203,12 +203,11 @@ it('check store middleware', (done) => {
         strictMode: false,
         middleware: [
             (context, next) => {
-                expect(context).toEqual({
-                    action: testStart,
-                    payload: { data: 'test-2', id: 2 },
-                    repo: 'test-11',
-                    state: { data: 'test' },
-                });
+                expect(context.action).toEqual(testStart);
+                expect(context.payload).toEqual({ data: 'test-2', id: 2 });
+                expect(context.repo).toEqual('test-11');
+                expect(context.state).toEqual({ data: 'test' });
+                expect(context.getAction(testStart).state).toEqual(testStart);
                 expect(typeof next).toEqual('function');
                 next();
 

@@ -10,6 +10,10 @@ export function getRepository(name) {
     return repositories[name].content;
 }
 
+export function getRepositoryActions(repo) {
+    return repositories[repo].actions;
+}
+
 export const actionError = (action) => {
     if (!action || !action.repo || !action.state) {
         throw new CreateError('Invalid action parameters.');

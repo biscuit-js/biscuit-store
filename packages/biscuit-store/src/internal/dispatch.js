@@ -1,7 +1,6 @@
 import { repositories } from './repositories';
-import { activeMiddlewares, getStateRepo } from './helper';
+import { activeMiddlewares, getStateRepo, getRepositoryActions } from './helper';
 import { emitter } from './emitter';
-
 export function dispatchProto({ action, prev, act, payData }) {
     /**
 	 * Call before state change
@@ -53,6 +52,7 @@ export function dispatchProto({ action, prev, act, payData }) {
 }
 
 export async function dispatchInitMiddleware({ action, payData, act }) {
+    const actions = getRepositoryActions(action.repo);
     return await new Promise((resolve) => {
         activeMiddlewares(
             {
@@ -60,6 +60,7 @@ export async function dispatchInitMiddleware({ action, payData, act }) {
                 repo: action.repo,
                 payload: payData,
                 state: act,
+                getAction: (actionName) => actions[`"${actionName}"`],
             },
             (newPayload) => {
                 resolve(newPayload);
