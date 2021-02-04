@@ -135,4 +135,4 @@ export const { increment } = helloStore.actions;
 Congratulations! Now you have a better understanding of how stores work in Biscuit. Keep learning...
 
 ### Learn more
- - [Subscribe](./core/SUBSCRIBE.md)
+ - [Subscribe](./SUBSCRIBE.md)

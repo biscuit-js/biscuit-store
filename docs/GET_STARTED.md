@@ -289,4 +289,4 @@ But this is not all... Biscuit has many great features such as:
  - [Debugging](./core/DEBUGGER.md)
 
 ### Learn more
- - [Subscribe](./core/STORE.md)
+ - [Store](./core/STORE.md)
