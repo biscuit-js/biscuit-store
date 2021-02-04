@@ -92,7 +92,7 @@ actions.fetch.dispatch({id: 1});
 
 store.subscribe((state) => {
     if(!state.error) {
-        console.log(state);
+        console.log(state.data);
         return;
     }
 
