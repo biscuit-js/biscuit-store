@@ -1,9 +1,3 @@
-/**
- * BISCUIT STORAGE
- * @autor: Zhulev Philipp
- * @version: 1.0.0
- * @license MIT
- */
 import {
     repositories,
     states,
