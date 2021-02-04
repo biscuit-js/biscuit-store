@@ -188,6 +188,14 @@ ReactDOM.render(
     document.getElementById("root")
 );
 ```
+### Contributing
+If you liked the library, you have many ways to help it develop. 
+- You can write about the biscuit-store on various forums.
+- Put a star on github
+- Write about the bugs found and suggest improvements.
+- Participate in the development, offer your pull request
+- Or you can just help financially
+The rules of assistance can be found [here](./CONTRIBUTING.md)
 
 ### Inspiration
 The idea of developing this library was inspired by the [Redux](https://redux.js.org/) project. During the introduction to the biscuit-store, you will see several patterns that are similar to the concepts of [Redux](https://redux.js.org/). Nevertheless, biscuit is a separate library that uses completely different architectural principles.
