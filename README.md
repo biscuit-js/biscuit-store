@@ -206,5 +206,6 @@ If you have any questions, suggestions, comments, suggestions for cooperation, o
 
 ### License
 Copyright (c) 2021 Zhulev Philipp
+
 MIT License ([MIT](./LICENSE.md)).
 
