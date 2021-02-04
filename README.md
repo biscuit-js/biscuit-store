@@ -107,8 +107,8 @@ const adapter = createAdapter();
 
 adapter.action("COUNTER/ADD", (payload, state) => {
     return { 
-	...payload, 
-	value: state.value + 1 
+        ...payload, 
+        value: state.value + 1 
 	};
 });
 
@@ -118,8 +118,8 @@ adapter.action("COUNTER/CLEAR", (payload, state, send) => {
     const value = state.value;
     setTimeout(() => {
         send({ 
-		...payload, 
-		value: state.value - value 
+            ...payload, 
+            value: state.value - value 
 		});
     }, 100)
 });
