@@ -205,7 +205,7 @@ The idea of developing this library was inspired by the [Redux](https://redux.js
 If you have any questions, suggestions, comments, suggestions for cooperation, or if you like the library and want to become a sponsor, please contact the developer by email: **biscuitstorejs@gmail.com.**
 
 ### License
-Copyright (c) 2021 Zhulev Philipp
+Copyright (c) 2021 Philipp Zhulev
 
 MIT License ([MIT](./LICENSE.md)).
 
