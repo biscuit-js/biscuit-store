@@ -110,7 +110,7 @@ Composite methods have an interesting feature. You can use them to dynamically s
 
 For example, using the createStateTo method, you can dynamically create a state from anywhere in the application.
 
-> *I do not recommend doing this without thinking in advance, Because I believe that the states should be stored in one place, otherwise it will lead to difficulties > in supporting the code.*
+> *I do not recommend doing this without thinking in advance, Because I believe that the states should be stored in one place, otherwise it will lead to difficulties in supporting the code.* 
 
 Nevertheless, we can imagine a situation when, for example, a set of data comes from the server and based on them we need to create a new state.
 
