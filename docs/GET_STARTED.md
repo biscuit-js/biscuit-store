@@ -277,7 +277,6 @@ const helloWorldStore = createStore({
 });
 ```
 
-### Learn more
 Congratulations! You have familiarized yourself with the basic features of the Biscuit-store. 
 
 But this is not all... Biscuit has many great features such as:
