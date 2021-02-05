@@ -10,7 +10,7 @@ export {
 } from './internal/creator';
 
 export {
-    manager,
+    createManager,
     dispatch,
     getRepo,
     getState,

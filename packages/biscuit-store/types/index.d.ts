@@ -166,4 +166,4 @@ export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): vo
  * returns a set of actions
  * @public
  */
-export function manager(action: StateAction): Manager;
+export function createManager(action: StateAction): Manager;
