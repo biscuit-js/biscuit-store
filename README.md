@@ -34,8 +34,8 @@ npm install @biscuit-store/react
 - [Store](./docs/core/STORE.md)
 - [Subscribe](./docs/core/SUBSCRIBE.md)
 - [Middleware](./docs/core/MIDDLEWARE.md)
-- [Manager](https://breakdance.github.io/breakdance/)
-- [Debuger](https://breakdance.github.io/breakdance/)
+- [Debugger](./docs/core/DEBUGGER.md)
+- [Manager](./docs/core/MANAGER.md)
 
 ### Help
 - [Recommendations](./docs/RECOMMENDATIONS.md)
