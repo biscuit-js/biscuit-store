@@ -282,10 +282,10 @@ Congratulations! You have familiarized yourself with the basic features of the B
 
 But this is not all... Biscuit has many great features such as:
  - [Integration with React](./react/REACT.md)
- - [The creation of a branches](./core/STATE.md)
+ - [The creation of a branches](./core/STATE.md#branch-pattern-for-the-state)
  - [Management branch](./core/MANAGER.md)
- - [Dynamic creation of states](./core/STATE.md)
- - [Composite store](./core/CREATE_STORE_METHODS.md)
+ - [Dynamic creation of states](./core/STATE.md#dynamic-capabilities)
+ - [Composite store](./core/CREATE_STORE_METHODS.md#composite-way-to-create-store)
  - [Debugging](./core/DEBUGGER.md)
 
 ### Learn more
