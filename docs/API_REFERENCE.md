@@ -26,44 +26,31 @@ This section contains all the current methods from all the biscuit-store package
 - store.add
 - store.repo
 
-Action api:
+#### Action api:
 - action.subscribe
 - action.dispatch
 - action.getState
 - action.repo
 - action.state
 
-Store api:
-- store.subscribe
-- store.get
-- store.add
-- store.repo
+### @biscuit-store/react
 
-Action api:
-- action.subscribe
-- action.dispatch
-- action.getState
-- action.repo
-- action.state
-
-#### @biscuit-store/react
-
-Decorators:
+#### Decorators:
 - obscerver
 - subscribe
 
-Hooks:
+#### Hooks:
 - useSubscribe
 - useDispatch
 - useDispatchThrottle
 - useDispatchDebounce
 
-#### @biscuit-store/adapter
+### @biscuit-store/adapter
 
-Adapter API:
+#### Adapter API:
 - createAdapter
 
-adapter:
+#### adapter:
 - adapter.action
 - adapter.connect
 
@@ -301,3 +288,9 @@ const store = newRepo("custom", {value: 0});
 store.get() // {value: 0}
 ```
 See the set of returned parameters [here](#Store-api)
+
+Typescript types:
+```
+param repo: string
+return: Store<T>
+```
