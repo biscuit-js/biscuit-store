@@ -47,50 +47,47 @@ npm install @biscuit-store/react
 ### Basic exemple
 The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
-store/root.js
+store/index.js
 ``` javascript
 import { createStore } from "@biscuit-store/core";
 
 // Creating a new store
 const counterStore = createStore({
-    repo: {
-        name: "counter",
-        initial: { value: 0 }
-    },
-    states: {
-        counterAdd: "COUNTER/ADD",
-        counterClear: "COUNTER/CLEAR"
-    }
+  repo: {
+    name: "counter",
+    initial: { value: 0 }
+  },
+  states: {
+    counterAdd: "COUNTER/ADD",
+    counterClear: "COUNTER/CLEAR"
+  }
 });
 
 // Exporting store and actions
 export const { store } = counterStore;
-export const { counterTimer, counterReady } = counterStore.actions;
-
+export const { counterAdd, counterClear } = counterStore.actions;
 ```
 Next, we import the actions and store to the desired file. To subscribe to the store, we use the "store.subscribe" method, and to send the status, we use the "[actionName].dispatch" method.
 
 counter.js
 ``` javascript
-import { counterAdd, counterClear, store } from "./store/root.js";
+import { counterAdd, counterClear, store } from "./store/counter";
 
-// You can subscribe to the store change via the store.subscribe method. 
+// You can subscribe to the store change via the store.subscribe method.
 store.subscribe((state) => {
-    console.log(state.value);
+  console.log(state.value);
 });
 
-// The dispatch can accept an instance of an object 
+// The dispatch can accept an instance of an object
 // or a callback functions that returns the previous state.
-setInterval(() => {
-    counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
-}, 1000);
+counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 
-setInterval(() => {
-    counterClear.dispatch({ value: 0 }).after((state) => {
-        console.log("A reset was made to:", state.value);
-    });
-}, 5000);
+counterClear.dispatch({ value: 0 }).after((state) => {
+  console.log("A reset was made to:", state.value);
+});
 ```
+exemple by [codesandbox](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
+
 ### Basic example with state encapsulation
 Well, what if we want to encapsulate state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of encapsulation. If you need it just use the built-in middleware "Adapter"
 
