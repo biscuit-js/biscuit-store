@@ -7,8 +7,8 @@ This section contains all the current methods from all the biscuit-store package
 [Biscuit-store API:](#biscuit-store-api)
 - [createStore](#createStore)
 - [dispatch](#dispatch)
-- subscribeToState
-- subscribeToStore
+- [subscribeToState](#subscribeToState)
+- [subscribeToStore](#subscribeToStore)
 - getState
 - newRepo
 - getRepo
@@ -62,6 +62,8 @@ Use this method to create a new repository. Receives an object with storage para
 
 params:
 - **options**: *object* - storage settings;
+
+return: *{store: object,  action: object}*
 
 exemple:
 ```javascript
@@ -123,6 +125,8 @@ params:
 - **action**: *object* - store status action;
 - **payload**: *[object | function(object) => object]* - Updated data for the state.
 
+return: *object*
+
 ```javascript
 dispatch(customAction, {value: value + 1});
 ```
@@ -149,4 +153,61 @@ param payload:
     type: DispatchPayload
 return: 
     interface: Dispatcher
+```
+### subscribeToState
+This method allows you to subscribe to a specific state of the store.
+
+params:
+- **action**: *object* - store status action;
+- **fn**: *[function(object)]* - A callback function that returns the new state of the store.
+
+return: *{Promse, unsubscribe()}*
+
+```javascript
+import { subscribeToState } from "@biscuit-store/core";
+import { customAction } from "./store";
+
+subscribeToState(customAction, (state) => {
+    console.log(state);
+);
+
+// or
+
+subscribeToState({repo: "name", action: "custom/ACTION"}, (state) => {
+    console.log(state);
+);
+```
+
+Now let's look at the situation when you need to unsubscribe from a particular store or state. For these purposes, the unsubscribe mechanism is implemented.
+
+You can also unsubscribe from the state:
+```javascript
+import { subscribeToState } from "@biscuit-store/core";
+import { customAction } from "./store";
+
+const listner = subscribeToState(customAction, (store) => {
+    console.log(store);
+});
+    
+listner.unsubscribe();
+```
+
+This method is asynchronous and returns a promise:
+```javascript
+import { subscribeToState } from "@biscuit-store/core";
+import { customAction } from "./store";
+
+subscribeToState(customAction).then((state) => {
+    consle.log(state);
+});
+
+```
+Typescript types:
+```
+param action:
+    interface: StateAction
+param fn:
+    type: SubscribeListner<T>
+return: 
+    interface: Promise<T>
 ```
