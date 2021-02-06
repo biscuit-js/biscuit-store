@@ -132,9 +132,9 @@ The dispatch method can accept both an object directly and a callback function t
 dispatch(customAction, ({ value }) => ({value: value + 1}));
 ```
 Dispatch also returns a number of useful methods:
-  - before: Works out before the change and returns the current state;
-  - after: Works out after the change and returns the new state;
-  - merge: Used for states transformed into the branches. Merges the state data to the main repository.
+  - **before**: Works out before the change and returns the current state;
+  - **after**: Works out after the change and returns the new state;
+  - **merge**: Used for states transformed into the branches. Merges the state data to the main repository.
 
 ```javascript
 dispatch(customAction, {value: 1}).before((prevState) => {
