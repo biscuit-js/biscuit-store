@@ -28,7 +28,7 @@
     "lint": "eslint ./packages/*/**/*.{js,ts}",
     "release:publish": "lerna publish from-package --dist-tag next",
     "cangelog:add": "changeset add",
-    "cangelog:ver": "changeset verison",
+    "cangelog:ver": "changeset version",
     "cangelog:publish": "changeset publish"
   },
   "dependencies": {},

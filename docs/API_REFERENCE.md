@@ -15,7 +15,7 @@ This section contains all the current methods from all the biscuit-store package
 - [createStateTo](#createStateTo)
 - [middleware](#middleware)
 - [createDebugger](#createDebugger)
-- createManager
+- [createManager](#createManager)
 - initialActions
 - stateCollection
 - combineStateCollections
@@ -488,3 +488,17 @@ param fn:
 
 return: void
  ```
+
+### createManager
+The createManager is a method of the biscuit library API that accepts a branch state action as input and returns a number of methods for working with it.
+
+Example of manager initialization:
+```javascript
+import { manager } from "@biscuit-store/core";
+import { branchAction, customAction } from "./testStore";
+
+const manager =  createManager(branchAction);
+manager.mergeState(customAction);
+manager.merge();
+```
+ Read more [here](./core/MANAGER.md)
