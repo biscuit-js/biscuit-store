@@ -238,6 +238,7 @@ subscribeToStore("repoName", (state) => {
 ```
 Typescript types:
 ```
+```
 param repo: string | object 
 param fn:
     type: SubscribeListner<T>
