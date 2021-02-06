@@ -54,6 +54,7 @@ This section contains all the current methods from all the biscuit-store package
 - adapter.action
 - adapter.connect
 
+-----------
 
 ### Biscuit-store API
 ### createStore
