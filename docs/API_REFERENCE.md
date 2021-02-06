@@ -454,6 +454,7 @@ You can add a debugger function to an existing store anywhere in the application
 
 params:
 - **store***: *object* - accepts a store object;
+- **fn***: *function* - callback function;
 
 return: void
 
@@ -484,6 +485,6 @@ param stroe:
     interface Store<T>
 param fn: 
     type DebuggerListener
-    
+
 return: void
  ```
