@@ -8,13 +8,13 @@ This section contains all the current methods from all the biscuit-store package
 - [dispatch](#dispatch)
 - [subscribeToState](#subscribeToState)
 - [subscribeToStore](#subscribeToStore)
-- [getState](getState)
+- [getState](#getState)
 - [newRepo](#newRepo)
 - [getRepo](#getRepo)
-- addRepo
-- createStateTo
+- [addRepo](#addRepo)
+- [createStateTo](#createStateTo)
 - middleware
-- createDebuger
+- createDebugger
 - createManager
 - initialActions
 - stateCollection
@@ -328,4 +328,82 @@ Typescript types:
 param repo: 
     string | interface StoreParams
 return: T
+```
+### addRepo
+This method is used to write data directly to the repository.
+> This method is recommended only if necessary. It is advisable to change the repository content via managed states.
+
+params:
+- **repo***: *[string | object]* - repository name, accepts a name string or a storage object;
+- **instance***: object
+  
+```javascript
+import { newRepo, addRepo } from "@biscuit-store/core";
+
+const store = newRepo("custom", {value: 0});
+
+addRepo(store, { text: "hello"});
+// or
+addRepo("custom", { text: "hello"});
+```
+
+Typescript types:
+```
+param repo: 
+    string | interface StoreParams
+param instance: T
+```
+
+### createStateTo
+This method allows you to dynamically bind the managed state to the storage.
+>Don't use dynamic state creation unless you really need to. For better code readability, all states should be declared in one place.
+
+params:
+- **store***: *object* - store, accepts a store object;
+  
+return: object
+  
+Returns the bind method, which takes an action name string and an optional object with  parameters.
+
+```javascript
+import { customStore, createStateTo } from "@biscuit-store/core";
+
+const customStore = createStore({
+    repo: {
+        name: "hello",
+        initial: { value: 0 }
+    },
+    states: {
+        increment: "INCREMENT/ACTION",
+    }, 
+});
+
+export const decrement = 
+    createStateTo(customStore.store).bind("DECREMENT/ACTION");
+
+export const { store } = customStore;
+export const { increment, decrement } = customStore.actions;
+```
+
+create branch example:
+```javascript
+export const branch = 
+    createStateTo(customStore.store).bind("DECREMENT/ACTION", {
+        branch: true,
+        initial: {text: "hello"}
+    });
+```
+returns the state action.
+
+Typescript types:
+```
+param params: 
+    interface Store<T>
+return: ActionCreator
+-----
+bind
+    param action: string
+    param options: StateOptions
+
+return StateAction
 ```
