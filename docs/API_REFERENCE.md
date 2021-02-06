@@ -541,14 +541,14 @@ param action:
     interface StateAction
 ```
 
-#### remove
+#### manager.remove
 This method removes the storage and its copies from all states.
 
 > This method can be useful for optimization,
 but it can make the code non-obvious,
 which will lead to difficulties in support.
 
-#### compareStates
+#### manager.compareStates
 This method compares two states.
 > States should not contain methods
 
@@ -565,13 +565,13 @@ param action:
 return: boolean
 ```
 
-#### compareWithState
+#### manager.compareWithState
 Сompare state and repository.
 > States should not contain methods
 
 return: boolean
 
-#### compareStateWithInstance
+#### manager.compareStateWithInstance
 Compare state and instance object.
 > States should not contain methods
 
@@ -580,7 +580,7 @@ params:
 
 return: boolean
 
-#### compareRepoWithInstance
+#### manager.compareRepoWithInstance
 Compare repository and instance object.
 
 params:
@@ -588,7 +588,7 @@ params:
 
 return: boolean
 
-#### clone
+#### manager.clone
 Clones the selected storage and its state.
 
 > It is best to avoid using this method, as the best practice would be to do initialization of repositories in one place. Copying the repository can lead to code support difficulties.
@@ -606,9 +606,9 @@ param name: string
 return: Store<T>
 ```
 
-#### update
+#### manager.update
 Updates the status of the repository.
-This method is equivalent to dispatch(...)
+This method is equivalent to dispatch(...).
 
-#### props
-Returns parameters of the selected action
+#### manager.props
+Returns parameters of the selected action.
