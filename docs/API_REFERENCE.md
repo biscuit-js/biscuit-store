@@ -5,17 +5,21 @@ This section contains all the current methods from all the biscuit-store package
 #### @biscuit-store/core
 
 [Biscuit-store API:](#biscuit-store-api)
-- [API reference](#api-reference)
-  - [Content:](#content)
-    - [@biscuit-store/core](#biscuit-storecore)
-    - [@biscuit-store/react](#biscuit-storereact)
-    - [@biscuit-store/adapter](#biscuit-storeadapter)
-  - [Biscuit-store API](#biscuit-store-api)
-  - [createStore](#createstore)
-  - [dispatch](#dispatch)
-  - [subscribeToState](#subscribetostate)
-  - [subscribeToStore](#subscribetostore)
-  - [getState](#getstate)
+- [createStore](#createStore)
+- [dispatch](#dispatch)
+- [subscribeToState](#subscribeToState)
+- [subscribeToStore](#subscribeToStore)
+- [getState](getState)
+- [newRepo](#newRepo)
+- getRepo
+- addRepo
+- createStateTo
+- middleware
+- createDebuger
+- createManager
+- initialActions
+- stateCollection
+- combineStateCollections
 
 Store api:
 - store.subscribe
@@ -275,3 +279,4 @@ param action:
 
 return: T
 ```
+### newRepo
