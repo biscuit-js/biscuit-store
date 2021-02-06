@@ -60,6 +60,9 @@ adapter:
 #### createStore
 Use this method to create a new repository. Receives an object with storage parameters as input.
 
+params:
+- **options**: *object* - storage settings;
+
 exemple:
 ```javascript
 import { createStore } from "@biscuit-store/core";
