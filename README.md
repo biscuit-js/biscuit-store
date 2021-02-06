@@ -86,7 +86,8 @@ counterClear.dispatch({ value: 0 }).after((state) => {
   console.log("A reset was made to:", state.value);
 });
 ```
-exemple by [codesandbox](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
+[![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
+
 
 ### Basic example with state encapsulation
 Well, what if we want to encapsulate state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of encapsulation. If you need it just use the built-in middleware "Adapter"

@@ -104,7 +104,7 @@ If you have already studied the documentation, you know that biscuit supports dy
 ```javaScript
 const actionName = createStateTo(store).bind("MODULE/ACTION");
 ```
-Don't use dynamic state creation unless you really need to. For better code readability, all states should be declared in one place.
+Don't use dynamic state creation unless you really need to. For better code readability, all states should be declared in one place. 
 
 This method will be useful to use in a situation where, for example, you need to generate a state depending on the data received from the server.
 
