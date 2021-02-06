@@ -393,7 +393,7 @@ export const branch =
         initial: {text: "hello"}
     });
 ```
-returns the state action.
+returns the state [action](#Action-api).
 
 Typescript types:
 ```
