@@ -3,7 +3,7 @@ This section contains all the current methods from all the biscuit-store package
 
 ### @biscuit-store/core
 
-#### [Biscuit-store API:](#biscuit-store-api)
+#### [Biscuit-store API:](#Biscuit-store-top-level-api)
 - [createStore](#createStore)
 - [dispatch](#dispatch)
 - [subscribeToState](#subscribeToState)
@@ -56,7 +56,7 @@ This section contains all the current methods from all the biscuit-store package
 
 -----------
 
-### Biscuit-store API
+### Biscuit-store top level API
 ### createStore
 Use this method to create a new repository. Receives an object with storage parameters as input.
 
