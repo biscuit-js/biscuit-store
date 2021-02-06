@@ -16,7 +16,7 @@ This section contains all the current methods from all the biscuit-store package
 - [middleware](#middleware)
 - [createDebugger](#createDebugger)
 - [createManager](#createManager)
-- initialActions
+- [initialActions](#initialActions)
 - stateCollection
 - combineStateCollections
 
@@ -607,8 +607,38 @@ return: Store<T>
 ```
 
 #### manager.update
-Updates the status of the repository.
+Updates the state of the repository.
 This method is equivalent to dispatch(...).
 
 #### manager.props
 Returns parameters of the selected action.
+
+### initialActions
+This helper method takes the first parameter createactionsTo and adds actions to it from the string array of the second argument.
+
+params:
+- **createActions***: *function* - Accepts the createStateTo function;
+- **array***: *string[]* - List of action names;
+
+
+return: object[]
+
+```javascript
+...
+const actionCreator = createStateTo(customStore.store);
+
+const [addAction, removeAction] = initialActions(actionCreator, [
+    "ADD/ACTION", 
+    "REMOVE/ACTION",
+]);
+```
+
+Typescript types:
+ ```
+param createActions: 
+    interface ActionCreator
+
+param actions: string[]
+
+return: StateAction[]
+```
