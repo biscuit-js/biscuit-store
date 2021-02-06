@@ -158,7 +158,7 @@ return:
 This method allows you to subscribe to a specific state of the store.
 
 params:
-- **action**: *object* - store status action;
+- **action**: *object* - store state action;
 - **fn**: *[function(object)]* - A callback function that returns the new state of the store.
 
 return: *{Promse, unsubscribe()}*
@@ -206,6 +206,39 @@ Typescript types:
 ```
 param action:
     interface: StateAction
+param fn:
+    type: SubscribeListner<T>
+return: 
+    interface: Promise<T>
+```
+
+### subscribeToStore
+Almost the same as [subscribeToState](#subscribeToState), but subscribes to all changes to the store.
+
+params:
+- **repo**: *[string | object]* - store state action;
+- **fn**: *[function(object)]* - A callback function that returns the new state of the store.
+
+return: *{Promse, unsubscribe()}*
+
+```javascript
+import { subscribeToStore } from "@biscuit-store/core";
+import { store } from "./store";
+
+subscribeToStore(store, (state) => {
+    console.log(state);
+);
+
+// or
+
+subscribeToStore("repoName", (state) => {
+    console.log(state);
+);
+```
+```
+Typescript types:
+```
+param repo: string | object 
 param fn:
     type: SubscribeListner<T>
 return: 
