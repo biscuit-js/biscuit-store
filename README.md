@@ -40,7 +40,7 @@ npm install @biscuit-store/react
 
 ### Help
 - [Recommendations](./docs/RECOMMENDATIONS.md)
-- [API Reference](https://breakdance.github.io/breakdance/)
+- [API Reference](./docs/API_REFERENCE.md)
 - [FAQ](https://breakdance.github.io/breakdance/)
 
 --------
