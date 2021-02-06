@@ -14,7 +14,7 @@ This section contains all the current methods from all the biscuit-store package
 - [addRepo](#addRepo)
 - [createStateTo](#createStateTo)
 - [middleware](#middleware)
-- createDebugger
+- [createDebugger](#createDebugger)
 - createManager
 - initialActions
 - stateCollection
@@ -449,3 +449,41 @@ add
 
 return void
 ```
+### createDebugger
+You can add a debugger function to an existing store anywhere in the application using the composite method.
+
+params:
+- **store***: *object* - accepts a store object;
+
+return: void
+
+ exemple:
+ ```javascript
+ import { createDebuger } from "@biscuit-store/core";
+
+createDebuger(store, (e) => {
+    if(e.type === "error) {
+        throw new CunstomError(e.message);
+    }
+});
+ ```
+
+ Error context:
+ | name    | description                                                            | type   |
+|---------|------------------------------------------------------------------------|--------|
+| message | Log message                                                            | string |
+| file    | The file where the event that generated the log occurred. (test field) | string |
+| level   | Log level [ local \| global ]                                          | string |
+| type    | Log type [ log \| warning \| error ]                                   | object |
+
+ Read more [here](./core/DEBUGGER.md)
+
+Typescript types:
+ ```
+param stroe: 
+    interface Store<T>
+param fn: 
+    type DebuggerListener
+    
+return: void
+ ```
