@@ -5,21 +5,30 @@ This section contains all the current methods from all the biscuit-store package
 #### @biscuit-store/core
 
 [Biscuit-store API:](#biscuit-store-api)
-- [createStore](#createStore)
-- [dispatch](#dispatch)
-- [subscribeToState](#subscribeToState)
-- [subscribeToStore](#subscribeToStore)
-- getState
-- newRepo
-- getRepo
-- addRepo
-- createStateTo
-- middleware
-- createDebuger
-- createManager
-- initialActions
-- stateCollection
-- combineStateCollections
+- [API reference](#api-reference)
+  - [Content:](#content)
+    - [@biscuit-store/core](#biscuit-storecore)
+    - [@biscuit-store/react](#biscuit-storereact)
+    - [@biscuit-store/adapter](#biscuit-storeadapter)
+  - [Biscuit-store API](#biscuit-store-api)
+  - [createStore](#createstore)
+  - [dispatch](#dispatch)
+  - [subscribeToState](#subscribetostate)
+  - [subscribeToStore](#subscribetostore)
+  - [getState](#getstate)
+
+Store api:
+- store.subscribe
+- store.get
+- store.add
+- store.repo
+
+Action api:
+- action.subscribe
+- action.dispatch
+- action.getState
+- action.repo
+- action.state
 
 Store api:
 - store.subscribe
@@ -242,4 +251,27 @@ param fn:
     type: SubscribeListner<T>
 return: 
     interface: Promise<T>
+```
+### getState
+This method is used to get the data of the state of the store.
+
+params:
+- **action**: *object* - store state action;
+
+return: object
+
+exemple:
+```javascript
+import { getState } from "@biscuit-store/core";
+import { customAction } from "./store";
+
+getState(customAction); // {value: 0}
+```
+
+Typescript types:
+```
+param action:
+    interface: StateAction
+
+return: T
 ```
