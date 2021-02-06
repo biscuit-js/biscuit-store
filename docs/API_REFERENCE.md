@@ -4,7 +4,7 @@ This section contains all the current methods from all the biscuit-store package
 ### Content:
 #### @biscuit-store/core
 
-Biscuit-store API:
+[Biscuit-store API:](#biscuit-store-api)
 - [createStore](#createStore)
 - dispatch
 - subscribeToState
@@ -105,3 +105,45 @@ Description for the states object:
 | name    | State name, see the recommendations for the format above.        | string  | undefined | yes     |
 | branch  | This field defines. whether this branch is isolated.             | boolean | false     | no      |
 | initial | The source data of the branch, only needed for the state-branch. | object  | {}        | no      |
+
+Typescript types:
+```
+param options:
+    interface: StoreSettings
+return: 
+    interface: StoreParams
+```
+#### dispatch
+Dispatcher is a method that is used to send the updated state to the store and notify listeners of the received changes.
+
+params:
+- **action**: *object* - store status action;
+- **payload**: *[object | function(object) => object]* - Updated data for the state.
+
+```javascript
+dispatch(customAction, {value: value + 1});
+```
+
+The dispatch method can accept both an object directly and a callback function that will receive the current state and return the payload.
+```javascript
+dispatch(customAction, ({ value }) => ({value: value + 1}));
+```
+Dispatch also returns a number of useful methods:
+  - before: Works out before the change and returns the current state;
+  - after: Works out after the change and returns the new state;
+  - merge: Used for states transformed into the branches. Merges the state data to the main repository.
+
+```javascript
+dispatch(customAction, {value: 1}).before((prevState) => {
+    console.log(prevState.value); // 0
+});
+```
+Typescript types:
+```
+param action:
+    interface: StateAction
+param payload:
+    type: DispatchPayload
+return: 
+    interface: Dispatcher
+```
