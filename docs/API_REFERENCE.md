@@ -6,7 +6,7 @@ This section contains all the current methods from all the biscuit-store package
 
 [Biscuit-store API:](#biscuit-store-api)
 - [createStore](#createStore)
-- dispatch
+- [dispatch](#dispatch)
 - subscribeToState
 - subscribeToStore
 - getState
