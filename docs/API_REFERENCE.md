@@ -57,7 +57,7 @@ adapter:
 
 
 ### Biscuit-store API
-#### createStore
+### createStore
 Use this method to create a new repository. Receives an object with storage parameters as input.
 
 params:
@@ -116,7 +116,7 @@ param options:
 return: 
     interface: StoreParams
 ```
-#### dispatch
+### dispatch
 Dispatcher is a method that is used to send the updated state to the store and notify listeners of the received changes.
 
 params:
