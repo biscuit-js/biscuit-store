@@ -235,9 +235,7 @@ subscribeToStore("repoName", (state) => {
     console.log(state);
 );
 ```
-```
 Typescript types:
-```
 ```
 param repo: string | object 
 param fn:
