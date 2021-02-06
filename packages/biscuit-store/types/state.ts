@@ -1,4 +1,4 @@
-
+import { Store } from './store';
 /**
  * This type defines the payload in the dispatch
  */
@@ -196,7 +196,7 @@ export interface Manager {
      * Copying the repository can lead to code support difficulties.
      * @param {string} name name for the new storage
      */
-    clone: (name: string) => void;
+    clone: <T = {}>(name: string) => Store<T>;
     /**
      * Updates the status of the repository.
      * This method is equivalent to dispatch(...)

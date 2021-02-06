@@ -507,12 +507,108 @@ const manager =  createManager(branchAction);
 manager.mergeState(customAction);
 manager.merge();
 ```
- Read more [here](./core/MANAGER.md)
+Read more [here](./core/MANAGER.md)
 
- Typescript types:
- ```
+Typescript types:
+```
 param action: 
     interface StateAction
 
 return: Manager
 ```
+### Manager methods
+
+#### manager.merge
+This method will combine data from the state with data from the storage.
+
+#### manager.pull
+This method will merge data from the storage with data from the state.
+#### manager.replaceRepo
+This method will replace the data from the storage with state data.
+
+#### manager.replaceState
+This method will replace the data from the state with the storage data.
+
+#### manager.mergeState
+This method will merge the data of the selected state with the data of the state specified in the arguments.
+
+params:
+- **targetAction***: *object* - store state action;
+
+Typescript types:
+ ```
+param action: 
+    interface StateAction
+```
+
+#### remove
+This method removes the storage and its copies from all states.
+
+> This method can be useful for optimization,
+but it can make the code non-obvious,
+which will lead to difficulties in support.
+
+#### compareStates
+This method compares two states.
+> States should not contain methods
+
+params:
+- **targetAction***: *object* - store state action;
+
+return: boolean
+
+Typescript types:
+ ```
+param action: 
+    interface StateAction
+
+return: boolean
+```
+
+#### compareWithState
+Сompare state and repository.
+> States should not contain methods
+
+return: boolean
+
+#### compareStateWithInstance
+Compare state and instance object.
+> States should not contain methods
+
+params:
+- **instance***: *object*;
+
+return: boolean
+
+#### compareRepoWithInstance
+Compare repository and instance object.
+
+params:
+- **instance***: *object*;
+
+return: boolean
+
+#### clone
+Clones the selected storage and its state.
+
+> It is best to avoid using this method, as the best practice would be to do initialization of repositories in one place. Copying the repository can lead to code support difficulties.
+
+params:
+- **name***: *string*;
+
+return: object
+
+
+Typescript types:
+ ```
+param name: string
+
+return: Store<T>
+```
+
+#### update
+Updates the status of the repository.
+This method is equivalent to dispatch(...)
+
+#### props
+Returns parameters of the selected action

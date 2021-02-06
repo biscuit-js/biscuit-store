@@ -16,7 +16,7 @@ import { dispatchProto, dispatchInitMiddleware } from './dispatch';
 import { CreateError } from './debugger';
 import { type } from './utils';
 import { messages } from './messages';
-
+import { newRepo } from './creator';
 /**
  * Allows you to subscribe to the store. and tracks its change.
  * @param {string} repo repository name
@@ -212,7 +212,7 @@ export function subscribeToStore(repo, fn = () => undefined) {
  * @return {object} returns a set of methods
  * @public
  */
-export function manager(action) {
+export function createManager(action) {
     actionError(action);
     return {
         /**
@@ -292,7 +292,7 @@ export function manager(action) {
         },
 
         /**
-         * This method compares two states for identity
+         * This method compares two states
          * WARNING: states should not contain methods
          * @param {import('../../types/state').StateAction} targetAction
          * the action that you want to compare
@@ -335,7 +335,7 @@ export function manager(action) {
         },
 
         /**
-         * compare repository and instance object
+         * \
          * WARNING: states should not contain methods
          * @param {object} instance object instance
          * @return {bool}
@@ -354,10 +354,12 @@ export function manager(action) {
          * @public
          */
         clone: (name) => {
-            repositories[name] = { content: { ...getRepository(action.repo) } };
+            const repo = newRepo(name, { ...getRepository(action.repo) });
             states[`"${action.state}"`][name] = {
                 content: { ...getStateRepo(action).content },
             };
+
+            return repo;
         },
 
         /**
