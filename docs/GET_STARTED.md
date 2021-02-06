@@ -277,10 +277,9 @@ const helloWorldStore = createStore({
 });
 ```
 
-### Learn more
 Congratulations! You have familiarized yourself with the basic features of the Biscuit-store. 
 
-But this is not all... Biscuit has many great features such as:
+**But this is not all... Biscuit has many great features such as:**
  - [Integration with React](./react/REACT.md)
  - [The creation of a branches](./core/STATE.md#branch-pattern-for-the-state)
  - [Management branch](./core/MANAGER.md)
