@@ -13,7 +13,7 @@ This section contains all the current methods from all the biscuit-store package
 - [getRepo](#getRepo)
 - [addRepo](#addRepo)
 - [createStateTo](#createStateTo)
-- middleware
+- [middleware](#middleware)
 - createDebugger
 - createManager
 - initialActions
@@ -406,4 +406,46 @@ bind
     param options: StateOptions
 
 return StateAction
+```
+
+### middleware
+This method is used to dynamically create middleware.
+
+params:
+- **store***: *object* - accepts a store object;
+
+return: object
+
+returns the add method that binds the function.
+
+```javascript
+import { middleware } from "@biscuit-store/core";
+...
+middleware(store).add((ctx, next) => {
+    ...
+});
+```
+The middleware callback function returns the context and method that indicates the completion of processing.
+
+**Middleware context:**
+| name      | description                    | type   |
+|-----------|--------------------------------|--------|
+| action    | Action name.                   | string |
+| repo      | Repo/store name.               | string |
+| payload   | Payload data.                  | object |
+| state     | The data of the current state. | object |
+| getAction | Returns the store action by name. | function |
+
+You can read about the functions of the middleware [here](./core/MIDDLEWARE.md).
+
+Typescript types:
+```
+param params: 
+    interface Store<T>
+return: MiddlewareParams
+-----
+add
+    param fn: (Middleware)
+
+return void
 ```
