@@ -10,7 +10,7 @@ This section contains all the current methods from all the biscuit-store package
 - [subscribeToStore](#subscribeToStore)
 - [getState](getState)
 - [newRepo](#newRepo)
-- getRepo
+- [getRepo](#getRepo)
 - addRepo
 - createStateTo
 - middleware
@@ -274,6 +274,7 @@ return: T
 ```
 ### newRepo
 This method will create a new repository and return a set of methods and return a set of methods to manage the repository.
+> We recommend using the monolithic method createStore to create repositories.
 
 params:
 - **repo***: *string* - repository name;
@@ -294,4 +295,31 @@ Typescript types:
 ```
 param repo: string
 return: Store<T>
+```
+### getRepo
+This method is used to get data from the repository.
+
+> If states are bound to the storage, we recommend using getState
+
+params:
+- **repo***: *[string | object]* - repository name, accepts a name string or a storage object;
+
+return: object
+
+```javascript
+import { newRepo, getRepo } from "@biscuit-store/core";
+
+const store = newRepo("custom", {value: 0});
+
+getRepo(store); // {value: 0}
+
+// or
+
+getRepo("custom"); // {value: 0}
+```
+Typescript types:
+```
+param repo: 
+    string | interface StoreParams
+return: T
 ```
