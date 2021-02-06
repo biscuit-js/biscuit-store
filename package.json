@@ -26,7 +26,10 @@
     "test": "lerna run --parallel test",
     "prettier": "prettier ./packages/*/**/*.{js,ts}",
     "lint": "eslint ./packages/*/**/*.{js,ts}",
-    "release:publish": "lerna publish from-package --dist-tag next"
+    "release:publish": "lerna publish from-package --dist-tag next",
+    "cangelog:add": "changeset add",
+    "cangelog:ver": "changeset verison",
+    "cangelog:publish": "changeset publish"
   },
   "dependencies": {},
   "husky": {
