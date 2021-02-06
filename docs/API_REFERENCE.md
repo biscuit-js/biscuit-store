@@ -1,10 +1,9 @@
 ## API reference
 This section contains all the current methods from all the biscuit-store packages.
 
-### Content:
-#### @biscuit-store/core
+### @biscuit-store/core
 
-[Biscuit-store API:](#biscuit-store-api)
+#### [Biscuit-store API:](#biscuit-store-api)
 - [createStore](#createStore)
 - [dispatch](#dispatch)
 - [subscribeToState](#subscribeToState)
@@ -21,7 +20,7 @@ This section contains all the current methods from all the biscuit-store package
 - stateCollection
 - combineStateCollections
 
-Store api:
+#### Store api:
 - store.subscribe
 - store.get
 - store.add
@@ -74,7 +73,7 @@ adapter:
 Use this method to create a new repository. Receives an object with storage parameters as input.
 
 params:
-- **options**: *object* - storage settings;
+- **options***: *object* - storage settings;
 
 return: *{store: object,  action: object}*
 
@@ -135,7 +134,7 @@ return:
 Dispatcher is a method that is used to send the updated state to the store and notify listeners of the received changes.
 
 params:
-- **action**: *object* - store status action;
+- **action***: *object* - store status action;
 - **payload**: *[object | function(object) => object]* - Updated data for the state.
 
 return: *object*
@@ -157,6 +156,12 @@ Dispatch also returns a number of useful methods:
 dispatch(customAction, {value: 1}).before((prevState) => {
     console.log(prevState.value); // 0
 });
+
+dispatch(customAction, {value: 2}).after((currentState) => {
+    console.log(prevState.value); // 0
+});
+
+dispatch(customAction, {value: 3}).merge();
 ```
 Typescript types:
 ```
@@ -171,7 +176,7 @@ return:
 This method allows you to subscribe to a specific state of the store.
 
 params:
-- **action**: *object* - store state action;
+- **action***: *object* - store state action;
 - **fn**: *[function(object)]* - A callback function that returns the new state of the store.
 
 return: *{Promse, unsubscribe()}*
@@ -229,7 +234,7 @@ return:
 Almost the same as [subscribeToState](#subscribeToState), but subscribes to all changes to the store.
 
 params:
-- **repo**: *[string | object]* - store state action;
+- **repo***: *[string | object]* - store state action;
 - **fn**: *[function(object)]* - A callback function that returns the new state of the store.
 
 return: *{Promse, unsubscribe()}*
@@ -260,7 +265,7 @@ return:
 This method is used to get the data of the state of the store.
 
 params:
-- **action**: *object* - store state action;
+- **action***: *object* - store state action;
 
 return: object
 
@@ -280,3 +285,19 @@ param action:
 return: T
 ```
 ### newRepo
+This method will create a new repository and return a set of methods and return a set of methods to manage the repository.
+
+params:
+- **repo***: *string* - repository name;
+- **initial**: *object* - initial object.
+
+return: object
+
+```javascript
+import { newRepo } from "@biscuit-store/core";
+
+const store = newRepo("custom", {value: 0});
+
+store.get() // {value: 0}
+```
+See the set of returned parameters [here](#Store-api)
