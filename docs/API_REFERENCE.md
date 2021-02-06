@@ -492,6 +492,12 @@ return: void
 ### createManager
 The createManager is a method of the biscuit library API that accepts a branch state action as input and returns a number of methods for working with it.
 
+
+params:
+- **action***: *object* - store state action;
+
+return: object
+
 Example of manager initialization:
 ```javascript
 import { manager } from "@biscuit-store/core";
@@ -502,3 +508,11 @@ manager.mergeState(customAction);
 manager.merge();
 ```
  Read more [here](./core/MANAGER.md)
+
+ Typescript types:
+ ```
+param action: 
+    interface StateAction
+
+return: Manager
+```
