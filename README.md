@@ -48,7 +48,7 @@ npm install @biscuit-store/react
 ### Basic exemple
 The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
-store/index.js
+store/counter/index.js
 ``` javascript
 import { createStore } from "@biscuit-store/core";
 
@@ -67,7 +67,7 @@ const counterStore = createStore({
 export const { store } = counterStore;
 export const { counterAdd } = counterStore.actions;
 ```
-Next, we import the actions and store to the desired file. To subscribe to the store, we use the "store.subscribe" method, and to send the status, we use the "[actionName].dispatch" method.
+Next, we import the actions and store to the desired file. To subscribe to the store, we use the "store.subscribe" method, and to send the status, we use the [dispatch](./docs/core/SUBSCRIBE.md#Dispatch) method.
 
 counter.js
 ``` javascript
@@ -85,8 +85,8 @@ counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 [![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
 
 
-### Basic example with state encapsulation
-Well, what if we want to encapsulate state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of encapsulation. If you need it just use the built-in middleware "Adapter"
+### Basic example with managed states
+Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **Adapter** or write your own function.
 
 Installation of adapter:
 ``` javascript
