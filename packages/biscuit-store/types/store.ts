@@ -31,7 +31,7 @@ export interface Context {
 */
 export type Middleware = (
     context: Context,
-    fn: <T>(newPayload?: T) => void
+    next: <T>(newPayload?: T) => void
 ) => object | void;
 
 

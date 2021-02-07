@@ -93,47 +93,50 @@ Installation of adapter:
 npm install @biscuit-store/adapter
 ```
 
-store/adapter.js
+store/counter/adapter.js
 ``` javascript
 import { createAdapter } from "@biscuit-store/adapter";
 
 // Creating a new adapter
 const adapter = createAdapter();
 
+// Create action
 adapter.action("COUNTER/ADD", (payload, state) => {
-    return { ...payload, value: state.value + 1 };
+  return { ...payload, value: state.value + 1 };
 });
 
-// You should also know that Biscuit out of the box is asynchronous. 
+// You should also know that Biscuit out of the box is asynchronous.
 // this means that you can use asynchronous capabilities in the adapter.
-adapter.action("COUNTER/CLEAR", (_, _, send) => {
-    send({ value: 0 });
+adapter.action("COUNTER/CLEAR", (payload, store, { send }) => {
+  send({ value: 0 });
 });
 
 // Exporting our adapter
 export default adapter;
 ```
+
 Next, connect our adapter to the store via the middleware field.
+
+store/counter/index.js
 ``` javascript
 import { createStore } from "@biscuit-store/core";
 import adapter from "./adapter";
 
 const counterStore = createStore({
-    repo: {
-        name: "counter",
-        initial: { value: 0 }
-    },
-    states: {
-        counterAdd: "COUNTER/ADD",
-        counterClear: "COUNTER/CLEAR"
-    },
-    // Here we can connect as many middleware functions
-    // as we want by specifying them in the array
-    middleware: [adapter.connect]
+  repo: {
+    name: "counter",
+    initial: { value: 0 }
+  },
+  states: {
+    counterAdd: "COUNTER/ADD",
+    counterClear: "COUNTER/CLEAR"
+  },
+  // Here we can connect as many middleware functions
+  // as we want by specifying them in the array
+  middleware: [adapter.connect]
 });
 
 export const { counterAdd, counterClear } = counterStore.actions;
-
 ```
 Next, we import the actions and store to the desired file. This time we will see how it will all look in React.
 
@@ -142,47 +145,46 @@ index.js
 import React from "react";
 import ReactDOM from "react-dom";
 import { observer, useDispatch } from "@biscuit-store/react";
-import { counterAdd, counterClear } from "./store/root.js";
+import { counterAdd, counterClear } from "./store/counter";
 
-// The observer allows you to update the component 
+// The observer allows you to update the component
 // and get data from the associated stores.
 const App = observer(
-    ({ value }) => {
-        return (
-            <div className="counter">
-                <p>output: {value}</p>
-            </div>
-        );
-    },
-    [counterAdd, counterClear]
+  ({ value }) => {
+    return (
+      <div className="counter">
+        <p>output: {value}</p>
+      </div>
+    );
+  },
+  [counterAdd, counterClear]
 );
 
 // The component with the logic for our counter
 const Counter = () => {
-    // The hook useDispatch, accepts an arbitrary number of actions 
-    // as input and returns ready-made dispatching functions.
-    const [add, clear] = useDispatch(
-        counterAdd, 
-        counterClear
-    );
+  // The hook useDispatch, accepts an arbitrary number of actions
+  // as input and returns ready-made dispatching functions.
+  const [add, clear] = useDispatch(counterAdd, counterClear);
 
-    return (
-        <div>
-            <button onClick={add}>Add</ button>
-            <button onClick={clear}>Clear</ button>
-        </ div>
-    )
-}
+  return (
+    <div>
+      <button onClick={add}>Add</button>
+      <button onClick={clear}>Clear</button>
+    </div>
+  );
+};
 
 // Initializing the application
 ReactDOM.render(
-    <React.Fragment>
-        <Counter />
-        <App />
-    </ React.Fragment>,
-    document.getElementById("root")
+  <React.Fragment>
+    <Counter />
+    <App />
+  </React.Fragment>,
+  document.getElementById("root")
 );
 ```
+[![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/little-worker-xti5r?file=/src/index.js:0-996)
+
 ### Contributing
 If you liked the library, you have many ways to help it develop. 
 - You can write about the biscuit-store on various forums;
