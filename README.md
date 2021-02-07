@@ -185,6 +185,8 @@ ReactDOM.render(
 ```
 [![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 
+### Some more examples
+[Asynchronous data fetching](https://codesandbox.io/s/dazzling-jones-vce5e?file=/src/store/counter/adapter.js)
 ### Contributing
 If you liked the library, you have many ways to help it develop. 
 - You can write about the biscuit-store on various forums;
