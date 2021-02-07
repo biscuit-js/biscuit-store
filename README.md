@@ -183,7 +183,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 ```
-[![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/little-worker-xti5r?file=/src/index.js:0-996)
+[![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 
 ### Contributing
 If you liked the library, you have many ways to help it develop. 
