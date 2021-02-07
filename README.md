@@ -1,7 +1,8 @@
 # [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
 Library for managing javascript application states.
 
-[![Build Status](https://img.shields.io/badge/License-MIT-green.svg)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](./docs/assets/License-MIT-green.svg)](https://travis-ci.org/joemccann/dillinger) [![Build Status](./docs/assets/version.svg)](https://github.com/Biscuit-javascript/biscuit-store/releases)
+
 
 ### Description
 
@@ -58,20 +59,19 @@ const counterStore = createStore({
     initial: { value: 0 }
   },
   states: {
-    counterAdd: "COUNTER/ADD",
-    counterClear: "COUNTER/CLEAR"
+    counterAdd: "COUNTER/ADD"
   }
 });
 
 // Exporting store and actions
 export const { store } = counterStore;
-export const { counterAdd, counterClear } = counterStore.actions;
+export const { counterAdd } = counterStore.actions;
 ```
 Next, we import the actions and store to the desired file. To subscribe to the store, we use the "store.subscribe" method, and to send the status, we use the "[actionName].dispatch" method.
 
 counter.js
 ``` javascript
-import { counterAdd, counterClear, store } from "./store/counter";
+import { counterAdd, store } from "./store/counter";
 
 // You can subscribe to the store change via the store.subscribe method.
 store.subscribe((state) => {
@@ -81,10 +81,6 @@ store.subscribe((state) => {
 // The dispatch can accept an instance of an object
 // or a callback functions that returns the previous state.
 counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
-
-counterClear.dispatch({ value: 0 }).after((state) => {
-  console.log("A reset was made to:", state.value);
-});
 ```
 [![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
 
