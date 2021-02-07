@@ -1,7 +1,7 @@
 # [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
 Library for managing javascript application states.
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://img.shields.io/badge/License-MIT-green.svg)](https://travis-ci.org/joemccann/dillinger)
 
 ### Description
 
