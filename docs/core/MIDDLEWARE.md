@@ -105,7 +105,7 @@ error.subscribe((state) => {
 });
 
 ```
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/immutable-frost-x47yf?file=/src/store/counter/index.js:91-430)
+[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/recursing-bird-vdbv2?file=/src/store/counter/service.js)
 
 Congratulations! Now you have a better understanding of how middleware work in Biscuit.
 
