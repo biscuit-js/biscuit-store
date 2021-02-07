@@ -46,7 +46,7 @@ npm install @biscuit-store/react
 
 --------
 ### Basic exemple
-The easiest way to create a new store is to use the createStore function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
+The easiest way to create a new store is to use the [createStore](./docs/core/STORE.md) function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
 store/counter/index.js
 ``` javascript
@@ -67,7 +67,7 @@ const counterStore = createStore({
 export const { store } = counterStore;
 export const { counterAdd } = counterStore.actions;
 ```
-Next, we import the actions and store to the desired file. To subscribe to the store, we use the "store.subscribe" method, and to send the status, we use the [dispatch](./docs/core/SUBSCRIBE.md#Dispatch) method.
+Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](./docs/core/SUBSCRIBE.md#creating-a-subscription) method, and to send the status, we use the [dispatch](./docs/core/SUBSCRIBE.md#Dispatch) method.
 
 counter.js
 ``` javascript
