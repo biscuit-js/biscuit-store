@@ -125,8 +125,8 @@ export function dispatch(action, payload = {}) {
     }
 
     (async function () {
-        const act = getStateRepo(action).content;
-        const prev = { ...act };
+        const state = getStateRepo(action);
+        const prev = { ...state.content };
 
         /** if the function
          * then pass the current state to the callback  */
@@ -137,16 +137,15 @@ export function dispatch(action, payload = {}) {
         dispatchProto.call(voids, {
             action,
             prev,
-            act,
             payData,
         });
 
         /** initial middlewares */
-        payData = await dispatchInitMiddleware({ action, payData, act });
+        payData = await dispatchInitMiddleware({ action, payData, prev });
 
         /** update state data */
         getStateRepo(action).content = {
-            ...act,
+            ...state.content,
             ...payData,
         };
 

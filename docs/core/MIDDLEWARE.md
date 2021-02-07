@@ -58,47 +58,54 @@ There is nothing stopping you from doing asynchronous sending directly from the 
 import { createStore, dispatch } from "@biscuit-store/core";
 
 function fetchFunc(ctx, next) {
-    if(ctx.action ===  "FETCH/ACTION") {
-        fetch(url + ctx.payload.id)
-            .then((res) => res.json())
-            .then(({ data }) => {
-                dispatch(ctx.getAction("SUCCESS/ACTION"), { data });
-            })
-            .catch((e) => {
-                dispatch(ctx.getAction("ERROR/ACTION"), { error: e.message });
-            })
-            .finnlly(() => {
-                next();
-            })
-    } else {
+  if (ctx.action === "FETCH/ACTION") {
+    fetch("https://jsonplaceholder.typicode.com/todos/" + ctx.payload.id)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(ctx.getAction("SUCCESS/ACTION"), { data: res });
+      })
+      .catch((e) => {
+        console.log(e);
+        dispatch(ctx.getAction("ERROR/ACTION"), { error: e.message });
+      })
+      .finally(() => {
         next();
-    }
+      });
+  } else {
+    next();
+  }
 }
 
-const { actions, store } = createStore({
-    repo: {
-        name: "test",
-        initial: { id: 0, data: {}, error: null }
-    },
-    states: { 
-        fetch:   "FETCH/ACTION",
-        success: "SUCCESS/ACTION",
-        error:   "ERROR/ACTION" 
-    }, 
-    middleware: [fetchFunc],
+const testStore = createStore({
+  repo: {
+    name: "test",
+    initial: { id: 0, data: {}, error: null }
+  },
+  states: {
+    fetch: "FETCH/ACTION",
+    success: "SUCCESS/ACTION",
+    error: "ERROR/ACTION"
+  },
+  middleware: [fetchFunc]
 });
 
-actions.fetch.dispatch({id: 1});
+const { fetch, success, error } = testStore.actions;
+const { store } = testStore;
 
-store.subscribe((state) => {
-    if(!state.error) {
-        console.log(state.data);
-        return;
-    }
 
-    console.log(state.error);
+fetch.dispatch({ id: 1 });
+
+success.subscribe((state) => {
+  console.log(state.data);
+  document.getElementById("root").innerHTML = state.data.title;
 });
+
+error.subscribe((state) => {
+  console.log(state.error);
+});
+
 ```
+[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/immutable-frost-x47yf?file=/src/store/counter/index.js:91-430)
 
 Congratulations! Now you have a better understanding of how middleware work in Biscuit.
 

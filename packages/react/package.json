@@ -37,7 +37,7 @@
   "sideEffects": false,
   "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138",
   "dependencies": {
-    "@biscuit-store/core": "^0.8.1-beta",
+    "@biscuit-store/core": "^0.8.3-beta",
     "react": "^17.0.1"
   }
 }
