@@ -10,7 +10,7 @@
       "dom"
     ],
     "paths": {
-      "biscuit-store": ["./index.d.ts"],
+      "react": ["./index.d.ts"],
     },
     "baseUrl": ".",
     "moduleResolution": "node"

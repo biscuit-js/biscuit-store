@@ -30,6 +30,7 @@ export function createAdapter() {
                         }
                     })();
                     resolve = true;
+                    break;
                 }
             }
 

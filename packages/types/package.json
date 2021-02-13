@@ -1,0 +1,21 @@
+{
+  "name": "@biscuit-store/types",
+  "version": "0.9.34",
+  "description": "Library for managing javascript application states",
+  "author": "Zhulev Philipp",
+  "license": "MIT",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
+    "directory": "packages/types"
+  },
+  "main": "src/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "@typescript-eslint/parser": "^4.15.0"
+  }
+}

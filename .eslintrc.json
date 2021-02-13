@@ -24,7 +24,6 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-		"project": "./packages/*/tsconfig.json",
     "tsconfigRootDir": "./",
     "ecmaFeatures": {
       "jsx": true
@@ -137,12 +136,13 @@
     "@typescript-eslint/no-useless-constructor": ["error"],
     "@typescript-eslint/prefer-for-of": "warn",
     "@typescript-eslint/prefer-function-type": "warn",
-    "@typescript-eslint/no-explicit-any" : "error",
+    "@typescript-eslint/no-explicit-any" : "off",
     "@typescript-eslint/camelcase": ["error"],
     "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-var-requires":"off",
     "@typescript-eslint/prefer-optional-chain": ["error"],
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/prefer-regexp-exec": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
     "@typescript-eslint/require-await": "off"

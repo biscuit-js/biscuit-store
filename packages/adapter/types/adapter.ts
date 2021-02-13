@@ -3,7 +3,7 @@ import { StateAction } from './state';
 /**
  * The interface describes
  * the context of the middleware function
-*/
+ */
 export interface Context {
     /** The action name */
     action: string;
@@ -20,18 +20,18 @@ export interface Context {
 type actionListner = <T = void>(payload?: object, state?: object, ctx?: object) => T;
 
 export interface Adapter {
-    /** connector for biscuit middleware
+    /**
+     * Connector for biscuit middleware
      * launches tasks from the scheduler when an action is triggered
-     * @param {Context} context context contains action parameters
-     * @param {function} next callback function
-     * @public
+     * @param context contains action parameters
+     * @param next callback function
      */
     connect: (context: Context, next: <T>(newPayload?: T) => void) => void;
-    /** create action
+    /**
+     * Create action
      * adds an action to the scheduler
-     * @param {string} actionName action name
-     * @param {actionListner} fn callback function
-     * @public
+     * @param actionName action name
+     * @param fn callback function
      */
     action: (actionName: string, fn: actionListner) => void;
 }

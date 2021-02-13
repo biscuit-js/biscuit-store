@@ -1,4 +1,5 @@
 import { Store } from './store';
+
 /**
  * This type defines the payload in the dispatch
  */

@@ -4,14 +4,25 @@
       "plugins": ["@babel/plugin-transform-modules-commonjs"]
     }
   },
-    "presets": [
+  "presets": [
     [
       "@babel/preset-env",
       {
+        "loose": true,
         "targets": {
           "esmodules": true
         }
       }
     ]
+  ],
+  "plugins": [
+    ["transform-commonjs", {
+      "loose": true
+    }],
+    "@babel/transform-react-jsx",
+    ["@babel/plugin-transform-runtime", {
+      "useESModules": "commonjs",
+      "version": "7.12.13"
+    }]
   ]
 }

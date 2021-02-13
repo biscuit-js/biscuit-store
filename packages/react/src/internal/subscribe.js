@@ -1,12 +1,12 @@
 import React from 'react';
-import { dispatch } from '@biscuit-store/core';
+import { dispatch, getState } from '@biscuit-store/core';
 import { emitter } from '@biscuit-store/core/src/utils';
 
 /**
  * subscriber react components
- * @param {function} stateToProps props list
- * @param {object} dispatchToProps dispatch list
- * @return {import("react").ReactElement}
+ * @param {import('../../types/interfaces').StateToProps} stateToProps props list
+ * @param {import('../../types/interfaces').DispatchToProps} dispatchToProps dispatch list
+ * @return {import('../../types/component').ReactComponent}
  * @public
  */
 export function subscribe(stateToProps, dispatchToProps) {
@@ -18,23 +18,32 @@ export function subscribe(stateToProps, dispatchToProps) {
                 super(props);
                 this.state = {
                     dispatchers: {},
+                    data: null,
                 };
             };
 
             /** mount update event */
             componentDidMount() {
-                const result = {};
+                const dispatchers = {};
+                const states = {};
                 for (let param in dispatchToProps) {
                     const repoName = dispatchToProps[param].repo;
+                    const action = dispatchToProps[param];
                     const task = emitter.subscribeAction(repoName, () => {
-                        this.forceUpdate();
+                        this.setState({
+                            data: {
+                                ...this.state.data,
+                                [repoName]: getState(action),
+                            },
+                        });
                     });
 
-                    result[param] = (payload) => dispatch(dispatchToProps[param], payload);
+                    dispatchers[param] = (payload) => dispatch(action, payload);
+                    states[repoName] = getState(action);
                     this.buf.push(task);
                 }
 
-                this.setState({ dispatchers: result });
+                this.setState({ dispatchers, data: states });
             };
 
             /** unmount update event */
@@ -46,13 +55,11 @@ export function subscribe(stateToProps, dispatchToProps) {
 
             /** proxy element */
             render() {
-                return (
-                    <Element
-                        {...this.props}
-                        {...stateToProps()}
-                        {...this.state.dispatchers || {}}
-                    />
-                );
+                return this.state.data ? <Element
+                    {...this.props}
+                    {...stateToProps(this.state.data)}
+                    {...this.state.dispatchers || {}}
+                /> : null;
             };
         };
     };

@@ -13,7 +13,9 @@ import {
     StateItem,
     StateCollection,
     Manager,
+    Dispatch,
     DispatchPayload,
+    StaticAction,
 } from './state';
 
 /**
@@ -162,3 +164,21 @@ export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): vo
  * @return returns a set of actions
  */
 export function createManager(action: StateAction): Manager;
+
+export {
+    StateAction,
+    SubscribeListner,
+    Dispatcher,
+    ActionCreator,
+    StateItem,
+    StateCollection,
+    Manager,
+    DispatchPayload,
+    StoreSettings,
+    StoreParams,
+    Store,
+    MiddlewareParams,
+    DebuggerListener,
+    StaticAction,
+    Dispatch,
+};

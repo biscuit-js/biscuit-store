@@ -20,21 +20,21 @@ export interface StateAction {
 /**
  * This interface describes
  * the methods returned by dispatch
-*/
+ */
 export interface Dispatcher {
     /**
-	 * Call before state change
-	 * @param {SubscribeListner} fn callback
-	 */
+     * Call before state change
+     * @param fn callback
+     */
     before: <T>(fn: SubscribeListner<T>) => void;
     /**
-	 * Call after state change
-	 * @param {SubscribeListner} fn callback
-	 * @async
-	 */
+     * Call after state change
+     * @param fn callback
+     * @async
+     */
     after: <T>(fn: SubscribeListner<T>) => void;
     /**
-	 * Merge state into repository
-	 */
+     * Merge state into repository
+     */
     merge: () => void;
-};
+}

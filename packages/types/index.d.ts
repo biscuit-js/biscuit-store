@@ -1,0 +1,1 @@
+export * from './ts1.0';

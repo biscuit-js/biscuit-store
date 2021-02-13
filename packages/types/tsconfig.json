@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
     "strict": true,
+    "module": "commonjs",
+    "jsx": "preserve",
     "esModuleInterop": true,
-    "target": "es2018",
     "sourceMap": true,
     "allowJs": true,
     "lib": [
       "es6",
       "dom"
     ],
-    "paths": {
-      "biscuit-store": ["./index.d.ts"],
-    },
-    "baseUrl": ".",
+    "rootDir": "./",
     "moduleResolution": "node"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/adapter",
-  "version": "0.8.1-beta",
+  "version": "0.8.21-beta",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -23,9 +23,7 @@
   },
   "scripts": {
     "start": "parcel ./exemples/index.html --open",
-    "build": "parcel build ./exemples/index.html",
-    "test": "yarn test:jest",
-    "test:jest": "jest"
+    "build": "parcel build ./exemples/index.html"
   },
   "browserslist": [
     "last 2 Chrome versions"
@@ -33,7 +31,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "./types/index.d.ts",
+  "types": "./types",
   "sideEffects": false,
   "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138"
 }

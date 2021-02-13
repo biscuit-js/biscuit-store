@@ -186,9 +186,8 @@ ReactDOM.render(
 [![N|Solid](./docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 
 ### Some more examples
-[Asynchronous data fetching](https://codesandbox.io/s/dazzling-jones-vce5e?file=/src/store/counter/adapter.js)
-
-[Todo list](https://codesandbox.io/s/divine-wave-eh2ld?file=/src/store/todo/index.js)
+- [Asynchronous data fetching](https://codesandbox.io/s/dazzling-jones-vce5e?file=/src/store/counter/adapter.js)
+- [Todo list](https://codesandbox.io/s/divine-wave-eh2ld?file=/src/index.js)
 
 
 ### Contributing
