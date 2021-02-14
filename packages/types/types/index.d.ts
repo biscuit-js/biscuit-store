@@ -4,6 +4,7 @@ import {
     Store,
     MiddlewareParams,
     DebuggerListener,
+    Context,
 } from './store';
 import {
     StateAction,
@@ -181,4 +182,5 @@ export {
     DebuggerListener,
     StaticAction,
     Dispatch,
+    Context,
 };

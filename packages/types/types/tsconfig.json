@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "commonjs",
-    "jsx": "preserve",
     "esModuleInterop": true,
+    "target": "es2018",
     "sourceMap": true,
     "allowJs": true,
     "lib": [
       "es6",
       "dom"
     ],
-    "rootDir": "./",
+    "paths": {
+      "react": ["./index.d.ts"],
+    },
+    "baseUrl": ".",
     "moduleResolution": "node"
   }
 }

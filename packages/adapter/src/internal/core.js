@@ -42,7 +42,7 @@ export function createAdapter() {
         /** create action
          * adds an action to the scheduler
          * @param {string} actionName action name
-         * @param {function} fn callback function
+         * @param {import('../../types/adapter').ActionListner} fn callback function
          * @public
          */
         action: (actionName, fn) => {

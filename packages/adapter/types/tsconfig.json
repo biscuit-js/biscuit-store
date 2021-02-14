@@ -11,6 +11,7 @@
     ],
     "paths": {
       "adapter": ["./index.d.ts"],
+      "types": ["./index.d.ts"],
     },
     "baseUrl": ".",
     "moduleResolution": "node"

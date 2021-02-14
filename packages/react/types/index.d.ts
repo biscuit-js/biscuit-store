@@ -27,4 +27,4 @@ declare function observer<T = any>(
 declare function subscribe<S = {}, R = {}, P = any, >(
     stateToProps: StateToProps<S, R>,
     dispatchToProps: DispatchToProps
-): (Element: ReactComponent<P>) => ReactComponent<P>;
+): (Element: ReactComponent<P>) => ReactComponent<P | any>;

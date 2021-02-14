@@ -1,24 +1,27 @@
-import { StateAction } from './state';
+import { StateAction, Context } from '@biscuit-store/types';
+
+/** Type for getAction method */
+export type GetAction = (actionName: string) => StateAction;
+
+/** Type for send method */
+export type Send = (newPayload: any) => void;
+
+/** adapter action context */
+export interface AdapterActionCtx {
+    getAction: GetAction;
+    send: Send;
+};
 
 /**
- * The interface describes
- * the context of the middleware function
+ * Type for adapter listener
+ * @param payload payload data
+ * @param state state data
+ * @param ctx response methods
  */
-export interface Context {
-    /** The action name */
-    action: string;
-    /** The repository name */
-    repo: string;
-    /** payload for the state */
-    payload: object;
-    /** current state */
-    state: object;
-    /** get action */
-    getAction: (actionName: string) => StateAction;
-}
+export type ActionListner<T, P, S> =
+    (payload: P, state: S, ctx: AdapterActionCtx) => T;
 
-type actionListner = <T = void>(payload?: object, state?: object, ctx?: object) => T;
-
+/** Adapter returned interface */
 export interface Adapter {
     /**
      * Connector for biscuit middleware
@@ -33,5 +36,5 @@ export interface Adapter {
      * @param actionName action name
      * @param fn callback function
      */
-    action: (actionName: string, fn: actionListner) => void;
+    action: <T = {}, P = {}, S = {}>(actionName: string, fn: ActionListner<T, P, S>) => void;
 }
