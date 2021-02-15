@@ -11,6 +11,7 @@ With this library, you can easily create applications with a convenient centrali
 
 The main goal of the biscuit-store is to provide the developer with the most flexible functionality, while promoting compliance with the basic architectural principles of programming.
 
+**Advantages:**
 - Flexible architecture
 - Asynchronous out of the box
 - React support
