@@ -4,8 +4,7 @@
   "author": "Zhulev Philipp",
   "version": "0.8.1-beta",
   "workspaces": [
-    "packages/*",
-    "playground/*"
+    "packages/*"
   ],
   "keywords": [
     "javascript",
@@ -21,8 +20,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "parcel ./exemples/index.html --open",
-    "build": "parcel build ./exemples/index.html",
+    "playground:start": "parcel ./playground/index.html --open",
+    "playground:build": "parcel build ./playground/index.html",
     "test": "lerna run --parallel test",
     "prettier": "prettier ./packages/*/**/*.{js,ts}",
     "lint": "eslint ./packages/*/**/*.{js,ts}",
