@@ -7,7 +7,7 @@ Library for managing javascript application states.
 ### Description
 
 Biscuit allows you to create javascript applications with predictable state containers, and also provides an extensive set of tools for working with them. 
-With this library, you can easily create applications with a convenient centralized state system, easily update components, and get a positive development experience.
+With this library, you can easily create applications with a convenient centralized state system, update components, and get a positive development experience.
 
 The main goal of the biscuit-store is to provide the developer with the most flexible functionality, while promoting compliance with the basic architectural principles of programming.
 
