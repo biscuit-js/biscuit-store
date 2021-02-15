@@ -1,5 +1,6 @@
 import { ReactComponent } from './component';
-import { DispatchToProps, StateToProps, Deps } from './interfaces';
+import { DispatchToProps, StateToProps, Deps, Dep, DepsAction, ModifyDispatch } from './interfaces';
+import { Dispatch } from '@biscuit-store/types';
 
 
 /**
@@ -14,7 +15,7 @@ import { DispatchToProps, StateToProps, Deps } from './interfaces';
 declare function observer<T = any>(
     Element: ReactComponent<T>,
     deps: Deps
-): ReactComponent<T>;
+): ReactComponent<T | any>;
 
 /**
  * ### Subscribe
@@ -28,3 +29,43 @@ declare function subscribe<S = {}, R = {}, P = any, >(
     stateToProps: StateToProps<S, R>,
     dispatchToProps: DispatchToProps
 ): (Element: ReactComponent<P>) => ReactComponent<P | any>;
+
+/**
+ * ### useSubscribe
+ * This hook subscribes to the state or storage.
+ * @param action state params
+ * @param update if false excludes update
+ * @return returns the status object and the dispatcher
+ * @public
+ */
+declare function useSubscribe<T>(action: Dep, update?: boolean): [T, Dispatch];
+
+/**
+ * ### useDispatch
+ * State dispatcher hook
+ * accepts multiple actions and returns them to dispatchers
+ * @param actions actions list
+ * @return dispatch list
+ */
+declare function useDispatch(...actions: DepsAction): Dispatch[];
+
+/**
+ * ### useDispatchThrottle
+ * Creates a throttled function that only invokes dispatch
+ * at most once per every wait milliseconds.
+ * @param count wait time
+ * @param actions actions list
+ * @return dispatch list
+ */
+declare function useDispatchThrottle(count: number, ...actions: DepsAction): ModifyDispatch[];
+
+/**
+ * ### useDispatchDebounce
+ * Creates a debounced function that delays invoking dispatch
+ * until after wait milliseconds have elapsed since
+ * the last time the debounced function was invoked.
+ * @param count wait time
+ * @param actions actions list
+ * @return dispatch list
+ */
+declare function useDispatchDebounce(count: number, ...actions: DepsAction): ModifyDispatch[];

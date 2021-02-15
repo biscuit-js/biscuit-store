@@ -14,6 +14,14 @@ export function getRepositoryActions(repo) {
     return repositories[repo].actions;
 }
 
+export function getRepoName(target) {
+    if (typeof target === 'string') {
+        return target;
+    }
+
+    return target.repo;
+}
+
 export const actionError = (action) => {
     if (!action || !action.repo || !action.state) {
         throw new CreateError('Invalid action parameters.');

@@ -57,7 +57,7 @@ export interface Store<I = any> {
      * Subscribe by change
      * @param fn listener
      */
-    subscribe: <T extends I>(fn: SubscribeListner<T>) => Promise<T>;
+    subscribe: <T extends I>(fn?: SubscribeListner<T>) => Promise<T>;
     /**
      * Get reposiory
      */

@@ -14,6 +14,7 @@ import {
     StateCollection,
     Manager,
     DispatchPayload,
+    AnyAction,
 } from './state';
 
 /**
@@ -36,7 +37,7 @@ export function createStore
  * @return promise
  * @async
  */
-export function subscribeToState<T>(action: StateAction, fn: SubscribeListner<T>): Promise<T>;
+export function subscribeToState<T>(action: AnyAction, fn?: SubscribeListner<T>): Promise<T>;
 
 /**
  * This is one of the most important methods.
@@ -44,11 +45,11 @@ export function subscribeToState<T>(action: StateAction, fn: SubscribeListner<T>
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param repo repository name
+ * @param target repository name or store
  * @param fn callback
  * @async
  */
-export function subscribeToStore<T>(repo: string, fn: SubscribeListner<T>): Promise<T>;
+export function subscribeToStore<T>(target: string | Store, fn?: SubscribeListner<T>): Promise<T>;
 
 /**
  * This is one of the most important methods.
@@ -66,7 +67,7 @@ export function subscribeToStore<T>(repo: string, fn: SubscribeListner<T>): Prom
  * @async
  */
 export function dispatch
-<A extends StateAction, P extends DispatchPayload>(action: A, payload?: P): Dispatcher;
+<P extends DispatchPayload>(action: AnyAction, payload?: P): Dispatcher;
 
 /**
  * This method is needed to get the storage state
@@ -76,25 +77,25 @@ export function dispatch
  * @param action the parameters of the action
  * @return state data
  */
-export function getState<T>(action: StateAction): T;
+export function getState<T>(action: AnyAction): T;
 
 /**
  * This method is used to get data from the storage by its key.
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addRepo"
  * method or with state injection via "manager".
- * @param name storage name
+ * @param target storage name
  * @return storage data
  */
-export function getRepo<T>(repo: string): T;
+export function getRepo<T>(target: string | Store): T;
 
 /**
  * This method allows you to add new values to the repository.
  * Accepts the storage name and object.
- * @param name repository name
+ * @param target repository name or store
  * @param instance object with added data
  */
-export function addRepo<T>(repo: string, instance: T): void;
+export function addRepo<T>(target: string | Store, instance: T): void;
 
 /**
  * This method is responsible for creating a new repository.
@@ -161,4 +162,4 @@ export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): vo
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
-export function createManager(action: StateAction): Manager;
+export function createManager(action: AnyAction): Manager;

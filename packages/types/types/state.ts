@@ -20,7 +20,7 @@ export interface StateAction {
     repo: string;
     state: string;
     dispatch: Dispatch;
-    subscribe: <T>(fn: SubscribeListner<T>) => Promise<T>;
+    subscribe: <T>(fn?: SubscribeListner<T>) => Promise<T>;
     getState: <T>() => T;
 }
 
@@ -110,6 +110,11 @@ export interface Dispatcher {
      * Merge state into repository
      */
     merge: () => void;
+
+    /**
+     * Return promise
+     */
+    wait: Promise<boolean>;
 };
 
 /**
@@ -159,7 +164,7 @@ export interface Manager {
      * @param targetAction action for merge
      * the action that you want to merge
      */
-    mergeState: (targetAction: StateAction) => void;
+    mergeState: (targetAction: AnyAction) => void;
     /**
      * This method removes the storage and its copies from all states.
      * WARNING: This method can be useful for optimization,
@@ -174,7 +179,7 @@ export interface Manager {
      * the action that you want to compare
      * @return boolean
      */
-    compareStates: (targetAction: StateAction) => boolean;
+    compareStates: (targetAction: AnyAction) => boolean;
     /**
      * Сompare state and repository
      * WARNING: states should not contain methods
@@ -220,3 +225,6 @@ export interface StaticAction {
     repo: string;
     state: string;
 }
+
+/** Static action or  StateAction */
+export type AnyAction = StateAction | StaticAction;

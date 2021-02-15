@@ -1,38 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
 import { emitter } from '@biscuit-store/core/src/utils';
-import { getState, dispatch } from '@biscuit-store/core';
+import { dispatch } from '@biscuit-store/core';
+import { getData } from './utils';
 
 /**
- * huck subscribe repository state
- * @param {object} action state params
+ * ### useSubscribe
+ * This hook subscribes to the state or storage.
+ * @param {import('../../../types').StateAction} action state params
  * @param {boolean} update if false excludes update
- * @return {object}  repository state
+ * @return returns the status object and the dispatcher
  * @public
  */
-
 export function useSubscribe(action, update = true) {
     const [state, setState] = useState(null);
-    let value = useRef(getState(action));
+    /** Get default state */
+    const setCurrentData = () =>
+        getData(action.repo, action.state);
+    let value = useRef(setCurrentData());
 
     useEffect(() => {
         let cache = {};
 
-        const task = emitter.subscribeAction(action.repo, (data) => {
-            const n = data;
-
+        /** Subscribe store or state */
+        const task = emitter.subscribeAction(action.repo, () => {
+            const n = setCurrentData();
+            /** Update the state if the update parameter is true */
             if (update) {
-                setState(data);
+                setState(n);
                 return;
             }
-
+            /** Check cache */
             if (!(n in cache)) {
                 setState(null);
             }
-
-            cache[n] = data;
+            /** Write data */
+            cache[n] = n;
             value.current = cache[n];
-        });
+        }, action.state);
 
+        /** Unsubscribe */
         return () => task.remove();
     }, [action, update]);
 

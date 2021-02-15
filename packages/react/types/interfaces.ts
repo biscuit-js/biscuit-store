@@ -7,3 +7,7 @@ export interface DispatchToProps {
 export type StateToProps<S, P> = (state: S) => P;
 
 export type Deps = Array<StateAction | Store | StaticAction>;
+export type Dep = StateAction | Store | StaticAction;
+export type DepsAction = Array<StateAction | StaticAction>;
+
+export type ModifyDispatch = <T>(payload: T) => void;

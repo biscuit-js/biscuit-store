@@ -11,6 +11,7 @@ import {
     getRepository,
     compareObject,
     actionError,
+    getRepoName,
 } from './helper';
 import { dispatchProto, dispatchInitMiddleware } from './dispatch';
 import { CreateError } from './debugger';
@@ -47,11 +48,12 @@ const subscriber = function (repo, fn, state) {
 /**
  * This method allows you to add new values to the repository.
  * Accepts the storage name and object.
- * @param {string} name repository name
+ * @param {string | import('../../../types').Store} target repository name or store
  * @param {object} instance object with added data
  * @public
  */
-export function addRepo(name, instance) {
+export function addRepo(target, instance) {
+    const name = getRepoName(target);
     if (!repositories[name]) {
         throw new CreateError(messages.noRepo(name));
     }
@@ -71,11 +73,13 @@ export function addRepo(name, instance) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addRepo"
  * method or with state injection via "manager".
- * @param {string} name storage name
+ * @param {string | import('../../../types').Store} target repository name or store
  * @return {object} storage data
  * @public
  */
-export function getRepo(name) {
+export function getRepo(target) {
+    const name = getRepoName(target);
+
     if (!repositories[name]) {
         throw new CreateError(messages.noRepo(name));
     }
@@ -88,7 +92,7 @@ export function getRepo(name) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "dispatch (...)"
  * method or with an implementation via "manager".
- * @param {import('../../types/state').StateAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action the parameters of the action
  * @return {object} state data
  * @public
  */
@@ -107,7 +111,7 @@ export function getState(action) {
  * as an argument and returns a new state.
  *
  * Dispatch also returns several methods for working with states.
- * @param {import('../../types/state').StateAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action the parameters of the action
  * @param {object | import('../../types/state').DispatchPayload} payload
  * payload data or callback function
  * @return {import('../../types/state').Dispatcher}
@@ -124,7 +128,7 @@ export function dispatch(action, payload = {}) {
         throw new CreateError('The payload must be an object or function.', action.repo);
     }
 
-    (async function () {
+    async function promise() {
         const state = getStateRepo(action);
         const prev = { ...state.content };
 
@@ -151,9 +155,12 @@ export function dispatch(action, payload = {}) {
 
         /** create dispatch action */
         emitter.dispatchAction(action);
-    })();
+        return true;
+    };
 
-    return voids;
+    const task = promise();
+
+    return { wait: task, ...voids };
 }
 
 /**
@@ -162,7 +169,7 @@ export function dispatch(action, payload = {}) {
  * The first argument takes the parameters of the action.
  * results can be obtained through the callback of the second
  * argument or through the return promise.
- * @param {import('../../types/state').StateAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action the parameters of the action
  * @param {import('../../types/subscribe').SubscribeListner} fn callback
  * @return {Promise<any>}
  * @async
@@ -184,13 +191,14 @@ export function subscribeToState(action, fn = () => undefined) {
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param {string} repo repository name
+ * @param {string | import('../../../types').Store} target repository name or store
  * @param {import('../../types/state').SubscribeListner} fn callback
  * @callback
  * @async
  * @public
  */
-export function subscribeToStore(repo, fn = () => undefined) {
+export function subscribeToStore(target, fn = () => undefined) {
+    const repo = getRepoName(target);
     const that = Promise;
     try {
         if (!repositories[repo]) {
@@ -207,7 +215,7 @@ export function subscribeToStore(repo, fn = () => undefined) {
  * The State Manager allows you to manage the storage and its state.
  * Provides a set of methods for two-way merge, replace, copy,
  * and other actions between the selected storage and state.
- * @param {object{repo: string, state: string}} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action the parameters of the action
  * @return {object} returns a set of methods
  * @public
  */
@@ -259,7 +267,7 @@ export function createManager(action) {
         /**
          * This method will merge the data of the selected state
          * with the data of the state specified in the arguments.
-         * @param {import('../../types/state').StateAction} targetAction
+         * @param {import('../../types/state').AnyAction} targetAction
          * the action that you want to merge
          * @public
          */
@@ -293,7 +301,7 @@ export function createManager(action) {
         /**
          * This method compares two states
          * WARNING: states should not contain methods
-         * @param {import('../../types/state').StateAction} targetAction
+         * @param {import('../../types/state').AnyAction} targetAction
          * the action that you want to compare
          * @return {bool}
          * @public
@@ -302,10 +310,7 @@ export function createManager(action) {
             actionError(targetAction);
             return compareObject(
                 getStateRepo(action).content,
-                ...getStateRepo({
-                    state: targetAction.state,
-                    repo: action.repo,
-                }).content,
+                getStateRepo(targetAction).content,
             );
         },
 

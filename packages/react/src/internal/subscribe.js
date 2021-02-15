@@ -3,7 +3,9 @@ import { dispatch, getState } from '@biscuit-store/core';
 import { emitter } from '@biscuit-store/core/src/utils';
 
 /**
- * subscriber react components
+ * ### Subscribe
+ * Allows you to bind a set of actions and dispatchers
+ * to a component, updates the component, and retrieves data.
  * @param {import('../../types/interfaces').StateToProps} stateToProps props list
  * @param {import('../../types/interfaces').DispatchToProps} dispatchToProps dispatch list
  * @return {import('../../types/component').ReactComponent}

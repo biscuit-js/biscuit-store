@@ -1,27 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
-import { getRepo, getState } from '@biscuit-store/core';
-import { CreateError, emitter } from '@biscuit-store/core/src/utils';
-
-/** Get state or repository data */
-const getData = (repo, state) => {
-    if (state) {
-        return getState({ repo, state });
-    }
-
-    return getRepo(repo);
-};
-
-/** Collects source data from dependent stores */
-const loopDeps = (deps, res) => {
-    if (!deps.length) {
-        throw new CreateError('The observer must have dependencies.');
-    }
-    let result = res;
-    for (let dep of deps) {
-        result = { ...result, ...getData(dep.repo, dep.state) };
-    }
-    return result;
-};
+import { emitter, CreateError } from '@biscuit-store/core/src/utils';
+import { loopDeps, getData } from './utils';
 
 /**
  * ### Observer
