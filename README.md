@@ -17,6 +17,9 @@ The main goal of the biscuit-store is to provide the developer with the most fle
 - Simple extension with middleware
 - Easy debugging
 
+**Developer:**
+>> Initially, I created this library for use in my projects. The idea was to create a states-machine that will combine a number of functions that I lack in other similar tools, as well as to simplify the process of creating repositories and their support. After receiving a number of positive feedback from colleagues, I decided to share this project with the general public.
+
 ### Installation
 
 Installation of core files
