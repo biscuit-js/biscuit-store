@@ -9,6 +9,6 @@
 
  **Hooks:**
 - [useSubscribe](./USE_SUBSCRIBE.md)
-- [useDispatch](./OBSERVER.md)
-- [useDispatchThrottle](./OBSERVER.md)
-- [useDispatchDebounce](./OBSERVER.md)
+- [useDispatch](./USE_DiSPATCH.md)
+- [useDispatchThrottle](./USE_THROTTLE.md)
+- [useDispatchDebounce](./USE_DEBOUNCE.md)
