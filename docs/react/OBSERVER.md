@@ -45,5 +45,6 @@ We have a dependency **StoreA** and **StoreB** they contain the same key name. I
 
 The same behavior should be taken into account when working with branches.
 
+[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 ### Lern more
 - [Subscribe](./SUBSCRIBE.md)
