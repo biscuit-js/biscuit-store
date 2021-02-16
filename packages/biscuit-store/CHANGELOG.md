@@ -1,8 +1,11 @@
 # @biscuit-store/core
 
-## 0.8.7
+## 0.9.60
 ### Patch Changes
 
-- Add api documentation
-- Add get statrted documentation
-- Add store documentation
+- Added documentation
+- Added types
+- Added comments
+- Added missing features
+- Added examples
+

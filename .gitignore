@@ -1,8 +1,7 @@
 node_modules
 .cache
 .vscode
-./dist
 yarn-error.log
-./dist
+dist/*
 .DS_Store
 *.lock
