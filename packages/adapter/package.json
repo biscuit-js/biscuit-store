@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/adapter",
-  "version": "0.9.62",
+  "version": "0.9.63",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -20,13 +20,13 @@
   "main": "src/index.js",
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@biscuit-store/types": "^0.9.36"
+    "@biscuit-store/types": "^0.9.63"
   },
   "scripts": {
     "publish": "npm publish",
     "add:types": "yarn add @biscuit-store/types",
     "ver": "npm version patch",
-    "update": "yarn upgrade",
+    "update": "yarn add @biscuit-store/types -D",
     "publish:second": "npm publish"
   },
   "browserslist": [
@@ -37,8 +37,5 @@
   },
   "types": "./types",
   "sideEffects": false,
-  "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138",
-  "dependencies": {
-    "@biscuit-store/types": "^0.9.40"
-  }
+  "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138"
 }
