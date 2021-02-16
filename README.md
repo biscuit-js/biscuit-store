@@ -1,7 +1,7 @@
 # [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
 Library for managing javascript application states.
 
-[![Build Status](./docs/assets/License-MIT-blue.svg)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-0.9.65-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.70-yellow)](https://www.npmjs.com/package/@biscuit-store/core)
+[![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-0.9.65-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.70-yellow)](https://www.npmjs.com/package/@biscuit-store/core)
 
 
 ### Description
