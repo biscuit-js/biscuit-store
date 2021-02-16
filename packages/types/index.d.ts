@@ -1,1 +1,1 @@
-export * from './ts1.0';
+export * from './types';

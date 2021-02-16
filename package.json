@@ -2,7 +2,7 @@
   "private": true,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
-  "version": "0.9.60-beta",
+  "version": "0.9.81-beta",
   "workspaces": [
     "packages/*"
   ],
@@ -28,9 +28,12 @@
     "release:publish": "lerna publish from-package --dist-tag next",
     "changelog:add": "changeset add",
     "changelog:ver": "changeset version",
-    "changelog:publish": "changeset publish"
+    "changelog:publish": "changeset publish",
+    "version": "node ./scripts/version && lerna run --parallel ver"
   },
-  "dependencies": {},
+  "dependencies": {
+    "custom-env": "^2.0.1"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && yarn run test"

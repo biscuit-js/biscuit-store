@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.9.60-beta",
+  "version": "0.9.78-beta",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -23,10 +23,11 @@
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "start": "parcel ./exemples/index.html --open",
-    "build": "parcel build ./exemples/index.html",
     "test": "yarn test:jest",
-    "test:jest": "jest"
+    "test:jest": "jest",
+    "publish": "npm publish",
+    "update": "npm update",
+    "ver": "npm version $ENV_BISCUIT_VERSION"
   },
   "browserslist": [
     "last 2 Chrome versions"
