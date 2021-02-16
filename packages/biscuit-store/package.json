@@ -27,7 +27,7 @@
     "test:jest": "jest",
     "publish": "npm publish",
     "update": "npm update",
-    "ver": "npm version $ENV_BISCUIT_VERSION"
+    "ver": "npm version patch"
   },
   "browserslist": [
     "last 2 Chrome versions"

@@ -25,7 +25,7 @@
   "scripts": {
     "update": "npm update",
     "publish": "npm publish",
-    "ver": "npm version $ENV_BISCUIT_VERSION"
+    "ver": "npm version patch"
   },
   "files": [
     "types"
