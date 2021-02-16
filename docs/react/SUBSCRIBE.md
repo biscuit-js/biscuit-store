@@ -39,5 +39,7 @@ This function is perfect for the case when you need to bind multiple repositorie
 
 > It is recommended to use **Subscribe** in specific cases, and if possible, give preference to [Observer](./OBSERVER.md).
 
+[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/SubscribeExample.tsx)
+
 ## Lern more
 - [useSubscribe](./USE_SUBSCRIBE.md)
