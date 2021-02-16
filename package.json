@@ -2,7 +2,7 @@
   "private": true,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
-  "version": "0.9.60-beta",
+  "version": "0.9.60",
   "workspaces": [
     "packages/*"
   ],
@@ -29,7 +29,7 @@
     "changelog:add": "changeset add",
     "changelog:ver": "changeset version",
     "changelog:publish": "changeset publish",
-    "version": "lerna run --parallel ver && npm version patch"
+    "version": "lerna run --parallel ver"
   },
   "dependencies": {
     "custom-env": "^2.0.1"
