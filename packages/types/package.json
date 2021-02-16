@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/types",
-  "version": "0.9.61",
+  "version": "0.9.60",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "update": "npm update",
-    "publish": "npm publish",
+    "publish:main": "npm publish",
     "ver": "npm version patch"
   },
   "files": [

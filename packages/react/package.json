@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/react",
-  "version": "0.9.61",
+  "version": "0.9.62",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -29,7 +29,8 @@
   "scripts": {
     "publish": "npm publish",
     "update": "npm update",
-    "ver": "npm version patch"
+    "ver": "npm version patch",
+    "publish:second": "npm publish"
   },
   "browserslist": [
     "last 2 Chrome versions"

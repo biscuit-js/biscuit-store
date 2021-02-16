@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.9.61",
+  "version": "0.9.60",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -25,9 +25,9 @@
   "scripts": {
     "test": "yarn test:jest",
     "test:jest": "jest",
-    "publish": "npm publish",
     "update": "npm update",
-    "ver": "npm version patch"
+    "ver": "npm version patch",
+    "publish:main": "npm publish"
   },
   "browserslist": [
     "last 2 Chrome versions"

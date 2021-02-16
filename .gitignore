@@ -5,3 +5,4 @@ yarn-error.log
 dist/*
 .DS_Store
 *.lock
+lerna-debug.log

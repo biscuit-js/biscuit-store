@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/adapter",
-  "version": "0.9.61",
+  "version": "0.9.60",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -26,7 +26,8 @@
     "publish": "npm publish",
     "add:types": "yarn add @biscuit-store/types",
     "ver": "npm version patch",
-    "update": "npm update"
+    "update": "yarn upgrade",
+    "publish:second": "npm publish"
   },
   "browserslist": [
     "last 2 Chrome versions"
