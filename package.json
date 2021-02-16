@@ -2,7 +2,7 @@
   "private": true,
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
-  "version": "0.9.81-beta",
+  "version": "0.9.81",
   "workspaces": [
     "packages/*"
   ],
