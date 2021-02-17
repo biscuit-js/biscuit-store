@@ -21,17 +21,17 @@ This section contains all the current methods from all the biscuit-store package
 - [combineStateCollections](#combineStateCollections)
 
 #### [Store api:](#Biscuit-store-store-api)
-- [store.subscribe](#store.subscribe)
-- [store.get](#store.get)
-- [store.add](#store.add)
-- [store.repo](#store.repo)
+- [store.subscribe](#storesubscribe)
+- [store.get](#storeget)
+- [store.add](#storeadd)
+- [store.repo](#storerepo)
 
 #### [Action api:](#Biscuit-store-action-api)
-- [action.subscribe](#action.subscribe)
-- [action.dispatch](#action.dispatch)
-- [action.getState](#action.getState)
-- [action.repo](#action.repo)
-- [action.state](#action.state)
+- [action.subscribe](#actionsubscribe)
+- [action.dispatch](#actiondispatch)
+- [action.getState](#actiongetState)
+- [action.repo](#actionrepo)
+- [action.state](#actionstate)
 
 
 ### @biscuit-store/adapter
