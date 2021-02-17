@@ -163,6 +163,7 @@ for (let key of arr) {
 }
 ```
 In the console output, each iteration you will get 1 and not a number incremented by one. This is due to the fact that the dispatcher functions at the same time throw data into the storage and we get the effect of a race.
+
 Biscuit provides you with an option to avoid this:
 ```javascript
     action.subscribe((state) => {
