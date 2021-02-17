@@ -41,7 +41,7 @@ This section contains all the current methods from all the biscuit-store package
 
 ### @biscuit-store/react
 
-read [here](../docs/react/REACT.md)
+Read [here](../docs/react/REACT.md)
   
 -----------
 
