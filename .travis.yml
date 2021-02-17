@@ -4,13 +4,8 @@ node_js:
 cache:
   directories:
     - "node_modules"
-install:
-  - npm install
 jobs:
   include:
   - stage: test
     script:
-    - npm run lint
     - npm run test
-on:
-  branch: master
