@@ -24,8 +24,8 @@ const testStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        addAction: "ADD/ACTION",
-        removeAction: "REMOVE/ACTION",
+        addAction: "add/action",
+        removeAction: "remove/action",
     }
 });
 
@@ -189,12 +189,12 @@ Composite methods can handle not only an action variable but also a static descr
 import { dispatch } from "@biscuit-store/core";
 
 dispatch(
-    {repo: "test", action: "ADD/ACTION"}, 
+    {repo: "test", action: "remove/action"}, 
     (prevState) => ({value: prevState + 1})
 );
 
 subscribeToState(
-    {repo: "test", action: "ADD/ACTION"}, 
+    {repo: "test", action: "add/action"}, 
     (state) => {
         console.log(state);
     }
