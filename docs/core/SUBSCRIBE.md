@@ -159,8 +159,8 @@ action.subscribe((state) => {
 });
 
 const arr = new Array(3).fill(1);
-for (let key of arr) {
-	action.dispatch((prev) => ({ value: prev.value + key }));
+for (let value of arr) {
+	action.dispatch((prev) => ({ value: prev.value + value }));
 }
 ```
 In the console output, each iteration you will get 1 and not a number incremented by one. This is due to the fact that the dispatcher functions at the same time throw data into the storage and we get the effect of a race.
@@ -176,8 +176,8 @@ Biscuit provides you with an option to avoid this:
 
     (async function () {
         const arr = new Array(3).fill(1);
-        for (let key of arr) {
-            await action.dispatch((prev) => ({ value: prev.value + key })).wait;
+        for (let value of arr) {
+            await action.dispatch((prev) => ({ value: prev.value + value })).wait;
         }
     }());
 ```
