@@ -87,7 +87,7 @@ const helloWorldStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        addAction: "ADD/ACTION",
+        addAction: "add/action",
     }
 });
 
@@ -166,11 +166,11 @@ Let's start with the second option:
 *actions.js*
 ``` javascript
 export function helloActions({action payload, state}, send) {
-    if(action === "INCREMENT/ACTION") {
+    if(action === "increment/action") {
         send({value: state.value + payload.value});
     }
 
-    if(action === "DECREMENT/ACTION") {
+    if(action === "decrement/action") {
         send({value: state.value - payload.value});
     }
 }
@@ -190,8 +190,8 @@ const helloWorldStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
-        decrement: "DECREMENT/ACTION",
+        increment: "increment/action",
+        decrement: "decrement/action",
     }, 
     middleware: [helloActions]
 });
@@ -245,11 +245,11 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("INCREMENT/ACTION", (payload, state) => {
+adapter.action("increment/action", (payload, state) => {
     return {value: state.value + payload.value};
 });
 
-adapter.action("DECREMENT/ACTION", (payload, state, send) => {
+adapter.action("decrement/action", (payload, state, send) => {
     send({ ...payload, value: state.value - value });
 });
 
@@ -270,8 +270,8 @@ const helloWorldStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
-        decrement: "DECREMENT/ACTION",
+        increment: "increment/action",
+        decrement: "decrement/action",
     }, 
     middleware: [adapter.connect]
 });
