@@ -48,7 +48,7 @@ npm install @biscuit-store/react
 ### Help
 - [Recommendations](./docs/RECOMMENDATIONS.md)
 - [API Reference](./docs/API_REFERENCE.md)
-- [FAQ](https://breakdance.github.io/breakdance/)
+- [Dictionary](./docs/DISCTIONARY.md)
 
 --------
 ### Basic exemple
