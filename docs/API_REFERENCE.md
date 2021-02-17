@@ -18,20 +18,31 @@ This section contains all the current methods from all the biscuit-store package
 - [createManager](#createManager)
 - [initialActions](#initialActions)
 - [stateCollection](#stateCollection)
-- combineStateCollections
+- [combineStateCollections](#combineStateCollections)
 
-#### Store api:
-- store.subscribe
-- store.get
-- store.add
-- store.repo
+#### [Store api:](#Biscuit-store-store-api)
+- [store.subscribe](#store.subscribe)
+- [store.get](#store.get)
+- [store.add](#store.add)
+- [store.repo](#store.repo)
 
-#### Action api:
-- action.subscribe
-- action.dispatch
-- action.getState
-- action.repo
-- action.state
+#### [Action api:](#Biscuit-store-action-api)
+- [action.subscribe](#action.subscribe)
+- [action.dispatch](#action.dispatch)
+- [action.getState](#action.getState)
+- [action.repo](#action.repo)
+- [action.state](#action.state)
+
+
+### @biscuit-store/adapter
+
+#### Adapter API:
+- createAdapter
+
+#### adapter:
+- adapter.action
+- adapter.connect
+
 
 ### @biscuit-store/react
 
@@ -44,16 +55,7 @@ This section contains all the current methods from all the biscuit-store package
 - useDispatch
 - useDispatchThrottle
 - useDispatchDebounce
-
-### @biscuit-store/adapter
-
-#### Adapter API:
-- createAdapter
-
-#### adapter:
-- adapter.action
-- adapter.connect
-
+  
 -----------
 
 ### Biscuit-store top level API
@@ -737,3 +739,118 @@ param statename: string
 
 return: StateAction[]
 ```
+
+### combineStateCollections
+This method combines several collections of methods.
+
+- **actions***: *...collections* - Multiple collections;
+  
+return: object
+
+```javascript
+import { stateCollection, combineStateCollections } from "@biscuit-store/core";
+...
+const collectA stateCollection().compile(actionAdd, acrionRemove);
+const collectB stateCollection().compile(actionIncrement, actionDecrement);
+
+const collection = combineStateCollections(collectA. collectB);
+```
+
+Typescript types:
+```
+param statename: 
+    interface StateCollection[]
+
+return: StateCollection
+```
+
+### Biscuit-store store API
+
+### store.subscribe
+Almost the same as [subscribeToStore](#subscribeToStore), but called from the store-api
+
+params:
+- **fn**: *[function(object)]* - A callback function that returns the new state 
+
+```javascript
+import { store } from "./store";
+
+store.subscribe((state) => {
+    console.log(state);
+);
+```
+
+### state.get
+Almost the same as [getRepo](#getRepo), but called from the store-api
+
+```javascript
+import { store } from "./store";
+
+store.get(); // { value 1 }
+```
+
+### state.get
+Almost the same as [getRepo](#getRepo), but called from the store-api
+
+```javascript
+import { store } from "./store";
+
+store.get(); // { value 1 }
+```
+### state.add
+Almost the same as [addRepo](#addRepo), but called from the store-api
+
+- **instance***: *object* - updated data;
+
+```javascript
+import { store } from "./store";
+
+store.add({value: 2}); // { value 2 }
+```
+
+### state.repo
+Returns the name of the repository
+
+### Biscuit-store action API
+
+### action.subscribe
+Almost the same as [subscribeToState](#subscribeToState), but called from the action-api
+
+params:
+- **fn**: *[function(object)]* - A callback function that returns the new state 
+
+```javascript
+import { addAction } from "./store";
+
+addAction.subscribe((state) => {
+    console.log(state);
+);
+```
+
+### action.dispatch
+Almost the same as [dispatch](#dispatch), but called from the action-api
+
+params:
+- **payload**: *[object | function(object)]* - payload data
+
+```javascript
+import { store } from "./store";
+
+store.dispatch({value: 1});
+// or
+store.dispatch((prev) => {value: prev.value + 1});
+```
+
+### action.getState
+Almost the same as [getSate](#getSate), but called from the action-api
+
+```javascript
+import { addAction } from "./store";
+
+addAction.getState(); // {value: 1}
+```
+### action.repo
+Returns the name of the repository
+
+### action.state
+Returns the name of the state
