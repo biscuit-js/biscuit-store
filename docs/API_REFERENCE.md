@@ -36,25 +36,12 @@ This section contains all the current methods from all the biscuit-store package
 
 ### @biscuit-store/adapter
 
-#### Adapter API:
+#### [Adapter API:](#adapter-api)
 - createAdapter
-
-#### adapter:
-- adapter.action
-- adapter.connect
-
 
 ### @biscuit-store/react
 
-#### Decorators:
-- obscerver
-- subscribe
-
-#### Hooks:
-- useSubscribe
-- useDispatch
-- useDispatchThrottle
-- useDispatchDebounce
+read [here](../docs/react/REACT.md)
   
 -----------
 
@@ -845,3 +832,79 @@ Returns the name of the repository
 
 ### action.state
 Returns the name of the state
+
+### Adapter API
+The **adapter** is a miniature module **(only 450 bytes)** that provides a convenient tool for creating asynchronous managed states.
+more details [here](./adapter/ADAPTER.md).
+
+### createAdapter
+This is a feature for creating middleware for the biscuit-store.
+Allows you to create a manageable condition.
+
+return: object
+
+```javascript
+import { createAdapter } from "@biscuit-store/adapter";
+
+const adapter = createAdapter();
+
+adapter.action("counter/add", (payload, state, { getAction }) => {
+  getAction("counter/prev").dispatch({prev: state.value});
+  return { value: state.value + payload.value };
+});
+
+adapter.action("counter/clear", (payload, store, { send, getAction }) => {
+  send({ value: 0 });
+});
+
+export default adapter;
+```
+
+Typescript types:
+```
+return: Adapter
+```
+
+#### adapter.action
+This method accepts a status name string and a callback function. It is used to create a managed state that can work both synchronously and asynchronously.
+
+params:
+- **actionName***: *string* - string name of the state;
+- **fn***: *function* - callback function;
+
+action callback returns:
+- **payload** - the payload that we transmit from the dispatcher;
+- **state** - the current status of the repository;
+- **context** - Contains two methods:
+- - **send** - It is used for asynchronous data sending and is used instead of synchronous return.;
+- - **getAction** - Used to get an action by a string name.
+
+```javascript
+adapter.action("counter/add", (payload, state, { getAction }) => {
+  getAction("counter/prev").dispatch({prev: state.value});
+  return { value: state.value + payload.value };
+});
+```
+
+Typescript types:
+```
+param
+    actionName: string
+param: fn:
+    type ActionListner
+
+return: void
+```
+
+#### adapter.connect
+It is used to connect the adapter to the store.
+
+```javascript
+import { createStore } from "@biscuit-store/core";
+import adapter from "./adapter";
+
+const counterStore = createStore({
+  ...
+  middleware: [adapter.connect]
+});
+```
