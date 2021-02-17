@@ -12,7 +12,8 @@ yarn add @biscuit-store/react
 
 > Make sure that the kernel version and the version of the react module match. Otherwise, you risk getting errors.
 
- #### This module contains:
+
+ ### This module contains:
 
  **Decorators:**
  - [Observer](./OBSERVER.md)
