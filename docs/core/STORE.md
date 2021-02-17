@@ -36,7 +36,7 @@ const helloStore = createStore({
         increment: "increment/action",
         decrement: "decrement/action",
         save: {
-            name: "SAVE/ACTION",
+            name: "save/action",
             branch: true,
             initial: { version : 0 }
         },
