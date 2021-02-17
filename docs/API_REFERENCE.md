@@ -37,7 +37,7 @@ This section contains all the current methods from all the biscuit-store package
 ### @biscuit-store/adapter
 
 #### [Adapter API:](#adapter-api)
-- createAdapter
+- [createAdapter](#createAdapter)
 
 ### @biscuit-store/react
 
