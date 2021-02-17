@@ -146,7 +146,7 @@ import { addAction } = './testStore.js';
 dispatch(addAction, (prevState) => ({value: prevState + 1}));
 ```
 
-#### Dispatch is asynchronous
+### Dispatch is asynchronous
 You must understand that the dispatcher is an asynchronous function. 
 That is, if you want to write something like this:
 ```javascript
