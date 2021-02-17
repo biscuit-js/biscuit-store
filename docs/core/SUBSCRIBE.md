@@ -1,5 +1,5 @@
 ## State and store subscribe 
-The subscription system is required to get the current state of the storage at the time of the update. Traditionally, the subscription pattern consists of the function of subscribing, unsubscribing and dispatcher, Biscuit adheres to this concept.
+The subscription system is required to get the current state of the storage at the time of the update. Traditionally, the subscription pattern consists of the function of subscribing, unsubscribing and dispatcher. Biscuit adheres to this concept.
 
 ### Concept
 Conceptually, the subscription system in biscuit is similar to the (vanilla) addEventListener, but there are still a few differences. 
