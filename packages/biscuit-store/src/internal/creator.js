@@ -214,7 +214,7 @@ export function stateCollection() {
  * This helper method can combine multiple collections of actions.
  * Accepts "stateCollection(...action)"
  * @param {import('../../types/state').StateCollection} collection array StateCollection
- * @return {StateCollection}
+ * @public
  */
 export function combineStateCollections(...collections) {
     let allState = [];
