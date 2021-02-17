@@ -146,6 +146,41 @@ import { addAction } = './testStore.js';
 dispatch(addAction, (prevState) => ({value: prevState + 1}));
 ```
 
+#### Dispatch is asynchronous
+You must understand that the dispatcher is an asynchronous function. 
+That is, if you want to write something like this:
+```javascript
+action.subscribe((state) => {
+	console.log(state.value);
+	// 1
+	// 1
+	// 1
+});
+
+const arr = new Array(3).fill(1);
+for (let key of arr) {
+	action.dispatch((prev) => ({ value: prev.value + key }));
+}
+```
+In the console output, each iteration you will get 1 and not a number incremented by one. This is due to the fact that the dispatcher functions at the same time throw data into the storage and we get the effect of a race.
+Biscuit provides you with an option to avoid this:
+```javascript
+    action.subscribe((state) => {
+        console.log(state.value);
+		// 1
+		// 2
+		// 3
+    });
+
+    (async function () {
+        const arr = new Array(3).fill(1);
+        for (let key of arr) {
+            await action.dispatch((prev) => ({ value: prev.value + key })).wait;
+        }
+    }());
+```
+The **wait** method returns a promise that will be fulfilled when the dispatcher completes all processes.
+
 ### Static description of the action
 Composite methods can handle not only an action variable but also a static description.
 ```javascript
@@ -164,5 +199,6 @@ subscribeToState(
 );
 ```
 Now you know a lot more about the Biscuit subscription system.
+
 ### Learn more
  - [State](./core/STATE.md)
