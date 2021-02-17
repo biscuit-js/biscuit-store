@@ -10,7 +10,7 @@ export type Send = (newPayload: any) => void;
 export interface AdapterActionCtx {
     getAction: GetAction;
     send: Send;
-};
+}
 
 /**
  * Type for adapter listener

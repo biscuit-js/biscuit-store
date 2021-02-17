@@ -115,7 +115,7 @@ export interface Dispatcher {
      * Return promise
      */
     wait: Promise<boolean>;
-};
+}
 
 /**
  * This interface describes the methods
