@@ -89,7 +89,7 @@ const createAction = createStateTo(store)
 
 export const increment = createAction.bind("increment/action");
 export const decriment = createAction.bind("decrement/action");
-export const save = createAction.bind("SAVE/ACTION", {
+export const save = createAction.bind("save/action", {
     branch: true, 
     initial: {
         version: 0
