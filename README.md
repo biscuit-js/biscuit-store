@@ -65,7 +65,7 @@ const counterStore = createStore({
     initial: { value: 0 }
   },
   states: {
-    counterAdd: "COUNTER/ADD"
+    counterAdd: "counter/add"
   }
 });
 
@@ -107,13 +107,13 @@ import { createAdapter } from "@biscuit-store/adapter";
 const adapter = createAdapter();
 
 // Create action
-adapter.action("COUNTER/ADD", (payload, state) => {
+adapter.action("counter/add", (payload, state) => {
   return { ...payload, value: state.value + 1 };
 });
 
 // You should also know that Biscuit out of the box is asynchronous.
 // this means that you can use asynchronous capabilities in the adapter.
-adapter.action("COUNTER/CLEAR", (payload, store, { send }) => {
+adapter.action("counter/clear", (payload, store, { send }) => {
   send({ value: 0 });
 });
 
@@ -134,8 +134,8 @@ const counterStore = createStore({
     initial: { value: 0 }
   },
   states: {
-    counterAdd: "COUNTER/ADD",
-    counterClear: "COUNTER/CLEAR"
+    counterAdd: "counter/add",
+    counterClear: "counter/clear"
   },
   // Here we can connect as many middleware functions
   // as we want by specifying them in the array
