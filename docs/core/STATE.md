@@ -22,7 +22,7 @@ createStore({
         initial: {}
     },
     states: {
-        add: "ADD/ACTION"
+        add: "add/action"
     }
 })
 
@@ -32,14 +32,14 @@ createStore({
         initial: {}
     },
     states: {
-        add: "ADD/ACTION"
+        add: "add/action"
     }
 })
 ```
 The state store at this point will look like this:
 ```
 _states:
-|____ADD/ACTION:
+|____add/action:
 |________test-1:
 |____________link to object (test-1)
 |________test-2:
@@ -64,7 +64,7 @@ const testStore = createStore({
     },
     states: {
         sandbox: {
-            name: "SANDBOX/ACTION",
+            name: "sandbox/action",
             branch: true,
             initial: { value: 0 }
         },
