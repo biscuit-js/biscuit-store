@@ -780,7 +780,7 @@ store.subscribe((state) => {
 );
 ```
 
-### state.get
+### store.get
 Almost the same as [getRepo](#getRepo), but called from the store-api
 
 ```javascript
@@ -788,16 +788,7 @@ import { store } from "./store";
 
 store.get(); // { value 1 }
 ```
-
-### state.get
-Almost the same as [getRepo](#getRepo), but called from the store-api
-
-```javascript
-import { store } from "./store";
-
-store.get(); // { value 1 }
-```
-### state.add
+### store.add
 Almost the same as [addRepo](#addRepo), but called from the store-api
 
 - **instance***: *object* - updated data;
@@ -808,7 +799,7 @@ import { store } from "./store";
 store.add({value: 2}); // { value 2 }
 ```
 
-### state.repo
+### store.repo
 Returns the name of the repository
 
 ### Biscuit-store action API
