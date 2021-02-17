@@ -223,12 +223,6 @@ You can see the list of changes [here](./CHANGELOG.md)
 - The library is still young and is in beta testing, for this reason, you may stumble upon bugs and flaws. Please be constructive and help us make this tool better.
 - The developer is not a full-fledged native speaker of English, for this reason, there may be errors and tautologies in the documentation, if you have the opportunity to make the documentation better, then I will be glad of any help.
 
-### Donations
-[![N|Solid](./docs/assets/paypal-donate-button-high-quality-png-1_orig.png)](https://www.paypal.com/webapps/shoppingcart?flowlogging_id=18f6f1ecf6b9&mfid=1613569620044_18f6f1ecf6b9#/checkout/openButton) 
-
-
-
-
 ### License
 Copyright (c) 2021 Philipp Zhulev
 
