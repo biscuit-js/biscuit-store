@@ -33,8 +33,8 @@ const helloStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
-        decrement: "DECREMENT/ACTION",
+        increment: "increment/action",
+        decrement: "decrement/action",
         save: {
             name: "SAVE/ACTION",
             branch: true,
@@ -87,8 +87,8 @@ export const store = newRepo("hello", { value: 0 });
 
 const createAction = createStateTo(store)
 
-export const increment = createAction.bind("INCREMENT/ACTION");
-export const decriment = createAction.bind("DECREMENT/ACTION");
+export const increment = createAction.bind("increment/action");
+export const decriment = createAction.bind("decrement/action");
 export const save = createAction.bind("SAVE/ACTION", {
     branch: true, 
     initial: {
@@ -121,12 +121,12 @@ const helloStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
+        increment: "increment/action",
     }, 
 });
 
 export const decrement = 
-    createStateTo(helloStore.store).bind("DECREMENT/ACTION");
+    createStateTo(helloStore.store).bind("decrement/action");
 
 export const { store } = helloStore;
 export const { increment } = helloStore.actions;
