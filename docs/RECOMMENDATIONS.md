@@ -35,10 +35,10 @@ const userStore = createStore({
         }
     },
     states: {
-        getUser: "USER/GET",
-        addUser: "USER/ADD",
-        addChange: "USER/CHANGE",
-        addRemove: "USER/REMOVE",
+        getUser: "user/get",
+        addUser: "user/add",
+        addChange: "user/change",
+        addRemove: "user/remove",
     }, 
     middleware: [adapter],
 });
@@ -57,11 +57,11 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("USER/GET",, (payload, state, send) => {
+adapter.action("user/get",, (payload, state, send) => {
     ...
 });
 
-adapter.action("USER/ADD", (payload, state, send) => {
+adapter.action("user/add", (payload, state, send) => {
     ...
 });
 
@@ -94,7 +94,7 @@ utils
 With this approach, you will get a structured set of repositories that will be located in one place.
 
 ### Action name
-Biscuit supports any string the name of the action. Nevertheless, I recommend to maintain uniformity in the community to adhere to this format  **"MODULE/ACTION"** for example **"USER/GET"**
+Biscuit supports any string the name of the action. Nevertheless, I recommend to maintain uniformity in the community to adhere to this format  **"module/action"** for example **"user/get"**
 
 ### Encapsulate the state logic
 Try to keep as little logic as possible in the components of your application. Keep the logic in manageable states. This will help to separate view and model as much as possible. This has a positive impact on the experience of developing and further supporting the application.
