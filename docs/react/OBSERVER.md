@@ -23,7 +23,7 @@ export const App = observer(
 The observer collects data from the associated stores and returns it as props.
 
 ### Multistore dependencies
-Observer supports working with several old ones, that is, you can add several actions related to different stories to the list of dependencies and everything will work fine.
+Observer supports working with multiple stores, meaning you can add several actions related to different stores to the list of dependencies, and everything will work fine.
 
 > Still, I recommend thinking through your architecture so that your observer components have as few dependencies as possible.
 
