@@ -118,7 +118,7 @@ createStore({
     },
     states: {
         userBranch: {
-            name: "USER/BRANCH",
+            name: "user/branch",
             branch: true,
             initial: {...}
         },
