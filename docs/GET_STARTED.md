@@ -219,12 +219,13 @@ store.subscribe((state) => {
     // 3
     // 0
 });
+(asunc function() {
+	await increment.dispatch({value: 1});
+	await increment.dispatch({value: 1});
+	await increment.dispatch({value: 1});
 
-increment.dispatch({value: 1});
-increment.dispatch({value: 1});
-increment.dispatch({value: 1});
-
-decrement.dispatch({value: 3});
+	await decrement.dispatch({value: 3});
+}())
 ```
 Now you know how to create a simple middleware. However, I recommend using the [Adapter](./adapter/ADAPTER.md) module to create encapsulated states.
 
