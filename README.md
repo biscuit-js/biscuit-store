@@ -42,6 +42,7 @@ npm install @biscuit-store/react
 - [Manager](./docs/core/MANAGER.md)
 - [Middleware](./docs/core/MIDDLEWARE.md)
 - [Debugger](./docs/core/DEBUGGER.md)
+- [Adapter](./docs/adapter/ADAPTER.md)
 - [React](./docs/react/REACT.md)
 
 ### Help
