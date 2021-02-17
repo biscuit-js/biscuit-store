@@ -1,5 +1,5 @@
 ## useDispatchDebounce
-The **useDispatchDebounce** is a simple hook that takes a delay value and one or more actions and returns the associated dispatchers that will be called once in the specified time interval.
+The **useDispatchDebounce** is a simple hook that takes a delay value and one or more actions and returns the associated dispatchers that will be called with a delay in the specified time interval.
 
 ```javascript
 import React from "react";
