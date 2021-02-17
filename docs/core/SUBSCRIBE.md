@@ -148,6 +148,7 @@ dispatch(addAction, (prevState) => ({value: prevState + 1}));
 
 ### Dispatch is asynchronous
 You must understand that the dispatcher is an asynchronous function. 
+
 That is, if you want to write something like this:
 ```javascript
 action.subscribe((state) => {
