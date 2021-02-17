@@ -48,7 +48,7 @@ npm install @biscuit-store/react
 ### Help
 - [Recommendations](./docs/RECOMMENDATIONS.md)
 - [API Reference](./docs/API_REFERENCE.md)
-- [Dictionary](./docs/DISCTIONARY.md)
+- [Dictionary](./docs/DICTIONARY.md)
 
 --------
 ### Basic exemple

@@ -1,4 +1,4 @@
-## Distionary
+## Dictionary
 Here the basic terms biscuit are described.
 
 #### Store
