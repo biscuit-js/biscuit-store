@@ -17,7 +17,7 @@ This section contains all the current methods from all the biscuit-store package
 - [createDebugger](#createDebugger)
 - [createManager](#createManager)
 - [initialActions](#initialActions)
-- stateCollection
+- [stateCollection](#stateCollection)
 - combineStateCollections
 
 #### Store api:
@@ -76,10 +76,10 @@ const helloStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
-        decrement: "DECREMENT/ACTION",
+        increment: "increment/action",
+        decrement: "decrement/action",
         save: {
-            name: "SAVE/ACTION",
+            name: "save/action",
             branch: true,
             initial: { version : 0 }
         },
@@ -160,7 +160,7 @@ dispatch(customAction, {value: 3}).merge();
 Typescript types:
 ```
 param action:
-    interface: StateAction
+    type: AnyAction
 param payload:
     type: DispatchPayload
 return: 
@@ -217,7 +217,7 @@ subscribeToState(customAction).then((state) => {
 Typescript types:
 ```
 param action:
-    interface: StateAction
+    type: AnyAction
 param fn:
     type: SubscribeListner<T>
 return: 
@@ -274,7 +274,7 @@ getState(customAction); // {value: 0}
 Typescript types:
 ```
 param action:
-    interface: StateAction
+    type: AnyAction
 
 return: T
 ```
@@ -374,12 +374,12 @@ const customStore = createStore({
         initial: { value: 0 }
     },
     states: {
-        increment: "INCREMENT/ACTION",
+        increment: "increment/action",
     }, 
 });
 
 export const decrement = 
-    createStateTo(customStore.store).bind("DECREMENT/ACTION");
+    createStateTo(customStore.store).bind("decrement/action");
 
 export const { store } = customStore;
 export const { increment, decrement } = customStore.actions;
@@ -388,7 +388,7 @@ export const { increment, decrement } = customStore.actions;
 create branch example:
 ```javascript
 export const branch = 
-    createStateTo(customStore.store).bind("DECREMENT/ACTION", {
+    createStateTo(customStore.store).bind("decrement/action", {
         branch: true,
         initial: {text: "hello"}
     });
@@ -405,7 +405,7 @@ bind
     param action: string
     param options: StateOptions
 
-return StateAction
+return AnyAction
 ```
 
 ### middleware
@@ -512,7 +512,7 @@ Read more [here](./core/MANAGER.md)
 Typescript types:
 ```
 param action: 
-    interface StateAction
+    type AnyAction
 
 return: Manager
 ```
@@ -538,7 +538,7 @@ params:
 Typescript types:
  ```
 param action: 
-    interface StateAction
+    type AnyAction
 ```
 
 #### manager.remove
@@ -560,7 +560,7 @@ return: boolean
 Typescript types:
  ```
 param action: 
-    interface StateAction
+    type AnyAction
 
 return: boolean
 ```
@@ -624,12 +624,13 @@ params:
 return: object[]
 
 ```javascript
+import { initialActions } from "@biscuit-store/core";
 ...
 const actionCreator = createStateTo(customStore.store);
 
 const [addAction, removeAction] = initialActions(actionCreator, [
-    "ADD/ACTION", 
-    "REMOVE/ACTION",
+    "add/action", 
+    "remove/action",
 ]);
 ```
 
@@ -639,6 +640,100 @@ param createActions:
     interface ActionCreator
 
 param actions: string[]
+
+return: StateAction[]
+```
+
+### stateCollection
+This method allows you to create a collection of actions.
+
+return: Object
+
+Typescript types:
+ ```
+return: StateCollection
+```
+
+#### colection.compile
+This method accepts multiple actions as arguments. And returns a collection of actions.
+
+params:
+- **actions***: *...actions* - Accepts multiple actions as arguments;
+
+return: object
+
+```javascript
+import { stateCollection } from "@biscuit-store/core";
+...
+const collection stateCollection().compile(actionAdd, acrionRemove);
+```
+
+Typescript types:
+```
+param ...actions: 
+    type AnyAction[]
+
+return: StateCollectionRepo
+```
+#### colection.all
+Get the entire list of collections
+
+return: object
+
+```javascript
+import { stateCollection } from "@biscuit-store/core";
+...
+const collection stateCollection().compile(actionAdd, acrionRemove);
+
+collection.all();
+```
+Typescript types:
+```
+return: StateCollectionRepo
+```
+#### colection.fromRepo
+Get a list of collections by repository name.
+
+params:
+- **repoName***: *string* - The name of repository;
+
+return: array
+
+
+```javascript
+import { stateCollection } from "@biscuit-store/core";
+...
+const collection stateCollection().compile(actionAdd, acrionRemove);
+
+collection.fromRepo("repo");
+```
+
+Typescript types:
+```
+param repoName: string
+
+return: StateAction[]
+```
+
+#### colection.outOfState
+Returns an array of actions by their string name.
+
+params:
+- **stateName***: *string* - State string name
+
+return: array
+
+```javascript
+import { stateCollection } from "@biscuit-store/core";
+...
+const collection stateCollection().compile(actionAdd, acrionRemove);
+
+collection.outOfState("add/action");
+```
+
+Typescript types:
+```
+param statename: string
 
 return: StateAction[]
 ```
