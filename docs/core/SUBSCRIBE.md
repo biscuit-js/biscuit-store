@@ -203,4 +203,4 @@ subscribeToState(
 Now you know a lot more about the Biscuit subscription system.
 
 ### Learn more
- - [State](./core/STATE.md)
+ - [State](./STATE.md)
