@@ -34,6 +34,8 @@ yarn add @biscuit-store/react
 ```
 Done!!! Biscuit is installed in our project.
 
+> For a better understanding, we recommend reading: [dictionary](DISCTIONARY.md)
+
 ### Our first store
 
 If you have previously used [Redux](https://redux.js.org/), then you are used to the fact that you have one store for the entire application. On the contrary, the Biscuit-store encourages the creation of multiple stores for different abstract segments of your application.
