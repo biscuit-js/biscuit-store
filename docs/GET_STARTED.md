@@ -10,7 +10,7 @@ The main goal of the biscuit-store is to provide the developer with the most fle
 - Easy debugging
 
 ### When do I need to use the Biscuit-store?
-You will find the answer to this question in the [FAQ](./FAQ.md) section
+This is actually a rhetorical question. You should understand for yourself when your application needs a state system. If you are using react, the smartest thing to do is to start using biscuit at the moment when you realize that the standard state system is not enough for you.
 
 ### Instalation
 
@@ -39,8 +39,6 @@ Done!!! Biscuit is installed in our project.
 ### Our first store
 
 If you have previously used [Redux](https://redux.js.org/), then you are used to the fact that you have one store for the entire application. On the contrary, the Biscuit-store encourages the creation of multiple stores for different abstract segments of your application.
-
-You can find out more about this in the [FAQ](./FAQ.md) section
 
 Let's try to create our first store, for this we will need the createStore method, we can get it from the Biscuit core.
 
