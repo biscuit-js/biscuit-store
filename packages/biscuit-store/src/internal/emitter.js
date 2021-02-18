@@ -6,7 +6,7 @@ import { messages } from './messages';
  * @return {object} methods
  * @public
  */
-function createEmmitor() {
+function createEmitter() {
     const taskBuffer = {};
 
     return {
@@ -152,4 +152,4 @@ function createEmmitor() {
     };
 }
 
-export const emitter = createEmmitor();
+export const emitter = createEmitter();
