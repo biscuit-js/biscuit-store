@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { emitter } from '@biscuit-store/core/src/utils';
+import { emitter } from '@biscuit-store/core/lib/utils';
 import { dispatch } from '@biscuit-store/core';
 import { getData } from './utils';
 

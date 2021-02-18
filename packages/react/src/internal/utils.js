@@ -1,5 +1,5 @@
 import { getRepo, getState } from '@biscuit-store/core';
-import { CreateError } from '@biscuit-store/core/src/utils';
+import { CreateError } from '@biscuit-store/core/lib/utils';
 
 /** Get state or repository data */
 export const getData = (repo, state) => {

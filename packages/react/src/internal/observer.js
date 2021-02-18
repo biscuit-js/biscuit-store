@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { emitter, CreateError } from '@biscuit-store/core/src/utils';
+import { emitter, CreateError } from '@biscuit-store/core/lib/utils';
 import { loopDeps, getData } from './utils';
 
 /**
