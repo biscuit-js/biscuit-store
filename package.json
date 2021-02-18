@@ -35,7 +35,6 @@
     "build": "lerna run --parallel build:commonjs"
   },
   "dependencies": {
-    "@biscuit-store/react": "0.9.65",
     "custom-env": "^2.0.1",
     "global": "^4.4.0"
   },
