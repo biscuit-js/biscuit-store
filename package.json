@@ -32,7 +32,8 @@
     "update": "lerna run --parallel update",
     "pub:main": "lerna run --parallel publish:main",
     "pub:second": "lerna run --parallel publish:second",
-    "build": "lerna run --parallel build:commonjs"
+    "build": "lerna run --parallel build:commonjs",
+    "relase:publish": "lerna publish"
   },
   "dependencies": {
     "custom-env": "^2.0.1",
