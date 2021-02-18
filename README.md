@@ -210,6 +210,8 @@ If you liked the library, you have many ways to help it develop.
 The rules of assistance can be found [here](./CONTRIBUTING.md).
 
 ### Donate
+Any financial help will help the biscuit to become better.
+
 <a href="https://www.buymeacoffee.com/biscuitstore" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width=220px alt="Buy Me A Coffee" ></a>
 
 ### Inspiration
