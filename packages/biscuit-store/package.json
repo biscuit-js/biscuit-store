@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.9.72",
+  "version": "0.9.73",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
     "directory": "packages/biscuit-store"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "devDependencies": {
     "@babel/core": "7.9.0",
     "typescript": "^4.1.5"
@@ -26,7 +26,8 @@
     "test": "yarn test:jest",
     "test:jest": "jest",
     "ver": "npm version patch",
-    "publish:main": "npm publish"
+    "publish:main": "npm publish",
+    "build:commonjs": "babel src --out-dir lib"
   },
   "browserslist": [
     "last 2 Chrome versions"

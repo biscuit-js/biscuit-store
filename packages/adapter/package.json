@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/adapter",
-  "version": "0.9.72",
+  "version": "0.9.73",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
     "directory": "packages/adapter"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@biscuit-store/types": "latest"
@@ -26,7 +26,8 @@
     "add:types": "yarn add @biscuit-store/types",
     "ver": "npm version patch",
     "update": "yarn upgrade --ignore-engines --dev",
-    "publish:second": "npm publish"
+    "publish:second": "npm publish",
+    "build:commonjs": "babel src --out-dir lib"
   },
   "browserslist": [
     "last 2 Chrome versions"
