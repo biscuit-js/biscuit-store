@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/react",
-  "version": "0.9.66",
+  "version": "0.9.70",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -17,19 +17,37 @@
     "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
     "directory": "packages/react"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
-    "@babel/plugin-transform-react-jsx": "^7.12.16",
-    "@babel/runtime": "^7.12.13",
-    "@biscuit-store/types": "latest",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-react-display-name": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/runtime": "^7.12.1",
+    "hoist-non-react-statics": "^3.3.2",
+    "loose-envify": "^1.4.0",
+    "prop-types": "^15.7.2",
     "typescript": "^4.1.5"
+  },
+  "peerDependenciesMeta": {
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
   },
   "scripts": {
     "update": "yarn upgrade && yarn upgrade --dev",
     "ver": "npm version patch",
-    "publish:second": "npm publish"
+    "publish:second": "npm publish",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib"
   },
   "browserslist": [
     "last 2 Chrome versions"
@@ -37,11 +55,24 @@
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "@biscuit-store/core": "latest",
+    "@biscuit-store/types": "latest",
+    "react": "^16.8.3 || ^17"
+  },
   "types": "./types",
-  "sideEffects": false,
+  "sideEffects": true,
   "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138",
   "dependencies": {
     "@biscuit-store/core": "latest",
+    "@biscuit-store/types": "latest",
+    "cross-env": "^7.0.3",
+    "global": "^4.4.0",
     "react": "^17.0.1"
+  },
+  "browserify": {
+    "transform": [
+      "loose-envify"
+    ]
   }
 }
