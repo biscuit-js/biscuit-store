@@ -11,7 +11,7 @@ module.exports = {
         },
         exclude: ['transform-async-to-generator', 'transform-regenerator'],
         modules: false,
-        loose: true
+        loose,
       }
     ]
   ],
