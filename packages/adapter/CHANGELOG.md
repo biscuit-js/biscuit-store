@@ -1,6 +1,6 @@
 # @biscuit-store/adapter
 
-## 0.9.60
+## 0.9.66
 ### Patch Changes
 
 - Added documentation
@@ -8,4 +8,4 @@
 - Added comments
 - Added missing features
 - Added examples
-
+- Added JSX compiler to CommonJS
