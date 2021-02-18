@@ -47,7 +47,7 @@
     "update": "yarn upgrade && yarn upgrade --dev",
     "ver": "npm version patch",
     "publish:second": "npm publish",
-    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib"
+    "build:commonjs": "babel src --out-dir lib"
   },
   "browserslist": [
     "last 2 Chrome versions"
