@@ -1,6 +1,6 @@
 # @biscuit-store
 
-## 0.9.66
+## 0.9.81
 ### Patch Changes
 
 - Added documentation
@@ -9,3 +9,4 @@
 - Added missing features
 - Added examples
 - Added JSX compiler to CommonJS
+- Added support for older browsers is enabled
