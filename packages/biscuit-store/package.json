@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.9.76",
+  "version": "0.9.77",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -37,5 +37,8 @@
   },
   "types": "./types",
   "sideEffects": false,
-  "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138"
+  "gitHead": "21d403cad2c0d060fbc4c87a6a347dae126c6138",
+  "dependencies": {
+    "@babel/preset-typescript": "^7.12.16"
+  }
 }
