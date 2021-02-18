@@ -1,4 +1,4 @@
-# [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
+# [![N|Solid](./docs/assets/logo.png)](https://github.com/biscuit-js/biscuit-store)
 Library for managing javascript application states.
 
 [![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-0.9.71-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.72-yellow)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store)
