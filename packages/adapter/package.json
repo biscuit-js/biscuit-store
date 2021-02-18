@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/adapter",
-  "version": "0.9.73",
+  "version": "0.9.74",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
