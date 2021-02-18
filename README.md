@@ -3,6 +3,7 @@ Library for managing javascript application states.
 
 [![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-0.9.81-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.85-yellow)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store)
 
+[![NPM](https://nodei.co/npm/@biscuit-store/core.png)](https://npmjs.org/package/@biscuit-store/core)
 
 ### Description
 
