@@ -10,7 +10,7 @@ or yarn
 yarn add @biscuit-store/react
 ```
 
-> Make sure that the kernel version and the version of the react module match. Otherwise, you risk getting errors.
+> Make sure that the react module version is not lower than the kernel version, otherwise you risk getting errors.
 
 
  ### This module contains:
