@@ -31,9 +31,11 @@
     "version": "lerna run --parallel ver",
     "update": "lerna run --parallel update",
     "pub:main": "lerna run --parallel publish:main",
-    "pub:second": "lerna run --parallel publish:second"
+    "pub:second": "lerna run --parallel publish:second",
+    "build": "lerna run --parallel build:commonjs"
   },
   "dependencies": {
+    "@biscuit-store/react": "0.9.65",
     "custom-env": "^2.0.1",
     "global": "^4.4.0"
   },
