@@ -33,7 +33,7 @@
     "pub:main": "lerna run --parallel publish:main",
     "pub:second": "lerna run --parallel publish:second",
     "build": "lerna run --parallel build:commonjs",
-    "relase:publish": "lerna publish"
+    "relase:publish": "lerna publish from-package --dist-tag next"
   },
   "dependencies": {
     "custom-env": "^2.0.1",
