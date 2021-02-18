@@ -1,7 +1,7 @@
 # [![N|Solid](./docs/assets/logo.png)](https://nodesource.com/products/nsolid)
 Library for managing javascript application states.
 
-[![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-0.9.66-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.70-yellow)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store)
+[![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://travis-ci.org/joemccann/dillinger) [![Build Status](https://img.shields.io/badge/npm-core-0.9.66-blue)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://img.shields.io/badge/npm-react-0.9.70-blue)](https://www.npmjs.com/package/@biscuit-store/react) [![Build Status](https://img.shields.io/badge/npm-adapter-0.9.66-blue)](https://www.npmjs.com/package/@biscuit-store/adapter) [![Build Status](https://img.shields.io/badge/npm%40next-0.9.70-yellow)](https://www.npmjs.com/package/@biscuit-store/core) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store)
 
 
 ### Description
