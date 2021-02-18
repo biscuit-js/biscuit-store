@@ -218,7 +218,7 @@ You can see the list of changes [here](./CHANGELOG.md)
 
 ### What is planned
 - Before version **1.0.0**, it is planned to get rid of critical bugs if there are any, configure the deployment, and make more coverage with auto-tests.
-- In version 1.1.0, it is planned to add a new middleware slide, which will be a more advanced version of the [adapter](./docs/adapter/ADAPTER.md), and will partially resemble [redux-saga](https://redux-saga.js.org/).
+- In version **1.1.0**, it is planned to add a new middleware **slide**, which will be a more advanced version of the [adapter](./docs/adapter/ADAPTER.md), and will partially resemble [redux-saga](https://redux-saga.js.org/).
 ### Adolescence
 - The library is still young and is in beta testing, for this reason, you may stumble upon bugs and flaws. Please be constructive and help us make this tool better.
 - The developer is not a full-fledged native speaker of English, for this reason, there may be errors and tautologies in the documentation, if you have the opportunity to make the documentation better, then I will be glad of any help.
