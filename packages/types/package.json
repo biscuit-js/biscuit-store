@@ -7,7 +7,7 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Biscuit-javascript/biscuit-store.git",
+    "url": "https://github.com/biscuit-js/biscuit-store.git",
     "directory": "packages/types"
   },
   "main": "src/index.js",
