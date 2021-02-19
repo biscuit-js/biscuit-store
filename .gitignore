@@ -7,3 +7,4 @@ dist/*
 *.lock
 lerna-debug.log
 packages/*/lib
+*.log
