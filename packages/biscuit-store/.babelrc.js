@@ -1,6 +1,9 @@
-const loose = true
-
 module.exports = {
+  env: {
+    test: {
+      plugins: ["@babel/plugin-transform-modules-commonjs"]
+    }
+  },
   presets: [
     '@babel/typescript',
     [
