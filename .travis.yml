@@ -5,3 +5,4 @@ jobs:
   - stage: test
     script:
     - npm run test
+    - npm run build

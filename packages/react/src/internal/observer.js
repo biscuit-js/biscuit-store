@@ -1,7 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
-import { emitter, CreateError } from '@biscuit-store/core/lib/utils';
+import { utils } from '@biscuit-store/core';
 import { loopDeps, getData } from './utils';
 
+const { emitter, CreateError} = utils;
 /**
  * ### Observer
  * The observer for the states of a component

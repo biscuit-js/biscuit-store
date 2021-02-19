@@ -1,5 +1,6 @@
-import { sandbox, throttle, debounce } from '@biscuit-store/core/lib/utils';
+import { utils } from '@biscuit-store/core';
 import { dispatch } from '@biscuit-store/core';
+const { sandbox, throttle, debounce } = utils;
 
 const boxThrottle = sandbox(throttle);
 const boxDebounce = sandbox(debounce);

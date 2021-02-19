@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { emitter } from '@biscuit-store/core/lib/utils';
+import { utils } from '@biscuit-store/core';
 import { dispatch } from '@biscuit-store/core';
 import { getData } from './utils';
+const { emitter } = utils;
 
 /**
  * ### useSubscribe

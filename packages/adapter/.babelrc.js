@@ -1,5 +1,3 @@
-const loose = true
-
 module.exports = {
   presets: [
     '@babel/typescript',
@@ -17,9 +15,9 @@ module.exports = {
   ],
   plugins: [
     ['@babel/proposal-decorators', { legacy: true }],
-    ['@babel/proposal-object-rest-spread', { loose }],
-    ['@babel/transform-modules-commonjs', { loose }],
-    ['@babel/transform-runtime'],
-    ["@babel/plugin-proposal-class-properties"]
+    ['@babel/proposal-object-rest-spread'],
+    ['@babel/plugin-transform-runtime'],
+    ["@babel/plugin-proposal-class-properties"],
+    ["@babel/plugin-transform-regenerator"]
   ].filter(Boolean)
 }

@@ -1,3 +1,4 @@
+
 const loose = true
 
 module.exports = {
@@ -17,10 +18,10 @@ module.exports = {
   ],
   plugins: [
     ['@babel/proposal-decorators', { legacy: true }],
-    ['@babel/proposal-object-rest-spread', { loose }],
+    ['@babel/proposal-object-rest-spread'],
     '@babel/transform-react-jsx',
     ['@babel/transform-modules-commonjs', { loose }],
     ['@babel/transform-runtime'],
-    ["@babel/plugin-proposal-class-properties"]
+    ["@babel/plugin-proposal-class-properties"],
   ].filter(Boolean)
 }

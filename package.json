@@ -32,9 +32,9 @@
     "update": "lerna run --parallel update",
     "pub:main": "lerna run --parallel publish:main",
     "pub:second": "lerna run --parallel publish:second",
-    "build": "lerna run --parallel build:commonjs",
-    "relase:publish:next": "lerna publish from-package --dist-tag next",
-    "relase:publish:latest": "lerna publish from-package --dist-tag latest"
+    "build": "lerna run --parallel build:release",
+    "release:publish:next": "lerna publish from-package --dist-tag next",
+    "release:publish:latest": "lerna publish from-package --dist-tag latest"
   },
   "dependencies": {
     "custom-env": "^2.0.1",
@@ -51,6 +51,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-regenerator": "^7.12.13",
+    "hoist-non-react-statics": "^3.3.2",
+    "loose-envify": "^1.4.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "prop-types": "^15.7.2",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "regenerator-runtime": "^0.13.7",
     "@babel/core": "7.9.0",
     "@babel/node": "^7.6.3",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
@@ -59,7 +70,11 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.12.7",
+    "rollup-plugin-terser": "^7.0.2",
     "@babel/register": "^7.6.2",
+    "rollup": "^2.7.2",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-node-resolve": "^7.1.3",
     "@babel/runtime": "^7.6.3",
     "@changesets/cli": "^2.1.2",
     "@types/jest": "^26.0.20",
