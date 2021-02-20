@@ -1,7 +1,7 @@
 ## Middleware
 Middleware is a biscuit-store asynchronously layer capable of processing a function or set of functions in the interval between receiving the payload and sending the data to the store.
 
-![N|Solid](../../docs/assets/middleware.png)
+![N|Solid](/docs/assets/middleware.png)
 
 ### Adding middleware to the store
 Adding middleware to the store is extremely simple:
@@ -105,9 +105,9 @@ error.subscribe((state) => {
 });
 
 ```
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/recursing-bird-vdbv2?file=/src/store/counter/service.js)
+[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/recursing-bird-vdbv2?file=/src/store/counter/service.js)
 
 Congratulations! Now you have a better understanding of how middleware work in Biscuit.
 
 ### Learn more
- - [Debugger](./DEBUGGER.md)
+ - [Debugger](/docs/core/DEBUGGER.md)

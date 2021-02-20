@@ -130,7 +130,7 @@ store.subscribe((state) => {
 // dispatching
 addAction.dispatch({value: 1});
 ```
-Read more in the section: [subscribe](./core/SUBSCRIBE.md).
+Read more in the section: [subscribe](/docs/core/SUBSCRIBE.md).
 
 Also you need to know that dispatch has several built in methods:
 
@@ -150,7 +150,7 @@ addAction.dispatch({value: 1}).after((state) => {
     console.log(state);
 });
 ```
-Read more in the section: [dispatch](./core/DISPATCH.md).
+Read more in the section: [dispatch](/docs/core/DISPATCH.md).
 
 ### First middleware
 
@@ -159,7 +159,7 @@ But this is not enough for us! We want to create fully managed states with encap
 
 In the implementation of such functionality, middleware functions will help you. You can either take a ready-made adapter module or write your own function.
 
-Read more in the section: [middleware](./core/MIDDLEWARE.md).
+Read more in the section: [middleware](/docs/core/MIDDLEWARE.md).
 
 Let's start with the second option:
 
@@ -225,7 +225,7 @@ store.subscribe((state) => {
 	await decrement.dispatch({value: 3}).weit;
 }())
 ```
-Now you know how to create a simple middleware. However, I recommend using the [Adapter](./adapter/ADAPTER.md) module to create encapsulated states.
+Now you know how to create a simple middleware. However, I recommend using the [Adapter](/docs/adapter/ADAPTER.md) module to create encapsulated states.
 
 ### First Adapter
 Adapter is a lightweight module for the biscuit-store middleware that allows you to create asynchronous, encapsulated, unified, states.
@@ -281,12 +281,12 @@ const helloWorldStore = createStore({
 Congratulations! You have familiarized yourself with the basic features of the Biscuit-store. 
 
 **But this is not all... Biscuit has many great features such as:**
- - [Integration with React](./react/REACT.md)
- - [The creation of a branches](./core/STATE.md#branch-pattern-for-the-state)
- - [Management branch](./core/MANAGER.md)
- - [Dynamic creation of states](./core/STORE.md#dynamic-capabilities)
- - [Composite store](./core/STORE.md#composite-way-to-create-store)
- - [Debugging](./core/DEBUGGER.md)
+ - [Integration with React](/docs/react/REACT.md)
+ - [The creation of a branches](/docs/core/STATE.md#branch-pattern-for-the-state)
+ - [Management branch](/docs/core/core/MANAGER.md)
+ - [Dynamic creation of states](/docs/core/STORE.md#dynamic-capabilities)
+ - [Composite store](/docs/core/STORE.md#composite-way-to-create-store)
+ - [Debugging](/docs/core/DEBUGGER.md)
 
 ### Learn more
- - [Store](./core/STORE.md)
+ - [Store](/docs/core/STORE.md)

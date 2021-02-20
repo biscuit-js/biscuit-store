@@ -10,7 +10,7 @@ It is also worth noting that the subscriber is asynchronous and in addition to t
 
 The dispatcher function also has a number of interesting features, such as the ability to return the previous state and asynchronously process middleware.
 
-![N|Solid](../../docs/assets/biscuit-subscribe.png)
+![N|Solid](docs/assets/biscuit-subscribe.png)
 
 ### Creating a subscription
 First you need to create a store that we will subscribe to:
@@ -204,4 +204,4 @@ subscribeToState(
 Now you know a lot more about the Biscuit subscription system.
 
 ### Learn more
- - [State](./STATE.md)
+ - [State](/docs/core/STATE.md)

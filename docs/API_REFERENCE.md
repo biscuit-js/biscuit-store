@@ -41,7 +41,7 @@ This section contains all the current methods from all the biscuit-store package
 
 ### @biscuit-store/react
 
-Read [here](../docs/react/REACT.md)
+Read [here](docs/react/REACT.md)
   
 -----------
 
@@ -426,7 +426,7 @@ The middleware callback function returns the context and method that indicates t
 | state     | The data of the current state. | object |
 | getAction | Returns the store action by name. | function |
 
-You can read about the functions of the middleware [here](./core/MIDDLEWARE.md).
+You can read about the functions of the middleware [here](/docs/core/MIDDLEWARE.md).
 
 Typescript types:
 ```
@@ -467,7 +467,7 @@ createDebuger(store, (e) => {
 | level   | Log level [ local \| global ]                                          | string |
 | type    | Log type [ log \| warning \| error ]                                   | object |
 
- Read more [here](./core/DEBUGGER.md)
+ Read more [here](/docs/core/DEBUGGER.md)
 
 Typescript types:
  ```
@@ -497,7 +497,7 @@ const manager =  createManager(branchAction);
 manager.mergeState(customAction);
 manager.merge();
 ```
-Read more [here](./core/MANAGER.md)
+Read more [here](/docs/core/MANAGER.md)
 
 Typescript types:
 ```
@@ -836,7 +836,7 @@ Returns the name of the state
 
 ### Adapter API
 The **adapter** is a miniature module **(only 450 bytes)** that provides a convenient tool for creating asynchronous managed states.
-more details [here](./adapter/ADAPTER.md).
+more details [here](/docs/adapter/ADAPTER.md).
 
 ### createAdapter
 This is a feature for creating middleware for the biscuit-store.

@@ -8,7 +8,7 @@ At the same time, you should understand that creating a store, for example, thro
 
 It will also be useful for you to know that the state object is also stored in a separate object and references the repository data object.
 
-![N|Solid](../../docs/assets/store.png)
+![N|Solid](/docs/assets/store.png)
 
 It is also worth mentioning that in the biscuit-store there is such a thing as a branch. 
 
@@ -135,4 +135,4 @@ export const { increment } = helloStore.actions;
 Congratulations! Now you have a better understanding of how stores work in Biscuit. Keep learning...
 
 ### Learn more
- - [Subscribe](./SUBSCRIBE.md)
+ - [Subscribe](/docs/core/SUBSCRIBE.md)
