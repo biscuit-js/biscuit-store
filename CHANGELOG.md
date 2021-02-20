@@ -1,12 +1,8 @@
 # @biscuit-store
 
-## 0.9.81
+## 0.9.83
 ### Patch Changes
 
-- Added documentation
-- Added types
-- Added comments
-- Added missing features
-- Added examples
-- Added JSX compiler to CommonJS
-- Added support for older browsers is enabled
+- Added copy readme script
+- Added restore readme script
+- Added dispatch.wait unit test
