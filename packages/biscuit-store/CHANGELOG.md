@@ -1,4 +1,5 @@
-# @biscuit-store
+# @biscuit-store/core
+
 
 ## 0.9.83
 ### Patch Changes
