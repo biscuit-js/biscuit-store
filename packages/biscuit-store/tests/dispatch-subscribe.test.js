@@ -5,11 +5,11 @@ import {
     subscribeToStore,
 } from '../src/index';
 
-const testStore = (value) => {
+const testStore = (name, value) => {
     return createStore({
         repo: {
-            name: 'test-' + value,
-            initial: { data: '' },
+            name: 'test-' + name,
+            initial: { data: '', value },
         },
         states: {
             testStart: 'TEST/START',
@@ -146,6 +146,26 @@ it('check callback dispatch -> subscribeToStore', (done) => {
     });
 
     dispatch(testStep, () => ({ data: 'test-6' }));
+});
+
+it('loop dispatch test', async (done) => {
+    expect.assertions(5);
+    const target = testStore('loop_test', 0);
+    const { testStep } = target.actions;
+
+    let i = 0;
+    subscribeToStore(target.store.repo, (state) => {
+        i += 1;
+        expect(state.value).toEqual(i);
+        if (i === 5) {
+            done();
+        }
+    });
+
+    const values = new Array(5).fill(1);
+    for (let value of values) {
+        await dispatch(testStep, (prev) => ({ value: prev.value + value })).wait;
+    }
 });
 
 it('check dispatch.before', (done) => {
