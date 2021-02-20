@@ -3,7 +3,7 @@
 State is a behavioral design pattern that allows objects to change behavior depending on their state. From the outside, it seems that the object class has changed.
 
 ### Standard pattern of state
-In the article [store](./STORE.md), I have already described how the state looks under the hood. Let me remind you that this is a field of the states object that has a string name as a key (in the terminology of the biscuit, this is the name of the action), and contains a reference to the repository object. In the standard model of behavior, the state machine takes:
+In the article [store](/docs/core/STORE.md), I have already described how the state looks under the hood. Let me remind you that this is a field of the states object that has a string name as a key (in the terminology of the biscuit, this is the name of the action), and contains a reference to the repository object. In the standard model of behavior, the state machine takes:
 - The name of the action, for searching the state;
 - The name of the repository by which the reference to the main repository content will be calculated. 
   
@@ -47,10 +47,10 @@ _states:
 ```
 
 ### Branch pattern for the state
-In the article about [store](./STORE.md), the states converted to branches were already mentioned, and here I will tell you more about them.
+In the article about [store](/docs/core/STORE.md), the states converted to branches were already mentioned, and here I will tell you more about them.
 In fact, the concept of a branch is very simple. If the normal state is a reference to the repository object. Then the branch is a copy of the repository object in an isolated state.
 
-And if we want to merge a branch with the main repository or, for example, with another branch, then we need to use a special set of methods from the [manager](./MANAGER.md) constructor.
+And if we want to merge a branch with the main repository or, for example, with another branch, then we need to use a special set of methods from the [manager](/docs/core/MANAGER.md) constructor.
 
 > This is actually very similar to the branching system in GIT
 
@@ -103,4 +103,4 @@ Branches can be useful in many cases... For example, if you want to create some 
 Next, we will study manager.
 
 ### Learn more
-- [Manager](./MANAGER.md)
+- [Manager](/docs/core/MANAGER.md)

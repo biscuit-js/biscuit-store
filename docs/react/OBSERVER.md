@@ -45,8 +45,8 @@ We have a dependency **StoreA** and **StoreB** they contain the same key name. I
 
 The same behavior should be taken into account when working with branches.
 
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
+[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 #### Dependencies are required
 Dependencies are required for two reasons. First, without them, the component simply does not understand when it needs to be updated. Secondly, the obvious indication of dependencies makes the code more obvious, you can always understand which store and state the component is bound to and determine what data it accepts.
 ### Lern more
-- [Subscribe](./SUBSCRIBE.md)
+- [Subscribe](/docs/SUBSCRIBE.md)

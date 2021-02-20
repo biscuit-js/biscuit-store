@@ -35,11 +35,11 @@ This is the method that takes:
 - **dispatchToProps** - this is the object in which you must specify the associated actions. This object has a dual purpose, firstly it is a list of dependencies that the component is subscribed to, and secondly it is a set of dispatchers that will be passed to the component.
 - The third parameter is passed via currying to the react component.
 
-This function is perfect for the case when you need to bind multiple repositories with the same parameters to a single component. In this situation, the [Observer](./OBSERVER.md) does not behave so obviously.
+This function is perfect for the case when you need to bind multiple repositories with the same parameters to a single component. In this situation, the [Observer](/docs/react/OBSERVER.md) does not behave so obviously.
 
-> It is recommended to use **Subscribe** in specific cases, and if possible, give preference to [Observer](./OBSERVER.md).
+> It is recommended to use **Subscribe** in specific cases, and if possible, give preference to [Observer](/docs/react/OBSERVER.md).
 
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/SubscribeExample.tsx)
+[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/SubscribeExample.tsx)
 
 ## Lern more
-- [useSubscribe](./USE_SUBSCRIBE.md)
+- [useSubscribe](/docs/react/USE_SUBSCRIBE.md)

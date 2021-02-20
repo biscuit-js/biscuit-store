@@ -32,4 +32,4 @@ const [state, setState] = useSubscribe(counter, false);
 ```
 [![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/UseSubscribeExamole.tsx)
 ### Lern more
-- [useDispatch](./USE_DiSPATCH.md)
+- [useDispatch](/docs/react/USE_DiSPATCH.md)

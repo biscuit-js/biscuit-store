@@ -16,11 +16,11 @@ yarn add @biscuit-store/react
  ### This module contains:
 
  **Decorators:**
- - [Observer](./OBSERVER.md)
- - [Subscribe](./SUBSCRIBE.md)
+ - [Observer](/docs/react/OBSERVER.md)
+ - [Subscribe](/docs/react/SUBSCRIBE.md)
 
  **Hooks:**
-- [useSubscribe](./USE_SUBSCRIBE.md)
-- [useDispatch](./USE_DiSPATCH.md)
-- [useDispatchThrottle](./USE_THROTTLE.md)
-- [useDispatchDebounce](./USE_DEBOUNCE.md)
+- [useSubscribe](/docs/react/USE_SUBSCRIBE.md)
+- [useDispatch](/docs/react/USE_DiSPATCH.md)
+- [useDispatchThrottle](/docs/react/USE_THROTTLE.md)
+- [useDispatchDebounce](/docs/react/USE_DEBOUNCE.md)

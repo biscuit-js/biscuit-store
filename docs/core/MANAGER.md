@@ -1,5 +1,5 @@
 ## Manager
-> For a better understanding of this section, you first need to read the [state](./STATE.md) section.
+> For a better understanding of this section, you first need to read the [state](/docs/core/STATE.md) section.
 
 The createManager is a method of the biscuit library API that accepts a branch state action as input and returns a number of methods for working with it.
 
@@ -12,7 +12,7 @@ const manager =  createManager(branchAction);
 manager.mergeState(customAction);
 manager.merge();
 ```
-You can find out the manager's methods in the [API section](../API_REFERENCE.md)
+You can find out the manager's methods in the [API section](/docs/API_REFERENCE.md)
 
 > Manager contains a couple of dangerous methods:
 > - Clone method - creates a copy of the repository. This method is dangerous because it creates a non-obvious copy of the store, which can cause difficulties in maintaining the code.

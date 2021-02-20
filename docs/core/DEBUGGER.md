@@ -45,4 +45,4 @@ createDebuger(store, (e) => {
 Congratulations! Now you have a better understanding of how debugger work in Biscuit.
 
 ### Lern more
-- [State](./core/STATE.md)
+- [State](/docs/core/STATE.md)
