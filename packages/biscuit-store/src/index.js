@@ -27,9 +27,9 @@ export {
 export const utils = {
     createLog,
     CreateError,
-    Warning, 
+    Warning,
     emitter,
     throttle,
     debounce,
     sandbox,
-}
+};
