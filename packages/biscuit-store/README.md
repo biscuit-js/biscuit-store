@@ -1,7 +1,7 @@
-# [![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/logo.png)](https://github.com/biscuit-js/biscuit-store)
+# [![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/packages/biscuit-store/docs/assets/logo.png)](https://github.com/biscuit-js/biscuit-store)
 Library for managing javascript application states.
 
-[![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://github.com/biscuit-js/biscuit-store/blob/HEAD/LICENSE.md) [![Typescript](https://badgen.net/npm/types/@biscuit-store/core)](https://www.typescriptlang.org/) [![npm version](https://badge.fury.io/js/%40biscuit-store%2Fcore.svg)](https://www.npmjs.com/package/@biscuit-store/core) [![release](https://badgen.net/github/release/biscuit-js/biscuit-store)](https://github.com/biscuit-js/biscuit-store/releases) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store) [![download](https://badgen.net/npm/dt/@biscuit-store/core)](https://www.npmjs.com/package/@biscuit-store/core)
+[![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/LICENSE.md) [![Typescript](https://badgen.net/npm/types/@biscuit-store/core)](https://www.typescriptlang.org/) [![npm version](https://badge.fury.io/js/%40biscuit-store%2Fcore.svg)](https://www.npmjs.com/package/@biscuit-store/core) [![release](https://badgen.net/github/release/biscuit-js/biscuit-store)](https://github.com/biscuit-js/biscuit-store/releases) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store) [![download](https://badgen.net/npm/dt/@biscuit-store/core)](https://www.npmjs.com/package/@biscuit-store/core)
 
 
 
@@ -37,24 +37,24 @@ npm install @biscuit-store/react
 
 ### Documentation
 
-- [Get started](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/GET_STARTED.md)
-- [Store](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md)
-- [Subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md)
-- [State](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STATE.md)
-- [Manager](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/MANAGER.md)
-- [Middleware](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/MIDDLEWARE.md)
-- [Debugger](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/DEBUGGER.md)
-- [Adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md)
-- [React](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/react/REACT.md)
+- [Get started](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/GET_STARTED.md)
+- [Store](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/STORE.md)
+- [Subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/SUBSCRIBE.md)
+- [State](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/STATE.md)
+- [Manager](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/MANAGER.md)
+- [Middleware](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/MIDDLEWARE.md)
+- [Debugger](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/DEBUGGER.md)
+- [Adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/adapter/ADAPTER.md)
+- [React](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/react/REACT.md)
 
 ### Help
-- [Recommendations](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/RECOMMENDATIONS.md)
-- [API Reference](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md)
-- [Dictionary](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/DICTIONARY.md)
+- [Recommendations](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/RECOMMENDATIONS.md)
+- [API Reference](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/API_REFERENCE.md)
+- [Dictionary](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/DICTIONARY.md)
 
 --------
 ### Basic exemple
-The easiest way to create a new store is to use the [createStore](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md) function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
+The easiest way to create a new store is to use the [createStore](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/STORE.md) function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
 store/counter/index.js
 ``` javascript
@@ -75,7 +75,7 @@ const counterStore = createStore({
 export const { store } = counterStore;
 export const { counterAdd } = counterStore.actions;
 ```
-Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#creating-a-subscription) method, and to send the status, we use the [dispatch](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#Dispatch) method.
+Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/SUBSCRIBE.md#creating-a-subscription) method, and to send the status, we use the [dispatch](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/core/SUBSCRIBE.md#Dispatch) method.
 
 counter.js
 ``` javascript
@@ -90,7 +90,7 @@ store.subscribe((state) => {
 // or a callback functions that returns the previous state.
 counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 ```
-[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
+[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/packages/biscuit-store/docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
 
 
 ### Basic example with managed states
@@ -191,7 +191,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 ```
-[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
+[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/packages/biscuit-store/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 
 ### Some more examples
 - [Asynchronous data fetching](https://codesandbox.io/s/dazzling-jones-vce5e?file=/src/store/counter/adapter.js)
@@ -207,7 +207,7 @@ If you liked the library, you have many ways to help it develop.
 - Participate in the development, offer your pull request;
 - Or you can just help financially;
   
-The rules of assistance can be found [here](https://github.com/biscuit-js/biscuit-store/blob/HEAD/CONTRIBUTING.md).
+The rules of assistance can be found [here](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/CONTRIBUTING.md).
 
 ### Donate
 Any financial help will help the biscuit to become better.
@@ -221,11 +221,11 @@ The idea of developing this library was inspired by the [Redux](https://redux.js
 If you have any questions, suggestions, comments, suggestions for cooperation, or if you like the library and want to become a sponsor, please contact the developer by email: **biscuitstorejs@gmail.com.**
 
 ### Changelog
-You can see the list of changes [here](https://github.com/biscuit-js/biscuit-store/blob/HEAD/CHANGELOG.md)
+You can see the list of changes [here](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/CHANGELOG.md)
 
 ### What is planned
 - Before version **1.0.0**, it is planned to get rid of critical bugs if there are any, configure the deployment, and make more coverage with auto-tests.
-- In version **1.1.0**, it is planned to add a new middleware **slide**, which will be a more advanced version of the [adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md), and will partially resemble [redux-saga](https://redux-saga.js.org/).
+- In version **1.1.0**, it is planned to add a new middleware **slide**, which will be a more advanced version of the [adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/docs/adapter/ADAPTER.md), and will partially resemble [redux-saga](https://redux-saga.js.org/).
 ### Adolescence
 - The library is still young and is in beta testing, for this reason, you may stumble upon bugs and flaws. Please be constructive and help us make this tool better.
 - The developer is not a full-fledged native speaker of English, for this reason, there may be errors and tautologies in the documentation, if you have the opportunity to make the documentation better, then I will be glad of any help.
@@ -233,5 +233,5 @@ You can see the list of changes [here](https://github.com/biscuit-js/biscuit-sto
 ### License
 Copyright (c) 2021 Philipp Zhulev
 
-MIT License ([MIT](https://github.com/biscuit-js/biscuit-store/blob/HEAD/LICENSE.md)).
+MIT License ([MIT](https://github.com/biscuit-js/biscuit-store/blob/HEAD/packages/biscuit-store/LICENSE.md)).
 
