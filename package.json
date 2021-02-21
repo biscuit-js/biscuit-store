@@ -37,7 +37,7 @@
     "release:publish:next": "lerna publish from-package --dist-tag next",
     "release:publish:latest": "lerna publish from-package --dist-tag latest",
     "readme:copy": "node ./scripts/copy-readme",
-    "readme:restore": "node ./scripts/restore-readme"
+    "readme:restore": "node ./scripts/restore-restore"
   },
   "dependencies": {
     "custom-env": "^2.0.1",
