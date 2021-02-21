@@ -93,7 +93,7 @@ store.subscribe((state) => {
 // or a callback functions that returns the previous state.
 counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 ```
-[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/test-biscuit-forked-4mp86?file=/src/index.js)
+[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/biscuit-storeexample-javascript-4mp86?file=/src/index.js)
 
 
 ### Basic example with managed states
