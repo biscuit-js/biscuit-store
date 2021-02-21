@@ -194,7 +194,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 ```
-[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
+[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/biscuit-storeexample-react-r3neo?file=/src/index.js)
 
 ### Some more examples
 - [Asynchronous data fetching](https://codesandbox.io/s/biscuit-storeasynchronous-data-fetching-vce5e?file=/src/store/counter/adapter.js)
