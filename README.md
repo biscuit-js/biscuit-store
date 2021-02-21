@@ -197,7 +197,7 @@ ReactDOM.render(
 [![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 
 ### Some more examples
-- [Asynchronous data fetching](https://codesandbox.io/s/dazzling-jones-vce5e?file=/src/store/counter/adapter.js)
+- [Asynchronous data fetching](https://codesandbox.io/s/biscuit-storeasynchronous-data-fetching-vce5e)
 - [Todo list](https://codesandbox.io/s/divine-wave-eh2ld?file=/src/index.js)
 - [Typescript example](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/index.tsx)
 
