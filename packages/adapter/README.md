@@ -1,6 +1,6 @@
 ## @biscuit-store/adapter
 
-"Library for managing javascript application states"
+Library for managing javascript application states
 
 ### Instalation 
 

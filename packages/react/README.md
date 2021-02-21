@@ -1,16 +1,16 @@
-## @biscuit-store/adapter
+## @biscuit-store/react
 
-"Library for managing javascript application states"
+Library for managing javascript application states
 
 ### Instalation 
 
 npm:
 ```
-npm install @biscuit-store/adapter
+npm install @biscuit-store/react
 ```
 or yarn:
 ```
-yarn add @biscuit-store/adapter
+yarn add @biscuit-store/react
 ```
 
 Documentation [here](https://github.com/Biscuit-javascript/biscuit-store)
