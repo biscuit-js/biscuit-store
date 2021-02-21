@@ -1,6 +1,5 @@
 import React from 'react';
-import { dispatch, getState } from '@biscuit-store/core';
-import { utils } from '@biscuit-store/core';
+import { utils, dispatch, getState } from '@biscuit-store/core';
 const { emitter } = utils;
 
 /**

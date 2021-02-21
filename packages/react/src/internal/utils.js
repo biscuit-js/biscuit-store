@@ -1,5 +1,4 @@
-import { getRepo, getState } from '@biscuit-store/core';
-import { utils } from '@biscuit-store/core';
+import { getRepo, getState, utils } from '@biscuit-store/core';
 const { CreateError } = utils;
 
 /** Get state or repository data */
