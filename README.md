@@ -198,8 +198,8 @@ ReactDOM.render(
 
 ### Some more examples
 - [Asynchronous data fetching](https://codesandbox.io/s/biscuit-storeasynchronous-data-fetching-vce5e?file=/src/store/counter/adapter.js)
-- [Todo list](https://codesandbox.io/s/divine-wave-eh2ld?file=/src/index.js)
-- [Typescript example](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/index.tsx)
+- [Todo list](https://codesandbox.io/s/biscuit-storetodo-list-eh2ld)
+- [Typescript example](https://codesandbox.io/s/biscuit-storetypescript-fyhdc)
 
 
 ### Contributing
