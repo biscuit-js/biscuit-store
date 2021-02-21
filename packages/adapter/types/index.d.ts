@@ -1,4 +1,10 @@
-import { Adapter, AdapterActionCtx, GetAction, Send, ActionListner } from './adapter';
+import {
+    Adapter,
+    AdapterActionCtx,
+    GetAction,
+    Send,
+    ActionListner,
+} from './adapter';
 
 /**
  * This is a feature for creating middleware for the biscuit-store.
