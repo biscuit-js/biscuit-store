@@ -1,6 +1,6 @@
 # @biscuit-store/react
 
-## 0.9.83
+## 0.9.89
 ### Patch Changes
 
 - Added copy readme script
