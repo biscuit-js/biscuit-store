@@ -97,7 +97,7 @@ counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 
 
 ### Basic example with managed states
-Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **Adapter** or write your own function.
+Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **[Adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md)** or write your own function.
 
 Installation of adapter:
 ``` javascript
