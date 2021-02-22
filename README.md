@@ -217,7 +217,7 @@ If you liked the library, you have many ways to help it develop.
 - Put a star on github;
 - Write about the bugs found and suggest improvements;
 - Participate in the development, offer your pull request;
-- Or you can just help financially;
+- Or you can just help financially; 
   
 The rules of assistance can be found [here](https://github.com/biscuit-js/biscuit-store/blob/HEAD/CONTRIBUTING.md).
 
