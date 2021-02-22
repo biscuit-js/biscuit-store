@@ -41,8 +41,7 @@ const counterStore = createStore({
   },
   states: {
     counterAdd: "counter/add",
-    counterClear: "counter/clear",
-    counterPrev: "counter/prev",
+    counterClear: "counter/clear"
   },
   middleware: [adapter.connect]
 });
