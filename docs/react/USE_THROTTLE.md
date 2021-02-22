@@ -23,5 +23,5 @@ Learn more about [throttle](https://javascript.info/task/throttle)
 
 [![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/DispatchThrottleExample.tsx)
 
-### Lern more
+### Learn more
 - [useDispatchDebounce](/docs/react/USE_DEBOUNCE.md)

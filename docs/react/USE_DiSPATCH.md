@@ -22,5 +22,5 @@ function Component() {
  ```
 [![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/DispatchExample.tsx)
 
- ## Lern more
+ ## Learn more
  - [useDispatchThrottle](/docs/react/USE_THROTTLE.md)
