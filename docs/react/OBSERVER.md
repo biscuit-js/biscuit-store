@@ -47,6 +47,6 @@ The same behavior should be taken into account when working with branches.
 
 [![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 #### Dependencies are required
-Dependencies are required for two reasons. First, without them, the component simply does not understand when it needs to be updated. Secondly, the obvious indication of dependencies makes the code more obvious, you can always understand which store and state the component is bound to and determine what data it accepts.
-### Lern more
+Dependencies are necessary for two reasons. First, without them, the component simply does not understand when it needs to be updated. Secondly, the obvious indication of dependencies makes the code more readable, you can always understand what storage or state the component is bound to, and determine what data it accepts.
+### Learn more
 - [Subscribe](/docs/SUBSCRIBE.md)
