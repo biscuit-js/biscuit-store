@@ -25,7 +25,11 @@ The main goal of the biscuit-store is to provide the developer with the most fle
 
 **Developer of the biscuit-store:**
 > Initially, I created this library for use in my projects. The idea was to create a states-machine that will combine a number of functions that I lack in other similar tools, as well as to simplify the process of creating repositories and their support. After receiving a number of positive feedback from colleagues, I decided to share this project with the general public.
-
+### Tested in browsers
+| Platform 	| ![chrome](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/chrome.svg) 	| ![ie](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/explorer.svg)  	| ![opera](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/opera.svg)  	| ![ff](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/mozilla.svg)  	| ![saafari](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/safari.svg) 	|
+|----------	|--------	|-----	|-------	|---------	|--------	|
+| Version  	| 48+    	| 11+ 	| 25+   	| 40+     	| 9+     	|
+| Checked  	| ![+](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/check.svg)      	| ![+](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/check.svg)    	| ![+](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/check.svg)      	| ![+](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/check.svg)        	| ![+](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/check.svg)       	|
 
 ### Installation
 
@@ -99,7 +103,7 @@ counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 
 
 ### Basic example with managed states
-Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **[Adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md)** or write your own function.
+Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **Adapter** or write your own function.
 
 Installation of adapter:
 ``` javascript
