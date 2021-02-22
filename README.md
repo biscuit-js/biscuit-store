@@ -26,10 +26,10 @@ The main goal of the biscuit-store is to provide the developer with the most fle
 **Developer of the biscuit-store:**
 > Initially, I created this library for use in my projects. The idea was to create a states-machine that will combine a number of functions that I lack in other similar tools, as well as to simplify the process of creating repositories and their support. After receiving a number of positive feedback from colleagues, I decided to share this project with the general public.
 ### Tested in browsers
-| Platform | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/chrome.svg" width=25px alt="chrome" />  | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/explorer.svg" width=25px alt="ie" />  | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/opera.svg" width=25px alt="opera" /> | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/mozilla.svg" width=25px alt="ff" /> | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/safari.svg" width=25px alt="safari" /> |
+| Platform | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/chrome.svg" width=25px alt="chrome" />  | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/explorer.svg" width=25px alt="ie" />  | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/opera.svg" width=25px alt="opera" /> | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/mozilla.svg" width=25px alt="ff" /> | <img src="https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/" width=25px alt="safari" /> |
 |----------|--------|-----|-------|---------|--------|
-| Version  | 48+    | 11+ | 25+   | 40+     | 9+     |
-| Checked  | +      | +   | +     | +       | +      |
+| **Version**  | 48+    | 11+ | 25+   | 40+     | 9+     |
+| **Checked**  | +      | +   | +     | +       | +      |
 
 ### Installation
 
