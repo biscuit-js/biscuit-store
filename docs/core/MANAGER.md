@@ -19,4 +19,4 @@ You can find out the manager's methods in the [API section](/docs/API_REFERENCE.
 > - The remove method - removes the repository and its copy from all states. I recommend using this method only in one situation, if you need to delete a repository with a large amount of data that has become unnecessary for optimization purposes. Illiterate use of this method will lead to non-obvious errors.
 
 ### Learn more
-- [Midddleware](/docs/core/MIDDLEWARE.md)
+- [Middleware](/docs/core/MIDDLEWARE.md)
