@@ -206,8 +206,9 @@ ReactDOM.render(
 
 ### Some more examples
 - [Asynchronous data fetching](https://codesandbox.io/s/biscuit-storeasynchronous-data-fetching-vce5e?file=/src/store/counter/adapter.js)
-- [Todo list](https://codesandbox.io/s/biscuit-storetodo-list-eh2ld)
+- [Application of dispatch methods](https://codesandbox.io/s/biscuit-storedispatch-after-example-lzceg)
 - [Typescript example](https://codesandbox.io/s/biscuit-storetypescript-fyhdc)
+- [Todo list](https://codesandbox.io/s/biscuit-storetodo-list-eh2ld)
 
 
 ### Contributing
