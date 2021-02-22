@@ -42,7 +42,7 @@ export const Component = observer(
   [storeA, storeB]
 );
 ```
-We have the dependencies ```StoreA``` and ```StoreB```, they contain they contain fields with the identical key ```"name"```. The ```"name"``` field from the StoreB dependency will be included in the component parameters , since it was the second one according to the sequence principle and overwritten the name field from ```StoreA```.
+We have the dependencies ```StoreA``` and ```StoreB```, they contain they contain fields with the identical key ```"name"```. The ```"name"``` field from the StoreB dependency will be included in the component parameters , since it was the second one according to the sequence principle and overwritten the ```"name"``` field from ```StoreA```.
 
 The same behavior should be taken into account when working with branches.
 
