@@ -59,3 +59,6 @@ store
 |________adapter.js
 ...
 ```
+
+### Learn more
+ - [React](/docs/react/REACT.md)
