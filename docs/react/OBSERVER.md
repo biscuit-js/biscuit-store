@@ -27,6 +27,7 @@ Observer supports working with multiple stores, meaning you can add several acti
 
 > Still, I recommend thinking through your architecture so that your observer components have as few dependencies as possible.
 
+#### Sequence principle
 One of the principles that you should keep in mind is that data from dependencies is collected in turn. Accordingly, if you have several repositories that have objects with the same keys, for example:
 
 ```javascript
@@ -41,7 +42,7 @@ export const Component = observer(
   [storeA, storeB]
 );
 ```
-We have a dependency **StoreA** and **StoreB** they contain the same key name. In the component parameters according to the sequence principle, the **name** field from the **StoreB** dependency will fall, since it was the second one.
+We have the dependencies ```StoreA``` and ```StoreB```, they contain they contain fields with the identical key ```"name"```. The ```"name"``` field from the StoreB dependency will be included in the component parameters , since it was the second one according to the sequence principle and overwritten the name field from ```StoreA```.
 
 The same behavior should be taken into account when working with branches.
 
