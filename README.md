@@ -5,7 +5,7 @@ Library for managing javascript application states.
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40BiscuitJs)](https://twitter.com/BiscuitJs)
 
-[Official library website](https://biscuit-js.org/)
+[**Official library website**](https://biscuit-js.org/)
 
 ### Description
 
