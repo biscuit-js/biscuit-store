@@ -5,7 +5,9 @@ Library for managing javascript application states.
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40BiscuitJs)](https://twitter.com/BiscuitJs)
 
-[Official library website](https://biscuit-js.org/)
+
+
+
 
 ### Description
 
@@ -45,25 +47,25 @@ npm install @biscuit-store/react
 
 ### Documentation
 
-- [Get started](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/GET_STARTED.md)
-- [Store](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md)
-- [Subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md)
-- [State](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STATE.md)
-- [Manager](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/MANAGER.md)
-- [Middleware](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/MIDDLEWARE.md)
-- [Debugger](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/DEBUGGER.md)
-- [Adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md)
-- [React](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/react/REACT.md)
+- [Get started](/docs/start)
+- [Store](/docs/store)
+- [Subscribe](/docs/subscribe)
+- [State](/docs/state)
+- [Manager](/docs/manager)
+- [Middleware](/docs/middleware)
+- [Debugger](/docs/debugger)
+- [Adapter](/docs/adapter)
+- [React](/docs/react)
 
 ### Help
-- [Recommendations](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/RECOMMENDATIONS.md)
-- [API Reference](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md)
-- [Dictionary](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/DICTIONARY.md)
+- [Recommendations](/docs/recommendations)
+- [API Reference](/docs/api)
+- [Dictionary](/docs/dictionary)
 
 --------
 
 ### Basic exemple
-The easiest way to create a new store is to use the [createStore](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md) function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
+The easiest way to create a new store is to use the [createStore](/docs/store) function. The function accepts a set of parameters that can consist of the fields repo, states, middleware and debug. Repo is a required field.
 
 store/counter/index.js
 ``` javascript
@@ -84,7 +86,7 @@ const counterStore = createStore({
 export const { store } = counterStore;
 export const { counterAdd } = counterStore.actions;
 ```
-Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#creating-a-subscription) method, and to send the status, we use the [dispatch](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#Dispatch) method.
+Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](/docs/subscribe#Creating-a-subscription) method, and to send the status, we use the [Dispatch](/docs/subscribe#Dispatch) method.
 
 counter.js
 ``` javascript
@@ -103,7 +105,7 @@ counterAdd.dispatch((prev) => ({ value: prev.value + 1 }));
 
 
 ### Basic example with managed states
-Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the **Adapter** or write your own function.
+Well, what if we want to managed state logic? Biscuit promotes the flexibility of the architecture, and for this reason, we did not force the developer to mandatory use of managed state. If you need it just use the built-in middleware the [**Adapter**](/docs/adapter) or write your own function.
 
 Installation of adapter:
 ``` javascript
@@ -235,7 +237,7 @@ You can see the list of changes [here](https://github.com/biscuit-js/biscuit-sto
 
 ### What is planned
 - Before version **1.0.0**, it is planned to get rid of critical bugs if there are any, configure the deployment, and make more coverage with auto-tests.
-- In version **1.1.0**, it is planned to add a new middleware **slide**, which will be a more advanced version of the [adapter](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md), and will partially resemble [redux-saga](https://redux-saga.js.org/).
+- In version **1.1.0**, it is planned to add a new middleware **slide**, which will be a more advanced version of the [adapter](/docs/adapter), and will partially resemble [redux-saga](https://redux-saga.js.org/).
 ### Adolescence
 - The library is still young and is in beta testing, for this reason, you may stumble upon bugs and flaws. Please be constructive and help us make this tool better.
 - The developer is not a full-fledged native speaker of English, for this reason, there may be errors and tautologies in the documentation, if you have the opportunity to make the documentation better, then I will be glad of any help.

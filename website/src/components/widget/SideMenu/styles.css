@@ -1,0 +1,89 @@
+.sideMenu {
+  width: 320px;
+  min-width: 320px;
+  height: 100%;
+  background: rgb(246 155 9);
+  position: relative;
+  transition: all 300ms ease-in-out;
+  transform: translateX(0);
+  z-index: 20;
+}
+
+.menuIcon {
+    padding: 7px;
+    text-align: right;
+    margin: auto 0 auto auto;
+    cursor: pointer;
+    display: none;
+    z-index: 20;
+}
+
+.menuIcon svg {
+    width: 20px;
+    fill: #fff
+}
+
+@media all and (max-width: 1300px) {
+    .menuIcon {
+        display: block;
+    }
+    .sideMenu {
+        position: absolute;
+        transform: translateX(-285px);
+    }
+    .sideMenu.active {
+        transform: translateX(0);
+    }
+}
+
+
+.iconsBlockVertical {
+    margin-top: 50px;
+    position: absolute;
+    right: -35px
+}
+
+
+.iconsBlockVertical > a > div {
+    margin-bottom: 15px;
+}
+
+.logoBlock {
+    margin: 47px 15px;
+    width: 250px
+}
+
+.logoBlock > img {
+    width: 100%;
+    display: block;
+}
+
+.menuItems {
+    text-align: left;
+    padding: 20px;
+}
+
+.menuItems > a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    opacity: 1;
+    transition: all 300ms ease-in-out;
+    display: inline-flex;
+    margin-right: 150px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+}
+
+.menuItems > a:hover {
+    opacity: 0.8;
+}
+
+.menuItems > a:active {
+    opacity: 0.5;
+}
+
+.menuItems > a.active {
+    border-bottom: 2px solid #fff;
+}

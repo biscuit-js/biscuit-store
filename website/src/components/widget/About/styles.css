@@ -1,0 +1,20 @@
+.about {
+  display: flex;
+  width: 100%;
+  background: #fff;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+  padding: 35px 30px;
+  box-sizing: border-box;
+}
+
+.aboutWrapper {
+  max-width: 680px;
+}
+
+.text {
+  color: #585858;
+  font-weight: 400;
+  line-height: 22px;
+}

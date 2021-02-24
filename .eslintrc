@@ -110,7 +110,7 @@
     "semi": ["error", "always"],
     "semi-spacing": "error",
     "quotes": ["error", "single"],
-    "max-len": ["error", 100],
+    "max-len": ["error", { "code": 100, "ignoreStrings": true }],
     "global-require": 0,
     "no-unused-vars": "off",
     "sonarjs/no-identical-functions": 0,

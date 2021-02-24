@@ -1,0 +1,38 @@
+.paggerButtons {
+  display: flex;
+  padding: 5px 0;
+}
+
+.paggerButtons > div {
+  font-weight: 600;
+  line-height: 30px;
+  margin: 15px 30px 15px 0;
+  color: #585858;
+  border-bottom: 2px solid transparent;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.paggerButtons > div:hover {
+  border-bottom: 2px solid #919191;
+}
+
+.paggerButtons > div.active {
+  color: rgba(88, 88, 88, 0.53);
+  border-bottom: 2px solid rgb(246 155 9);
+}
+
+.paggerFrame {
+  height: 300px;
+  width: 550px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.paggerFrame > div {
+  transition: all 300ms ease-in-out;
+}
+
+.pagger {
+  margin-bottom: 25px;
+}

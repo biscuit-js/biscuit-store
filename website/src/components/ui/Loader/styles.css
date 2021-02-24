@@ -1,0 +1,25 @@
+.loader {
+    position: fixed;
+    width: 67px;
+    height: 67px;
+    z-index: 10;
+    top: 0;
+    bottom: 0;
+    left: 320px;
+    right: 0;
+    margin: auto;
+    visibility: hidden;
+    transition: all 200ms ease-in-out;
+    opacity: 0;
+}
+
+.loader.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media all and (max-width: 1300px) {
+    .loader {
+        left: 35px;
+    }
+}

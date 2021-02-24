@@ -1,0 +1,51 @@
+.advantages {
+  display: flex;
+  width: 100%;
+  background: #fff;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+  padding: 30px 0;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #585858;
+}
+
+.grid > .col svg {
+  fill: rgb(246 155 9);
+  width: 00px;
+  width: 80px;
+  display: block;
+  margin: 20px auto 15px auto;
+}
+
+.grid > .col {
+  text-align: center;
+  width: 180px;
+}
+
+.donate {
+  border-top: 1px solid #c0c0c0;
+  padding-top: 30px;
+  margin-top: 50px;
+}
+
+.donateText {
+  color: rgb(246 155 9);
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.feedback {
+  color: #585858;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.feedback > b {
+  font-weight: 600;
+}
