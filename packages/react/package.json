@@ -1,15 +1,18 @@
 {
   "name": "@biscuit-store/react",
-  "version": "0.9.89",
+  "version": "0.9.90",
   "description": "Library for managing javascript application states",
   "author": "Zhulev Philipp",
   "license": "MIT",
+  "homepage": "https://biscuit-js.org/",
   "keywords": [
     "javascript",
     "react",
+    "immutable",
     "state",
     "library",
     "state-managment",
+    "state-machine",
     "es6"
   ],
   "repository": {
@@ -63,8 +66,8 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@biscuit-store/core": "0.9.89",
-    "@biscuit-store/types": "0.9.89",
+    "@biscuit-store/core": "0.9.90",
+    "@biscuit-store/types": "0.9.90",
     "react": "^16.8.3 || ^17"
   },
   "types": "./types",

@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "homepage": "https://biscuit-js.org/",
   "keywords": [
     "javascript",
     "react",
