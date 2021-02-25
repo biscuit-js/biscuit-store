@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { createAdapter } from '../src/index';
-import { testStore } from './testStore';
+import { testStore } from './testStore.js';
 
 it('calling async function', (done) => {
     expect.assertions(3);

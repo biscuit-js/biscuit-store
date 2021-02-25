@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { createAdapter } from '../src/index';
-import { testStore } from './testStore';
+import { testStore } from './testStore.js';
 
 it('calling action', (done) => {
     expect.assertions(2);
