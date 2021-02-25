@@ -4,6 +4,7 @@ import {
     GetAction,
     Send,
     ActionListner,
+    CallHandler,
 } from './adapter';
 
 /**
@@ -17,4 +18,5 @@ export {
     GetAction,
     Send,
     ActionListner,
+    CallHandler,
 };

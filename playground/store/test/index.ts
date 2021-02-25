@@ -4,7 +4,7 @@ import { adapter } from './adapter';
 const { actions, store } = createStore({
     repo: {
         name: 'user',
-        initial: { value: 0 },
+        initial: { value: 0, data: '' },
     },
     states: {
         testAdd: 'test/add',
@@ -14,9 +14,19 @@ const { actions, store } = createStore({
             branch: true,
             initial: { name: '' },
         },
+        testFetch: 'test/fetch',
+        testInclude: 'test/include',
+        testExecute: 'test/execute',
     },
     middleware: [adapter.connect],
 });
 
 export const testStore = store;
-export const { testAdd, testRemove, testStep } = actions;
+export const {
+    testAdd,
+    testRemove,
+    testStep,
+    testFetch,
+    testInclude,
+    testExecute,
+} = actions;

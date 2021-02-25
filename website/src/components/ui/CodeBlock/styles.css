@@ -8,7 +8,6 @@
   font-family: "Monaco", "Menlo", courier, monospace;
   font-size: 12px;
   min-height: 270px;
-  padding: 15px;
 }
 
 .codeBlock > pre {

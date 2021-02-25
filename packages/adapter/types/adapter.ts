@@ -9,7 +9,7 @@ export type Send = (newPayload: any) => void;
 /** adapter action context */
 export interface AdapterActionCtx {
     getAction: GetAction;
-    send: Send;
+    send?: Send;
 }
 
 /**
@@ -19,7 +19,32 @@ export interface AdapterActionCtx {
  * @param ctx response methods
  */
 export type ActionListner<T, P, S> =
-    (payload: P, state: S, ctx: AdapterActionCtx) => T;
+    (payload?: P, state?: S, ctx?: AdapterActionCtx) => T | Promise<T>;
+
+/**
+ * Type of the result handler
+ * @param result data after processing the synchronous function
+ * @param state state data
+ * @param ctx response methods
+ */
+export type CallHandler<T, S> =
+    (result: T, state: S, ctx: AdapterActionCtx) => any;
+
+/** Channel type */
+export interface Channel {
+    /**
+     * The function writes data to the channel.
+     * @param  payload the data for a send
+     */
+    include: <T>(payload: T) => void;
+
+    /**
+     * Function for extracting data from a channel.
+     * @param {object} payload the data for a mail merge
+     * @return {Promise}
+     */
+    extract: <T>(payload: T) => Promise<any>;
+}
 
 /** Adapter returned interface */
 export interface Adapter {
@@ -37,4 +62,19 @@ export interface Adapter {
      * @param fn callback function
      */
     action: <T = {}, P = {}, S = {}>(actionName: string, fn: ActionListner<T, P, S>) => void;
+
+    /**
+     * Сall async method
+     * сalls an asynchronous function and handler in the scheduler.
+     * @param ctionName action name
+     * @param fn async function
+     * @param handler handler of the received result
+     */
+    call: <T = {}, P = {}, S = {}>
+    (actionName: string, fn: ActionListner<T, P, T>, handler?: CallHandler<T, S>) => void;
+
+    /**
+     * Function for creating a channel
+     */
+    makeChannel: () => Channel;
 }

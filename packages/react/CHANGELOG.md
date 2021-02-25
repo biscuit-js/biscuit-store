@@ -1,8 +1,9 @@
 # @biscuit-store/react
 
-## 0.9.89
+## 0.9.92
 ### Patch Changes
 
-- Added copy readme script
-- Added restore readme script
-- Added dispatch.wait unit test
+- Added adapter unit test
+- Added call method to adapter
+- Added channel method to adapter
+- Added createStateTo unit test
