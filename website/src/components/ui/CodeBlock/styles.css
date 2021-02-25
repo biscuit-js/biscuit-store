@@ -1,23 +1,15 @@
-.codeBox {
+.codeBlock {
   width: 550px;
   margin: 0 0 0 0;
   text-align: left;
 }
-.codeBox > pre > code {
+.codeBlock > pre > code {
   font-family: "Monaco", "Menlo", courier, monospace;
   font-size: 12px;
   min-height: 270px;
   padding: 15px;
 }
 
-.codeBox > pre {
+.codeBlock > pre {
   margin: 0 0 0 0;
 }
-
-/* .hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  color: rgb(220 207 143);
-  background: url(./pojoaque.jpg) repeat scroll left top rgb(53 53 53);
-} */

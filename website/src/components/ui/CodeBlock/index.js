@@ -4,7 +4,7 @@ import 'highlight.js/styles/night-owl.css';
 
 export function CodeBlock({ value, language }) {
     return (
-        <div className="codeBox">
+        <div className="codeBlock">
             <CodeFrame className={language}>{value}</CodeFrame>
         </div>
     );

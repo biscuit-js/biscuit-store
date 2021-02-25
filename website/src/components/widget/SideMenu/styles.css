@@ -23,19 +23,6 @@
     fill: #fff
 }
 
-@media all and (max-width: 1300px) {
-    .menuIcon {
-        display: block;
-    }
-    .sideMenu {
-        position: absolute;
-        transform: translateX(-285px);
-    }
-    .sideMenu.active {
-        transform: translateX(0);
-    }
-}
-
 
 .iconsBlockVertical {
     margin-top: 50px;
@@ -86,4 +73,24 @@
 
 .menuItems > a.active {
     border-bottom: 2px solid #fff;
+}
+
+@media all and (max-width: 1300px) {
+    .menuIcon {
+        display: block;
+    }
+    .sideMenu {
+        position: absolute;
+        transform: translateX(-285px);
+    }
+    .sideMenu.active {
+        transform: translateX(0);
+    }
+
+    .logoBlock {
+        margin: 7px 15px 20px 15px;
+    }
+    .iconsBlockVertical {
+        margin-top: 10px;
+    }
 }

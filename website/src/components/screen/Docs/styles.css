@@ -22,7 +22,7 @@
 
 @media all and (max-width: 1300px) {
     .viewer {
-        padding: 50px 80px;
+        padding: 50px 40px 50px 70px;
     }
 
     .markdown-body .codeBox {

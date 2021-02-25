@@ -21,7 +21,7 @@ function flatten(text, child) {
 function HeadingRenderer(props) {
     let children = React.Children.toArray(props.children);
     let text = children.reduce(flatten, '');
-    let slug = text.replaceAll('.', '').replace(/\W/g, '-');
+    let slug = text.replace('.', '').replace(/\W/g, '-');
     return React.createElement('h' + props.level, { id: slug }, props.children);
 }
 
