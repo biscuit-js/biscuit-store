@@ -1,26 +1,5 @@
 import { createAdapter } from '../src/index';
-import { createStore } from '../../biscuit-store';
-
-export const testStore = (name, adapter) => {
-    const { store, actions } = createStore({
-        repo: {
-            name,
-            initial: { value: 0 },
-        },
-        states: {
-            add: 'add/action',
-            remove: 'remove/action',
-        },
-        middleware: [adapter.connect],
-        strictMode: false,
-    });
-
-    return {
-        store,
-        add: actions.add,
-        remove: actions.remove,
-    };
-};
+import { testStore } from './testStore';
 
 it('calling action', (done) => {
     expect.assertions(2);

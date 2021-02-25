@@ -1,6 +1,5 @@
 import { createAdapter } from '../src/index';
 
-
 it('create new adapter', () => {
     expect(typeof createAdapter).toEqual('function');
 });
