@@ -729,17 +729,143 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 var regenerator = runtime_1;
 
+/**
+ * A function that performs the logic
+ * of an action processing task
+ * @param {*} connector
+ * @param {*} context
+ * @param {*} next
+ */
+function runAction(connector, context, next) {
+  var update;
+  return regenerator.async(function runAction$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          update = connector.fn(context.payload, context.state, {
+            send: next,
+            getAction: context.getAction
+          });
+
+          if (update) {
+            next(update);
+          }
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, null, Promise);
+}
+
+/**
+ * A function that performs the logic
+ * of the asynchronous function call task
+ * @param {*} connector
+ * @param {*} context
+ * @param {*} next
+ */
+function runCall(connector, context, next) {
+  var handleData, update;
+  return regenerator.async(function runCall$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          handleData = null;
+          _context.next = 3;
+          return regenerator.awrap(connector.fn(context.payload, context.state, {
+            getAction: context.getAction
+          }));
+
+        case 3:
+          update = _context.sent;
+
+          if (connector.handler) {
+            handleData = connector.handler(update);
+          }
+
+          next(handleData || update);
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, null, Promise);
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+/**
+ * Function for creating a channel
+ */
+var makeChannel = function makeChannel() {
+  var chan = null;
+  return {
+    /**
+     * The function writes data to the channel.
+     * @param {object} payload the data for a send
+     */
+    include: function include(payload) {
+      var _chan;
+
+      if ((_chan = chan) != null && _chan.resolve) {
+        chan.resolve(_objectSpread(_objectSpread({}, payload), chan.payload));
+        chan = null;
+      }
+    },
+
+    /**
+     * Function for extracting data from a channel.
+     * @param {object} payload the data for a mail merge
+     * @return {Promise}
+     */
+    extract: function extract(payload) {
+      return new Promise(function (resolve) {
+        chan = {
+          payload: payload,
+          resolve: resolve
+        };
+      });
+    }
+  };
+};
+
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/** A collection of tasks for the scheduler */
 
+var tasks = {
+  action: runAction,
+  call: runCall
+};
 /**
  * This is a feature for creating middleware for the biscuit-store.
  * Allows you to create a manageable condition.
  * @public
 */
+
 function createAdapter() {
   var connectors = [];
   return {
@@ -750,63 +876,136 @@ function createAdapter() {
      * @public
      */
     connect: function connect(context, next) {
-      var resolve = false;
+      var resolve, _loop, _iterator, _step, _ret;
 
-      var _loop = function _loop() {
-        var connector = _step.value;
+      return regenerator.async(function connect$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              resolve = false;
 
-        if (connector.act === context.action) {
-          (function _callee() {
-            var update;
-            return regenerator.async(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    update = connector.fn(context.payload, context.state, {
-                      send: next,
-                      getAction: context.getAction
-                    });
+              _loop = function _callee() {
+                var connector, task;
+                return regenerator.async(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        connector = _step.value;
 
-                    if (update) {
-                      next(update);
+                        if (!(connector.act === context.action)) {
+                          _context.next = 11;
+                          break;
+                        }
+
+                        task = function task() {
+                          return tasks[connector.type](connector, context, next);
+                        };
+
+                        if (!connector.await) {
+                          _context.next = 8;
+                          break;
+                        }
+
+                        _context.next = 6;
+                        return regenerator.awrap(task());
+
+                      case 6:
+                        _context.next = 9;
+                        break;
+
+                      case 8:
+                        task();
+
+                      case 9:
+                        resolve = true;
+                        return _context.abrupt("return", "break");
+
+                      case 11:
+                      case "end":
+                        return _context.stop();
                     }
+                  }
+                }, null, null, null, Promise);
+              };
 
-                  case 2:
-                  case "end":
-                    return _context.stop();
-                }
+              _iterator = _createForOfIteratorHelperLoose(connectors);
+
+            case 3:
+              if ((_step = _iterator()).done) {
+                _context2.next = 11;
+                break;
               }
-            }, null, null, null, Promise);
-          })();
 
-          resolve = true;
-          return "break";
+              _context2.next = 6;
+              return regenerator.awrap(_loop());
+
+            case 6:
+              _ret = _context2.sent;
+
+              if (!(_ret === "break")) {
+                _context2.next = 9;
+                break;
+              }
+
+              return _context2.abrupt("break", 11);
+
+            case 9:
+              _context2.next = 3;
+              break;
+
+            case 11:
+              if (!resolve) {
+                next(context.payload);
+              }
+
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
         }
-      };
-
-      for (var _iterator = _createForOfIteratorHelperLoose(connectors), _step; !(_step = _iterator()).done;) {
-        var _ret = _loop();
-
-        if (_ret === "break") break;
-      }
-
-      if (!resolve) {
-        next(context.payload);
-      }
+      }, null, null, null, Promise);
     },
 
-    /** create action
-     * adds an action to the scheduler
+    /**
+     * Сreate action
+     * dds an action to the scheduler
      * @param {string} actionName action name
      * @param {import('../../types/adapter').ActionListner} fn callback function
-     * @public
      */
     action: function action(actionName, fn) {
       connectors.push({
         act: actionName,
-        fn: fn
+        fn: fn,
+        type: 'action',
+        await: false
       });
-    }
+    },
+
+    /**
+     * Сall async method
+     * сalls an asynchronous function and handler in the scheduler.
+     * @param {string} actionName action name
+     * @param {import('../../types/adapter').ActionListner} fn async function
+     * @param {import('../../types/adapter').CallHandler} handler handler of the received result
+     */
+    call: function call(actionName, fn, handler) {
+      if (handler === void 0) {
+        handler = null;
+      }
+
+      connectors.push({
+        act: actionName,
+        fn: fn,
+        handler: handler,
+        type: 'call',
+        await: true
+      });
+    },
+
+    /**
+     * Function for creating a channel
+     */
+    makeChannel: makeChannel
   };
 }
 

@@ -1,3 +1,12 @@
+import { runAction } from './action';
+import { runCall } from './call';
+import { makeChannel } from './makeChannel';
+
+/** A collection of tasks for the scheduler */
+const tasks = {
+    action: runAction,
+    call: runCall,
+};
 
 /**
  * This is a feature for creating middleware for the biscuit-store.
@@ -14,21 +23,19 @@ export function createAdapter() {
          * @param {function} next callback function
          * @public
          */
-        connect: (context, next) => {
+        connect: async (context, next) => {
             let resolve = false;
             for (let connector of connectors) {
                 if (connector.act === context.action) {
-                    (async function () {
-                        const update = connector.fn(
-                            context.payload,
-                            context.state,
-                            { send: next, getAction: context.getAction }
-                        );
+                    const task = () => tasks[connector.type](connector, context, next);
 
-                        if (update) {
-                            next(update);
-                        }
-                    })();
+                    if (connector.await) {
+                        await task();
+                    } else {
+                        task();
+                    }
+
+
                     resolve = true;
                     break;
                 }
@@ -39,14 +46,41 @@ export function createAdapter() {
             }
         },
 
-        /** create action
-         * adds an action to the scheduler
+        /**
+         * Сreate action
+         * dds an action to the scheduler
          * @param {string} actionName action name
          * @param {import('../../types/adapter').ActionListner} fn callback function
-         * @public
          */
         action: (actionName, fn) => {
-            connectors.push({ act: actionName, fn });
+            connectors.push({
+                act: actionName,
+                fn,
+                type: 'action',
+                await: false,
+            });
         },
+
+        /**
+         * Сall async method
+         * сalls an asynchronous function and handler in the scheduler.
+         * @param {string} actionName action name
+         * @param {import('../../types/adapter').ActionListner} fn async function
+         * @param {import('../../types/adapter').CallHandler} handler handler of the received result
+         */
+        call: (actionName, fn, handler = null) => {
+            connectors.push({
+                act: actionName,
+                fn,
+                handler,
+                type: 'call',
+                await: true,
+            });
+        },
+
+        /**
+         * Function for creating a channel
+         */
+        makeChannel,
     };
 }
