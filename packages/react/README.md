@@ -1,6 +1,6 @@
 ## @biscuit-store/react
 
-Library for managing javascript application states
+Library for management javascript application states.
 
 ### Instalation 
 

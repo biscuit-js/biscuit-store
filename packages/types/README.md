@@ -1,4 +1,4 @@
-## @biscuit-store/core
+## @biscuit-store/types
 
 Library for management javascript application states.
 
@@ -6,11 +6,11 @@ Library for management javascript application states.
 
 npm:
 ```
-npm install @biscuit-store/core
+npm install @biscuit-store/types
 ```
 or yarn:
 ```
-yarn add @biscuit-store/core
+yarn add @biscuit-store/types
 ```
 
 Documentation [here](https://github.com/Biscuit-javascript/biscuit-store)
