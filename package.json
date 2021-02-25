@@ -43,7 +43,7 @@
     "readme:restore": "node ./scripts/restore-readme",
     "web:start": "lerna run web:start",
     "web:test": "lerna run --parallel web:test",
-    "web:boild": "lerna run --parallel web:build"
+    "web:build": "lerna run --parallel web:build"
   },
   "dependencies": {
     "custom-env": "^2.0.1",

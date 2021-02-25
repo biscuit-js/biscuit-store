@@ -1,6 +1,7 @@
 import React from 'react';
 import CodeFrame from 'react-highlight';
 import 'highlight.js/styles/night-owl.css';
+import './styles.css';
 
 export function CodeBlock({ value, language }) {
     return (

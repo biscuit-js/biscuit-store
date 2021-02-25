@@ -1,7 +1,8 @@
 .codeBlock {
-  width: 550px;
+  width: 70%;
   margin: 0 0 0 0;
   text-align: left;
+  margin-bottom: 15px;
 }
 .codeBlock > pre > code {
   font-family: "Monaco", "Menlo", courier, monospace;
@@ -12,4 +13,10 @@
 
 .codeBlock > pre {
   margin: 0 0 0 0;
+}
+
+@media all and (max-width: 1200px) {
+  .codeBlock {
+      width: 100%;
+  }
 }
