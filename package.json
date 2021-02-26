@@ -14,7 +14,7 @@
     "state",
     "library",
     "state-managment",
-    "state-machine",
+    "state-machine", 
     "es6"
   ],
   "repository": "https://github.com/Biscuit-javascript/biscuit-store.git",
