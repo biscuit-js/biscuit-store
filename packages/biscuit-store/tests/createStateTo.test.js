@@ -1,19 +1,19 @@
-import { createStore, createStateTo } from '../src/index.js';
+import { createStore, createActionTo } from '../src/index.js';
 
-it('createStateTo', () => {
+it('createActionTo', () => {
     const name = 'test-din-action';
     const { store } = createStore({
         repo: {
             name,
             initial: { value: 1 },
         },
-        states: {
+        actions: {
             testStart: 'test/start',
         },
         strictMode: false,
     });
 
-    const states = createStateTo(store);
+    const states = createActionTo(store);
     const action = states.bind('test/step1');
 
     expect(action.repo).toEqual(name);

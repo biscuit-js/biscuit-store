@@ -115,7 +115,7 @@ export function newRepo<T>(repo: string, initial: T): Store<T>;
  * @param params name of the linked storage
  * @return returns the "add" method
  */
-export function createStateTo<T = {}>(params: Store<T>): ActionCreator;
+export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
 
 /**
  * This helper method takes the first parameter "createactionsTo"

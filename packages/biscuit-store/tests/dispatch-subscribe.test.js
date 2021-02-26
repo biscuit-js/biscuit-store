@@ -11,7 +11,7 @@ const testStore = (name, value) => {
             name: 'test-' + name,
             initial: { data: '', value },
         },
-        states: {
+        actions: {
             testStart: 'TEST/START',
             testStep: 'TEST/STEP',
             testStop: 'TEST/STOP',

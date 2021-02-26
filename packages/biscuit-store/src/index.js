@@ -6,7 +6,7 @@ import { throttle, debounce, sandbox } from './internal/utils';
 export {
     createStore,
     newRepo,
-    createStateTo,
+    createActionTo,
     initialActions,
     stateCollection,
     combineStateCollections,

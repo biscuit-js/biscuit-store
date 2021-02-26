@@ -21,7 +21,7 @@ createStore({
         name: "test-1",
         initial: {}
     },
-    states: {
+    actions: {
         add: "add/action"
     }
 })
@@ -31,7 +31,7 @@ createStore({
         name: "test-2",
         initial: {}
     },
-    states: {
+    actions: {
         add: "add/action"
     }
 })
@@ -62,7 +62,7 @@ const testStore = createStore({
         name: "test",
         initial: {}
     },
-    states: {
+    actions: {
         sandbox: {
             name: "sandbox/action",
             branch: true,

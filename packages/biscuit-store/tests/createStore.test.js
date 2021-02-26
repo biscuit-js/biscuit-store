@@ -165,7 +165,7 @@ it('check store branch state', (done) => {
             name: 'test-10',
             initial: { data: 'test' },
         },
-        states: {
+        actions: {
             testStart: {
                 name: testStart,
                 initial: { id: 0, data: 'test-1' },
@@ -299,7 +299,7 @@ it('check store invalid state type', () => {
                 name: 'test-14',
                 initial: {},
             },
-            states: {
+            actions: {
                 testState: 1,
             },
         });

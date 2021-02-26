@@ -20,7 +20,7 @@ const { actions } = createStore({
         name: "test",
         initial: { message: "" }
     },
-    states: { say: "SAY/ACTION" }, 
+    actions: { say: "SAY/ACTION" }, 
     middleware: [sayHello],
 });
 
@@ -81,7 +81,7 @@ const testStore = createStore({
     name: "test",
     initial: { id: 0, data: {}, error: null }
   },
-  states: {
+  actions: {
     fetch: "FETCH/ACTION",
     success: "SUCCESS/ACTION",
     error: "ERROR/ACTION"

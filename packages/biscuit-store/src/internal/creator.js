@@ -59,7 +59,7 @@ export function newRepo(name, initial = {}) {
  * @return {import('../../types/state').ActionCreator} returns the "add" method
  * @public
  */
-export function createStateTo(params) {
+export function createActionTo(params) {
     if (!repositories[params.repo]) {
         throw new CreateError(messages.repoNotFind);
     }
@@ -299,7 +299,7 @@ export function createStore(options) {
 
     /** Create a new storage */
     const repo = newRepo(params.repo.name, params.repo.initial);
-    const createAction = createStateTo(repo);
+    const createAction = createActionTo(repo);
 
     /** Set of storage parameters */
     const output = {
@@ -308,9 +308,9 @@ export function createStore(options) {
     };
 
     /** Adding States to the repository */
-    if (params.states) {
-        for (const key in params.states) {
-            const param = params.states[key];
+    if (params.actions) {
+        for (const key in params.actions) {
+            const param = params.actions[key];
             const paramType = typeof param === 'string';
             output.actions[key] = createAction.bind(
                 paramType ? param : param.name,

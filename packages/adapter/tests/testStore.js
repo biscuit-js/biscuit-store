@@ -6,7 +6,7 @@ export const testStore = (name, adapter) => {
             name,
             initial: { value: 0 },
         },
-        states: {
+        actions: {
             add: 'add/action',
             remove: 'remove/action',
         },

@@ -32,7 +32,7 @@ const helloStore = createStore({
         name: "hello",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
         decrement: "decrement/action",
         save: {
@@ -77,7 +77,7 @@ The composite method is the ability to create a store using multiple methods. Th
 ```javascript
 import { 
     newRepo, 
-    createStateTo, 
+    createActionTo, 
     middleware, 
     createDebuger 
 } from "@biscuit-store/core";
@@ -85,7 +85,7 @@ import { middleFunc } from "./middleware.js";
 
 export const store = newRepo("hello", { value: 0 });
 
-const createAction = createStateTo(store)
+const createAction = createActionTo(store)
 
 export const increment = createAction.bind("increment/action");
 export const decriment = createAction.bind("decrement/action");
@@ -108,7 +108,7 @@ You can get acquainted with composite methods [here](https://redux.js.org/).
 
 Composite methods have an interesting feature. You can use them to dynamically supplement the store.
 
-For example, using the createStateTo method, you can dynamically create a state from anywhere in the application.
+For example, using the createActionTo method, you can dynamically create a state from anywhere in the application.
 
 > *I do not recommend doing this without thinking in advance, Because I believe that the states should be stored in one place, otherwise it will lead to difficulties in supporting the code.* 
 
@@ -120,13 +120,13 @@ const helloStore = createStore({
         name: "hello",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
     }, 
 });
 
 export const decrement = 
-    createStateTo(helloStore.store).bind("decrement/action");
+    createActionTo(helloStore.store).bind("decrement/action");
 
 export const { store } = helloStore;
 export const { increment } = helloStore.actions;

@@ -6,7 +6,7 @@ const { store, actions } = createStore(
     name: "counter",
     initial: { value: 0 }
   },
-  states: {
+  actions: {
     increpent: "increpent/action",
     decrement: "decrement/action",
   },

@@ -39,7 +39,7 @@ const counterStore = createStore({
     name: "counter",
     initial: { value: 0, prev: 0 }
   },
-  states: {
+  actions: {
     counterAdd: "counter/add",
     counterClear: "counter/clear"
   },

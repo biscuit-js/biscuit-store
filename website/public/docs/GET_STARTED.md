@@ -86,7 +86,7 @@ const helloWorldStore = createStore({
         name: "helloWorld",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         addAction: "add/action",
     }
 });
@@ -189,7 +189,7 @@ const helloWorldStore = createStore({
         name: "helloWorld",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
         decrement: "decrement/action",
     }, 
@@ -270,7 +270,7 @@ const helloWorldStore = createStore({
         name: "helloWorld",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
         decrement: "decrement/action",
     }, 

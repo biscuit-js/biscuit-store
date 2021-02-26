@@ -6,7 +6,7 @@ const { actions, store } = createStore({
         name: 'user',
         initial: { value: 0, data: '' },
     },
-    states: {
+    actions: {
         testAdd: 'test/add',
         testRemove: 'test/remove',
         testStep: {

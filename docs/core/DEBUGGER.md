@@ -8,7 +8,7 @@ export const { actions, store } = createStore({
         name: "myFirstStore",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         hello: "HELLO/ACTION",
     }, 
     debugger: (e) => {

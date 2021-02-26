@@ -6,7 +6,7 @@ const testStore = (value) => {
             name: 'test-' + value,
             initial: { data: 123 },
         },
-        states: {
+        actions: {
             testStart: 'TEST/START',
             testStep: 'TEST/STEP',
             testStop: 'TEST/STOP',

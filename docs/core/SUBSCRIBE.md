@@ -23,7 +23,7 @@ const testStore = createStore({
         name: "test",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         addAction: "add/action",
         removeAction: "remove/action",
     }

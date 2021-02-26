@@ -34,7 +34,7 @@ const userStore = createStore({
             } 
         }
     },
-    states: {
+    actions: {
         getUser: "user/get",
         addUser: "user/add",
         addChange: "user/change",
@@ -102,7 +102,7 @@ Try to keep as little logic as possible in the components of your application. K
 ### Use dynamic state creation only where you really need it.
 If you have already studied the documentation, you know that biscuit supports dynamic state creation:
 ```javaScript
-const actionName = createStateTo(store).bind("MODULE/ACTION");
+const actionName = createActionTo(store).bind("MODULE/ACTION");
 ```
 Don't use dynamic state creation unless you really need to. For better code readability, all states should be declared in one place. 
 
@@ -116,7 +116,7 @@ createStore({
         name: "user",
         initial: {...}
     },
-    states: {
+    actions: {
         userBranch: {
             name: "user/branch",
             branch: true,

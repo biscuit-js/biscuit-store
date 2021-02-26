@@ -35,7 +35,7 @@ export interface StateObject {
 
 /**
  * This interface defines the optimal state parameters
- * for initialization via createStateTo
+ * for initialization via createActionTo
  */
 export interface StateOptions<T> {
     branch: boolean;

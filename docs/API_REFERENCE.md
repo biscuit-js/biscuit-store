@@ -12,7 +12,7 @@ This section contains all the current methods from all the biscuit-store package
 - [newRepo](#newRepo)
 - [getRepo](#getRepo)
 - [addRepo](#addRepo)
-- [createStateTo](#createStateTo)
+- [createActionTo](#createActionTo)
 - [middleware](#middleware)
 - [createDebugger](#createDebugger)
 - [createManager](#createManager)
@@ -64,7 +64,7 @@ const helloStore = createStore({
         name: "hello",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
         decrement: "decrement/action",
         save: {
@@ -344,7 +344,7 @@ param repo:
 param instance: T
 ```
 
-### createStateTo
+### createActionTo
 This method allows you to dynamically bind the managed state to the storage.
 >Don't use dynamic state creation unless you really need to. For better code readability, all states should be declared in one place.
 
@@ -356,20 +356,20 @@ return: object
 Returns the bind method, which takes an action name string and an optional object with  parameters.
 
 ```javascript
-import { customStore, createStateTo } from "@biscuit-store/core";
+import { customStore, createActionTo } from "@biscuit-store/core";
 
 const customStore = createStore({
     repo: {
         name: "hello",
         initial: { value: 0 }
     },
-    states: {
+    actions: {
         increment: "increment/action",
     }, 
 });
 
 export const decrement = 
-    createStateTo(customStore.store).bind("decrement/action");
+    createActionTo(customStore.store).bind("decrement/action");
 
 export const { store } = customStore;
 export const { increment, decrement } = customStore.actions;
@@ -378,7 +378,7 @@ export const { increment, decrement } = customStore.actions;
 create branch example:
 ```javascript
 export const branch = 
-    createStateTo(customStore.store).bind("decrement/action", {
+    createActionTo(customStore.store).bind("decrement/action", {
         branch: true,
         initial: {text: "hello"}
     });
@@ -607,7 +607,7 @@ Returns parameters of the selected action.
 This helper method takes the first parameter createactionsTo and adds actions to it from the string array of the second argument.
 
 params:
-- **createActions***: *function* - Accepts the createStateTo function;
+- **createActions***: *function* - Accepts the createActionTo function;
 - **array***: *string[]* - List of action names;
 
 
@@ -616,7 +616,7 @@ return: object[]
 ```javascript
 import { initialActions } from "@biscuit-store/core";
 ...
-const actionCreator = createStateTo(customStore.store);
+const actionCreator = createActionTo(customStore.store);
 
 const [addAction, removeAction] = initialActions(actionCreator, [
     "add/action", 

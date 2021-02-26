@@ -1913,7 +1913,7 @@ function newRepo(name, initial) {
  * @public
  */
 
-function createStateTo(params) {
+function createActionTo(params) {
   if (!repositories[params.repo]) {
     throw new CreateError(messages.repoNotFind);
   }
@@ -2187,7 +2187,7 @@ function createStore(options) {
 
 
   var repo = newRepo(params.repo.name, params.repo.initial);
-  var createAction = createStateTo(repo);
+  var createAction = createActionTo(repo);
   /** Set of storage parameters */
 
   var output = {
@@ -2240,4 +2240,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addRepo, combineStateCollections, createDebuger, createManager, createStateTo, createStore, dispatch, getRepo, getState, initialActions, middleware, newRepo, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addRepo, combineStateCollections, createDebuger, createManager, createActionTo, createStore, dispatch, getRepo, getState, initialActions, middleware, newRepo, stateCollection, subscribeToState, subscribeToStore, utils };
