@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/react",
-  "version": "0.9.94",
+  "version": "0.9.95",
   "description": "Library for management javascript application states.",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -66,13 +66,13 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@biscuit-store/core": "0.9.94",
-    "@biscuit-store/types": "0.9.94",
+    "@biscuit-store/core": "0.9.95",
+    "@biscuit-store/types": "0.9.95",
     "react": "^16.8.3 || ^17"
   },
-  "types": "./types",
+  "types": "./index.d.ts",
   "sideEffects": true,
-  "gitHead": "fec2b0aa006fc3b944c27a333d66023555a867bc",
+  "gitHead": "f1863baf346c07252f814d053a8af1e99b128e5a",
   "dependencies": {
     "cross-env": "^7.0.3",
     "global": "^4.4.0",

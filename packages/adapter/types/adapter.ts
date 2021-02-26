@@ -9,7 +9,7 @@ export type Send = (newPayload: any) => void;
 /** adapter action context */
 export interface AdapterActionCtx {
     getAction: GetAction;
-    send?: Send;
+    send: Send;
 }
 
 /**
@@ -19,7 +19,7 @@ export interface AdapterActionCtx {
  * @param ctx response methods
  */
 export type ActionListner<T, P, S> =
-    (payload?: P, state?: S, ctx?: AdapterActionCtx) => T | Promise<T>;
+    (payload: P, state: S, ctx: AdapterActionCtx) => T | Promise<T>;
 
 /**
  * Type of the result handler
