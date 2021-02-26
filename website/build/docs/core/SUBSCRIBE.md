@@ -188,12 +188,12 @@ Composite methods can handle not only an action variable but also a static descr
 import { dispatch } from "@biscuit-store/core";
 
 dispatch(
-    {repo: "test", action: "remove/action"}, 
+    {repo: "test", state: "remove/action"}, 
     (prevState) => ({value: prevState + 1})
 );
 
 subscribeToState(
-    {repo: "test", action: "add/action"}, 
+    {repo: "test", state: "add/action"}, 
     (state) => {
         console.log(state);
     }
