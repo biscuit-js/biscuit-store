@@ -3,6 +3,7 @@
     "strict": true,
     "esModuleInterop": true,
     "target": "es2018",
+    "noImplicitAny": true,
     "sourceMap": true,
     "allowJs": true,
     "lib": [
@@ -11,7 +12,6 @@
     ],
     "paths": {
       "adapter": ["./index.d.ts"],
-      "types": ["./index.d.ts"],
     },
     "baseUrl": ".",
     "moduleResolution": "node"

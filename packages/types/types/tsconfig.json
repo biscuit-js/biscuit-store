@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "target": "es2018",
     "sourceMap": true,
+    "noImplicitAny": true,
     "allowJs": true,
     "lib": [
       "es6",

@@ -1,7 +1,7 @@
 export const firstStep = `import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter"
 
-const { store, actions } = createStore(
+const { store, actions } = createStore({
   name: "counter",
   initial: { value: 0 },
   actions: {

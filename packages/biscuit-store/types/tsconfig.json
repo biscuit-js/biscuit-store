@@ -2,12 +2,12 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
+    "noImplicitAny": true,
     "target": "es2018",
     "sourceMap": true,
     "allowJs": true,
     "lib": [
-      "es6",
-      "dom"
+      "es6"
     ],
     "paths": {
       "biscuit-store": ["./index.d.ts"],
