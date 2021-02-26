@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/core",
-  "version": "0.9.95",
+  "version": "0.9.96",
   "description": "Library for management javascript application states.",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -25,7 +25,8 @@
     "src",
     "es",
     "types",
-    "tests"
+    "tests",
+    "*.d.ts"
   ],
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -67,5 +68,5 @@
   },
   "types": "./index.d.ts",
   "sideEffects": false,
-  "gitHead": "f1863baf346c07252f814d053a8af1e99b128e5a"
+  "gitHead": "6e4d73361db6a8428a7a1e9d768f1b050e8beec1"
 }
