@@ -72,7 +72,7 @@
   },
   "types": "./types",
   "sideEffects": true,
-  "gitHead": "30fee80167f96e0c2e84d6953557c600ed6f0a32",
+  "gitHead": "fec2b0aa006fc3b944c27a333d66023555a867bc",
   "dependencies": {
     "cross-env": "^7.0.3",
     "global": "^4.4.0",

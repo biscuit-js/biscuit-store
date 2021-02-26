@@ -10,7 +10,7 @@
       "es6"
     ],
     "paths": {
-      "biscuit-store": ["./index.d.ts"],
+      "biscuit-store": ["./index.d.ts"]
     },
     "baseUrl": ".",
     "moduleResolution": "node"

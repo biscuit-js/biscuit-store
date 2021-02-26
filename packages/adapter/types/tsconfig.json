@@ -11,7 +11,7 @@
       "dom"
     ],
     "paths": {
-      "adapter": ["./index.d.ts"],
+      "adapter": ["./index.d.ts"]
     },
     "baseUrl": ".",
     "moduleResolution": "node"

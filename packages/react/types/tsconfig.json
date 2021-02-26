@@ -11,7 +11,7 @@
       "dom"
     ],
     "paths": {
-      "react": ["./index.d.ts"],
+      "react": ["./index.d.ts"]
     },
     "baseUrl": ".",
     "moduleResolution": "node"
