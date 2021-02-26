@@ -66,8 +66,8 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@biscuit-store/core": "0.9.90",
-    "@biscuit-store/types": "0.9.90",
+    "@biscuit-store/core": "0.9.91",
+    "@biscuit-store/types": "0.9.91",
     "react": "^16.8.3 || ^17"
   },
   "types": "./types",
