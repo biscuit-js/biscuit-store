@@ -40,8 +40,8 @@ export interface Channel {
 
     /**
      * Function for extracting data from a channel.
-     * @param {object} payload the data for a mail merge
-     * @return {Promise}
+     * @param payload the data for a mail merge
+     * @return Promise
      */
     extract: <T>(payload: T) => Promise<any>;
 }
