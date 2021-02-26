@@ -28,10 +28,8 @@ import { createStore } from "@biscuit-store/core";
 import { middleFunc } from "./middleware.js";
 
 const helloStore = createStore({
-    repo: {
-        name: "hello",
-        initial: { value: 0 }
-    },
+    name: "hello",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
         decrement: "decrement/action",
@@ -55,8 +53,9 @@ let's take a closer look at the fields of this method in more detail:
 
 | field      | description                                                                                                                                                                                            | type                                  | default   | require |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|-----------|---------|
-| repo       | This field is required to create a repository.  Contains the name of the repository and the original data.                                                                                             | object{name: string, initial: object} | undefined | yes     |
-| states     | This field must contain a set of states in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the status name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
+| name       | The name of the repository | string | yes     |
+| initial    | Storage source data | object | yes     |
+| actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
@@ -116,10 +115,8 @@ Nevertheless, we can imagine a situation when, for example, a set of data comes 
 
 ```javascript
 const helloStore = createStore({
-    repo: {
-        name: "hello",
-        initial: { value: 0 }
-    },
+    name: "hello",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
     }, 

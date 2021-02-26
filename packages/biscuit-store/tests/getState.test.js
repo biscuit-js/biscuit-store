@@ -2,10 +2,8 @@ import { getState, createStore } from '../src/index';
 
 const testStore = (value) => {
     return createStore({
-        repo: {
-            name: 'test-' + value,
-            initial: { data: 123 },
-        },
+        name: 'test-' + value,
+        initial: { data: 123 },
         actions: {
             testStart: 'TEST/START',
             testStep: 'TEST/STEP',

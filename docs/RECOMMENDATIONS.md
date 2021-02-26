@@ -24,15 +24,13 @@ import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter.js";
 
 const userStore = createStore({
-    repo: {
-        name: "user",
-        initial: { 
-            user: {
-                name: "",
-                email: "",
-                id: 0
-            } 
-        }
+    name: "user",
+    initial: { 
+        user: {
+            name: "",
+            email: "",
+            id: 0
+        } 
     },
     actions: {
         getUser: "user/get",
@@ -112,10 +110,8 @@ This method will be useful to use in a situation where, for example, you need to
 If you have already studied the documentation, you know that biscuit can make states independent of the storage object (Conversions to a branch):
 ```javascript
 createStore({
-    repo: {
-        name: "user",
-        initial: {...}
-    },
+    name: "user",
+    initial: {...},
     actions: {
         userBranch: {
             name: "user/branch",

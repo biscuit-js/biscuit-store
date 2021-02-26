@@ -28,10 +28,8 @@ import { createStore } from "@biscuit-store/core";
 import { middleFunc } from "./middleware.js";
 
 const helloStore = createStore({
-    repo: {
-        name: "hello",
-        initial: { value: 0 }
-    },
+    name: "hello",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
         decrement: "decrement/action",
@@ -116,10 +114,8 @@ Nevertheless, we can imagine a situation when, for example, a set of data comes 
 
 ```javascript
 const helloStore = createStore({
-    repo: {
-        name: "hello",
-        initial: { value: 0 }
-    },
+    name: "hello",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
     }, 

@@ -4,7 +4,7 @@ import { SubscribeListner, StateAction, StateObject } from './state';
  * The interface describes
  * the state parameters for createStore
  */
-export interface States {
+export interface Actions {
     [propName: string]: string | StateObject;
 }
 
@@ -84,14 +84,12 @@ export interface StoreParams <A extends StateAction, I> {
  */
 export interface StoreSettings {
     /** The repository params */
-    repo: {
-        /** Repository name */
-        name: string;
-        /** Repository initial object */
-        initial: object;
-    };
+    /** Repository name */
+    name: string;
+    /** Repository initial object */
+    initial: object;
     /** State parameters */
-    states?: States;
+    actions?: Actions;
     /** Array of middleware functions */
     middleware?: Middleware[];
     /** Debugger function */

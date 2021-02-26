@@ -47,10 +47,8 @@ Let's try to create our first store, for this we will need the createStore metho
 import { createStore } from "@biscuit-store/core";
 
 const helloWorldStore = createStore({
-    repo: {
-        name: "helloWorld",
-        initial: { value: 0 }
-    }
+    name: "helloWorld",
+    initial: { value: 0 }
 });
 
 export const { store } = helloWorldStore;
@@ -82,10 +80,8 @@ To do this, let's upgrade our store:
 import { createStore } from "@biscuit-store/core";
 
 const helloWorldStore = createStore({
-    repo: {
-        name: "helloWorld",
-        initial: { value: 0 }
-    },
+    name: "helloWorld",
+    initial: { value: 0 },
     actions: {
         addAction: "add/action",
     }
@@ -185,10 +181,8 @@ import { createStore } from "@biscuit-store/core";
 import { helloActions } from "./actions.js";
 
 const helloWorldStore = createStore({
-    repo: {
-        name: "helloWorld",
-        initial: { value: 0 }
-    },
+    name: "helloWorld",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
         decrement: "decrement/action",
@@ -266,10 +260,8 @@ import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter.js";
 
 const helloWorldStore = createStore({
-    repo: {
-        name: "helloWorld",
-        initial: { value: 0 }
-    },
+    name: "helloWorld",
+    initial: { value: 0 },
     actions: {
         increment: "increment/action",
         decrement: "decrement/action",

@@ -2186,7 +2186,7 @@ function createStore(options) {
   /** Create a new storage */
 
 
-  var repo = newRepo(params.repo.name, params.repo.initial);
+  var repo = newRepo(params.name, params.initial);
   var createAction = createActionTo(repo);
   /** Set of storage parameters */
 
@@ -2196,9 +2196,9 @@ function createStore(options) {
   };
   /** Adding States to the repository */
 
-  if (params.states) {
-    for (var key in params.states) {
-      var param = params.states[key];
+  if (params.actions) {
+    for (var key in params.actions) {
+      var param = params.actions[key];
       var paramType = typeof param === 'string';
       output.actions[key] = createAction.bind(paramType ? param : param.name, paramType ? {} : {
         initial: param.initial,
@@ -2226,7 +2226,7 @@ function createStore(options) {
   /** Strict mod */
 
 
-  settings.strictMode[params.repo.name] = params.strictMode;
+  settings.strictMode[params.name] = params.strictMode;
   return output;
 }
 
@@ -2240,4 +2240,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addRepo, combineStateCollections, createDebuger, createManager, createActionTo, createStore, dispatch, getRepo, getState, initialActions, middleware, newRepo, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addRepo, combineStateCollections, createActionTo, createDebuger, createManager, createStore, dispatch, getRepo, getState, initialActions, middleware, newRepo, stateCollection, subscribeToState, subscribeToStore, utils };

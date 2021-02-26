@@ -7,10 +7,8 @@ import {
 
 const testStore = (name, value) => {
     return createStore({
-        repo: {
-            name: 'test-' + name,
-            initial: { data: '', value },
-        },
+        name: 'test-' + name,
+        initial: { data: '', value },
         actions: {
             testStart: 'TEST/START',
             testStep: 'TEST/STEP',

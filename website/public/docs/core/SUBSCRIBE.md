@@ -19,10 +19,8 @@ First you need to create a store that we will subscribe to:
 import { createStore } from "@biscuit-store/core";
 
 const testStore = createStore({
-    repo: {
-        name: "test",
-        initial: { value: 0 }
-    },
+    name: "test",
+    initial: { value: 0 },
     actions: {
         addAction: "add/action",
         removeAction: "remove/action",

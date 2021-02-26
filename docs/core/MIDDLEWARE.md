@@ -16,10 +16,8 @@ function sayHelo(ctx, next) {
 }
 
 const { actions } = createStore({
-    repo: {
-        name: "test",
-        initial: { message: "" }
-    },
+    name: "test",
+    initial: { message: "" },
     actions: { say: "SAY/ACTION" }, 
     middleware: [sayHello],
 });
@@ -77,10 +75,8 @@ function fetchFunc(ctx, next) {
 }
 
 const testStore = createStore({
-  repo: {
-    name: "test",
-    initial: { id: 0, data: {}, error: null }
-  },
+  name: "test",
+  initial: { id: 0, data: {}, error: null },
   actions: {
     fetch: "FETCH/ACTION",
     success: "SUCCESS/ACTION",

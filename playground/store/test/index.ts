@@ -2,10 +2,8 @@ import { createStore } from '../../../packages/biscuit-store';
 import { adapter } from './adapter';
 
 const { actions, store } = createStore({
-    repo: {
-        name: 'user',
-        initial: { value: 0, data: '' },
-    },
+    name: 'user',
+    initial: { value: 0, data: '' },
     actions: {
         testAdd: 'test/add',
         testRemove: 'test/remove',

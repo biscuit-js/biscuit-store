@@ -4,10 +4,8 @@ The biscuit-store has a built-in function for multi-level, external log output.
 import { createStore } from "@biscuit-store/core";
 
 export const { actions, store } = createStore({
-    repo: {
-        name: "myFirstStore",
-        initial: { value: 0 }
-    },
+    name: "myFirstStore",
+    initial: { value: 0 },
     actions: {
         hello: "HELLO/ACTION",
     }, 

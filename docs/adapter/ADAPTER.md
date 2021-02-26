@@ -35,10 +35,8 @@ import { createStore } from "@biscuit-store/core";
 import adapter from "./adapter";
 
 const counterStore = createStore({
-  repo: {
-    name: "counter",
-    initial: { value: 0, prev: 0 }
-  },
+  name: "counter",
+  initial: { value: 0, prev: 0 },
   actions: {
     counterAdd: "counter/add",
     counterClear: "counter/clear"

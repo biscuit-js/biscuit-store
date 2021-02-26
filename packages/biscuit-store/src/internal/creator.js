@@ -298,7 +298,7 @@ export function createStore(options) {
     const params = { strictMode: true, ...options };
 
     /** Create a new storage */
-    const repo = newRepo(params.repo.name, params.repo.initial);
+    const repo = newRepo(params.name, params.initial);
     const createAction = createActionTo(repo);
 
     /** Set of storage parameters */
@@ -335,7 +335,7 @@ export function createStore(options) {
     }
 
     /** Strict mod */
-    settings.strictMode[params.repo.name] = params.strictMode;
+    settings.strictMode[params.name] = params.strictMode;
 
     return output;
 }

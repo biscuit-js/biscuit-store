@@ -2,7 +2,7 @@ import { createStore } from '../src/index.js';
 
 const testStart = 'TEST/START';
 
-const states = {
+const actions = {
     testStart,
     testStep: 'TEST/STEP',
     testStop: 'TEST/STOP',
@@ -10,10 +10,8 @@ const states = {
 
 it('check new store', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-1',
-            initial: { data: 'test' },
-        },
+        name: 'test-1',
+        initial: { data: 'test' },
     });
 
     expect(testStore.store.repo).toEqual('test-1');
@@ -21,10 +19,8 @@ it('check new store', () => {
 
 it('check new store methods', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-2',
-            initial: { data: 'test' },
-        },
+        name: 'test-2',
+        initial: { data: 'test' },
     });
 
     expect(testStore.store.get).not.toBeUndefined();
@@ -38,10 +34,8 @@ it('check new store methods', () => {
 
 it('check new store initial', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-3',
-            initial: { data: 'test' },
-        },
+        name: 'test-3',
+        initial: { data: 'test' },
     });
 
     expect(testStore.store.get()).toEqual({ data: 'test' });
@@ -49,11 +43,9 @@ it('check new store initial', () => {
 
 it('check store action instance', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-4',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-4',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart).not.toBeUndefined();
@@ -67,11 +59,9 @@ it('check store action instance', () => {
 
 it('check store action functions', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-5',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-5',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart).not.toBeUndefined();
@@ -85,11 +75,9 @@ it('check store action functions', () => {
 
 it('check store action functions', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-6',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-6',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart.repo).not.toBeUndefined();
@@ -107,11 +95,9 @@ it('check store action functions', () => {
 
 it('check store repo and state', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-7',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-7',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart.repo).toEqual('test-7');
@@ -120,11 +106,9 @@ it('check store repo and state', () => {
 
 it('check store change repo', () => {
     const testStore = createStore({
-        repo: {
-            name: 'test-8',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-8',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart.getState()).toEqual({ data: 'test' });
@@ -139,11 +123,9 @@ it('check store change repo', () => {
 it('check store change state', (done) => {
     expect.assertions(4);
     const testStore = createStore({
-        repo: {
-            name: 'test-9',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-9',
+        initial: { data: 'test' },
+        actions,
     });
 
     expect(testStore.actions.testStart.getState()).toEqual({ data: 'test' });
@@ -161,10 +143,8 @@ it('check store change state', (done) => {
 it('check store branch state', (done) => {
     expect.assertions(4);
     const testStore = createStore({
-        repo: {
-            name: 'test-10',
-            initial: { data: 'test' },
-        },
+        name: 'test-10',
+        initial: { data: 'test' },
         actions: {
             testStart: {
                 name: testStart,
@@ -195,11 +175,9 @@ it('check store branch state', (done) => {
 it('check store middleware', (done) => {
     expect.assertions(6);
     const testStore = createStore({
-        repo: {
-            name: 'test-11',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-11',
+        initial: { data: 'test' },
+        actions,
         strictMode: false,
         middleware: [
             (context, next) => {
@@ -222,11 +200,9 @@ it('check store middleware', (done) => {
 it('check store debugger', (done) => {
     expect.assertions(7);
     const testStore = createStore({
-        repo: {
-            name: 'test-12',
-            initial: { data: 'test' },
-        },
-        states,
+        name: 'test-12',
+        initial: { data: 'test' },
+        actions,
         strictMode: false,
         debugger: (e) => {
             if (e.type === 'log') {
@@ -274,9 +250,7 @@ it('check store no params', () => {
 it('check store no repo name', () => {
     expect(() => {
         createStore({
-            repo: {
-                initial: {},
-            },
+            initial: {},
         });
     }).toThrowError(new Error('The repository name is a required field.'));
 });
@@ -284,10 +258,8 @@ it('check store no repo name', () => {
 it('check store invalid initial type', () => {
     expect(() => {
         createStore({
-            repo: {
-                name: 'test-13',
-                initial: null,
-            },
+            name: 'test-13',
+            initial: null,
         });
     }).toThrowError(new Error('The initial must be an object.'));
 });
@@ -295,10 +267,8 @@ it('check store invalid initial type', () => {
 it('check store invalid state type', () => {
     expect(() => {
         createStore({
-            repo: {
-                name: 'test-14',
-                initial: {},
-            },
+            name: 'test-14',
+            initial: {},
             actions: {
                 testState: 1,
             },
@@ -309,11 +279,9 @@ it('check store invalid state type', () => {
 it('check store invalid middleware type', () => {
     expect(() => {
         createStore({
-            repo: {
-                name: 'test-15',
-                initial: {},
-            },
-            states,
+            name: 'test-15',
+            initial: {},
+            actions,
             middleware: [null],
         });
     }).toThrowError(new Error('Middleware should be provided as a feature.'));
@@ -322,11 +290,9 @@ it('check store invalid middleware type', () => {
 it('check store invalid middleware type', () => {
     expect(() => {
         createStore({
-            repo: {
-                name: 'test-16',
-                initial: {},
-            },
-            states,
+            name: 'test-16',
+            initial: {},
+            actions,
             debugger: [],
         });
     }).toThrowError(new Error('Debugger should be provided as a feature.'));

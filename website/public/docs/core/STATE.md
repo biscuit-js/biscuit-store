@@ -17,20 +17,16 @@ Here's what it will look like:
 ```javascript
 
 createStore({
-    repo: {
-        name: "test-1",
-        initial: {}
-    },
+    name: "test-1",
+    initial: {},
     actions: {
         add: "add/action"
     }
 })
 
 createStore({
-    repo: {
-        name: "test-2",
-        initial: {}
-    },
+    name: "test-2",
+    initial: {},
     actions: {
         add: "add/action"
     }
@@ -58,10 +54,8 @@ This is how we can create a branch:
 ```javascript
 ...
 const testStore = createStore({
-    repo: {
-        name: "test",
-        initial: {}
-    },
+    name: "test",
+    initial: {},
     actions: {
         sandbox: {
             name: "sandbox/action",

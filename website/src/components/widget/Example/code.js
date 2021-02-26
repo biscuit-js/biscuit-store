@@ -2,10 +2,8 @@ export const firstStep = `import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter"
 
 const { store, actions } = createStore(
-  repo: {
-    name: "counter",
-    initial: { value: 0 }
-  },
+  name: "counter",
+  initial: { value: 0 },
   actions: {
     increpent: "increpent/action",
     decrement: "decrement/action",

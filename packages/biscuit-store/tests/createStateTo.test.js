@@ -3,10 +3,8 @@ import { createStore, createActionTo } from '../src/index.js';
 it('createActionTo', () => {
     const name = 'test-din-action';
     const { store } = createStore({
-        repo: {
-            name,
-            initial: { value: 1 },
-        },
+        name,
+        initial: { value: 1 },
         actions: {
             testStart: 'test/start',
         },
