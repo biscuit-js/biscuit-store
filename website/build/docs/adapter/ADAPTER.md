@@ -1,9 +1,11 @@
-## Adapter middleware
-The **adapter** is a miniature module **(only 450 bytes)** that provides a convenient tool for creating asynchronous managed states.
+## Adapter
+The **adapter** is a miniature module that provides a convenient tool for creating asynchronous managed states.
 
-The CreateAdapter function contains only two methods:
-- **adapter.actions** - This method accepts a status name string and a callback function. It is used to create a managed state that can work both synchronously and asynchronously.
+The CreateAdapter function contains methods:
+- **adapter.actions** - This method accepts a action name string and a callback function. It is used to create a managed state that can work both synchronously and asynchronously.
 - **adapter.connect** - It is used to connect the adapter to the store.
+- **adapter.call** - Calls an asynchronous function and handler. **Available from version 0.9.97**
+- **adapter.makeChannel** - Creates a channel for communication between actions. **Available from version 0.9.97**
 
 Creating an adapter is extremely simple:
 ```javascript

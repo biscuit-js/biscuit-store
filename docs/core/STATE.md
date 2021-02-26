@@ -3,14 +3,9 @@
 State is a behavioral design pattern that allows objects to change behavior depending on their state. From the outside, it seems that the object class has changed.
 
 ### Standard pattern of state
-In the article [store](/docs/core/STORE.md), I have already described how the state looks under the hood. Let me remind you that this is a field of the states object that has a string name as a key (in the terminology of the biscuit, this is the name of the action), and contains a reference to the repository object. In the standard model of behavior, the state machine takes:
-- The name of the action, for searching the state;
-- The name of the repository by which the reference to the main repository content will be calculated. 
-  
-  
-Payload is send via a link into the repository content object by concatenation.
+In the article [store](/docs/core/STORE.md), Let me remind you that this is a field of an action object that has a string name as a key (in biscuit terminology, this is the name of the action) and contains a reference to the repository object.
 
-> It will also be useful for you to know that if you create two stores that specify an event with the same action name, then two repositories will be written to the object of the same event. This logic is used for optimization.
+> It will also be useful for you to know that if you create two repositories that have actions with the same name, then these repositories will be linked to an object of the same state. This logic is used for optimization.
 
 Here's what it will look like:
 
