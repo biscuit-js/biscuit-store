@@ -2,7 +2,7 @@
 
 1. Create a duck;
 2. Tell the duck that it is by definition a duck so it must swim, quack and fly;
-3. Teach the duck to swim, fly and quack.
+3. Teach the duck to swim, quack and fly.
                                       
 store.js
 ``` javascript
@@ -10,7 +10,7 @@ import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter";
 
 // Create a duck
-const { store, actions } = createStore({
+export const { store, actions } = createStore({
   name: "duck",
   initial: { value: "" },
   // Tell the duck that it is by definition a duck 
@@ -22,16 +22,13 @@ const { store, actions } = createStore({
   },
   middleware: [adapter]
 });
-
-export store;
-export actions;
 ```
 adapter.js
 ``` javascript
 import { createAdapter } from "@biscuit-store/adapter";
 const { action, connect } = createAdapter();
 
-// Teach the duck to swim, fly and quack.
+// Teach the duck to swim, quack and fly.
 
 action('duck/swim', () => {
     return { value: "The duck flew" };
