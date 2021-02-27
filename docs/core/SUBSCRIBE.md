@@ -1,10 +1,10 @@
-## State and store subscribe 
+## Subscribe 
 The subscription system is required to get the current state of the storage at the time of the update. Traditionally, the subscription pattern consists of the function of subscribing, unsubscribing and dispatcher. Biscuit adheres to this concept.
 
 ### Concept
 Conceptually, the subscription system in biscuit is similar to the (vanilla) addEventListener, but there are still a few differences. 
 
-For example, listeners are distributed among collections according to the repository name, this allows you to localize listeners and reduce the size of arrays.
+For example, listeners are distributed among collections according to the store name, this allows you to localize listeners and reduce the size of arrays.
 Subscribers can also subscribe to the entire store and to the event separately, which makes the development process more flexible.
 It is also worth noting that the subscriber is asynchronous and in addition to the callback can return a promise. 
 
@@ -118,7 +118,7 @@ addAction.dispatch(({ value }) => ({value: value + 1}));
 Dispatch also returns a number of useful methods:
   - before: Works out before the change and returns the current state;
   - after: Works out after the change and returns the new state;
-  - merge: Used for states transformed into the branches. Merges the state data to the main repository.
+  - merge: Used for states transformed into the branches. Merges the state data to the main store.
   - wait: Return promise.
 
 ```javascript
@@ -188,12 +188,12 @@ Composite methods can handle not only an action variable but also a static descr
 import { dispatch } from "@biscuit-store/core";
 
 dispatch(
-    {repo: "test", state: "remove/action"}, 
+    {store: "test", type: "remove/action"}, 
     (prevState) => ({value: prevState + 1})
 );
 
 subscribeToState(
-    {repo: "test", state: "add/action"}, 
+    {store: "test", type: "add/action"}, 
     (state) => {
         console.log(state);
     }

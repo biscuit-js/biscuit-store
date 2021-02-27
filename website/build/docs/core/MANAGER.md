@@ -15,8 +15,8 @@ manager.merge();
 You can find out the manager's methods in the [API section](/docs/api)
 
 > Manager contains a couple of dangerous methods:
-> - Clone method - creates a copy of the repository. This method is dangerous because it creates a non-obvious copy of the store, which can cause difficulties in maintaining the code.
-> - The remove method - removes the repository and its copy from all states. I recommend using this method only in one situation, if you need to delete a repository with a large amount of data that has become unnecessary for optimization purposes. Illiterate use of this method will lead to non-obvious errors.
+> - Clone method - creates a copy of the store. This method is dangerous because it creates a non-obvious copy of the store, which can cause difficulties in maintaining the code.
+> - The remove method - removes the store and its copy from all states. I recommend using this method only in one situation, if you need to delete a store with a large amount of data that has become unnecessary for optimization purposes. Illiterate use of this method will lead to non-obvious errors.
 
 ### Learn more
 - [Middleware](/docs/middleware)

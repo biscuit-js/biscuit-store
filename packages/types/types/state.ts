@@ -17,8 +17,8 @@ export type Dispatch = <T>(payload: T) => Dispatcher;
 
 /** The interface defines the action parameters for the state */
 export interface StateAction {
-    repo: string;
-    state: string;
+    name: string;
+    type: string;
     dispatch: Dispatch;
     subscribe: <T>(fn?: SubscribeListner<T>) => Promise<T>;
     getState: <T>() => T;
@@ -77,7 +77,7 @@ export interface StateCollection {
      */
     all: () => StateCollectionRepo;
     /**
-     * Get a collection by matching the repository name
+     * Get a collection by matching the store name
      * @param repo storage name
      * @return collections instance
      */
@@ -107,7 +107,7 @@ export interface Dispatcher {
      */
     after: <T>(fn: SubscribeListner<T>) => void;
     /**
-     * Merge state into repository
+     * Merge state into store
      */
     merge: () => void;
 
@@ -129,8 +129,8 @@ export interface ActionCreator {
      * @return new action
      */
     bind: <T>(action: string, options?: StateOptions<T>) => StateAction;
-    /** repository key */
-    repo: string;
+    /** store name */
+    name: string;
 }
 
 /**
@@ -140,7 +140,7 @@ export interface ActionCreator {
 export interface Manager {
     /**
      * This method will combine data
-     * from the state with data from the repository.
+     * from the state with data from the store.
      */
     merge: () => void;
     /**
@@ -222,8 +222,8 @@ export interface Manager {
 
 /** Static action params */
 export interface StaticAction {
-    repo: string;
-    state: string;
+    name: string;
+    type: string;
 }
 
 /** Static action or  StateAction */

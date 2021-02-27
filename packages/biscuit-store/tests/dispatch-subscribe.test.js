@@ -18,7 +18,7 @@ const testStore = (name, value) => {
     });
 };
 
-it('check state.dispatch -> state.subscribe', (done) => {
+it('check action.dispatch -> action.subscribe', (done) => {
     expect.assertions(1);
     const target = testStore(0);
     const { testStart } = target.actions;
@@ -31,7 +31,7 @@ it('check state.dispatch -> state.subscribe', (done) => {
     testStart.dispatch({ data: 'test-0' });
 });
 
-it('check callback state.dispatch -> state.subscribe', (done) => {
+it('check callback action.dispatch -> action.subscribe', (done) => {
     expect.assertions(1);
     const target = testStore(1);
     const { testStart } = target.actions;
@@ -44,13 +44,13 @@ it('check callback state.dispatch -> state.subscribe', (done) => {
     testStart.dispatch((prev) => ({ data: prev.data + 'test-1' }));
 });
 
-it('check callback state.dispatch -> async state.subscribe', (done) => {
+it('check callback action.dispatch -> async action.subscribe', (done) => {
     expect.assertions(1);
     const target = testStore('async-state-s');
     const { testStart } = target.actions;
 
-    testStart.subscribe().then((repo) => {
-        expect(repo.data).toEqual({ data: 'test-1' });
+    testStart.subscribe().then((store) => {
+        expect(store.data).toEqual({ data: 'test-1' });
         done();
     });
 
@@ -62,8 +62,8 @@ it('check store.dispatch -> store.subscribe', (done) => {
     const target = testStore(2);
     const { testStep } = target.actions;
 
-    target.store.subscribe((repo) => {
-        expect(repo.data).toEqual('test-2');
+    target.store.subscribe((store) => {
+        expect(store.data).toEqual('test-2');
         done();
     });
 
@@ -75,8 +75,8 @@ it('check store.dispatch -> async store.subscribe', (done) => {
     const target = testStore('async-store-s');
     const { testStep } = target.actions;
 
-    target.store.subscribe().then((repo) => {
-        expect(repo.data).toEqual({ data: 'test-2' });
+    target.store.subscribe().then((store) => {
+        expect(store.data).toEqual({ data: 'test-2' });
         done();
     });
 
@@ -138,7 +138,7 @@ it('check callback dispatch -> subscribeToStore', (done) => {
     const target = testStore(6);
     const { testStep } = target.actions;
 
-    subscribeToStore(target.store.repo, (state) => {
+    subscribeToStore(target.store.name, (state) => {
         expect(state.data).toEqual('test-6');
         done();
     });
@@ -152,7 +152,7 @@ it('loop dispatch test', async (done) => {
     const { testStep } = target.actions;
 
     let i = 0;
-    subscribeToStore(target.store.repo, (state) => {
+    subscribeToStore(target.store.name, (state) => {
         i += 1;
         expect(state.value).toEqual(i);
         if (i === 5) {
@@ -195,11 +195,11 @@ it('dispatch not action', () => {
     }).toThrowError(new Error(err));
 
     expect(() => {
-        dispatch({ repo: 'test' }, { data: 'test-8' });
+        dispatch({ name: 'test' }, { data: 'test-8' });
     }).toThrowError(new Error(err));
 
     expect(() => {
-        dispatch({ state: 'TEST/START' }, { data: 'test-8' });
+        dispatch({ type: 'TEST/START' }, { data: 'test-8' });
     }).toThrowError(new Error(err));
 });
 
@@ -215,32 +215,32 @@ it('dispatch invalid payload type', () => {
     }).toThrowError(new Error(err));
 });
 
-it('dispatch repo not found', () => {
+it('dispatch store not found', () => {
     expect(() => {
-        dispatch({ repo: 'error', state: 'name' }, {});
-    }).toThrowError(new Error('repository <error> not found.'));
+        dispatch({ name: 'error', type: 'name' }, {});
+    }).toThrowError(new Error('store <error> not found.'));
 });
 
 it('dispatch state not found', () => {
     const target = testStore(10);
     expect(() => {
-        dispatch({ repo: target.store.repo, state: 'error' }, {});
+        dispatch({ name: target.store.name, type: 'error' }, {});
     }).toThrowError(new Error('state <error> not found.'));
 });
 
-it('subscribeToStore repo not found', (done) => {
+it('subscribeToStore store not found', (done) => {
     expect.assertions(1);
     subscribeToStore('errorTest', () => undefined).catch((e) => {
-        expect(e.message).toEqual('repository <errorTest> not found.');
+        expect(e.message).toEqual('store <errorTest> not found.');
         done();
     });
 });
 
-it('subscribeToState repo not found', (done) => {
+it('subscribeToState store not found', (done) => {
     expect.assertions(1);
-    subscribeToState({ repo: 'sdsd', state: 'test' }, () => undefined).catch(
+    subscribeToState({ name: 'sdsd', type: 'test' }, () => undefined).catch(
         (e) => {
-            expect(e.message).toEqual('repository <sdsd> not found.');
+            expect(e.message).toEqual('store <sdsd> not found.');
             done();
         }
     );
@@ -250,7 +250,7 @@ it('subscribeToState state not found', (done) => {
     expect.assertions(1);
     const target = testStore(11);
     subscribeToState(
-        { repo: target.store.repo, state: 'testError' },
+        { name: target.store.name, type: 'testError' },
         () => undefined
     ).catch((e) => {
         expect(e.message).toEqual('state <testError> not found.');

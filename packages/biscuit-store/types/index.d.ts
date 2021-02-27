@@ -19,7 +19,7 @@ import {
 
 /**
  * Monolithic method for creating a biscuit storage.
- * This is the preferred method for creating a repository.
+ * This is the preferred method for creating a store.
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
@@ -45,7 +45,7 @@ export function subscribeToState<T>(action: AnyAction, fn?: SubscribeListner<T>)
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param target repository name or store
+ * @param target store name or store
  * @param fn callback
  * @async
  */
@@ -82,29 +82,29 @@ export function getState<T>(action: AnyAction): T;
 /**
  * This method is used to get data from the storage by its key.
  * Warning: Storage data cannot be changed directly.
- * You can replace the values either with the "addRepo"
+ * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
  * @param target storage name
  * @return storage data
  */
-export function getRepo<T>(target: string | Store): T;
+export function getStore<T>(target: string | Store): T;
 
 /**
- * This method allows you to add new values to the repository.
+ * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param target repository name or store
+ * @param target store name or store
  * @param instance object with added data
  */
-export function addRepo<T>(target: string | Store, instance: T): void;
+export function addStore<T>(target: string | Store, instance: T): void;
 
 /**
- * This method is responsible for creating a new repository.
- * Takes as the first argument a string with the repository name.
+ * This method is responsible for creating a new store.
+ * Takes as the first argument a string with the store name.
  * and the initial state of the storage as the second argument
  * @param name storage name
  * @param initial initial object
  */
-export function newRepo<T>(repo: string, initial: T): Store<T>;
+export function newStore<T>(repo: string, initial: T): Store<T>;
 
 /**
  * This method binds states to the storage via the "add" method.

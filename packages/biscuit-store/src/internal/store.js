@@ -8,35 +8,35 @@ import {
 import {
     gettter,
     getStateRepo,
-    getRepository,
+    getStoresitory,
     compareObject,
     actionError,
-    getRepoName,
+    getStoreName,
 } from './helper';
 import { dispatchProto, dispatchInitMiddleware } from './dispatch';
 import { CreateError } from './debugger';
-import { type } from './utils';
+import { typeOf } from './utils';
 import { messages } from './messages';
-import { newRepo } from './creator';
+import { newStore } from './creator';
 /**
  * Allows you to subscribe to the store. and tracks its change.
- * @param {string} repo repository name
+ * @param {string} name store name
  * @param {function} fn callback
- * @param {string} state state name
+ * @param {string} type state name
  * @return {Promise}
  * @async
  */
-const subscriber = function (repo, fn, state) {
+const subscriber = function (name, fn, type) {
     let task;
     const promise = new Promise((resolve) => {
-        task = emitter.subscribeAction(repo, () => {
+        task = emitter.subscribeAction(name, () => {
             /** if there is a state then pick it up */
-            const data = state
-                ? getState({ repo, state })
-                : getRepo(repo);
+            const data = type
+                ? getState({ name, type })
+                : getStore(name);
             fn(data, task);
             resolve({ data });
-        }, state);
+        }, type);
     });
 
     const resolve = this.resolve(promise);
@@ -46,24 +46,24 @@ const subscriber = function (repo, fn, state) {
 };
 
 /**
- * This method allows you to add new values to the repository.
+ * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @param {object} instance object with added data
  * @public
  */
-export function addRepo(target, instance) {
-    const name = getRepoName(target);
+export function addStore(target, instance) {
+    const name = getStoreName(target);
     if (!repositories[name]) {
-        throw new CreateError(messages.noRepo(name));
+        throw new CreateError(messages.noStore(name));
     }
 
-    if (type(instance) !== 'object') {
+    if (typeOf(instance) !== 'object') {
         throw new CreateError(messages.initialType);
     }
 
     repositories[name].content = {
-        ...getRepository(name),
+        ...getStoresitory(name),
         ...instance,
     };
 }
@@ -71,20 +71,20 @@ export function addRepo(target, instance) {
 /**
  * This method is used to get data from the storage by its key.
  * Warning: Storage data cannot be changed directly.
- * You can replace the values either with the "addRepo"
+ * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @return {object} storage data
  * @public
  */
-export function getRepo(target) {
-    const name = getRepoName(target);
+export function getStore(target) {
+    const name = getStoreName(target);
 
     if (!repositories[name]) {
-        throw new CreateError(messages.noRepo(name));
+        throw new CreateError(messages.noStore(name));
     }
 
-    return gettter({ ...getRepository(name) });
+    return gettter({ ...getStoresitory(name) });
 }
 
 /**
@@ -124,8 +124,8 @@ export function dispatch(action, payload = {}) {
 
     actionError(action);
 
-    if (type(payload) !== 'function' && type(payload) !== 'object') {
-        throw new CreateError('The payload must be an object or function.', action.repo);
+    if (typeOf(payload) !== 'function' && typeOf(payload) !== 'object') {
+        throw new CreateError('The payload must be an object or function.', action.name);
     }
 
     async function promise() {
@@ -179,7 +179,7 @@ export function subscribeToState(action, fn = () => undefined) {
     const that = Promise;
     try {
         actionError(action);
-        return subscriber.call(that, action.repo, fn, action.state);
+        return subscriber.call(that, action.name, fn, action.type);
     } catch (e) {
         return that.reject(e);
     }
@@ -191,21 +191,21 @@ export function subscribeToState(action, fn = () => undefined) {
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @param {import('../../types/state').SubscribeListner} fn callback
  * @callback
  * @async
  * @public
  */
 export function subscribeToStore(target, fn = () => undefined) {
-    const repo = getRepoName(target);
+    const storeName = getStoreName(target);
     const that = Promise;
     try {
-        if (!repositories[repo]) {
-            throw new CreateError(messages.noRepo(repo));
+        if (!repositories[storeName]) {
+            throw new CreateError(messages.noStore(storeName));
         }
 
-        return subscriber.call(that, repo, fn);
+        return subscriber.call(that, storeName, fn);
     } catch (e) {
         return that.reject(e);
     }
@@ -227,8 +227,8 @@ export function createManager(action) {
          * @public
          */
         merge: () => {
-            repositories[action.repo].content = {
-                ...getRepository(action.repo),
+            repositories[action.name].content = {
+                ...getStoresitory(action.type),
                 ...getStateRepo(action).content,
             };
         },
@@ -240,7 +240,7 @@ export function createManager(action) {
         pull: () => {
             getStateRepo(action).content = {
                 ...getStateRepo(action).content,
-                ...getRepository(action.repo),
+                ...getStoresitory(action.name),
             };
         },
 
@@ -248,8 +248,8 @@ export function createManager(action) {
          * This method will replace the data from the storage with state data.
          * @public
          */
-        replaceRepo: () => {
-            repositories[action.repo].content = {
+        replaceStore: () => {
+            repositories[action.name].content = {
                 ...getStateRepo(action).content,
             };
         },
@@ -260,7 +260,7 @@ export function createManager(action) {
          */
         replaceState: () => {
             getStateRepo(action).content = {
-                ...getRepository(action.repo),
+                ...getStoresitory(action.name),
             };
         },
 
@@ -275,8 +275,8 @@ export function createManager(action) {
             actionError(targetAction);
             getStateRepo(action).content = {
                 ...getStateRepo({
-                    state: targetAction.state,
-                    repo: action.repo,
+                    type: targetAction.type,
+                    name: action.name,
                 }).content,
                 ...getStateRepo(action).content,
             };
@@ -290,10 +290,10 @@ export function createManager(action) {
          * @public
          */
         remove: () => {
-            delete repositories[action.repo];
-            Object.keys(states[`"${action.state}"`]).forEach((item) => {
-                if (item === action.repo) {
-                    delete states[`"${action.state}"`][action.repo];
+            delete repositories[action.name];
+            Object.keys(states[`"${action.type}"`]).forEach((item) => {
+                if (item === action.name) {
+                    delete states[`"${action.type}"`][action.name];
                 }
             });
         },
@@ -315,14 +315,14 @@ export function createManager(action) {
         },
 
         /**
-         * Сompare state and repository
+         * Сompare state and store
          * WARNING: states should not contain methods
          * @return {bool}
          * @public
          */
         compareWithState: () => {
             return compareObject(
-                getRepository(action.repo),
+                getStoresitory(action.name),
                 getStateRepo(action).content
             );
         },
@@ -345,29 +345,29 @@ export function createManager(action) {
          * @return {bool}
          * @public
          */
-        compareRepoWithInstance: (instance) => {
-            return compareObject(getRepository(action.repo), instance);
+        compareStoreWithInstance: (instance) => {
+            return compareObject(getStoresitory(action.name), instance);
         },
 
         /**
          * Clones the selected storage and its state.
          * WARNING: It is best to avoid using this method,
-         * as the best practice would be to do initialization of repositories in one place.
-         * Copying the repository can lead to code support difficulties.
+         * as the best practice would be to do initialization of stores in one place.
+         * Copying the store can lead to code support difficulties.
          * @param {string} name name for the new storage
          * @public
          */
         clone: (name) => {
-            const repo = newRepo(name, { ...getRepository(action.repo) });
-            states[`"${action.state}"`][name] = {
+            const store = newStore(name, { ...getStoresitory(action.name) });
+            states[`"${action.type}"`][name] = {
                 content: { ...getStateRepo(action).content },
             };
 
-            return repo;
+            return store;
         },
 
         /**
-         * Updates the status of the repository.
+         * Updates the status of the store.
          * This method is equivalent to dispatch(...)
          * @public
          */

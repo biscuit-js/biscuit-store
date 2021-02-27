@@ -32,7 +32,7 @@ The middleware callback function contains only two methods: The first is a conte
 | name      | description                    | type   |
 |-----------|--------------------------------|--------|
 | action    | Action name.                   | string |
-| repo      | Repo/store name .              | string |
+| store     | Store name .                   | string |
 | payload   | Payload data.                  | object |
 | state     | The data of the current state. | object |
 | getAction | Returns the store action by name. | function |

@@ -7,20 +7,20 @@ export const debugCollection = {};
 /**
  * Write log object
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  */
-const writeLog = function (type, message, repoName) {
+const writeLog = function (type, message, storeName) {
     if (Object.keys(debugCollection).length > 0) {
         const line = this.stack.split('\n')[1].split(':')[2];
         createLog(
             {
                 message: this.name + ': ' + message,
                 file: line,
-                level: repoName ? 'local' : 'global',
-                repo: repoName,
+                level: storeName ? 'local' : 'global',
+                store: storeName,
                 type,
             },
-            repoName
+            storeName
         );
     }
 };
@@ -29,16 +29,16 @@ const writeLog = function (type, message, repoName) {
  * This method processes the storage logs
  * and outputs them to the debugger if necessary.
  * @param {any} data is error -> new Error, is warn -> string
- * @param {string} repoName repository name
+ * @param {string} storeoName store name
  * @public
  */
-export const createLog = function (data, repoName) {
+export const createLog = function (data, storeName) {
     for (const key in debugCollection) {
-        if (key === repoName) {
+        if (key === storeName) {
             debugCollection[key](data);
         }
 
-        if (!repoName) {
+        if (!storeName) {
             debugCollection[key](data);
         }
     }
@@ -47,47 +47,47 @@ export const createLog = function (data, repoName) {
 /**
  * Create  log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 export class Log extends Error {
-    constructor(message, repoName) {
+    constructor(message, storeName) {
         super(message);
         this.name = 'Biscuit log';
-        writeLog.call(this, 'log', message, repoName);
+        writeLog.call(this, 'log', message, storeName);
     }
 }
 
 /**
  * Create warning log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 export class Warning extends Error {
-    constructor(message, repoName) {
+    constructor(message, storeName) {
         super(message);
 
-        if (settings.strictMode[repoName]) {
+        if (settings.strictMode[storeName]) {
             // eslint-disable-next-line no-console
             console.warn(message);
         }
 
         this.name = 'Biscuit warn';
-        writeLog.call(this, 'warning', message, repoName);
+        writeLog.call(this, 'warning', message, storeName);
     }
 }
 
 /**
  * Create error log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 export class CreateError extends Error {
-    constructor(message, repoName) {
+    constructor(message, storeName) {
         super(message);
         this.name = 'Biscuit error';
-        writeLog.call(this, 'error', message, repoName);
+        writeLog.call(this, 'error', message, storeName);
     }
 }

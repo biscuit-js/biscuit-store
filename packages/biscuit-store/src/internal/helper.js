@@ -3,36 +3,36 @@ import { CreateError } from './debugger';
 import { messages } from './messages';
 
 export function getStateRepo(action) {
-    return states[`"${action.state}"`][action.repo];
+    return states[`"${action.type}"`][action.name];
 }
 
-export function getRepository(name) {
+export function getStoresitory(name) {
     return repositories[name].content;
 }
 
-export function getRepositoryActions(repo) {
-    return repositories[repo].actions;
+export function getStoresitoryActions(name) {
+    return repositories[name].actions;
 }
 
-export function getRepoName(target) {
+export function getStoreName(target) {
     if (typeof target === 'string') {
         return target;
     }
 
-    return target.repo;
+    return target.name;
 }
 
 export const actionError = (action) => {
-    if (!action || !action.repo || !action.state) {
+    if (!action || !action.name || !action.type) {
         throw new CreateError('Invalid action parameters.');
     }
 
-    if (!repositories[action.repo]) {
-        throw new CreateError(messages.noRepo(action.repo));
+    if (!repositories[action.name]) {
+        throw new CreateError(messages.noStore(action.name));
     }
 
-    if (!states[`"${action.state}"`]) {
-        throw new CreateError(messages.noState(action.state), action.repo);
+    if (!states[`"${action.type}"`]) {
+        throw new CreateError(messages.noState(action.type), action.name);
     }
 };
 
@@ -44,8 +44,8 @@ export const actionError = (action) => {
  * @private
  */
 export async function activeMiddlewares(context, fn = () => null) {
-    if (middlewares[context.repo]) {
-        await middlewares[context.repo].forEach((middle) => {
+    if (middlewares[context.store]) {
+        await middlewares[context.store].forEach((middle) => {
             middle(context, fn);
         });
     } else {

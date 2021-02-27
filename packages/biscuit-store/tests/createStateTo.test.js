@@ -14,8 +14,8 @@ it('createActionTo', () => {
     const states = createActionTo(store);
     const action = states.bind('test/step1');
 
-    expect(action.repo).toEqual(name);
-    expect(action.state).toEqual('test/step1');
+    expect(action.name).toEqual(name);
+    expect(action.type).toEqual('test/step1');
     expect(typeof action.dispatch).toEqual('function');
     expect(typeof action.subscribe).toEqual('function');
     expect(typeof action.getState).toEqual('function');

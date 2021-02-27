@@ -5,7 +5,7 @@ import { throttle, debounce, sandbox } from './internal/utils';
 
 export {
     createStore,
-    newRepo,
+    newStore,
     createActionTo,
     initialActions,
     stateCollection,
@@ -17,9 +17,9 @@ export {
 export {
     createManager,
     dispatch,
-    getRepo,
+    getStore,
     getState,
-    addRepo,
+    addStore,
     subscribeToState,
     subscribeToStore,
 } from './internal/store';

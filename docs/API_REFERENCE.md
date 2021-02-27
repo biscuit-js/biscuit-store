@@ -9,9 +9,9 @@ This section contains all the current methods from all the biscuit-store package
 - [subscribeToState](#subscribeToState)
 - [subscribeToStore](#subscribeToStore)
 - [getState](#getState)
-- [newRepo](#newRepo)
-- [getRepo](#getRepo)
-- [addRepo](#addRepo)
+- [newStore](#newStore)
+- [getStore](#getStore)
+- [addStore](#addStore)
 - [createActionTo](#createActionTo)
 - [middleware](#middleware)
 - [createDebugger](#createDebugger)
@@ -24,14 +24,14 @@ This section contains all the current methods from all the biscuit-store package
 - [store.subscribe](#storesubscribe)
 - [store.get](#storeget)
 - [store.add](#storeadd)
-- [store.repo](#storerepo)
+- [store.name](#storename)
 
 #### [Action api:](#Biscuit-store-action-api)
 - [action.subscribe](#actionsubscribe)
 - [action.dispatch](#actiondispatch)
 - [action.getState](#actiongetState)
-- [action.repo](#actionrepo)
-- [action.state](#actionstate)
+- [action.name](#actionname)
+- [action.type](#actiontype)
 
 
 ### @biscuit-store/adapter
@@ -47,7 +47,7 @@ Read [here](docs/react/REACT.md)
 
 ### Biscuit-store top level API
 ### createStore
-Use this method to create a new repository. Receives an object with storage parameters as input.
+Use this method to create a new store. Receives an object with storage parameters as input.
 
 params:
 - **options***: *object* - storage settings;
@@ -84,7 +84,7 @@ export const { increment, decrement, save } = helloStore.actions;
 let's take a closer look at the fields of this method in more detail:
 | field      | description                                                                                                                                                                                            | type                                  | default   | require |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|-----------|---------|
-| name       | The name of the repository | undefined | yes     |
+| name       | The name of the store | undefined | yes     |
 | initial    | Storage source data | undefined | yes     |
 | actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
@@ -130,7 +130,7 @@ dispatch(customAction, ({ value }) => ({value: value + 1}));
 Dispatch also returns a number of useful methods:
   - **before**: Works out before the change and returns the current state;
   - **after**: Works out after the change and returns the new state;
-  - **merge**: Used for states transformed into the branches. Merges the state data to the main repository.
+  - **merge**: Used for states transformed into the branches. Merges the state data to the main store.
   - **wait**: Return promise.
 
 ```javascript
@@ -174,7 +174,7 @@ subscribeToState(customAction, (state) => {
 
 // or
 
-subscribeToState({repo: "name", action: "custom/ACTION"}, (state) => {
+subscribeToState({name: "name", type: "custom/ACTION"}, (state) => {
     console.log(state);
 );
 ```
@@ -217,7 +217,7 @@ return:
 Almost the same as [subscribeToState](#subscribeToState), but subscribes to all changes to the store.
 
 params:
-- **repo***: *[string | object]* - store state action;
+- **name***: *[string | object]* - store state action;
 - **fn**: *[function(object)]* - A callback function that returns the new state of the store.
 
 return: *{Promse, unsubscribe()}*
@@ -232,13 +232,13 @@ subscribeToStore(store, (state) => {
 
 // or
 
-subscribeToStore("repoName", (state) => {
+subscribeToStore("storeName", (state) => {
     console.log(state);
 );
 ```
 Typescript types:
 ```
-param repo: string | object 
+param name: string | object 
 param fn:
     type: SubscribeListner<T>
 return: 
@@ -267,20 +267,20 @@ param action:
 
 return: T
 ```
-### newRepo
-This method will create a new repository and return a set of methods and return a set of methods to manage the repository.
-> We recommend using the monolithic method createStore to create repositories.
+### newStore
+This method will create a new store and return a set of methods and to manage the store.
+> We recommend using the monolithic method createStore to create stores.
 
 params:
-- **repo***: *string* - repository name;
+- **name***: *string* - store name;
 - **initial**: *object* - initial object.
 
 return: object
 
 ```javascript
-import { newRepo } from "@biscuit-store/core";
+import { newStore } from "@biscuit-store/core";
 
-const store = newRepo("custom", {value: 0});
+const store = newStore("custom", {value: 0});
 
 store.get() // {value: 0}
 ```
@@ -288,57 +288,57 @@ See the set of returned parameters [here](#Store-api)
 
 Typescript types:
 ```
-param repo: string
+param name: string
 return: Store<T>
 ```
-### getRepo
-This method is used to get data from the repository.
+### getStore
+This method is used to get data from the store.
 
 > If states are bound to the storage, we recommend using getState
 
 params:
-- **repo***: *[string | object]* - repository name, accepts a name string or a storage object;
+- **name***: *[string | object]* - store name, accepts a name string or a storage object;
 
 return: object
 
 ```javascript
-import { newRepo, getRepo } from "@biscuit-store/core";
+import { newStore, getStore } from "@biscuit-store/core";
 
-const store = newRepo("custom", {value: 0});
+const store = newStore("custom", {value: 0});
 
-getRepo(store); // {value: 0}
+getStore(store); // {value: 0}
 
 // or
 
-getRepo("custom"); // {value: 0}
+getStore("custom"); // {value: 0}
 ```
 Typescript types:
 ```
-param repo: 
+param name: 
     string | interface StoreParams
 return: T
 ```
-### addRepo
-This method is used to write data directly to the repository.
-> This method is recommended only if necessary. It is advisable to change the repository content via managed states.
+### addStore
+This method is used to write data directly to the store.
+> This method is recommended only if necessary. It is advisable to change the store content via managed states.
 
 params:
-- **repo***: *[string | object]* - repository name, accepts a name string or a storage object;
+- **name***: *[string | object]* - store name, accepts a name string or a storage object;
 - **instance***: object
   
 ```javascript
-import { newRepo, addRepo } from "@biscuit-store/core";
+import { newStore, addStore } from "@biscuit-store/core";
 
-const store = newRepo("custom", {value: 0});
+const store = newStore("custom", {value: 0});
 
-addRepo(store, { text: "hello"});
+addStore(store, { text: "hello"});
 // or
-addRepo("custom", { text: "hello"});
+addStore("custom", { text: "hello"});
 ```
 
 Typescript types:
 ```
-param repo: 
+param name: 
     string | interface StoreParams
 param instance: T
 ```
@@ -418,7 +418,7 @@ The middleware callback function returns the context and method that indicates t
 | name      | description                    | type   |
 |-----------|--------------------------------|--------|
 | action    | Action name.                   | string |
-| repo      | Repo/store name.               | string |
+| store      | store name.                    | string |
 | payload   | Payload data.                  | object |
 | state     | The data of the current state. | object |
 | getAction | Returns the store action by name. | function |
@@ -510,7 +510,7 @@ This method will combine data from the state with data from the storage.
 
 #### manager.pull
 This method will merge data from the storage with data from the state.
-#### manager.replaceRepo
+#### manager.replaceStore
 This method will replace the data from the storage with state data.
 
 #### manager.replaceState
@@ -553,7 +553,7 @@ return: boolean
 ```
 
 #### manager.compareWithState
-Сompare state and repository.
+Сompare state and store.
 > States should not contain methods
 
 return: boolean
@@ -567,8 +567,8 @@ params:
 
 return: boolean
 
-#### manager.compareRepoWithInstance
-Compare repository and instance object.
+#### manager.compareStoreWithInstance
+Compare store and instance object.
 
 params:
 - **instance***: *object*;
@@ -578,7 +578,7 @@ return: boolean
 #### manager.clone
 Clones the selected storage and its state.
 
-> It is best to avoid using this method, as the best practice would be to do initialization of repositories in one place. Copying the repository can lead to code support difficulties.
+> It is best to avoid using this method, as the best practice would be to do initialization of stores in one place. Copying the store can lead to code support difficulties.
 
 params:
 - **name***: *string*;
@@ -594,7 +594,7 @@ return: Store<T>
 ```
 
 #### manager.update
-Updates the state of the repository.
+Updates the state of the store.
 This method is equivalent to dispatch(...).
 
 #### manager.props
@@ -678,11 +678,11 @@ Typescript types:
 ```
 return: StateCollectionRepo
 ```
-#### colection.fromRepo
-Get a list of collections by repository name.
+#### colection.fromStore
+Get a list of collections by store name.
 
 params:
-- **repoName***: *string* - The name of repository;
+- **storeName***: *string* - The name of store;
 
 return: array
 
@@ -692,12 +692,12 @@ import { stateCollection } from "@biscuit-store/core";
 ...
 const collection stateCollection().compile(actionAdd, acrionRemove);
 
-collection.fromRepo("repo");
+collection.fromStore("storeName");
 ```
 
 Typescript types:
 ```
-param repoName: string
+param storeName: string
 
 return: StateAction[]
 ```
@@ -766,7 +766,7 @@ store.subscribe((state) => {
 ```
 
 ### store.get
-Almost the same as [getRepo](#getRepo), but called from the store-api
+Almost the same as [getStore](#getStore), but called from the store-api
 
 ```javascript
 import { store } from "./store";
@@ -774,7 +774,7 @@ import { store } from "./store";
 store.get(); // { value 1 }
 ```
 ### store.add
-Almost the same as [addRepo](#addRepo), but called from the store-api
+Almost the same as [addStore](#addStore), but called from the store-api
 
 - **instance***: *object* - updated data;
 
@@ -784,8 +784,8 @@ import { store } from "./store";
 store.add({value: 2}); // { value 2 }
 ```
 
-### store.repo
-Returns the name of the repository
+### store.name
+Returns the name of the store
 
 ### Biscuit-store action API
 
@@ -825,10 +825,10 @@ import { addAction } from "./store";
 
 addAction.getState(); // {value: 1}
 ```
-### action.repo
-Returns the name of the repository
+### action.name
+Returns the name of the store
 
-### action.state
+### action.type
 Returns the name of the state
 
 ### Adapter API
@@ -872,7 +872,7 @@ params:
 
 action callback returns:
 - **payload** - the payload that we transmit from the dispatcher;
-- **state** - the current status of the repository;
+- **state** - the current status of the store;
 - **context** - Contains two methods:
 - - **send** - It is used for asynchronous data sending and is used instead of synchronous return.;
 - - **getAction** - Used to get an action by a string name.

@@ -15,7 +15,7 @@ export function Header() {
                 <h1 className="headerTitle">
           Biscuit-<span>store</span>
                 </h1>
-                <p>Library for managing javascript application states.</p>
+                <p>JavaScript library for application state-management.</p>
                 <div className="buttonBlock">
                     <a href="/docs/start">
                         <Button type={'superButton'} text="Get started" />

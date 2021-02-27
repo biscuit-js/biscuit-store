@@ -116,37 +116,37 @@ var debugCollection = {};
 /**
  * Write log object
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  */
 
-var writeLog = function writeLog(type, message, repoName) {
+var writeLog = function writeLog(type, message, storeName) {
   if (Object.keys(debugCollection).length > 0) {
     var line = this.stack.split('\n')[1].split(':')[2];
     createLog({
       message: this.name + ': ' + message,
       file: line,
-      level: repoName ? 'local' : 'global',
-      repo: repoName,
+      level: storeName ? 'local' : 'global',
+      store: storeName,
       type: type
-    }, repoName);
+    }, storeName);
   }
 };
 /**
  * This method processes the storage logs
  * and outputs them to the debugger if necessary.
  * @param {any} data is error -> new Error, is warn -> string
- * @param {string} repoName repository name
+ * @param {string} storeoName store name
  * @public
  */
 
 
-var createLog = function createLog(data, repoName) {
+var createLog = function createLog(data, storeName) {
   for (var key in debugCollection) {
-    if (key === repoName) {
+    if (key === storeName) {
       debugCollection[key](data);
     }
 
-    if (!repoName) {
+    if (!storeName) {
       debugCollection[key](data);
     }
   }
@@ -154,19 +154,19 @@ var createLog = function createLog(data, repoName) {
 /**
  * Create  log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 
 var Log = /*#__PURE__*/function (_Error) {
   _inheritsLoose(Log, _Error);
 
-  function Log(message, repoName) {
+  function Log(message, storeName) {
     var _this;
 
     _this = _Error.call(this, message) || this;
     _this.name = 'Biscuit log';
-    writeLog.call(_assertThisInitialized(_this), 'log', message, repoName);
+    writeLog.call(_assertThisInitialized(_this), 'log', message, storeName);
     return _this;
   }
 
@@ -175,25 +175,25 @@ var Log = /*#__PURE__*/function (_Error) {
 /**
  * Create warning log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 
 var Warning = /*#__PURE__*/function (_Error2) {
   _inheritsLoose(Warning, _Error2);
 
-  function Warning(message, repoName) {
+  function Warning(message, storeName) {
     var _this2;
 
     _this2 = _Error2.call(this, message) || this;
 
-    if (settings.strictMode[repoName]) {
+    if (settings.strictMode[storeName]) {
       // eslint-disable-next-line no-console
       console.warn(message);
     }
 
     _this2.name = 'Biscuit warn';
-    writeLog.call(_assertThisInitialized(_this2), 'warning', message, repoName);
+    writeLog.call(_assertThisInitialized(_this2), 'warning', message, storeName);
     return _this2;
   }
 
@@ -202,19 +202,19 @@ var Warning = /*#__PURE__*/function (_Error2) {
 /**
  * Create error log
  * @param {string} message message
- * @param {string} repoName repository name
+ * @param {string} storeName store name
  * @public
  */
 
 var CreateError = /*#__PURE__*/function (_Error3) {
   _inheritsLoose(CreateError, _Error3);
 
-  function CreateError(message, repoName) {
+  function CreateError(message, storeName) {
     var _this3;
 
     _this3 = _Error3.call(this, message) || this;
     _this3.name = 'Biscuit error';
-    writeLog.call(_assertThisInitialized(_this3), 'error', message, repoName);
+    writeLog.call(_assertThisInitialized(_this3), 'error', message, storeName);
     return _this3;
   }
 
@@ -223,8 +223,8 @@ var CreateError = /*#__PURE__*/function (_Error3) {
 
 /** debug messages */
 var messages = {
-  noRepo: function noRepo(name) {
-    return "repository <" + name + "> not found.";
+  noStore: function noStore(name) {
+    return "store <" + name + "> not found.";
   },
   noState: function noState(name) {
     return "state <" + name + "> not found.";
@@ -236,12 +236,12 @@ var messages = {
     return "biscuit " + fnName + " error: storage name is not a string.";
   },
   noStoreParams: 'The createStore method must contain the storage parameters.',
-  noRepoName: 'The repository name is a required field.',
+  noStoreName: 'The store name is a required field.',
   middleNoFunc: 'Middleware should be provided as a feature.',
   debuggerNoFunc: 'Debugger should be provided as a feature.',
   actionString: 'The state name must be a string.',
-  repoNotFind: 'Repository not found.',
-  repoExists: 'A repository with this name already exists.'
+  storeNotFind: 'store not found.',
+  storeExists: 'A store with this name already exists.'
 };
 
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
@@ -267,7 +267,6 @@ function createEmitter() {
     * @param {function} listener callback function
     * @param {string} state store state
     * @return {object{params: object, remove: function}} returned task id
-    * @public
     */
     subscribeAction: function subscribeAction(taskName, listener, state) {
       if (typeof listener !== 'function') {
@@ -307,7 +306,7 @@ function createEmitter() {
     /**
     * This method allows you to subscribe to multiple actions.
     * Creates multiple tasks that run a single callback function.
-    * @param {actions[object{repo: string, store: string}]} actions array actions
+    * @param {actions[object{name: string, type: string}]} actions array actions
     * @param {function} listener callback
     * @return {}
     */
@@ -320,23 +319,23 @@ function createEmitter() {
 
       for (var _iterator = _createForOfIteratorHelperLoose(actions), _step; !(_step = _iterator()).done;) {
         var action = _step.value;
-        new Log("subscribe -> store: " + action.repo + ", state: " + action.state, action.repo);
+        new Log("subscribe -> name: " + action.name + ", type: " + action.state, action.name);
 
-        if (!action.repo) {
+        if (!action.name) {
           throw new CreateError(messages.noValidAction);
         }
 
-        if (!taskBuffer[action.repo]) {
-          taskBuffer[action.repo] = [];
+        if (!taskBuffer[action.name]) {
+          taskBuffer[action.name] = [];
         }
         /** create task */
 
 
         var task = {
-          state: action.state,
-          name: action.repo,
+          state: action.type,
+          name: action.name,
           todo: listener,
-          id: taskBuffer[action.repo].length
+          id: taskBuffer[action.name].length
         };
         /** write task to buffer */
 
@@ -357,7 +356,7 @@ function createEmitter() {
         remove: function remove() {
           for (var _iterator2 = _createForOfIteratorHelperLoose(tasks), _step2; !(_step2 = _iterator2()).done;) {
             var task = _step2.value;
-            new Log("unsubscribe -> store: " + task.name + ", state: " + task.state, task.name);
+            new Log("unsubscribe -> name: " + task.name + ", type: " + task.state, task.name);
             taskBuffer[task.name].splice(task.id, 1);
           }
         }
@@ -367,21 +366,21 @@ function createEmitter() {
     /**
     * Starts all tasks that match the specified state name
     * and passes data to their callback functions.
-    * @param {object{repo: string, state: string}} action action params
+    * @param {object{name: string, type: string}} action action params
     * @async
     * @public
     */
     dispatchAction: function dispatchAction(action) {
-      new Log("dispatch -> store: " + action.repo + ", state: " + action.state, action.repo);
+      new Log("dispatch -> name: " + action.name + ", type: " + action.type, action.name);
 
-      if (taskBuffer[action.repo]) {
-        taskBuffer[action.repo].forEach(function (task) {
+      if (taskBuffer[action.name]) {
+        taskBuffer[action.name].forEach(function (task) {
           /**
           * If the status field is not defined,
           * then run the task without additional checks, if the field is found,
           * then perform a state comparison
           */
-          if (task.state === action.state) {
+          if (task.state === action.type) {
             task.todo(task);
           }
 
@@ -392,7 +391,7 @@ function createEmitter() {
         return;
       }
 
-      new Warning("store \"" + action.repo + "\" has no active subscriptions.", action.repo);
+      new Warning("store \"" + action.name + "\" has no active subscriptions.", action.name);
     }
   };
 }
@@ -491,7 +490,7 @@ var sandbox = function sandbox(fn) {
  * @param {*} value any value
  */
 
-function type(value) {
+function typeOf(value) {
   var regex = /^\[object (\S+?)]$/;
   var matches = Object.prototype.toString.call(value).match(regex) || [];
   return (matches[1] || 'undefined').toLowerCase();
@@ -1247,32 +1246,32 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 function getStateRepo(action) {
-  return states["\"" + action.state + "\""][action.repo];
+  return states["\"" + action.type + "\""][action.name];
 }
-function getRepository(name) {
+function getStoresitory(name) {
   return repositories[name].content;
 }
-function getRepositoryActions(repo) {
-  return repositories[repo].actions;
+function getStoresitoryActions(name) {
+  return repositories[name].actions;
 }
-function getRepoName(target) {
+function getStoreName(target) {
   if (typeof target === 'string') {
     return target;
   }
 
-  return target.repo;
+  return target.name;
 }
 var actionError = function actionError(action) {
-  if (!action || !action.repo || !action.state) {
+  if (!action || !action.name || !action.type) {
     throw new CreateError('Invalid action parameters.');
   }
 
-  if (!repositories[action.repo]) {
-    throw new CreateError(messages.noRepo(action.repo));
+  if (!repositories[action.name]) {
+    throw new CreateError(messages.noStore(action.name));
   }
 
-  if (!states["\"" + action.state + "\""]) {
-    throw new CreateError(messages.noState(action.state), action.repo);
+  if (!states["\"" + action.type + "\""]) {
+    throw new CreateError(messages.noState(action.type), action.name);
   }
 };
 /**
@@ -1294,13 +1293,13 @@ function activeMiddlewares(context, fn) {
             };
           }
 
-          if (!middlewares[context.repo]) {
+          if (!middlewares[context.store]) {
             _context.next = 6;
             break;
           }
 
           _context.next = 4;
-          return regenerator.awrap(middlewares[context.repo].forEach(function (middle) {
+          return regenerator.awrap(middlewares[context.store].forEach(function (middle) {
             middle(context, fn);
           }));
 
@@ -1387,13 +1386,13 @@ function dispatchProto(_ref) {
     return _this;
   };
   /**
-  * Merge state into repository
+  * Merge state into store
   * @public
   */
 
 
   this.merge = function () {
-    repositories[action.repo].content = _objectSpread$1(_objectSpread$1({}, prev), payData);
+    repositories[action.name].content = _objectSpread$1(_objectSpread$1({}, prev), payData);
     return _this;
   };
   /**
@@ -1417,9 +1416,9 @@ function dispatchProto(_ref) {
 
             _context.next = 3;
             return regenerator.awrap(new Promise(function (resolve) {
-              task = emitter.subscribeAction(action.repo, function () {
+              task = emitter.subscribeAction(action.name, function () {
                 return call(resolve);
-              }, action.state);
+              }, action.type);
             }).then(fn));
 
           case 3:
@@ -1440,12 +1439,12 @@ function dispatchInitMiddleware(_ref2) {
       switch (_context2.prev = _context2.next) {
         case 0:
           action = _ref2.action, payData = _ref2.payData, prev = _ref2.prev;
-          actions = getRepositoryActions(action.repo);
+          actions = getStoresitoryActions(action.name);
           _context2.next = 4;
           return regenerator.awrap(new Promise(function (resolve) {
             activeMiddlewares({
-              action: action.state,
-              repo: action.repo,
+              action: action.type,
+              store: action.name,
               payload: payData,
               state: prev,
               getAction: function getAction(actionName) {
@@ -1472,72 +1471,72 @@ function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if 
 function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Allows you to subscribe to the store. and tracks its change.
- * @param {string} repo repository name
+ * @param {string} name store name
  * @param {function} fn callback
- * @param {string} state state name
+ * @param {string} type state name
  * @return {Promise}
  * @async
  */
 
-var subscriber = function subscriber(repo, fn, state) {
+var subscriber = function subscriber(name, fn, type) {
   var task;
   var promise = new Promise(function (resolve) {
-    task = emitter.subscribeAction(repo, function () {
+    task = emitter.subscribeAction(name, function () {
       /** if there is a state then pick it up */
-      var data = state ? getState({
-        repo: repo,
-        state: state
-      }) : getRepo(repo);
+      var data = type ? getState({
+        name: name,
+        type: type
+      }) : getStore(name);
       fn(data, task);
       resolve({
         data: data
       });
-    }, state);
+    }, type);
   });
   var resolve = this.resolve(promise);
   resolve['unsubscribe'] = task.remove;
   return resolve;
 };
 /**
- * This method allows you to add new values to the repository.
+ * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @param {object} instance object with added data
  * @public
  */
 
 
-function addRepo(target, instance) {
-  var name = getRepoName(target);
+function addStore(target, instance) {
+  var name = getStoreName(target);
 
   if (!repositories[name]) {
-    throw new CreateError(messages.noRepo(name));
+    throw new CreateError(messages.noStore(name));
   }
 
-  if (type(instance) !== 'object') {
+  if (typeOf(instance) !== 'object') {
     throw new CreateError(messages.initialType);
   }
 
-  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getRepository(name)), instance);
+  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(name)), instance);
 }
 /**
  * This method is used to get data from the storage by its key.
  * Warning: Storage data cannot be changed directly.
- * You can replace the values either with the "addRepo"
+ * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @return {object} storage data
  * @public
  */
 
-function getRepo(target) {
-  var name = getRepoName(target);
+function getStore(target) {
+  var name = getStoreName(target);
 
   if (!repositories[name]) {
-    throw new CreateError(messages.noRepo(name));
+    throw new CreateError(messages.noStore(name));
   }
 
-  return gettter(_objectSpread$2({}, getRepository(name)));
+  return gettter(_objectSpread$2({}, getStoresitory(name)));
 }
 /**
  * This method is needed to get the storage state
@@ -1580,8 +1579,8 @@ function dispatch(action, payload) {
   var voids = {};
   actionError(action);
 
-  if (type(payload) !== 'function' && type(payload) !== 'object') {
-    throw new CreateError('The payload must be an object or function.', action.repo);
+  if (typeOf(payload) !== 'function' && typeOf(payload) !== 'object') {
+    throw new CreateError('The payload must be an object or function.', action.name);
   }
 
   function promise() {
@@ -1656,7 +1655,7 @@ function subscribeToState(action, fn) {
 
   try {
     actionError(action);
-    return subscriber.call(that, action.repo, fn, action.state);
+    return subscriber.call(that, action.name, fn, action.type);
   } catch (e) {
     return that.reject(e);
   }
@@ -1667,7 +1666,7 @@ function subscribeToState(action, fn) {
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param {string | import('../../../types').Store} target repository name or store
+ * @param {string | import('../../../types').Store} target store name or store
  * @param {import('../../types/state').SubscribeListner} fn callback
  * @callback
  * @async
@@ -1681,15 +1680,15 @@ function subscribeToStore(target, fn) {
     };
   }
 
-  var repo = getRepoName(target);
+  var storeName = getStoreName(target);
   var that = Promise;
 
   try {
-    if (!repositories[repo]) {
-      throw new CreateError(messages.noRepo(repo));
+    if (!repositories[storeName]) {
+      throw new CreateError(messages.noStore(storeName));
     }
 
-    return subscriber.call(that, repo, fn);
+    return subscriber.call(that, storeName, fn);
   } catch (e) {
     return that.reject(e);
   }
@@ -1711,7 +1710,7 @@ function createManager(action) {
      * @public
      */
     merge: function merge() {
-      repositories[action.repo].content = _objectSpread$2(_objectSpread$2({}, getRepository(action.repo)), getStateRepo(action).content);
+      repositories[action.name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(action.type)), getStateRepo(action).content);
     },
 
     /**
@@ -1719,15 +1718,15 @@ function createManager(action) {
      * @public
      */
     pull: function pull() {
-      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo(action).content), getRepository(action.repo));
+      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo(action).content), getStoresitory(action.name));
     },
 
     /**
      * This method will replace the data from the storage with state data.
      * @public
      */
-    replaceRepo: function replaceRepo() {
-      repositories[action.repo].content = _objectSpread$2({}, getStateRepo(action).content);
+    replaceStore: function replaceStore() {
+      repositories[action.name].content = _objectSpread$2({}, getStateRepo(action).content);
     },
 
     /**
@@ -1735,7 +1734,7 @@ function createManager(action) {
      * @public
      */
     replaceState: function replaceState() {
-      getStateRepo(action).content = _objectSpread$2({}, getRepository(action.repo));
+      getStateRepo(action).content = _objectSpread$2({}, getStoresitory(action.name));
     },
 
     /**
@@ -1748,8 +1747,8 @@ function createManager(action) {
     mergeState: function mergeState(targetAction) {
       actionError(targetAction);
       getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo({
-        state: targetAction.state,
-        repo: action.repo
+        type: targetAction.type,
+        name: action.name
       }).content), getStateRepo(action).content);
     },
 
@@ -1761,10 +1760,10 @@ function createManager(action) {
      * @public
      */
     remove: function remove() {
-      delete repositories[action.repo];
-      Object.keys(states["\"" + action.state + "\""]).forEach(function (item) {
-        if (item === action.repo) {
-          delete states["\"" + action.state + "\""][action.repo];
+      delete repositories[action.name];
+      Object.keys(states["\"" + action.type + "\""]).forEach(function (item) {
+        if (item === action.name) {
+          delete states["\"" + action.type + "\""][action.name];
         }
       });
     },
@@ -1783,13 +1782,13 @@ function createManager(action) {
     },
 
     /**
-     * Сompare state and repository
+     * Сompare state and store
      * WARNING: states should not contain methods
      * @return {bool}
      * @public
      */
     compareWithState: function compareWithState() {
-      return compareObject(getRepository(action.repo), getStateRepo(action).content);
+      return compareObject(getStoresitory(action.name), getStateRepo(action).content);
     },
 
     /**
@@ -1810,28 +1809,28 @@ function createManager(action) {
      * @return {bool}
      * @public
      */
-    compareRepoWithInstance: function compareRepoWithInstance(instance) {
-      return compareObject(getRepository(action.repo), instance);
+    compareStoreWithInstance: function compareStoreWithInstance(instance) {
+      return compareObject(getStoresitory(action.name), instance);
     },
 
     /**
      * Clones the selected storage and its state.
      * WARNING: It is best to avoid using this method,
-     * as the best practice would be to do initialization of repositories in one place.
-     * Copying the repository can lead to code support difficulties.
+     * as the best practice would be to do initialization of stores in one place.
+     * Copying the store can lead to code support difficulties.
      * @param {string} name name for the new storage
      * @public
      */
     clone: function clone(name) {
-      var repo = newRepo(name, _objectSpread$2({}, getRepository(action.repo)));
-      states["\"" + action.state + "\""][name] = {
+      var store = newStore(name, _objectSpread$2({}, getStoresitory(action.name)));
+      states["\"" + action.type + "\""][name] = {
         content: _objectSpread$2({}, getStateRepo(action).content)
       };
-      return repo;
+      return store;
     },
 
     /**
-     * Updates the status of the repository.
+     * Updates the status of the store.
      * This method is equivalent to dispatch(...)
      * @public
      */
@@ -1857,28 +1856,28 @@ function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if 
 
 function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
- * This method is responsible for creating a new repository.
- * Takes as the first argument a string with the repository name.
+ * This method is responsible for creating a new store.
+ * Takes as the first argument a string with the store name.
  * and the initial state of the storage as the second argument
  * @param {string} name storage name
  * @param {import('../../types/store').Store} initial initial object
  * @public
  */
 
-function newRepo(name, initial) {
+function newStore(name, initial) {
   if (initial === void 0) {
     initial = {};
   }
 
   if (!name) {
-    throw new CreateError(messages.noRepoName);
+    throw new CreateError(messages.noStoreName);
   }
 
   if (typeof name !== 'string') {
-    throw new CreateError(messages.storageNameError('newRepo'));
+    throw new CreateError(messages.storageNameError('newStore'));
   }
 
-  if (type(initial) !== 'object') {
+  if (typeOf(initial) !== 'object') {
     throw new CreateError(messages.initialType, name);
   }
 
@@ -1887,7 +1886,7 @@ function newRepo(name, initial) {
     actions: {}
   };
   return {
-    repo: name,
+    name: name,
 
     /** Subscribe by change @param {function} fn */
     subscribe: function subscribe(fn) {
@@ -1896,12 +1895,12 @@ function newRepo(name, initial) {
 
     /** get reposiory */
     get: function get() {
-      return getRepo(name);
+      return getStore(name);
     },
 
     /** add to reposiory @param {object} instance */
     add: function add(instance) {
-      return addRepo(name, instance);
+      return addStore(name, instance);
     }
   };
 }
@@ -1914,17 +1913,17 @@ function newRepo(name, initial) {
  */
 
 function createActionTo(params) {
-  if (!repositories[params.repo]) {
-    throw new CreateError(messages.repoNotFind);
+  if (!repositories[params.name]) {
+    throw new CreateError(messages.storeNotFind);
   }
 
   var createNewState = function createNewState(stns) {
     if (!stns.branch) {
-      return repositories[params.repo];
+      return repositories[params.name];
     }
 
     return {
-      content: _objectSpread$3(_objectSpread$3({}, repositories[params.repo].content), stns.initial)
+      content: _objectSpread$3(_objectSpread$3({}, repositories[params.name].content), stns.initial)
     };
   };
 
@@ -1946,14 +1945,14 @@ function createActionTo(params) {
       }
 
       if (typeof action !== 'string') {
-        throw new CreateError(messages.actionString, params.repo);
+        throw new CreateError(messages.actionString, params.name);
       }
 
       var actionStr = "\"" + action + "\"";
-      states[actionStr] = _objectSpread$3(_objectSpread$3({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.repo] = createNewState(options), _objectSpread2));
+      states[actionStr] = _objectSpread$3(_objectSpread$3({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
       var actionParams = {
-        repo: params.repo,
-        state: action
+        name: params.name,
+        type: action
       };
 
       var returnedParams = _objectSpread$3(_objectSpread$3({}, actionParams), {}, {
@@ -1988,12 +1987,12 @@ function createActionTo(params) {
         }
       });
 
-      repositories[params.repo].actions["\"" + action + "\""] = returnedParams;
+      repositories[params.name].actions["\"" + action + "\""] = returnedParams;
       return returnedParams;
     },
 
-    /** repository key */
-    repo: params.repo
+    /** store name */
+    name: params.name
   };
 }
 /**
@@ -2035,12 +2034,12 @@ function stateCollection() {
         var action = _actions[_i];
         actionError(action);
 
-        if (!collection[action.repo]) {
-          collection[action.repo] = [_objectSpread$3({}, action)];
+        if (!collection[action.name]) {
+          collection[action.name] = [_objectSpread$3({}, action)];
           continue;
         }
 
-        collection[action.repo].push(_objectSpread$3({}, action));
+        collection[action.name].push(_objectSpread$3({}, action));
       }
 
       return _objectSpread$3({}, collection);
@@ -2057,12 +2056,12 @@ function stateCollection() {
 
     /**
      * Get a collection by matching the storage name
-     * @param {string} repo storage name
+     * @param {string} name storage name
      * @return {import('../../types/state').StateAction[]} collections instance
      * @public
      */
-    fromRepo: function fromRepo(repo) {
-      return [].concat(collection[repo]);
+    fromStore: function fromStore(name) {
+      return [].concat(collection[name]);
     },
 
     /**
@@ -2099,8 +2098,8 @@ function combineStateCollections() {
 
   var _loop = function _loop() {
     var collection = _collections[_i2];
-    Object.keys(collection.all()).forEach(function (repoName) {
-      allState = [].concat(allState, collection.fromRepo(repoName));
+    Object.keys(collection.all()).forEach(function (storeName) {
+      allState = [].concat(allState, collection.fromStore(storeName));
     });
   };
 
@@ -2120,11 +2119,11 @@ function combineStateCollections() {
  */
 
 function middleware(store) {
-  if (!repositories[store.repo]) {
-    throw new CreateError(messages.noRepo(store.repo));
+  if (!repositories[store.name]) {
+    throw new CreateError(messages.noStore(store.name));
   }
 
-  var s = store.repo;
+  var s = store.name;
   return {
     /**
     * Adds a handler to the middleware task list.
@@ -2153,19 +2152,19 @@ function middleware(store) {
  */
 
 function createDebuger(store, fn) {
-  if (!repositories[store.repo]) {
-    throw new CreateError(messages.noRepo(store.repo));
+  if (!repositories[store.name]) {
+    throw new CreateError(messages.noStore(store.name));
   }
 
   if (typeof fn !== 'function') {
     throw new CreateError(messages.debuggerNoFunc);
   }
 
-  debugCollection[store.repo] = fn;
+  debugCollection[store.name] = fn;
 }
 /**
  * Monolithic method for creating a biscuit storage.
- * This is the preferred method for creating a repository.
+ * This is the preferred method for creating a store.
  * @param {import('../../types/store').StoreSettings} options
  * an object containing the store settings
  * @return {import('../../types/store').StoreParams}
@@ -2186,15 +2185,15 @@ function createStore(options) {
   /** Create a new storage */
 
 
-  var repo = newRepo(params.name, params.initial);
-  var createAction = createActionTo(repo);
+  var store = newStore(params.name, params.initial);
+  var createAction = createActionTo(store);
   /** Set of storage parameters */
 
   var output = {
-    store: _objectSpread$3({}, repo),
+    store: _objectSpread$3({}, store),
     actions: {}
   };
-  /** Adding States to the repository */
+  /** Adding States to the store */
 
   if (params.actions) {
     for (var key in params.actions) {
@@ -2206,22 +2205,22 @@ function createStore(options) {
       });
     }
   }
-  /** Adding middleware to the repository */
+  /** Adding middleware to the store */
 
 
   if (params.middleware && params.middleware.length > 0) {
-    var middle = middleware(repo);
+    var middle = middleware(store);
 
     for (var _iterator = _createForOfIteratorHelperLoose$1(params.middleware), _step; !(_step = _iterator()).done;) {
       var fn = _step.value;
       middle.add(fn);
     }
   }
-  /** Adding debuger to the repository */
+  /** Adding debuger to the store */
 
 
   if (params.debugger) {
-    createDebuger(repo, params.debugger);
+    createDebuger(store, params.debugger);
   }
   /** Strict mod */
 
@@ -2240,4 +2239,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addRepo, combineStateCollections, createActionTo, createDebuger, createManager, createStore, dispatch, getRepo, getState, initialActions, middleware, newRepo, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, combineStateCollections, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };

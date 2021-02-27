@@ -14,7 +14,7 @@ it('check new store', () => {
         initial: { data: 'test' },
     });
 
-    expect(testStore.store.repo).toEqual('test-1');
+    expect(testStore.store.name).toEqual('test-1');
 });
 
 it('check new store methods', () => {
@@ -80,31 +80,31 @@ it('check store action functions', () => {
         actions,
     });
 
-    expect(testStore.actions.testStart.repo).not.toBeUndefined();
-    expect(testStore.actions.testStart.state).not.toBeUndefined();
+    expect(testStore.actions.testStart.name).not.toBeUndefined();
+    expect(testStore.actions.testStart.type).not.toBeUndefined();
     expect(testStore.actions.testStart.subscribe).not.toBeUndefined();
     expect(testStore.actions.testStart.dispatch).not.toBeUndefined();
     expect(testStore.actions.testStart.getState).not.toBeUndefined();
 
-    expect(testStore.actions.testStart.repo).not.toBeNull();
-    expect(testStore.actions.testStart.state).not.toBeNull();
+    expect(testStore.actions.testStart.name).not.toBeNull();
+    expect(testStore.actions.testStart.type).not.toBeNull();
     expect(testStore.actions.testStart.subscribe).not.toBeNull();
     expect(testStore.actions.testStart.dispatch).not.toBeNull();
     expect(testStore.actions.testStart.getState).not.toBeNull();
 });
 
-it('check store repo and state', () => {
+it('check store store and state', () => {
     const testStore = createStore({
         name: 'test-7',
         initial: { data: 'test' },
         actions,
     });
 
-    expect(testStore.actions.testStart.repo).toEqual('test-7');
-    expect(testStore.actions.testStart.state).toEqual(testStart);
+    expect(testStore.actions.testStart.name).toEqual('test-7');
+    expect(testStore.actions.testStart.type).toEqual(testStart);
 });
 
-it('check store change repo', () => {
+it('check store change store', () => {
     const testStore = createStore({
         name: 'test-8',
         initial: { data: 'test' },
@@ -183,9 +183,9 @@ it('check store middleware', (done) => {
             (context, next) => {
                 expect(context.action).toEqual(testStart);
                 expect(context.payload).toEqual({ data: 'test-2', id: 2 });
-                expect(context.repo).toEqual('test-11');
+                expect(context.store).toEqual('test-11');
                 expect(context.state).toEqual({ data: 'test' });
-                expect(context.getAction(testStart).state).toEqual(testStart);
+                expect(context.getAction(testStart).type).toEqual(testStart);
                 expect(typeof next).toEqual('function');
                 next();
 
@@ -207,7 +207,7 @@ it('check store debugger', (done) => {
         debugger: (e) => {
             if (e.type === 'log') {
                 expect(e.message).toEqual(
-                    'Biscuit log: dispatch -> store: test-12, state: TEST/START'
+                    'Biscuit log: dispatch -> name: test-12, type: TEST/START'
                 );
             }
 
@@ -221,7 +221,7 @@ it('check store debugger', (done) => {
             if (
                 e.type === 'error' &&
 				e.level === 'local' &&
-				e.repo === 'test-12'
+				e.store === 'test-12'
             ) {
                 expect(e).not.toBeUndefined();
                 expect(e).not.toBeNull();
@@ -247,12 +247,12 @@ it('check store no params', () => {
     );
 });
 
-it('check store no repo name', () => {
+it('check store no store name', () => {
     expect(() => {
         createStore({
             initial: {},
         });
-    }).toThrowError(new Error('The repository name is a required field.'));
+    }).toThrowError(new Error('The store name is a required field.'));
 });
 
 it('check store invalid initial type', () => {

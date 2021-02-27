@@ -1,4 +1,4 @@
-import { getRepo, getState, utils } from '@biscuit-store/core';
+import { getStore, getState, utils } from '@biscuit-store/core';
 const { CreateError } = utils;
 
 /** Get state or repository data */
@@ -7,7 +7,7 @@ export const getData = (repo, state) => {
         return getState({ repo, state });
     }
 
-    return getRepo(repo);
+    return getStore(repo);
 };
 
 /** Collects source data from dependent stores */
@@ -17,7 +17,7 @@ export const loopDeps = (deps, res) => {
     }
     let result = res;
     for (let dep of deps) {
-        result = { ...result, ...getData(dep.repo, dep.state) };
+        result = { ...result, ...getData(dep.name, dep.type) };
     }
     return result;
 };

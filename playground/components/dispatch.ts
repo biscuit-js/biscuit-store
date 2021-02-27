@@ -3,9 +3,11 @@ import { testAdd, testStep, testFetch, testInclude, testExecute } from '../store
 import { ITestStore } from '../common/interfaces';
 import { BranchName, TestStorePayload } from '../common/types';
 
+
 type BrenchState = ITestStore & BranchName;
 
 export function dispatchPreview() {
+
     testAdd.subscribe<ITestStore>((state) => {
         console.log(state);
     });

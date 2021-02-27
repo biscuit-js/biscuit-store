@@ -3,14 +3,9 @@
 State is a behavioral design pattern that allows objects to change behavior depending on their state. From the outside, it seems that the object class has changed.
 
 ### Standard pattern of state
-In the article [store](/docs/store), I have already described how the state looks under the hood. Let me remind you that this is a field of the states object that has a string name as a key (in the terminology of the biscuit, this is the name of the action), and contains a reference to the repository object. In the standard model of behavior, the state machine takes:
-- The name of the action, for searching the state;
-- The name of the repository by which the reference to the main repository content will be calculated. 
-  
-  
-Payload is send via a link into the repository content object by concatenation.
+The [store](/docs/store) article already mentioned that the state is a reference to the storage object.
 
-> It will also be useful for you to know that if you create two stores that specify an event with the same action name, then two repositories will be written to the object of the same event. This logic is used for optimization.
+> It will also be useful for you to know that if you create two repositories that have actions with the same name, then these repositories will be linked to an object of the same state. This logic is used for optimization.
 
 Here's what it will look like:
 
@@ -32,7 +27,7 @@ createStore({
     }
 })
 ```
-The state store at this point will look like this:
+Under the hood, the state store will look like this:
 ```
 _states:
 |____add/action:
@@ -44,9 +39,9 @@ _states:
 
 ### Branch pattern for the state
 In the article about [store](/docs/store), the states converted to branches were already mentioned, and here I will tell you more about them.
-In fact, the concept of a branch is very simple. If the normal state is a reference to the repository object. Then the branch is a copy of the repository object in an isolated state.
+In fact, the concept of a branch is very simple. If the normal state is a reference to the store object. Then the branch is a copy of the store object in an isolated state.
 
-And if we want to merge a branch with the main repository or, for example, with another branch, then we need to use a special set of methods from the [manager](/docs/manager) constructor.
+And if we want to merge a branch with the main store or, for example, with another branch, then we need to use a special set of methods from the [manager](/docs/manager) constructor.
 
 > This is actually very similar to the branching system in GIT
 
@@ -68,7 +63,7 @@ const testStore = createStore({
 export { add, sandbox } = testStore.actions
 export { store } = testStore
 ```
-As you can see, the branch has its initial state, which will be concatenated with a copy of the repository object.
+As you can see, the branch has its initial state, which will be concatenated with a copy of the store object.
 
 Now let's try to test it:
 ```javascript
@@ -84,7 +79,7 @@ sandbox.subscribe((state) => {
 
 sandbox.dispatch({value: 1});
 ```
-There is a quick way to send data from a branch to a repository without using a manager:
+There is a quick way to send data from a branch to a store without using a manager:
 
 ```javascript
 sandbox.dispatch({value: 1}).merge();

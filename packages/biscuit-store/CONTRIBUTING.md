@@ -12,7 +12,7 @@ Do not be rude, do not troll or humiliate members of the community, stay profess
 ### Development
 Before you start writing code and making a pull-request, review the [issue tracker](https://github.com/Biscuit-javascript/biscuit-store/issues), perhaps your solution has already been implemented. It is also a good practice to first suggest an idea and then start writing code.
 
-To start development, you will need to clone the repository:
+To start development, you will need to clone the store:
 ```
 git clone https://github.com/Biscuit-javascript/biscuit-store.git
 ```
@@ -31,7 +31,7 @@ Follow the rules for writing code, do not set exceptions, and do not change the 
 Before sending, be sure to make sure that the tests worked out positively.
 
 Organization of the development process:
-- Fork the repo.
+- Fork the repository.
 - Make a branch from the master branch (Follow the rules for naming branches)
 - Make your changes
 - Perform testing

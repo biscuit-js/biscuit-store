@@ -1,5 +1,5 @@
 import { repositories } from './repositories';
-import { activeMiddlewares, getStateRepo, getRepositoryActions } from './helper';
+import { activeMiddlewares, getStateRepo, getStoresitoryActions } from './helper';
 import { emitter } from './emitter';
 export function dispatchProto({ action, prev, payData }) {
     /**
@@ -13,11 +13,11 @@ export function dispatchProto({ action, prev, payData }) {
     };
 
     /**
-	 * Merge state into repository
+	 * Merge state into store
 	 * @public
 	 */
     this.merge = () => {
-        repositories[action.repo].content = {
+        repositories[action.name].content = {
             ...prev,
             ...payData,
         };
@@ -42,9 +42,9 @@ export function dispatchProto({ action, prev, payData }) {
 
         await new Promise((resolve) => {
             task = emitter.subscribeAction(
-                action.repo,
+                action.name,
                 () => call(resolve),
-                action.state
+                action.type
             );
         }).then(fn);
         return this;
@@ -52,12 +52,12 @@ export function dispatchProto({ action, prev, payData }) {
 }
 
 export async function dispatchInitMiddleware({ action, payData, prev }) {
-    const actions = getRepositoryActions(action.repo);
+    const actions = getStoresitoryActions(action.name);
     return await new Promise((resolve) => {
         activeMiddlewares(
             {
-                action: action.state,
-                repo: action.repo,
+                action: action.type,
+                store: action.name,
                 payload: payData,
                 state: prev,
                 getAction: (actionName) => actions[`"${actionName}"`],

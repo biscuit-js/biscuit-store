@@ -15,14 +15,14 @@ export function useSubscribe(action, update = true) {
     const [state, setState] = useState(null);
     /** Get default state */
     const setCurrentData = () =>
-        getData(action.repo, action.state);
+        getData(action.name, action.type);
     let value = useRef(setCurrentData());
 
     useEffect(() => {
         let cache = {};
 
         /** Subscribe store or state */
-        const task = emitter.subscribeAction(action.repo, () => {
+        const task = emitter.subscribeAction(action.name, () => {
             const n = setCurrentData();
             /** Update the state if the update parameter is true */
             if (update) {
@@ -36,7 +36,7 @@ export function useSubscribe(action, update = true) {
             /** Write data */
             cache[n] = n;
             value.current = cache[n];
-        }, action.state);
+        }, action.type);
 
         /** Unsubscribe */
         return () => task.remove();

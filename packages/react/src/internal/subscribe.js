@@ -29,19 +29,19 @@ export function subscribe(stateToProps, dispatchToProps) {
                 const dispatchers = {};
                 const states = {};
                 for (let param in dispatchToProps) {
-                    const repoName = dispatchToProps[param].repo;
+                    const storeName = dispatchToProps[param].name;
                     const action = dispatchToProps[param];
-                    const task = emitter.subscribeAction(repoName, () => {
+                    const task = emitter.subscribeAction(storeName, () => {
                         this.setState({
                             data: {
                                 ...this.state.data,
-                                [repoName]: getState(action),
+                                [storeName]: getState(action),
                             },
                         });
                     });
 
                     dispatchers[param] = (payload) => dispatch(action, payload);
-                    states[repoName] = getState(action);
+                    states[storeName] = getState(action);
                     this.buf.push(task);
                 }
 

@@ -11,7 +11,6 @@ it('calling action', (done) => {
         return payload;
     });
 
-
     const { add } = testStore('test-1', adapter);
 
     add.subscribe((state) => {

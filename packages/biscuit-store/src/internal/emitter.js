@@ -18,7 +18,6 @@ function createEmitter() {
 		 * @param {function} listener callback function
 		 * @param {string} state store state
 		 * @return {object{params: object, remove: function}} returned task id
-		 * @public
 		 */
         subscribeAction: (taskName, listener, state) => {
             if (typeof listener !== 'function') {
@@ -58,7 +57,7 @@ function createEmitter() {
         /**
 		 * This method allows you to subscribe to multiple actions.
 		 * Creates multiple tasks that run a single callback function.
-		 * @param {actions[object{repo: string, store: string}]} actions array actions
+		 * @param {actions[object{name: string, type: string}]} actions array actions
 		 * @param {function} listener callback
 		 * @return {}
 		 */
@@ -70,23 +69,23 @@ function createEmitter() {
             const tasks = [];
             for (const action of actions) {
                 new Log(
-                    `subscribe -> store: ${action.repo}, state: ${action.state}`,
-                    action.repo
+                    `subscribe -> name: ${action.name}, type: ${action.state}`,
+                    action.name
                 );
 
-                if (!action.repo) {
+                if (!action.name) {
                     throw new CreateError(messages.noValidAction);
                 }
 
-                if (!taskBuffer[action.repo]) {
-                    taskBuffer[action.repo] = [];
+                if (!taskBuffer[action.name]) {
+                    taskBuffer[action.name] = [];
                 }
                 /** create task */
                 const task = {
-                    state: action.state,
-                    name: action.repo,
+                    state: action.type,
+                    name: action.name,
                     todo: listener,
-                    id: taskBuffer[action.repo].length,
+                    id: taskBuffer[action.name].length,
                 };
                 /** write task to buffer */
                 taskBuffer[task.name][task.id] = task;
@@ -104,7 +103,7 @@ function createEmitter() {
                 remove: () => {
                     for (const task of tasks) {
                         new Log(
-                            `unsubscribe -> store: ${task.name}, state: ${task.state}`,
+                            `unsubscribe -> name: ${task.name}, type: ${task.state}`,
                             task.name,
                         );
                         taskBuffer[task.name].splice(task.id, 1);
@@ -116,24 +115,24 @@ function createEmitter() {
         /**
 		 * Starts all tasks that match the specified state name
 		 * and passes data to their callback functions.
-		 * @param {object{repo: string, state: string}} action action params
+		 * @param {object{name: string, type: string}} action action params
 		 * @async
 		 * @public
 		 */
         dispatchAction: (action) => {
             new Log(
-                `dispatch -> store: ${action.repo}, state: ${action.state}`,
-                action.repo
+                `dispatch -> name: ${action.name}, type: ${action.type}`,
+                action.name
             );
 
-            if (taskBuffer[action.repo]) {
-                taskBuffer[action.repo].forEach((task) => {
+            if (taskBuffer[action.name]) {
+                taskBuffer[action.name].forEach((task) => {
                     /**
 					 * If the status field is not defined,
 					 * then run the task without additional checks, if the field is found,
 					 * then perform a state comparison
 					 */
-                    if (task.state === action.state) {
+                    if (task.state === action.type) {
                         task.todo(task);
                     }
 
@@ -145,8 +144,8 @@ function createEmitter() {
             }
 
             new Warning(
-                `store "${action.repo}" has no active subscriptions.`,
-                action.repo
+                `store "${action.name}" has no active subscriptions.`,
+                action.name
             );
         },
     };

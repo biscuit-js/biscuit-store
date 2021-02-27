@@ -67,7 +67,7 @@ adapter.action("user/add", (payload, state, send) => {
 
 export adapter;
 ```
-We do about the same thing for the authentication repository...
+We do about the same thing for the authentication store...
 
 ### Store structure
 You can define the storage architecture for your project yourself. However, I recommend using this approach:
@@ -139,5 +139,5 @@ Don't forget to unsubscribe from unused or expired listeners.
 ### The open/close principle
 No need to try to change the state directly. You should only modify the states through the dispatch method.
 
-### To get the state, use getState or getRepo
-To get the state, you have the getSate method, and you can also get the data via the getRepo or store.get method
+### To get the state, use getState or getStore
+To get the state, you have the getSate method, and you can also get the data via the getStore or store.get method

@@ -54,16 +54,16 @@ const helloWorldStore = createStore({
 export const { store } = helloWorldStore;
 ```
 
-At the moment, we have created a store with the minimum required parameters. Namely, with the fields that should contain the name of the repository and the original data.
+At the moment, we have created a store with the minimum required parameters. Namely, with the fields that should contain the name of the store and the original data.
 
-Now let's try to get the original repository data:
+Now let's try to get the original store data: 
 ``` javascript
 import { store } from "./helloWorldStore";
 
 const data = store.get():
 console.log(data); // { value: 0 }
 ```
-Also, let's try to add something to the repository:
+Also, let's try to add something to the store:
 ``` javascript
 import { store } from "./helloWorldStore";
 
