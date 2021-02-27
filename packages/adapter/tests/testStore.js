@@ -1,4 +1,4 @@
-import { createStore } from '../../biscuit-store';
+import { createStore } from '@biscuit-store/core';
 
 export const testStore = (name, adapter) => {
     const { store, actions } = createStore({
