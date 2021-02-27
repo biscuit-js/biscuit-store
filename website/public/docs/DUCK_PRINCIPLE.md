@@ -10,8 +10,8 @@ import { createStore } from "@biscuit-store/core";
 import { adapter } from "./adapter";
 
 // Create a duck
-const { store, actions } = createStore({
-  name: "counter",
+export const { store, actions } = createStore({
+  name: "duck",
   initial: { value: "" },
   // Show the duck she it is a duck, because it can swim, fly and quack
   actions: {
@@ -21,9 +21,6 @@ const { store, actions } = createStore({
   },
   middleware: [adapter]
 });
-
-export store;
-export actions;
 ```
 adapter.js
 ``` javascript
