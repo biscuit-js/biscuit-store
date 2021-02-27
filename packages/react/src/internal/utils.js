@@ -1,13 +1,13 @@
 import { getStore, getState, utils } from '@biscuit-store/core';
 const { CreateError } = utils;
 
-/** Get state or repository data */
-export const getData = (repo, state) => {
-    if (state) {
-        return getState({ repo, state });
+/** Get state or store data */
+export const getData = (name, type) => {
+    if (type) {
+        return getState({ name, type });
     }
 
-    return getStore(repo);
+    return getStore(name);
 };
 
 /** Collects source data from dependent stores */
