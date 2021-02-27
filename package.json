@@ -46,7 +46,7 @@
     "web:build": "lerna run --parallel web:build"
   },
   "dependencies": {
-    "@biscuit-store/core": "^0.9.98",
+    "@biscuit-store/core": "^0.9.99",
     "custom-env": "^2.0.1",
     "fs-extra": "^9.1.0",
     "global": "^4.4.0",
