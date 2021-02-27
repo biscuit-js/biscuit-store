@@ -34,7 +34,8 @@
   },
   "scripts": {
     "web:start": "react-scripts start",
-    "web:build": "react-scripts build",
+    "web:build:prod": "cross-env NODE_ENV=production react-scripts build",
+    "web:build:dev": "cross-env NODE_ENV=development react-scripts build",
     "web:test": "react-scripts test --env=jsdom",
     "web:seject": "react-scripts eject"
   },
