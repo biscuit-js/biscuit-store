@@ -1,5 +1,5 @@
 # [![biscuit](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/logo.png)](https://github.com/biscuit-js/biscuit-store)
-Library for management javascript application states.
+JavaScript library for application state-management.
 
 [![Build Status](https://img.shields.io/badge/License-MIT-blue)](https://github.com/biscuit-js/biscuit-store/blob/HEAD/LICENSE.md) [![Typescript](https://badgen.net/npm/types/@biscuit-store/core)](https://www.typescriptlang.org/) [![npm version](https://badge.fury.io/js/%40biscuit-store%2Fcore.svg)](https://www.npmjs.com/package/@biscuit-store/core) [![release](https://badgen.net/github/release/biscuit-js/biscuit-store)](https://github.com/biscuit-js/biscuit-store/releases) [![Build Status](https://travis-ci.com/biscuit-js/biscuit-store.svg?branch=master)](https://travis-ci.com/biscuit-js/biscuit-store) [![download](https://badgen.net/npm/dt/@biscuit-store/core)](https://www.npmjs.com/package/@biscuit-store/core)
 
@@ -10,11 +10,12 @@ Library for management javascript application states.
 
 
 ### Description
+Biscuit allows you to organize predictable state containers in your javascript applications and easily manage them with an extensive set of tools. Intuitive patterns of this library will allow you not to spend on the organization of complex logistics, and will focus on the business logic of your project.
 
-Biscuit allows you to create javascript applications with predictable state containers, and also provides an extensive set of tools for working with them. 
-With this library, you can easily create applications with a convenient centralized state system, update components, and get a positive development experience.
-
-The main goal of the biscuit-store is to provide the developer with the most flexible functionality, while promoting compliance with the basic architectural principles of programming.
+The approach to creating containers in a biscuit is simple and can be described using the example of [creating a duck](/docs/duck):
+1. Create a duck;
+2. Show the duck she it is a duck, because it can swim, fly and quack;
+3. Teach the duck to swim, fly and quack.
 
 **Advantages:**
 - Flexible architecture

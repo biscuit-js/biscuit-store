@@ -906,3 +906,76 @@ const counterStore = createStore({
   middleware: [adapter.connect]
 });
 ```
+#### adapter.call
+> available from version 0.9.97
+
+The call method allows you to call an asynchronous function and send its response directly to the state.
+
+example:
+```javascript
+import { createAdapter } from '@ibscuit-store/adapter';
+
+const adapter = createAdapter();
+
+const fetchFunc = async (payload) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(payload);
+        }, 5000);
+    });
+};
+
+// the third parameter is an optional 
+// data processing function from the asynchronous method.
+adapter.call('test/fetch', fetchFunc, (data) => {
+  return data
+});
+
+
+export { adapter };
+```
+
+#### adapter.makeChannel
+> available from version 0.9.97
+
+A channel is a means of communication between actions. You can put data from one action in the channel and pick it up in another. in this case, the action is blocked until the data appears in the channel.
+
+the channel is created using the method **adapter.makeChannel**
+
+The makeChannel function contains only two methods:
+- **chan.include** - It is used to include data in the channel
+- **chan.extract** - It is used to receive data from the channel, and can also accept a payload that will be merged with the received data. 
+
+example:
+```javascript
+import { createAdapter } from '../../../packages/adapter';
+
+const adapter = createAdapter();
+
+const chan = adapter.makeChannel();
+
+adapter.action('test/include', (payload) => {
+    chan.include(payload);
+    return {};
+});
+
+adapter.action('test/execute', async (payload) => {
+    return await chan.extract(payload);
+});
+
+export { adapter };
+```
+Now when the 'test/execute' action is called, it will lock at the middleware level and wait until the 'test/include' action puts the data in the channel.
+
+```javascript
+    testExecute.subscribe((state) => {
+        console.log(state); // { data: 'box', title: 'delivered' }
+    });
+
+    setTimeout(() => {
+        testInclude.dispatch({ data: 'box' });
+    }, 2000);
+
+    testExecute.dispatch({ title: 'delivered' });
+}
+```

@@ -98,6 +98,12 @@ export const items = [
         hidden: true,
     },
     {
+        file: 'DUCK_PRINCIPLE',
+        url: '/docs/duck',
+        title: 'duck',
+        hidden: true,
+    },
+    {
         file: 'react/REACT',
         url: '/docs/react',
         title: 'React',

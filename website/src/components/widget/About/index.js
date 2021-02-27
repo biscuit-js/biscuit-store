@@ -8,11 +8,11 @@ export function About() {
             <div className="aboutWrapper">
                 <Title text={'About Biscuit'} />
                 <p className="text">
-          Biscuit allows you to create javascript applications with predictable
-          state containers, and also provides an extensive set of tools for
-          working with them. With this library, you can easily create
-          applications with a convenient centralized state system, update
-          components, and get a positive development experience.
+                    Biscuit allows you to organize predictable state containers in your javascript
+                    applications and easily manage them with an extensive set of tools. Intuitive
+                    patterns of this library will allow you not to spend on the
+                    organization of complex logistics, and will focus
+                    on the business logic of your project.
                 </p>
             </div>
         </div>

@@ -37,7 +37,8 @@
 
 .logoBlock {
     margin: 47px 15px;
-    width: 250px
+    width: 250px;
+    display: block;
 }
 
 .logoBlock > img {
@@ -48,9 +49,21 @@
 .menuItems {
     text-align: left;
     padding: 20px;
+    height: calc(100% - 200px);
 }
 
-.menuItems > a {
+.rcs-custom-scroll .rcs-inner-handle {
+    height: calc(100% - 12px);
+    margin-top: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+}
+
+.rcs-custom-scroll .rcs-custom-scrollbar  {
+    right: 15px
+}
+
+.menuItems  a {
     font-size: 16px;
     text-decoration: none;
     color: #fff;
@@ -63,15 +76,15 @@
     padding-bottom: 4px;
 }
 
-.menuItems > a:hover {
+.menuItems  a:hover {
     opacity: 0.8;
 }
 
-.menuItems > a:active {
+.menuItems  a:active {
     opacity: 0.5;
 }
 
-.menuItems > a.active {
+.menuItems  a.active {
     border-bottom: 2px solid #fff;
 }
 

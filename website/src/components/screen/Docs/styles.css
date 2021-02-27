@@ -13,6 +13,7 @@
     overflow: auto;
     position: relative;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .markdown-body .codeBox {

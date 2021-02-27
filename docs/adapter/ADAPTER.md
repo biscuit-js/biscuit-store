@@ -51,6 +51,7 @@ export const { counterAdd, counterClear } = counterStore.actions;
 
 ### Calling asynchronous functions
 > available from version 0.9.97
+
 The call method allows you to call an asynchronous function and send its response directly to the state.
 
 example:
@@ -79,13 +80,14 @@ export { adapter };
 
 ### Using channels
 > available from version 0.9.97
+
 A channel is a means of communication between actions. You can put data from one action in the channel and pick it up in another. in this case, the action is blocked until the data appears in the channel.
 
 the channel is created using the method **adapter.makeChannel**
 
 The makeChannel function contains only two methods:
 - **chan.include** - It is used to include data in the channel
-- **chan.extract** - Required to get data from the channel.
+- **chan.extract** - It is used to receive data from the channel, and can also accept a payload that will be merged with the received data. 
 
 example:
 ```javascript
@@ -106,7 +108,8 @@ adapter.action('test/execute', async (payload) => {
 
 export { adapter };
 ```
-...
+Now when the 'test/execute' action is called, it will lock at the middleware level and wait until the 'test/include' action puts the data in the channel.
+
 ```javascript
 
     testExecute.subscribe((state) => {

@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { CircleIcon } from '../../ui/CircleIcon';
 import { Github } from '../../icons/Github';
 import { Twitter } from '../../icons/Twitter';
+import CustomScroll from 'react-custom-scroll';
 import { Npm } from '../../icons/Npm';
 import { Menu } from '../../icons/Menu';
 import './styles.css';
@@ -39,37 +40,39 @@ export function SideMenu() {
                     <CircleIcon icon={<Npm />} />
                 </a>
             </div>
-            <div className="logoBlock">
+            <a href="/" className="logoBlock">
                 <img src="/image/logo.png" alt="logo" />
-            </div>
+            </a>
             <nav className="menuItems">
-                <a className="menuItem" href="/">Home</a>
-                {
-                    items.map((item, i) => {
-                        if (!item.hidden) {
-                            return (
-                                <React.Fragment key={i}>
-                                    <Link
-                                        onClick={() => setOpen((prev) => !prev)}
-                                        className={`menuItem ${handleActive(item) ? 'active' : ''}`}
-                                        to={item.url}>{item.title}
-                                    </Link>
-                                    {
-                                        item.afterSpace
-                                            ?
-                                            <React.Fragment>
-                                                <br />
-                                                <br />
-                                            </ React.Fragment>
-                                            : null
-                                    }
-                                </ React.Fragment>
-                            );
-                        }
+                <CustomScroll heightRelativeToParent="100%">
+                    <a className="menuItem" href="/">Home</a>
+                    {
+                        items.map((item, i) => {
+                            if (!item.hidden) {
+                                return (
+                                    <React.Fragment key={i}>
+                                        <Link
+                                            onClick={() => setOpen((prev) => !prev)}
+                                            className={`menuItem ${handleActive(item) ? 'active' : ''}`}
+                                            to={item.url}>{item.title}
+                                        </Link>
+                                        {
+                                            item.afterSpace
+                                                ?
+                                                <React.Fragment>
+                                                    <br />
+                                                    <br />
+                                                </ React.Fragment>
+                                                : null
+                                        }
+                                    </ React.Fragment>
+                                );
+                            }
 
-                        return null;
-                    })
-                }
+                            return null;
+                        })
+                    }
+                </CustomScroll>
             </nav>
         </div>
     );

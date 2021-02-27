@@ -43,7 +43,8 @@
     "readme:restore": "node ./scripts/restore-readme",
     "web:start": "lerna run web:start",
     "web:test": "lerna run --parallel web:test",
-    "web:build": "lerna run --parallel web:build"
+    "web:build": "lerna run --parallel web:build",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@biscuit-store/core": "^0.9.99",
@@ -101,7 +102,7 @@
     "eslint-plugin-optimize-regex": "^1.2.0",
     "eslint-plugin-sonarjs": "^0.6.0",
     "hoist-non-react-statics": "^3.3.2",
-    "husky": "^5.0.9",
+    "husky": "^5.1.1",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",

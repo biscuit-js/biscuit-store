@@ -1,7 +1,10 @@
 ## Get started with Вiscuit-store
-Biscuit allows you to create javascript applications with predictable state containers, and also provides an extensive set of tools for working with them. With this library, you can easily create applications with a convenient centralized state system, easily update components, and get a positive development experience.
+Biscuit allows you to organize predictable state containers in your javascript applications and easily manage them with an extensive set of tools. Intuitive patterns of this library will allow you not to spend on the organization of complex logistics, and will focus on the business logic of your project.
 
-The main goal of the biscuit-store is to provide the developer with the most flexible functionality, while promoting compliance with the basic architectural principles of programming.
+The approach to creating containers in a biscuit is simple and can be described using the example of [creating a duck](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/DUCK_PRINCIPLE.md):
+1. Create a duck;
+2. Show the duck she it is a duck, because it can swim, fly and quack;
+3. Teach the duck to swim, fly and quack.
 
 - Flexible architecture
 - Asynchronous out of the box
