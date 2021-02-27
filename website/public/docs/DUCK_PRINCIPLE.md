@@ -1,7 +1,7 @@
 ## The principle of creating a duck
 
 1. Create a duck;
-2. Show the duck she it is a duck, because it can swim, fly and quack;
+2. Tell the duck that it is by definition a duck so it must swim, quack and fly;
 3. Teach the duck to swim, fly and quack.
                                       
 store.js
@@ -13,7 +13,8 @@ import { adapter } from "./adapter";
 export const { store, actions } = createStore({
   name: "duck",
   initial: { value: "" },
-  // Show the duck she it is a duck, because it can swim, fly and quack
+  // Tell the duck that it is by definition a duck 
+  // so it must swim, quack and fly
   actions: {
     duckSwim: 'duck/swim',
     duckFly: 'duck/fly',

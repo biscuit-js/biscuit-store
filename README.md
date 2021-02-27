@@ -13,7 +13,7 @@ Biscuit allows you to organize predictable state containers in your javascript a
 
 The approach to creating containers in a biscuit is simple and can be described using the example of [creating a duck](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/DUCK_PRINCIPLE.md):
 1. Create a duck;
-2. Show the duck she it is a duck, because it can swim, fly and quack;
+2. Tell the duck that it is by definition a duck so it must swim, quack and fly;
 3. Teach the duck to swim, fly and quack.
 
 **Advantages:**
