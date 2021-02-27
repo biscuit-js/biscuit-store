@@ -43,5 +43,5 @@
   "dependencies": {
     "@typescript-eslint/parser": "^4.15.0"
   },
-  "gitHead": "07dcaa1a22b1837044aacb90c94f518d69430652"
+  "gitHead": "d235e885dcb52466ace16947909f4de34e4bd467"
 }
