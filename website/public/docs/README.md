@@ -206,6 +206,7 @@ ReactDOM.render(
 - [Application of dispatch methods](https://codesandbox.io/s/biscuit-storedispatch-after-example-lzceg)
 - [Typescript example](https://codesandbox.io/s/biscuit-storetypescript-fyhdc)
 - [Todo list](https://codesandbox.io/s/biscuit-storetodo-list-eh2ld)
+- [Adapter functions](https://codesandbox.io/s/biscuit-store-9pipt)
 
 
 ### Contributing
