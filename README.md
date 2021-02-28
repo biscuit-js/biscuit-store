@@ -72,7 +72,7 @@ store/counter/index.js
 import { createStore } from "@biscuit-store/core";
 
 // Creating a new store
-const counterStore = createStore({
+const { store, actions } = createStore({
   name: "counter",
   initial: { value: 0 },
   actions: {
@@ -81,8 +81,8 @@ const counterStore = createStore({
 });
 
 // Exporting store and actions
-export const { store } = counterStore;
-export const { counterAdd } = counterStore.actions;
+export const { counterAdd } = actions;
+export { store };
 ```
 Next, we import the actions and store to the desired file. To subscribe to the store, we use the [subscribe](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#creating-a-subscription) method, and to send the status, we use the [dispatch](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/SUBSCRIBE.md#Dispatch) method.
 
@@ -115,21 +115,21 @@ store/counter/adapter.js
 import { createAdapter } from "@biscuit-store/adapter";
 
 // Creating a new adapter
-const adapter = createAdapter();
+const { action, connect } = createAdapter();
 
 // Create action
-adapter.action("counter/add", (payload, state) => {
+action("counter/add", (payload, state) => {
   return { ...payload, value: state.value + 1 };
 });
 
 // You should also know that Biscuit out of the box is asynchronous.
 // this means that you can use asynchronous capabilities in the adapter.
-adapter.action("counter/clear", (payload, store, { send }) => {
+action("counter/clear", (payload, store, { send }) => {
   send({ value: 0 });
 });
 
 // Exporting our adapter
-export default adapter;
+export const adapter = connect;
 ```
 
 Next, connect our adapter to the store via the middleware field.
@@ -137,9 +137,9 @@ Next, connect our adapter to the store via the middleware field.
 store/counter/index.js
 ``` javascript
 import { createStore } from "@biscuit-store/core";
-import adapter from "./adapter";
+import { adapter } from "./adapter";
 
-const counterStore = createStore({
+const { store, actions } = createStore({
   name: "counter",
   initial: { value: 0 },
   actions: {
@@ -148,10 +148,11 @@ const counterStore = createStore({
   },
   // Here we can connect as many middleware functions
   // as we want by specifying them in the array
-  middleware: [adapter.connect]
+  middleware: [adapter]
 });
 
-export const { counterAdd, counterClear } = counterStore.actions;
+export const { counterAdd, counterClear } = actions;
+export const counterStore = store;
 ```
 Next, we import the actions and store to the desired file. This time we will see how it will all look in React.
 
