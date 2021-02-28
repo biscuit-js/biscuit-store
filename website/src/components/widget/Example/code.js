@@ -8,7 +8,7 @@ const { store, actions } = createStore({
     increpent: "increpent/action",
     decrement: "decrement/action",
   },
-  middleware: [adapter.connect]
+  middleware: [adapter]
 });
 
 export const counterStore = store;
@@ -16,17 +16,17 @@ export const { increpent, decrement } = actions;`;
 
 export const twoStep = `import { createAdapter } from "@biscuit-store/adapter";
 
-const adapter = createAdapter();
+const { action, connect } = createAdapter();
 
-adapter.action("increment/action", (payload, state) => {
+action("increment/action", (payload, state) => {
     return { value: state.value + 1 };
 });
 
-adapter.action("decrement/action", (payload, state, { send }) => {
+action("decrement/action", (payload, state, { send }) => {
     send({ value: state.value - 1 });
 });
 
-export adapter;`;
+export const adapter = connect;`;
 
 export const last = `import React from "react";
 import { observer, useDispatch } from "@biscuit-store/react";
