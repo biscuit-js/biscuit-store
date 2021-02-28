@@ -6,6 +6,7 @@ The approach to creating containers in a biscuit is simple and can be described 
 2. Show the duck she it is a duck, because it can swim, fly and quack;
 3. Teach the duck to swim, fly and quack.
 
+**Advantages:**
 - Flexible architecture
 - Asynchronous out of the box
 - React support
