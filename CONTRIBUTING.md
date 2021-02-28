@@ -17,6 +17,7 @@ To start development, you will need to clone the store:
 git clone https://github.com/Biscuit-javascript/biscuit-store.git
 ```
 When writing code, do not forget to conduct testing and linting:
+
 run linting:
 ```
 yarn run test
