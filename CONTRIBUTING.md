@@ -33,10 +33,10 @@ Before sending, be sure to make sure that the tests worked out positively.
 
 Organization of the development process:
 - Fork the repository.
-- Make a branch from the master branch (Follow the rules for naming branches)
+- Make a branch from the ```master``` branch (Follow the rules for naming branches)
 - Make your changes
 - Perform testing
-- Send pull-request to develop branch
+- Send pull-request to ```develop``` branch
 
 Please state the description more clearly. This will avoid misunderstandings and rejection of PR.
 
