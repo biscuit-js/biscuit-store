@@ -6,6 +6,10 @@ Before you ask a question, try to find a solution on the [issue tracker](https:/
 
 If you do not find a solution, then open the problem. Pay special attention to the details, make a clear and constructive description, attach logs if any.
 
+**Use templates:**
+[bug_report template](https://github.com/biscuit-js/biscuit-store/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
+[feature request template](https://github.com/biscuit-js/biscuit-store/blob/master/.github/ISSUE_TEMPLATE/feature_request.md)
+
 ### Be friendly
 Do not be rude, do not troll or humiliate members of the community, stay professional and be constructive.
 
