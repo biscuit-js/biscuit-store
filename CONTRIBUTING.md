@@ -18,11 +18,11 @@ git clone https://github.com/Biscuit-javascript/biscuit-store.git
 ```
 When writing code, do not forget to conduct testing and linting:
 
-run linting:
+run testing:
 ```
 yarn run test
 ```
-run testing:
+run linting:
 ```
 yarn run lint
 ```
