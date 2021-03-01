@@ -17,7 +17,7 @@ action("counter/add", (payload, state, { getAction }) => {
   return { value: state.value + payload.value };
 });
 
-action("counter/clear", (payload, store, { send, getAction }) => {
+action("counter/clear", (payload, store, { send }) => {
   send({ value: 0 });
 });
 
