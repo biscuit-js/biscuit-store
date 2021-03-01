@@ -6,12 +6,12 @@
                                       
 store.js
 ``` javascript
-import { createStore } from "@biscuit-store/core";
-import { adapter } from "./adapter";
+import { createStore } from '@biscuit-store/core';
+import { adapter } from './adapter';
 
 // Create a duck
 export const { store, actions } = createStore({
-  name: "duck",
+  name: 'duck',
   initial: { value: "" },
   // Tell the duck that it is by definition a duck 
   // so it must swim, quack and fly
@@ -25,21 +25,21 @@ export const { store, actions } = createStore({
 ```
 adapter.js
 ``` javascript
-import { createAdapter } from "@biscuit-store/adapter";
+import { createAdapter } from '@biscuit-store/adapter';
 const { action, connect } = createAdapter();
 
 // Teach the duck to swim, quack and fly.
 
 action('duck/swim', () => {
-    return { value: "The duck flew" };
+    return { value: 'The duck flew' };
 });
 
 action('duck/fly', () => {
-    return { value: "the duck swam" };
+    return { value: 'the duck swam' };
 });
 
 action('duck/quack', (payload, state, { send }) => {
-    return { value: "duck quacks" };
+    return { value: 'duck quacks' };
 });
 
 export const adapter = connect;

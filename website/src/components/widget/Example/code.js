@@ -5,14 +5,14 @@ const { store, actions } = createStore({
   name: "counter",
   initial: { value: 0 },
   actions: {
-    increpent: "increpent/action",
+    increment: "increment/action",
     decrement: "decrement/action",
   },
   middleware: [adapter]
 });
 
 export const counterStore = store;
-export const { increpent, decrement } = actions;`;
+export const { increment, decrement } = actions;`;
 
 export const twoStep = `import { createAdapter } from "@biscuit-store/adapter";
 
@@ -30,7 +30,7 @@ export const adapter = connect;`;
 
 export const last = `import React from "react";
 import { observer, useDispatch } from "@biscuit-store/react";
-import { increpent, decrement } from "./store/counter";
+import { increment, decrement } from "./store/counter";
 
 export const App = observer(
   ({ value }) => {
