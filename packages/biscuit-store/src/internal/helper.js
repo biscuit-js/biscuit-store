@@ -88,35 +88,35 @@ export function gettter(instance) {
 /**
  * Helper method for comparing two objects
  * Warning: can't compare methods
- * @param {object} obj1 first object
- * @param {object} obj2 last object
+ * @param {object} first first object
+ * @param {object} last last object
  * @return {bool}
  * @private
  */
-export function compareObject(a, b) {
-    if (a === b) {
+export function compareObject(first, last) {
+    if (first === last) {
         return true;
     }
 
-    if (a === null || typeof a !== 'object' || b === null && typeof b !== 'object') {
+    if (first === null || typeof first !== 'object' || last === null && typeof last !== 'object') {
         return false;
     }
 
-    if (Object.keys(a).length !== Object.keys(b).length) {
+    if (Object.keys(first).length !== Object.keys(last).length) {
         return false;
     }
 
     let equal = true;
-    for (let key in a) {
-        if (typeof a[key] === 'object' && typeof b[key] === 'object') {
-            if (!compareObject(a[key], b[key])) {
+    for (let key in first) {
+        if (typeof first[key] === 'object' && typeof last[key] === 'object') {
+            if (!compareObject(first[key], last[key])) {
                 equal = false;
             }
-        } else if (typeof a[key] === 'function' && typeof b[key] === 'function') {
-            if (a.toString() !== b.toString()) {
+        } else if (typeof first[key] === 'function' && typeof last[key] === 'function') {
+            if (first.toString() !== last.toString()) {
                 equal = false;
             }
-        } else if (a[key] !== b[key]) {
+        } else if (first[key] !== last[key]) {
             equal = false;
         }
     }
