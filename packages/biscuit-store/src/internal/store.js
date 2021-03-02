@@ -7,8 +7,8 @@ import {
 } from './emitter';
 import {
     gettter,
-    getStateRepo,
-    getStoresitory,
+    getStateLink,
+    getStoreContent,
     compareObject,
     actionError,
     getStoreName,
@@ -63,7 +63,7 @@ export function addStore(target, instance) {
     }
 
     repositories[name].content = {
-        ...getStoresitory(name),
+        ...getStoreContent(name),
         ...instance,
     };
 }
@@ -84,7 +84,7 @@ export function getStore(target) {
         throw new CreateError(messages.noStore(name));
     }
 
-    return gettter({ ...getStoresitory(name) });
+    return gettter({ ...getStoreContent(name) });
 }
 
 /**
@@ -98,7 +98,7 @@ export function getStore(target) {
  */
 export function getState(action) {
     actionError(action);
-    return gettter({ ...getStateRepo(action).content });
+    return gettter({ ...getStateLink(action).content });
 }
 
 /**
@@ -129,7 +129,7 @@ export function dispatch(action, payload = {}) {
     }
 
     async function promise() {
-        const state = getStateRepo(action);
+        const state = getStateLink(action);
         const prev = { ...state.content };
 
         /** if the function
@@ -148,7 +148,7 @@ export function dispatch(action, payload = {}) {
         payData = await dispatchInitMiddleware({ action, payData, prev });
 
         /** update state data */
-        getStateRepo(action).content = {
+        getStateLink(action).content = {
             ...state.content,
             ...payData,
         };
@@ -228,8 +228,8 @@ export function createManager(action) {
          */
         merge: () => {
             repositories[action.name].content = {
-                ...getStoresitory(action.type),
-                ...getStateRepo(action).content,
+                ...getStoreContent(action.type),
+                ...getStateLink(action).content,
             };
         },
 
@@ -238,9 +238,9 @@ export function createManager(action) {
          * @public
          */
         pull: () => {
-            getStateRepo(action).content = {
-                ...getStateRepo(action).content,
-                ...getStoresitory(action.name),
+            getStateLink(action).content = {
+                ...getStateLink(action).content,
+                ...getStoreContent(action.name),
             };
         },
 
@@ -250,7 +250,7 @@ export function createManager(action) {
          */
         replaceStore: () => {
             repositories[action.name].content = {
-                ...getStateRepo(action).content,
+                ...getStateLink(action).content,
             };
         },
 
@@ -259,8 +259,8 @@ export function createManager(action) {
          * @public
          */
         replaceState: () => {
-            getStateRepo(action).content = {
-                ...getStoresitory(action.name),
+            getStateLink(action).content = {
+                ...getStoreContent(action.name),
             };
         },
 
@@ -273,12 +273,12 @@ export function createManager(action) {
          */
         mergeState: (targetAction) => {
             actionError(targetAction);
-            getStateRepo(action).content = {
-                ...getStateRepo({
+            getStateLink(action).content = {
+                ...getStateLink({
                     type: targetAction.type,
                     name: action.name,
                 }).content,
-                ...getStateRepo(action).content,
+                ...getStateLink(action).content,
             };
         },
 
@@ -309,8 +309,8 @@ export function createManager(action) {
         compareStates: (targetAction) => {
             actionError(targetAction);
             return compareObject(
-                getStateRepo(action).content,
-                getStateRepo(targetAction).content,
+                getStateLink(action).content,
+                getStateLink(targetAction).content,
             );
         },
 
@@ -322,8 +322,8 @@ export function createManager(action) {
          */
         compareWithState: () => {
             return compareObject(
-                getStoresitory(action.name),
-                getStateRepo(action).content
+                getStoreContent(action.name),
+                getStateLink(action).content
             );
         },
 
@@ -335,7 +335,7 @@ export function createManager(action) {
          * @public
          */
         compareStateWithInstance: (instance) => {
-            return compareObject(getStateRepo(action).content, instance);
+            return compareObject(getStateLink(action).content, instance);
         },
 
         /**
@@ -346,7 +346,7 @@ export function createManager(action) {
          * @public
          */
         compareStoreWithInstance: (instance) => {
-            return compareObject(getStoresitory(action.name), instance);
+            return compareObject(getStoreContent(action.name), instance);
         },
 
         /**
@@ -358,9 +358,9 @@ export function createManager(action) {
          * @public
          */
         clone: (name) => {
-            const store = newStore(name, { ...getStoresitory(action.name) });
+            const store = newStore(name, { ...getStoreContent(action.name) });
             states[`"${action.type}"`][name] = {
-                content: { ...getStateRepo(action).content },
+                content: { ...getStateLink(action).content },
             };
 
             return store;

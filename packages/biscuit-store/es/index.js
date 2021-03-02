@@ -1245,13 +1245,13 @@ var regenerator = runtime_1;
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-function getStateRepo(action) {
+function getStateLink(action) {
   return states["\"" + action.type + "\""][action.name];
 }
-function getStoresitory(name) {
+function getStoreContent(name) {
   return repositories[name].content;
 }
-function getStoresitoryActions(name) {
+function getStoreContentActions(name) {
   return repositories[name].actions;
 }
 function getStoreName(target) {
@@ -1338,27 +1338,27 @@ function gettter(instance) {
  * @private
  */
 
-function compareObject(firstState, lastState) {
+function compareObject(first, last) {
   var propInFirst = 0;
   var propInLast = 0;
   var prop;
 
-  if (firstState === lastState) {
+  if (first === last) {
     return true;
   }
 
-  if (firstState === null || typeof firstState !== 'object' || lastState === null || typeof lastState !== 'object') {
+  if (first === null || typeof first !== 'object' || last === null || typeof last !== 'object') {
     return false;
   }
 
-  for (prop in firstState) {
+  for (prop in first) {
     propInFirst += 1;
   }
 
-  for (prop in lastState) {
+  for (prop in last) {
     propInLast += 1;
 
-    if (!(prop in firstState) || !compareObject(firstState[prop], lastState[prop])) {
+    if (!(prop in first) || !compareObject(first[prop], last[prop])) {
       return false;
     }
   }
@@ -1410,7 +1410,7 @@ function dispatchProto(_ref) {
         switch (_context.prev = _context.next) {
           case 0:
             call = function call(resolve) {
-              resolve(_objectSpread$1({}, getStateRepo(action).content));
+              resolve(_objectSpread$1({}, getStateLink(action).content));
               task.remove();
             };
 
@@ -1439,7 +1439,7 @@ function dispatchInitMiddleware(_ref2) {
       switch (_context2.prev = _context2.next) {
         case 0:
           action = _ref2.action, payData = _ref2.payData, prev = _ref2.prev;
-          actions = getStoresitoryActions(action.name);
+          actions = getStoreContentActions(action.name);
           _context2.next = 4;
           return regenerator.awrap(new Promise(function (resolve) {
             activeMiddlewares({
@@ -1517,7 +1517,7 @@ function addStore(target, instance) {
     throw new CreateError(messages.initialType);
   }
 
-  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(name)), instance);
+  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoreContent(name)), instance);
 }
 /**
  * This method is used to get data from the storage by its key.
@@ -1536,7 +1536,7 @@ function getStore(target) {
     throw new CreateError(messages.noStore(name));
   }
 
-  return gettter(_objectSpread$2({}, getStoresitory(name)));
+  return gettter(_objectSpread$2({}, getStoreContent(name)));
 }
 /**
  * This method is needed to get the storage state
@@ -1550,7 +1550,7 @@ function getStore(target) {
 
 function getState(action) {
   actionError(action);
-  return gettter(_objectSpread$2({}, getStateRepo(action).content));
+  return gettter(_objectSpread$2({}, getStateLink(action).content));
 }
 /**
  * This is one of the most important methods.
@@ -1589,7 +1589,7 @@ function dispatch(action, payload) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            state = getStateRepo(action);
+            state = getStateLink(action);
             prev = _objectSpread$2({}, state.content);
             /** if the function
              * then pass the current state to the callback  */
@@ -1613,7 +1613,7 @@ function dispatch(action, payload) {
             payData = _context.sent;
 
             /** update state data */
-            getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, state.content), payData);
+            getStateLink(action).content = _objectSpread$2(_objectSpread$2({}, state.content), payData);
             /** create dispatch action */
 
             emitter.dispatchAction(action);
@@ -1710,7 +1710,7 @@ function createManager(action) {
      * @public
      */
     merge: function merge() {
-      repositories[action.name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(action.type)), getStateRepo(action).content);
+      repositories[action.name].content = _objectSpread$2(_objectSpread$2({}, getStoreContent(action.type)), getStateLink(action).content);
     },
 
     /**
@@ -1718,7 +1718,7 @@ function createManager(action) {
      * @public
      */
     pull: function pull() {
-      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo(action).content), getStoresitory(action.name));
+      getStateLink(action).content = _objectSpread$2(_objectSpread$2({}, getStateLink(action).content), getStoreContent(action.name));
     },
 
     /**
@@ -1726,7 +1726,7 @@ function createManager(action) {
      * @public
      */
     replaceStore: function replaceStore() {
-      repositories[action.name].content = _objectSpread$2({}, getStateRepo(action).content);
+      repositories[action.name].content = _objectSpread$2({}, getStateLink(action).content);
     },
 
     /**
@@ -1734,7 +1734,7 @@ function createManager(action) {
      * @public
      */
     replaceState: function replaceState() {
-      getStateRepo(action).content = _objectSpread$2({}, getStoresitory(action.name));
+      getStateLink(action).content = _objectSpread$2({}, getStoreContent(action.name));
     },
 
     /**
@@ -1746,10 +1746,10 @@ function createManager(action) {
      */
     mergeState: function mergeState(targetAction) {
       actionError(targetAction);
-      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo({
+      getStateLink(action).content = _objectSpread$2(_objectSpread$2({}, getStateLink({
         type: targetAction.type,
         name: action.name
-      }).content), getStateRepo(action).content);
+      }).content), getStateLink(action).content);
     },
 
     /**
@@ -1778,7 +1778,7 @@ function createManager(action) {
      */
     compareStates: function compareStates(targetAction) {
       actionError(targetAction);
-      return compareObject(getStateRepo(action).content, getStateRepo(targetAction).content);
+      return compareObject(getStateLink(action).content, getStateLink(targetAction).content);
     },
 
     /**
@@ -1788,7 +1788,7 @@ function createManager(action) {
      * @public
      */
     compareWithState: function compareWithState() {
-      return compareObject(getStoresitory(action.name), getStateRepo(action).content);
+      return compareObject(getStoreContent(action.name), getStateLink(action).content);
     },
 
     /**
@@ -1799,7 +1799,7 @@ function createManager(action) {
      * @public
      */
     compareStateWithInstance: function compareStateWithInstance(instance) {
-      return compareObject(getStateRepo(action).content, instance);
+      return compareObject(getStateLink(action).content, instance);
     },
 
     /**
@@ -1810,7 +1810,7 @@ function createManager(action) {
      * @public
      */
     compareStoreWithInstance: function compareStoreWithInstance(instance) {
-      return compareObject(getStoresitory(action.name), instance);
+      return compareObject(getStoreContent(action.name), instance);
     },
 
     /**
@@ -1822,9 +1822,9 @@ function createManager(action) {
      * @public
      */
     clone: function clone(name) {
-      var store = newStore(name, _objectSpread$2({}, getStoresitory(action.name)));
+      var store = newStore(name, _objectSpread$2({}, getStoreContent(action.name)));
       states["\"" + action.type + "\""][name] = {
-        content: _objectSpread$2({}, getStateRepo(action).content)
+        content: _objectSpread$2({}, getStateLink(action).content)
       };
       return store;
     },
