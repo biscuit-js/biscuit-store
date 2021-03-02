@@ -8,7 +8,6 @@ import {
     gettter,
     getStateLink,
     getStoreContent,
-    compareObject,
     actionError,
     getStoreName,
 } from './helper';
