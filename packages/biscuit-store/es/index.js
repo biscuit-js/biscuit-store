@@ -1245,15 +1245,35 @@ var regenerator = runtime_1;
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-function getStateRepo(action) {
+/**
+* Get store link
+* @param {string} name
+*/
+
+function getStateLink(action) {
   return states["\"" + action.type + "\""][action.name];
 }
-function getStoresitory(name) {
+/**
+* Get store content
+* @param {string} name
+*/
+
+function getStoreContent(name) {
   return repositories[name].content;
 }
-function getStoresitoryActions(name) {
+/**
+* Get store actions
+* @param {string} name
+*/
+
+function getStoreContentActions(name) {
   return repositories[name].actions;
 }
+/**
+* To obtain the name of the store depending on the type of
+* @param {object | string} target
+*/
+
 function getStoreName(target) {
   if (typeof target === 'string') {
     return target;
@@ -1261,6 +1281,11 @@ function getStoreName(target) {
 
   return target.name;
 }
+/**
+* Validating an action
+* @param {import('../../types/state').AnyAction} action
+*/
+
 var actionError = function actionError(action) {
   if (!action || !action.name || !action.type) {
     throw new CreateError('Invalid action parameters.');
@@ -1332,38 +1357,42 @@ function gettter(instance) {
 /**
  * Helper method for comparing two objects
  * Warning: can't compare methods
- * @param {object} firstState first object
- * @param {object} lastState last object
+ * @param {object} first first object
+ * @param {object} last last object
  * @return {bool}
  * @private
  */
 
-function compareObject(firstState, lastState) {
-  var propInFirst = 0;
-  var propInLast = 0;
-  var prop;
-
-  if (firstState === lastState) {
+function compareObject(first, last) {
+  if (first === last) {
     return true;
   }
 
-  if (firstState === null || typeof firstState !== 'object' || lastState === null || typeof lastState !== 'object') {
+  if (first === null || typeof first !== 'object' || last === null && typeof last !== 'object') {
     return false;
   }
 
-  for (prop in firstState) {
-    propInFirst += 1;
+  if (Object.keys(first).length !== Object.keys(last).length) {
+    return false;
   }
 
-  for (prop in lastState) {
-    propInLast += 1;
+  var equal = true;
 
-    if (!(prop in firstState) || !compareObject(firstState[prop], lastState[prop])) {
-      return false;
+  for (var key in first) {
+    if (typeof first[key] === 'object' && typeof last[key] === 'object') {
+      if (!compareObject(first[key], last[key])) {
+        equal = false;
+      }
+    } else if (typeof first[key] === 'function' && typeof last[key] === 'function') {
+      if (first.toString() !== last.toString()) {
+        equal = false;
+      }
+    } else if (first[key] !== last[key]) {
+      equal = false;
     }
   }
 
-  return propInFirst === propInLast;
+  return equal;
 }
 
 function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -1410,7 +1439,7 @@ function dispatchProto(_ref) {
         switch (_context.prev = _context.next) {
           case 0:
             call = function call(resolve) {
-              resolve(_objectSpread$1({}, getStateRepo(action).content));
+              resolve(_objectSpread$1({}, getStateLink(action).content));
               task.remove();
             };
 
@@ -1439,7 +1468,7 @@ function dispatchInitMiddleware(_ref2) {
       switch (_context2.prev = _context2.next) {
         case 0:
           action = _ref2.action, payData = _ref2.payData, prev = _ref2.prev;
-          actions = getStoresitoryActions(action.name);
+          actions = getStoreContentActions(action.name);
           _context2.next = 4;
           return regenerator.awrap(new Promise(function (resolve) {
             activeMiddlewares({
@@ -1517,7 +1546,7 @@ function addStore(target, instance) {
     throw new CreateError(messages.initialType);
   }
 
-  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(name)), instance);
+  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoreContent(name)), instance);
 }
 /**
  * This method is used to get data from the storage by its key.
@@ -1536,7 +1565,7 @@ function getStore(target) {
     throw new CreateError(messages.noStore(name));
   }
 
-  return gettter(_objectSpread$2({}, getStoresitory(name)));
+  return gettter(_objectSpread$2({}, getStoreContent(name)));
 }
 /**
  * This method is needed to get the storage state
@@ -1550,7 +1579,7 @@ function getStore(target) {
 
 function getState(action) {
   actionError(action);
-  return gettter(_objectSpread$2({}, getStateRepo(action).content));
+  return gettter(_objectSpread$2({}, getStateLink(action).content));
 }
 /**
  * This is one of the most important methods.
@@ -1589,7 +1618,7 @@ function dispatch(action, payload) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            state = getStateRepo(action);
+            state = getStateLink(action);
             prev = _objectSpread$2({}, state.content);
             /** if the function
              * then pass the current state to the callback  */
@@ -1613,7 +1642,7 @@ function dispatch(action, payload) {
             payData = _context.sent;
 
             /** update state data */
-            getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, state.content), payData);
+            getStateLink(action).content = _objectSpread$2(_objectSpread$2({}, state.content), payData);
             /** create dispatch action */
 
             emitter.dispatchAction(action);
@@ -1692,158 +1721,6 @@ function subscribeToStore(target, fn) {
   } catch (e) {
     return that.reject(e);
   }
-}
-/**
- * The State Manager allows you to manage the storage and its state.
- * Provides a set of methods for two-way merge, replace, copy,
- * and other actions between the selected storage and state.
- * @param {import('../../types/state').AnyAction} action the parameters of the action
- * @return {object} returns a set of methods
- * @public
- */
-
-function createManager(action) {
-  actionError(action);
-  return {
-    /**
-     * This method will combine data from the state with data from the storage.
-     * @public
-     */
-    merge: function merge() {
-      repositories[action.name].content = _objectSpread$2(_objectSpread$2({}, getStoresitory(action.type)), getStateRepo(action).content);
-    },
-
-    /**
-     * This method will merge data from the storage with data from the state.
-     * @public
-     */
-    pull: function pull() {
-      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo(action).content), getStoresitory(action.name));
-    },
-
-    /**
-     * This method will replace the data from the storage with state data.
-     * @public
-     */
-    replaceStore: function replaceStore() {
-      repositories[action.name].content = _objectSpread$2({}, getStateRepo(action).content);
-    },
-
-    /**
-     * This method will replace the data from the state with the storage data.
-     * @public
-     */
-    replaceState: function replaceState() {
-      getStateRepo(action).content = _objectSpread$2({}, getStoresitory(action.name));
-    },
-
-    /**
-     * This method will merge the data of the selected state
-     * with the data of the state specified in the arguments.
-     * @param {import('../../types/state').AnyAction} targetAction
-     * the action that you want to merge
-     * @public
-     */
-    mergeState: function mergeState(targetAction) {
-      actionError(targetAction);
-      getStateRepo(action).content = _objectSpread$2(_objectSpread$2({}, getStateRepo({
-        type: targetAction.type,
-        name: action.name
-      }).content), getStateRepo(action).content);
-    },
-
-    /**
-     * This method removes the storage and its copies from all states.
-     * WARNING: This method can be useful for optimization,
-     * but it can make the code non-obvious,
-     * which will lead to difficulties in support.
-     * @public
-     */
-    remove: function remove() {
-      delete repositories[action.name];
-      Object.keys(states["\"" + action.type + "\""]).forEach(function (item) {
-        if (item === action.name) {
-          delete states["\"" + action.type + "\""][action.name];
-        }
-      });
-    },
-
-    /**
-     * This method compares two states
-     * WARNING: states should not contain methods
-     * @param {import('../../types/state').AnyAction} targetAction
-     * the action that you want to compare
-     * @return {bool}
-     * @public
-     */
-    compareStates: function compareStates(targetAction) {
-      actionError(targetAction);
-      return compareObject(getStateRepo(action).content, getStateRepo(targetAction).content);
-    },
-
-    /**
-     * Сompare state and store
-     * WARNING: states should not contain methods
-     * @return {bool}
-     * @public
-     */
-    compareWithState: function compareWithState() {
-      return compareObject(getStoresitory(action.name), getStateRepo(action).content);
-    },
-
-    /**
-     * compare state and instance object
-     * WARNING: states should not contain methods
-     * @param {object} instance object instance
-     * @return {bool}
-     * @public
-     */
-    compareStateWithInstance: function compareStateWithInstance(instance) {
-      return compareObject(getStateRepo(action).content, instance);
-    },
-
-    /**
-     * \
-     * WARNING: states should not contain methods
-     * @param {object} instance object instance
-     * @return {bool}
-     * @public
-     */
-    compareStoreWithInstance: function compareStoreWithInstance(instance) {
-      return compareObject(getStoresitory(action.name), instance);
-    },
-
-    /**
-     * Clones the selected storage and its state.
-     * WARNING: It is best to avoid using this method,
-     * as the best practice would be to do initialization of stores in one place.
-     * Copying the store can lead to code support difficulties.
-     * @param {string} name name for the new storage
-     * @public
-     */
-    clone: function clone(name) {
-      var store = newStore(name, _objectSpread$2({}, getStoresitory(action.name)));
-      states["\"" + action.type + "\""][name] = {
-        content: _objectSpread$2({}, getStateRepo(action).content)
-      };
-      return store;
-    },
-
-    /**
-     * Updates the status of the store.
-     * This method is equivalent to dispatch(...)
-     * @public
-     */
-    update: function update() {
-      dispatch(action, {});
-    },
-
-    /**
-     * Returns parameters of the selected action
-     * @public
-     */
-    props: action
-  };
 }
 
 function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
@@ -2227,6 +2104,130 @@ function createStore(options) {
 
   settings.strictMode[params.name] = params.strictMode;
   return output;
+}
+
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/**
+ * The State Manager allows you to manage the storage and its state.
+ * Provides a set of methods for two-way merge, replace, copy,
+ * and other actions between the selected storage and state.
+ * @param {import('../../types/state').AnyAction} action the parameters of the action
+ * @return {object} returns a set of methods
+ * @public
+ */
+
+function createManager(action) {
+  actionError(action);
+  return {
+    /**
+     * This method will combine data from the state with data from the storage.
+     * @public
+     */
+    merge: function merge() {
+      repositories[action.name].content = _objectSpread$4(_objectSpread$4({}, getStoreContent(action.name)), getStateLink(action).content);
+    },
+
+    /**
+     * This method will merge data from the storage with data from the state.
+     * @public
+     */
+    pull: function pull() {
+      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink(action).content), getStoreContent(action.name));
+    },
+
+    /**
+     * This method will replace the data from the storage with state data.
+     * @public
+     */
+    replaceStore: function replaceStore() {
+      repositories[action.name].content = _objectSpread$4({}, getStateLink(action).content);
+    },
+
+    /**
+     * This method will replace the data from the state with the storage data.
+     * @public
+     */
+    replaceState: function replaceState() {
+      getStateLink(action).content = _objectSpread$4({}, getStoreContent(action.name));
+    },
+
+    /**
+     * This method will merge the data of the selected state
+     * with the data of the state specified in the arguments.
+     * @param {import('../../types/state').AnyAction} targetAction
+     * the action that you want to merge
+     * @public
+     */
+    mergeState: function mergeState(targetAction) {
+      actionError(targetAction);
+      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink({
+        type: targetAction.type,
+        name: action.name
+      }).content), getStateLink(action).content);
+    },
+
+    /**
+     * This method compares two states
+     * WARNING: states should not contain methods
+     * @param {import('../../types/state').AnyAction} targetAction
+     * the action that you want to compare
+     * @return {bool}
+     * @public
+     */
+    compareStates: function compareStates(targetAction) {
+      actionError(targetAction);
+      return compareObject(getStateLink(action).content, getStateLink(targetAction).content);
+    },
+
+    /**
+     * Сompare state and store
+     * WARNING: states should not contain methods
+     * @return {bool}
+     * @public
+     */
+    compareWithState: function compareWithState() {
+      return compareObject(getStoreContent(action.name), getStateLink(action).content);
+    },
+
+    /**
+     * compare state and instance object
+     * WARNING: states should not contain methods
+     * @param {object} instance object instance
+     * @return {bool}
+     * @public
+     */
+    compareStateWithInstance: function compareStateWithInstance(instance) {
+      return compareObject(getStateLink(action).content, instance);
+    },
+
+    /**
+     * \
+     * WARNING: states should not contain methods
+     * @param {object} instance object instance
+     * @return {bool}
+     * @public
+     */
+    compareStoreWithInstance: function compareStoreWithInstance(instance) {
+      return compareObject(getStoreContent(action.name), instance);
+    },
+
+    /**
+     * Updates the status of the store.
+     * This method is equivalent to dispatch(...)
+     * @public
+     */
+    update: function update() {
+      dispatch(action, {});
+    },
+
+    /**
+     * Returns parameters of the selected action
+     * @public
+     */
+    props: action
+  };
 }
 
 var utils = {

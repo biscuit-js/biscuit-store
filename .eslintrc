@@ -64,6 +64,7 @@
     "comma-style": "error",
     "key-spacing": "error",
     "keyword-spacing": "error",
+    "sonarjs/cognitive-complexity": ["error", 25],
     "new-parens": "error",
     "no-lonely-if": "warn",
     "no-multiple-empty-lines" :"error",

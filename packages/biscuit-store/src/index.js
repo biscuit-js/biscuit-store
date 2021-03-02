@@ -15,7 +15,6 @@ export {
 } from './internal/creator';
 
 export {
-    createManager,
     dispatch,
     getStore,
     getState,
@@ -23,6 +22,10 @@ export {
     subscribeToState,
     subscribeToStore,
 } from './internal/store';
+
+export {
+    createManager,
+} from './internal/manager';
 
 export const utils = {
     createLog,
