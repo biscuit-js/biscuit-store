@@ -1,5 +1,5 @@
 import { repositories } from './repositories';
-import { activeMiddlewares, getStateRepo, getStoresitoryActions } from './helper';
+import { activeMiddlewares, getStateLink, getStoreContentActions } from './helper';
 import { emitter } from './emitter';
 export function dispatchProto({ action, prev, payData }) {
     /**
@@ -35,7 +35,7 @@ export function dispatchProto({ action, prev, payData }) {
         let task;
         const call = function (resolve) {
             resolve({
-                ...getStateRepo(action).content,
+                ...getStateLink(action).content,
             });
             task.remove();
         };
@@ -52,7 +52,7 @@ export function dispatchProto({ action, prev, payData }) {
 }
 
 export async function dispatchInitMiddleware({ action, payData, prev }) {
-    const actions = getStoresitoryActions(action.name);
+    const actions = getStoreContentActions(action.name);
     return await new Promise((resolve) => {
         activeMiddlewares(
             {

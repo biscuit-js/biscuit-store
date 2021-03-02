@@ -1,14 +1,13 @@
 import {
     repositories,
-    states,
 } from './repositories';
 import {
     emitter,
 } from './emitter';
 import {
     gettter,
-    getStateRepo,
-    getStoresitory,
+    getStateLink,
+    getStoreContent,
     compareObject,
     actionError,
     getStoreName,
@@ -17,7 +16,6 @@ import { dispatchProto, dispatchInitMiddleware } from './dispatch';
 import { CreateError } from './debugger';
 import { typeOf } from './utils';
 import { messages } from './messages';
-import { newStore } from './creator';
 /**
  * Allows you to subscribe to the store. and tracks its change.
  * @param {string} name store name
@@ -63,7 +61,7 @@ export function addStore(target, instance) {
     }
 
     repositories[name].content = {
-        ...getStoresitory(name),
+        ...getStoreContent(name),
         ...instance,
     };
 }
@@ -84,7 +82,7 @@ export function getStore(target) {
         throw new CreateError(messages.noStore(name));
     }
 
-    return gettter({ ...getStoresitory(name) });
+    return gettter({ ...getStoreContent(name) });
 }
 
 /**
@@ -98,7 +96,7 @@ export function getStore(target) {
  */
 export function getState(action) {
     actionError(action);
-    return gettter({ ...getStateRepo(action).content });
+    return gettter({ ...getStateLink(action).content });
 }
 
 /**
@@ -129,7 +127,7 @@ export function dispatch(action, payload = {}) {
     }
 
     async function promise() {
-        const state = getStateRepo(action);
+        const state = getStateLink(action);
         const prev = { ...state.content };
 
         /** if the function
@@ -148,7 +146,7 @@ export function dispatch(action, payload = {}) {
         payData = await dispatchInitMiddleware({ action, payData, prev });
 
         /** update state data */
-        getStateRepo(action).content = {
+        getStateLink(action).content = {
             ...state.content,
             ...payData,
         };
@@ -209,176 +207,4 @@ export function subscribeToStore(target, fn = () => undefined) {
     } catch (e) {
         return that.reject(e);
     }
-}
-
-/**
- * The State Manager allows you to manage the storage and its state.
- * Provides a set of methods for two-way merge, replace, copy,
- * and other actions between the selected storage and state.
- * @param {import('../../types/state').AnyAction} action the parameters of the action
- * @return {object} returns a set of methods
- * @public
- */
-export function createManager(action) {
-    actionError(action);
-    return {
-        /**
-         * This method will combine data from the state with data from the storage.
-         * @public
-         */
-        merge: () => {
-            repositories[action.name].content = {
-                ...getStoresitory(action.type),
-                ...getStateRepo(action).content,
-            };
-        },
-
-        /**
-         * This method will merge data from the storage with data from the state.
-         * @public
-         */
-        pull: () => {
-            getStateRepo(action).content = {
-                ...getStateRepo(action).content,
-                ...getStoresitory(action.name),
-            };
-        },
-
-        /**
-         * This method will replace the data from the storage with state data.
-         * @public
-         */
-        replaceStore: () => {
-            repositories[action.name].content = {
-                ...getStateRepo(action).content,
-            };
-        },
-
-        /**
-         * This method will replace the data from the state with the storage data.
-         * @public
-         */
-        replaceState: () => {
-            getStateRepo(action).content = {
-                ...getStoresitory(action.name),
-            };
-        },
-
-        /**
-         * This method will merge the data of the selected state
-         * with the data of the state specified in the arguments.
-         * @param {import('../../types/state').AnyAction} targetAction
-         * the action that you want to merge
-         * @public
-         */
-        mergeState: (targetAction) => {
-            actionError(targetAction);
-            getStateRepo(action).content = {
-                ...getStateRepo({
-                    type: targetAction.type,
-                    name: action.name,
-                }).content,
-                ...getStateRepo(action).content,
-            };
-        },
-
-        /**
-         * This method removes the storage and its copies from all states.
-         * WARNING: This method can be useful for optimization,
-         * but it can make the code non-obvious,
-         * which will lead to difficulties in support.
-         * @public
-         */
-        remove: () => {
-            delete repositories[action.name];
-            Object.keys(states[`"${action.type}"`]).forEach((item) => {
-                if (item === action.name) {
-                    delete states[`"${action.type}"`][action.name];
-                }
-            });
-        },
-
-        /**
-         * This method compares two states
-         * WARNING: states should not contain methods
-         * @param {import('../../types/state').AnyAction} targetAction
-         * the action that you want to compare
-         * @return {bool}
-         * @public
-         */
-        compareStates: (targetAction) => {
-            actionError(targetAction);
-            return compareObject(
-                getStateRepo(action).content,
-                getStateRepo(targetAction).content,
-            );
-        },
-
-        /**
-         * Сompare state and store
-         * WARNING: states should not contain methods
-         * @return {bool}
-         * @public
-         */
-        compareWithState: () => {
-            return compareObject(
-                getStoresitory(action.name),
-                getStateRepo(action).content
-            );
-        },
-
-        /**
-         * compare state and instance object
-         * WARNING: states should not contain methods
-         * @param {object} instance object instance
-         * @return {bool}
-         * @public
-         */
-        compareStateWithInstance: (instance) => {
-            return compareObject(getStateRepo(action).content, instance);
-        },
-
-        /**
-         * \
-         * WARNING: states should not contain methods
-         * @param {object} instance object instance
-         * @return {bool}
-         * @public
-         */
-        compareStoreWithInstance: (instance) => {
-            return compareObject(getStoresitory(action.name), instance);
-        },
-
-        /**
-         * Clones the selected storage and its state.
-         * WARNING: It is best to avoid using this method,
-         * as the best practice would be to do initialization of stores in one place.
-         * Copying the store can lead to code support difficulties.
-         * @param {string} name name for the new storage
-         * @public
-         */
-        clone: (name) => {
-            const store = newStore(name, { ...getStoresitory(action.name) });
-            states[`"${action.type}"`][name] = {
-                content: { ...getStateRepo(action).content },
-            };
-
-            return store;
-        },
-
-        /**
-         * Updates the status of the store.
-         * This method is equivalent to dispatch(...)
-         * @public
-         */
-        update: () => {
-            dispatch(action, {});
-        },
-
-        /**
-         * Returns parameters of the selected action
-         * @public
-         */
-        props: action,
-    };
 }
