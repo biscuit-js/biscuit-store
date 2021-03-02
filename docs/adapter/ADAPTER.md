@@ -51,7 +51,7 @@ The call method allows you to call an asynchronous function and send its respons
 
 example:
 ```javascript
-import { createAdapter } from '@ibscuit-store/adapter';
+import { createAdapter } from '@biscuit-store/adapter';
 const { call, connect } = createAdapter();
 
 const fetchFunc = async (payload) => {
@@ -83,7 +83,7 @@ The makeChannel function contains only two methods:
 
 example:
 ```javascript
-import { createAdapter } from '../../../packages/adapter';
+import { createAdapter } from '@biscuit-store/adapter';
 const { makeChannel, action, connect } = createAdapter();
 
 const chan = makeChannel();
