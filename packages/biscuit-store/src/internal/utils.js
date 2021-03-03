@@ -6,16 +6,16 @@
  * @return {function}
  */
 export function throttle(callback, limit) {
-    let waiting = false;
-    return function () {
-        if (!waiting) {
-            callback.apply(this, arguments);
-            waiting = true;
-            setTimeout(() => {
-                waiting = false;
-            }, limit);
-        }
-    };
+	let waiting = false;
+	return function () {
+		if (!waiting) {
+			callback.apply(this, arguments);
+			waiting = true;
+			setTimeout(() => {
+				waiting = false;
+			}, limit);
+		}
+	};
 }
 
 /**
@@ -27,16 +27,16 @@ export function throttle(callback, limit) {
  * @return {function}
  */
 export function debounce(callback, limit) {
-    let isCooldown = false;
+	let isCooldown = false;
 
-    return function () {
-        if (isCooldown) {
-            return;
-        }
-        callback.apply(this, arguments);
-        isCooldown = true;
-        setTimeout(() => isCooldown = false, limit);
-    };
+	return function () {
+		if (isCooldown) {
+			return;
+		}
+		callback.apply(this, arguments);
+		isCooldown = true;
+		setTimeout(() => isCooldown = false, limit);
+	};
 }
 
 /**
@@ -47,39 +47,39 @@ export function debounce(callback, limit) {
  * @param {function} fn target function
 */
 export const sandbox = (fn) => {
-    return {
-        run: (function () {
-            let throt = null;
+	return {
+		run: (function () {
+			let throt = null;
 
-            /** initial run
+			/** initial run
              * @param {function} call target function
              * @param {number} timer timeout
             */
-            const initialThrottle = (call, timer) => {
-                if (!throt) {
-                    throt = fn(call, timer);
-                }
-            };
+			const initialThrottle = (call, timer) => {
+				if (!throt) {
+					throt = fn(call, timer);
+				}
+			};
 
-            /** initial run
+			/** initial run
              * @param {args[any]} args arguments
              * @return {function}
              */
-            const throttleCaller = (...args) => {
-                return throt(...args);
-            };
+			const throttleCaller = (...args) => {
+				return throt(...args);
+			};
 
-            /** initial
+			/** initial
             * @param {function} call target function
             * @param {number} timer timeout
             * @return {function} throttleCaller
             */
-            return (call, timer) => {
-                initialThrottle(call, timer);
-                return throttleCaller;
-            };
-        })(),
-    };
+			return (call, timer) => {
+				initialThrottle(call, timer);
+				return throttleCaller;
+			};
+		})(),
+	};
 };
 
 /**
@@ -88,17 +88,17 @@ export const sandbox = (fn) => {
  * @return {function}
 */
 export const memoize = (fn) => {
-    const cache = {};
-    return (...args) => {
-        const n = args[0];
-        if (n in cache) {
-            return cache[n];
-        } else {
-            const result = fn(n);
-            cache[n] = result;
-            return result;
-        }
-    };
+	const cache = {};
+	return (...args) => {
+		const n = args[0];
+		if (n in cache) {
+			return cache[n];
+		} else {
+			const result = fn(n);
+			cache[n] = result;
+			return result;
+		}
+	};
 };
 
 /**
@@ -106,7 +106,7 @@ export const memoize = (fn) => {
  * @param {*} value any value
  */
 export function typeOf(value) {
-    const regex = /^\[object (\S+?)]$/;
-    const matches = Object.prototype.toString.call(value).match(regex) || [];
-    return (matches[1] || 'undefined').toLowerCase();
+	const regex = /^\[object (\S+?)]$/;
+	const matches = Object.prototype.toString.call(value).match(regex) || [];
+	return (matches[1] || 'undefined').toLowerCase();
 }

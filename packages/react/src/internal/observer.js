@@ -14,36 +14,35 @@ const { emitter, CreateError } = utils;
  * @public
  */
 export function observer(Element, deps) {
-    let initial = {};
-    let task;
+	let initial = {};
+	let task;
 
-    /** Create decorator */
-    const Decorator = (props) => {
-        const [state, setState] = useState(() => {
-            initial = loopDeps(deps, initial);
-            return initial;
-        });
+	/** Create decorator */
+	const Decorator = (props) => {
+		const [state, setState] = useState(() => {
+			initial = loopDeps(deps, initial);
+			return initial;
+		});
 
+		useEffect(() => {
+			if (!deps.length) {
+				throw new CreateError('The observer must have dependencies.');
+			}
 
-        useEffect(() => {
-            if (!deps.length) {
-                throw new CreateError('The observer must have dependencies.');
-            }
+			/** Creating a subscription to the store state */
+			task = emitter.subscribeActions(deps, (e) => {
+				initial = { ...initial, ...getData(e.name, e.state) };
+				/** Trigger an update */
+				setState((prev) => ({ ...prev, ...initial }));
+			});
 
-            /** Creating a subscription to the store state */
-            task = emitter.subscribeActions(deps.map((dep) => dep), (e) => {
-                initial = { ...initial, ...getData(e.name, e.state) };
-                /** Trigger an update */
-                setState((prev) => ({ ...prev, ...initial }));
-            });
+			/** Unsubscribe when the component is unmounted */
+			return () => task.remove();
+		}, []);
 
-            /** Unsubscribe when the component is unmounted */
-            return () => task.remove();
-        }, []);
+		return <Element {...props} {...state} />;
+	};
 
-        return <Element {...props} {...state} />;
-    };
-
-    /** Memoization decorator */
-    return memo(Decorator);
+	/** Memoization decorator */
+	return memo(Decorator);
 }

@@ -1,10 +1,10 @@
 import {
-    Adapter,
-    AdapterActionCtx,
-    GetAction,
-    Send,
-    ActionListner,
-    CallHandler,
+	Adapter,
+	AdapterActionCtx,
+	GetAction,
+	Send,
+	ActionListner,
+	CallHandler,
 } from './adapter';
 
 /**
@@ -14,9 +14,9 @@ import {
 export function createAdapter(): Adapter;
 
 export {
-    AdapterActionCtx,
-    GetAction,
-    Send,
-    ActionListner,
-    CallHandler,
+	AdapterActionCtx,
+	GetAction,
+	Send,
+	ActionListner,
+	CallHandler,
 };

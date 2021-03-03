@@ -12,38 +12,34 @@ const { emitter } = utils;
  * @public
  */
 export function useSubscribe(action, update = true) {
-    const [state, setState] = useState(null);
-    /** Get default state */
-    const setCurrentData = () =>
-        getData(action.name, action.type);
-    let value = useRef(setCurrentData());
+	const [state, setState] = useState(null);
+	/** Get default state */
+	const setCurrentData = () => getData(action.name, action.type);
+	let value = useRef(setCurrentData());
 
-    useEffect(() => {
-        let cache = {};
+	useEffect(() => {
+		let cache = {};
 
-        /** Subscribe store or state */
-        const task = emitter.subscribeAction(action.name, () => {
-            const n = setCurrentData();
-            /** Update the state if the update parameter is true */
-            if (update) {
-                setState(n);
-                return;
-            }
-            /** Check cache */
-            if (!(n in cache)) {
-                setState(null);
-            }
-            /** Write data */
-            cache[n] = n;
-            value.current = cache[n];
-        }, action.type);
+		/** Subscribe store or state */
+		const task = emitter.subscribeAction(action, () => {
+			const n = setCurrentData();
+			/** Update the state if the update parameter is true */
+			if (update) {
+				setState(n);
+				return;
+			}
+			/** Check cache */
+			if (!(n in cache)) {
+				setState(null);
+			}
+			/** Write data */
+			cache[n] = n;
+			value.current = cache[n];
+		});
 
-        /** Unsubscribe */
-        return () => task.remove();
-    }, [action, update]);
+		/** Unsubscribe */
+		return () => task.remove();
+	}, [action, update]);
 
-    return [
-        state || value.current, (payload) =>
-            dispatch(action, payload),
-    ];
+	return [state || value.current, (payload) => dispatch(action, payload)];
 }
