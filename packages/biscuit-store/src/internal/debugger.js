@@ -10,19 +10,19 @@ export const debugCollection = {};
  * @param {string} storeName store name
  */
 const writeLog = function (type, message, storeName) {
-    if (Object.keys(debugCollection).length > 0) {
-        const line = this.stack.split('\n')[1].split(':')[2];
-        createLog(
-            {
-                message: this.name + ': ' + message,
-                file: line,
-                level: storeName ? 'local' : 'global',
-                store: storeName,
-                type,
-            },
-            storeName
-        );
-    }
+	if (Object.keys(debugCollection).length > 0) {
+		const line = this.stack.split('\n')[1].split(':')[2];
+		createLog(
+			{
+				message: this.name + ': ' + message,
+				file: line,
+				level: storeName ? 'local' : 'global',
+				store: storeName,
+				type,
+			},
+			storeName
+		);
+	}
 };
 
 /**
@@ -33,15 +33,15 @@ const writeLog = function (type, message, storeName) {
  * @public
  */
 export const createLog = function (data, storeName) {
-    for (const key in debugCollection) {
-        if (key === storeName) {
-            debugCollection[key](data);
-        }
+	for (const key in debugCollection) {
+		if (key === storeName) {
+			debugCollection[key](data);
+		}
 
-        if (!storeName) {
-            debugCollection[key](data);
-        }
-    }
+		if (!storeName) {
+			debugCollection[key](data);
+		}
+	}
 };
 
 /**
@@ -51,11 +51,11 @@ export const createLog = function (data, storeName) {
  * @public
  */
 export class Log extends Error {
-    constructor(message, storeName) {
-        super(message);
-        this.name = 'Biscuit log';
-        writeLog.call(this, 'log', message, storeName);
-    }
+	constructor(message, storeName) {
+		super(message);
+		this.name = 'Biscuit log';
+		writeLog.call(this, 'log', message, storeName);
+	}
 }
 
 /**
@@ -65,17 +65,17 @@ export class Log extends Error {
  * @public
  */
 export class Warning extends Error {
-    constructor(message, storeName) {
-        super(message);
+	constructor(message, storeName) {
+		super(message);
 
-        if (settings.strictMode[storeName]) {
-            // eslint-disable-next-line no-console
-            console.warn(message);
-        }
+		if (settings.strictMode[storeName]) {
+			// eslint-disable-next-line no-console
+			console.warn(message);
+		}
 
-        this.name = 'Biscuit warn';
-        writeLog.call(this, 'warning', message, storeName);
-    }
+		this.name = 'Biscuit warn';
+		writeLog.call(this, 'warning', message, storeName);
+	}
 }
 
 /**
@@ -85,9 +85,9 @@ export class Warning extends Error {
  * @public
  */
 export class CreateError extends Error {
-    constructor(message, storeName) {
-        super(message);
-        this.name = 'Biscuit error';
-        writeLog.call(this, 'error', message, storeName);
-    }
+	constructor(message, storeName) {
+		super(message);
+		this.name = 'Biscuit error';
+		writeLog.call(this, 'error', message, storeName);
+	}
 }

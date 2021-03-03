@@ -27,7 +27,7 @@
     "playground:build": "parcel build ./playground/index.html",
     "test": "lerna run --parallel test",
     "prettier": "prettier ./packages/*/**/*.{js,ts}",
-    "lint": "eslint ./packages/*/**/*.{js,ts}",
+    "lint": "eslint ./packages/*/**/*.{js,ts} --fix",
     "release:publish": "lerna publish from-package --dist-tag next",
     "changelog:add": "changeset add",
     "changelog:ver": "changeset version",

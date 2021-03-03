@@ -1,18 +1,13 @@
 import { debugCollection, CreateError } from './debugger';
-import {
-    repositories,
-    states,
-    middlewares,
-    settings,
-} from './repositories';
+import { repositories, states, middlewares, settings } from './repositories';
 
 import {
-    dispatch,
-    subscribeToState,
-    getState,
-    getStore,
-    subscribeToStore,
-    addStore,
+	dispatch,
+	subscribeToState,
+	getState,
+	getStore,
+	subscribeToStore,
+	addStore,
 } from './store';
 import { typeOf } from './utils';
 import { actionError } from './helper';
@@ -27,29 +22,29 @@ import { messages } from './messages';
  * @public
  */
 export function newStore(name, initial = {}) {
-    if (!name) {
-        throw new CreateError(messages.noStoreName);
-    }
+	if (!name) {
+		throw new CreateError(messages.noStoreName);
+	}
 
-    if (typeof name !== 'string') {
-        throw new CreateError(messages.storageNameError('newStore'));
-    }
+	if (typeof name !== 'string') {
+		throw new CreateError(messages.storageNameError('newStore'));
+	}
 
-    if (typeOf(initial) !== 'object') {
-        throw new CreateError(messages.initialType, name);
-    }
+	if (typeOf(initial) !== 'object') {
+		throw new CreateError(messages.initialType, name);
+	}
 
-    repositories[name] = { content: initial, actions: {} };
+	repositories[name] = { content: initial, actions: {} };
 
-    return {
-        name,
-        /** Subscribe by change @param {function} fn */
-        subscribe: (fn) => subscribeToStore(name, fn),
-        /** get reposiory */
-        get: () => getStore(name),
-        /** add to reposiory @param {object} instance */
-        add: (instance) => addStore(name, instance),
-    };
+	return {
+		name,
+		/** Subscribe by change @param {function} fn */
+		subscribe: (fn) => subscribeToStore(name, fn),
+		/** get reposiory */
+		get: () => getStore(name),
+		/** add to reposiory @param {object} instance */
+		add: (instance) => addStore(name, instance),
+	};
 }
 
 /**
@@ -60,75 +55,77 @@ export function newStore(name, initial = {}) {
  * @public
  */
 export function createActionTo(params) {
-    if (!repositories[params.name]) {
-        throw new CreateError(messages.storeNotFind);
-    }
+	if (!repositories[params.name]) {
+		throw new CreateError(messages.storeNotFind);
+	}
 
-    const createNewState = (stns) => {
-        if (!stns.branch) {
-            return repositories[params.name];
-        }
+	const createNewState = (stns) => {
+		if (!stns.branch) {
+			return repositories[params.name];
+		}
 
-        return {
-            content: {
-                ...repositories[params.name].content,
-                ...stns.initial,
-            },
-        };
-    };
+		return {
+			content: {
+				...repositories[params.name].content,
+				...stns.initial,
+			},
+		};
+	};
 
-    return {
-        /** This method binds the state to the selected storagee
+	return {
+		/** This method binds the state to the selected storagee
 		 * @param {string} action state name
-         * @param {import('../../types/state').StateOptions} options state options
-         * @return {import('../../types/state').StateAction}
+		 * @param {import('../../types/state').StateOptions} options
+		 * state options
+		 * @return {import('../../types/state').StateAction}
 		 * @public
 		 */
-        bind: (action, options = { branch: false, initial: {} }) => {
-            if (typeof action !== 'string') {
-                throw new CreateError(messages.actionString, params.name);
-            }
+		bind: (action, options = { branch: false, initial: {} }) => {
+			if (typeof action !== 'string') {
+				throw new CreateError(messages.actionString, params.name);
+			}
 
-            const actionStr = `"${action}"`;
+			const actionStr = `"${action}"`;
 
-            states[actionStr] = {
-                ...states[actionStr],
-                [params.name]: createNewState(options),
-            };
+			states[actionStr] = {
+				...states[actionStr],
+				[params.name]: createNewState(options),
+			};
 
-            const actionParams = {
-                name: params.name,
-                type: action,
-            };
+			const actionParams = {
+				name: params.name,
+				type: action,
+			};
 
-            const returnedParams = {
-                ...actionParams,
-                /**
+			const returnedParams = {
+				...actionParams,
+				/**
 				 * Update state
 				 * @param {import('../../types/state').DispatchPayload} payload
 				 * @public
 				 */
-                dispatch: (payload = {}) => dispatch(actionParams, payload),
-                /**
+				dispatch: (payload = {}) => dispatch(actionParams, payload),
+				/**
 				 * Subscribe to state
-				 * @param {import('../../types/subscribe').SubscribeListner} fn callback
+				 * @param {import('../../types/subscribe').SubscribeListner} fn
+				 * callback
 				 * @public
 				 */
-                subscribe: (fn) => subscribeToState(actionParams, fn),
+				subscribe: (fn) => subscribeToState(actionParams, fn),
 
-                /**
+				/**
 				 * Get state
 				 * @public
 				 */
-                getState: () => getState(actionParams),
-            };
+				getState: () => getState(actionParams),
+			};
 
-            repositories[params.name].actions[`"${action}"`] = returnedParams;
-            return returnedParams;
-        },
-        /** store name */
-        name: params.name,
-    };
+			repositories[params.name].actions[`"${action}"`] = returnedParams;
+			return returnedParams;
+		},
+		/** store name */
+		name: params.name,
+	};
 }
 
 /**
@@ -141,143 +138,133 @@ export function createActionTo(params) {
  * @public
  */
 export function initialActions(createActions, actions) {
-    return actions.map((item) => {
-        const args = typeof item === 'string'
-            ? [item]
-            : [item.name, item.options];
+	return actions.map((item) => {
+		const args =
+			typeof item === 'string' ? [item] : [item.name, item.options];
 
-        return createActions.bind.apply(null, args);
-    });
+		return createActions.bind.apply(null, args);
+	});
 }
 
 /**
  * This helper method converts the actions received via the argument to an array
- * @return {import('../../types/state').StateCollection} returns the "compile" method
+ * @return {import('../../types/state').StateCollection}
+ * returns the "compile" method
  * @public
  */
 export function stateCollection() {
-    const collection = {};
-    return {
-        /**
+	const collection = {};
+	return {
+		/**
 		 * compile state collection
-		 * @return {import('../../types/state').StateCollectionRepo} actions collection
+		 * @return {import('../../types/state').StateCollectionRepo}
+		 * actions collection
 		 * @public
 		 */
-        compile: (...actions) => {
-            for (let action of actions) {
-                actionError(action);
+		compile: (...actions) => {
+			for (let action of actions) {
+				actionError(action);
 
-                if (!collection[action.name]) {
-                    collection[action.name] = [{ ...action }];
-                    continue;
-                }
+				if (!collection[action.name]) {
+					collection[action.name] = [{ ...action }];
+					continue;
+				}
 
-                collection[action.name].push({ ...action });
+				collection[action.name].push({ ...action });
+			}
 
-            }
+			return { ...collection };
+		},
+		/**
+		 * Get the entire collection actions
+		 * @return {import('../../types/state').StateCollectionRepo}
+		 * collections instance
+		 * @public
+		 */
+		all: () => ({ ...collection }),
 
-            return { ...collection };
-        },
-        /**
-         * Get the entire collection actions
-         * @return {import('../../types/state').StateCollectionRepo} collections instance
-         * @public
-         */
-        all: () => ({ ...collection }),
+		/**
+		 * Get a collection by matching the storage name
+		 * @param {string} name storage name
+		 * @return {import('../../types/state').StateAction[]}
+		 * collections instance
+		 * @public
+		 */
+		fromStore: (name) => [...collection[name]],
 
-        /**
-         * Get a collection by matching the storage name
-         * @param {string} name storage name
-         * @return {import('../../types/state').StateAction[]} collections instance
-         * @public
-         */
-        fromStore: (name) => [ ...collection[name] ],
+		/**
+		 * Get the result filtered by state name
+		 * @param {string} stateName state name
+		 * @return {import('../../types/state').StateAction[]} state list
+		 * @public
+		 */
+		outOfState: (actionName) => {
+			let out = [];
+			for (let key in collection) {
+				out = [
+					...out,
+					...collection[key].filter(
+						({ type }) => type === actionName
+					),
+				];
+			}
 
-        /**
-         * Get the result filtered by state name
-         * @param {string} stateName state name
-         * @return {import('../../types/state').StateAction[]} state list
-         * @public
-         */
-        outOfState: (stateName) => {
-            let out = null;
-            Object.keys(collection).forEach((key) => {
-                out = collection[key].filter(({ state }) => state === stateName);
-            });
-
-            return out;
-        },
-    };
-}
-
-/**
- * This helper method can combine multiple collections of actions.
- * Accepts "stateCollection(...action)"
- * @param {import('../../types/state').StateCollection} collection array StateCollection
- * @public
- */
-export function combineStateCollections(...collections) {
-    let allState = [];
-    for (let collection of collections) {
-        Object.keys(collection.all()).forEach((storeName) => {
-            allState = [ ...allState, ...collection.fromStore(storeName) ];
-        });
-    }
-
-    const sc = stateCollection();
-    sc.compile.apply(null, allState);
-    return sc;
+			return out;
+		},
+	};
 }
 
 /**
  * This method allows you to add middleware for the state handler.
  * @param {import('../../types/store').Store} store the store params
- * @return {import('../../types/store').MiddlewareParams} returns a set of methods
+ * @return {import('../../types/store').MiddlewareParams}
+ * returns a set of methods
  * @public
  */
 export function middleware(store) {
-    if (!repositories[store.name]) {
-        throw new CreateError(messages.noStore(store.name));
-    }
+	if (!repositories[store.name]) {
+		throw new CreateError(messages.noStore(store.name));
+	}
 
-    const s = store.name;
-    return {
-        /**
+	const s = store.name;
+	return {
+		/**
 		 * Adds a handler to the middleware task list.
 		 * @param {function} fn middle function
 		 * @public
 		 */
-        add: (fn) => {
-            if (typeof fn !== 'function') {
-                throw new CreateError(messages.middleNoFunc, s);
-            }
+		add: (fn) => {
+			if (typeof fn !== 'function') {
+				throw new CreateError(messages.middleNoFunc, s);
+			}
 
-            if (middlewares[s]) {
-                middlewares[s].push(fn);
-            } else {
-                middlewares[s] = [fn];
-            }
-        },
-    };
+			if (middlewares[s]) {
+				middlewares[s].push(fn);
+			} else {
+				middlewares[s] = [fn];
+			}
+		},
+	};
 }
 
 /**
  * This method allows you to add your own debugger.
  * The debugger will accept and output logs instead of the standard debugger.
  * @param {import('../../types/store').Store} store store object
- * @param {import('../../types/store').DebuggerListener} fn debugger callback function
+ * @param {import('../../types/store').DebuggerListener} fn
+ * debugger callback function
  * @public
  */
 export function createDebuger(store, fn) {
-    if (!repositories[store.name]) {
-        throw new CreateError(messages.noStore(store.name));
-    }
+	if (!repositories[store.name]) {
+		throw new CreateError(messages.noStore(store.name));
+	}
 
-    if (typeof fn !== 'function') {
-        throw new CreateError(messages.debuggerNoFunc);
-    }
+	if (typeof fn !== 'function') {
+		throw new CreateError(messages.debuggerNoFunc);
+	}
 
-    debugCollection[store.name] = fn;
+	debugCollection[store.name] = fn;
 }
 
 /**
@@ -290,52 +277,52 @@ export function createDebuger(store, fn) {
  * @public
  */
 export function createStore(options) {
-    if (!options) {
-        throw new CreateError(messages.noStoreParams);
-    }
+	if (!options) {
+		throw new CreateError(messages.noStoreParams);
+	}
 
-    /** DefaultParams */
-    const params = { strictMode: true, ...options };
+	/** DefaultParams */
+	const params = { strictMode: true, ...options };
 
-    /** Create a new storage */
-    const store = newStore(params.name, params.initial);
-    const createAction = createActionTo(store);
+	/** Create a new storage */
+	const store = newStore(params.name, params.initial);
+	const createAction = createActionTo(store);
 
-    /** Set of storage parameters */
-    const output = {
-        store: { ...store },
-        actions: {},
-    };
+	/** Set of storage parameters */
+	const output = {
+		store: { ...store },
+		actions: {},
+	};
 
-    /** Adding States to the store */
-    if (params.actions) {
-        for (const key in params.actions) {
-            const param = params.actions[key];
-            const paramType = typeof param === 'string';
-            output.actions[key] = createAction.bind(
-                paramType ? param : param.name,
-                paramType
-                    ? {}
-                    : { initial: param.initial, branch: param.branch }
-            );
-        }
-    }
+	/** Adding States to the store */
+	if (params.actions) {
+		for (const key in params.actions) {
+			const param = params.actions[key];
+			const paramType = typeof param === 'string';
+			output.actions[key] = createAction.bind(
+				paramType ? param : param.name,
+				paramType
+					? {}
+					: { initial: param.initial, branch: param.branch }
+			);
+		}
+	}
 
-    /** Adding middleware to the store */
-    if (params.middleware && params.middleware.length > 0) {
-        const middle = middleware(store);
-        for (const fn of params.middleware) {
-            middle.add(fn);
-        }
-    }
+	/** Adding middleware to the store */
+	if (params.middleware && params.middleware.length > 0) {
+		const middle = middleware(store);
+		for (const fn of params.middleware) {
+			middle.add(fn);
+		}
+	}
 
-    /** Adding debuger to the store */
-    if (params.debugger) {
-        createDebuger(store, params.debugger);
-    }
+	/** Adding debuger to the store */
+	if (params.debugger) {
+		createDebuger(store, params.debugger);
+	}
 
-    /** Strict mod */
-    settings.strictMode[params.name] = params.strictMode;
+	/** Strict mod */
+	settings.strictMode[params.name] = params.strictMode;
 
-    return output;
+	return output;
 }

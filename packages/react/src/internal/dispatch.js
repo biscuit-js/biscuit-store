@@ -13,9 +13,7 @@ const boxDebounce = sandbox(debounce);
  * @public
  */
 export function useDispatch(...actions) {
-    return actions.map((action) =>
-        (payload = {}) => dispatch(action, payload)
-    );
+	return actions.map((action) => (payload = {}) => dispatch(action, payload));
 }
 
 /**
@@ -28,10 +26,9 @@ export function useDispatch(...actions) {
  * @public
  */
 export function useDispatchThrottle(count, ...actions) {
-    return actions.map((action) =>
-        (payload = {}) =>
-            boxThrottle.run(dispatch, count)(action, payload)
-    );
+	return actions.map((action) => (payload = {}) =>
+		boxThrottle.run(dispatch, count)(action, payload)
+	);
 }
 
 /**
@@ -45,8 +42,7 @@ export function useDispatchThrottle(count, ...actions) {
  * @public
  */
 export function useDispatchDebounce(count, ...actions) {
-    return actions.map((action) =>
-        (payload = {}) =>
-            boxDebounce.run(dispatch, count)(action, payload)
-    );
+	return actions.map((action) => (payload = {}) =>
+		boxDebounce.run(dispatch, count)(action, payload)
+	);
 }

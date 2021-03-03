@@ -18,7 +18,6 @@ This section contains all the current methods from all the biscuit-store package
 - [createManager](#createManager)
 - [initialActions](#initialActions)
 - [stateCollection](#stateCollection)
-- [combineStateCollections](#combineStateCollections)
 
 #### [Store api:](#Biscuit-store-store-api)
 - [store.subscribe](#storesubscribe)
@@ -723,30 +722,6 @@ Typescript types:
 param statename: string
 
 return: StateAction[]
-```
-
-### combineStateCollections
-This method combines several collections of methods.
-
-- **actions***: *...collections* - Multiple collections;
-  
-return: object
-
-```javascript
-import { stateCollection, combineStateCollections } from "@biscuit-store/core";
-...
-const collectA stateCollection().compile(actionAdd, acrionRemove);
-const collectB stateCollection().compile(actionIncrement, actionDecrement);
-
-const collection = combineStateCollections(collectA. collectB);
-```
-
-Typescript types:
-```
-param statename: 
-    interface StateCollection[]
-
-return: StateCollection
 ```
 
 ### Biscuit-store store API
