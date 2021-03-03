@@ -158,7 +158,7 @@ export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): vo
 
 /**
  * Monolithic method for creating a biscuit storage.
- * This is the preferred method for creating a repository.
+ * This is the preferred method for creating a store.
  * @param options an object containing the store settings
  * @return returns a set of actions
  */

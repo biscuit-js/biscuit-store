@@ -87,22 +87,22 @@ export function getState<T>(action: AnyAction): T;
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param target repository name or store
+ * @param target store name or store
  * @return storage data
  */
 export function getStore<T>(target: string | Store): T;
 
 /**
- * This method allows you to add new values to the repository.
+ * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param target repository name or store
+ * @param target store name or store
  * @param instance object with added data
  */
 export function addStore<T>(target: string | Store, instance: T): void;
 
 /**
- * This method is responsible for creating a new repository.
- * Takes as the first argument a string with the repository name.
+ * This method is responsible for creating a new store.
+ * Takes as the first argument a string with the store name.
  * and the initial state of the storage as the second argument
  * @param name storage name
  * @param initial initial object
@@ -161,7 +161,7 @@ export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): vo
 
 /**
  * Monolithic method for creating a biscuit storage.
- * This is the preferred method for creating a repository.
+ * This is the preferred method for creating a store.
  * @param options an object containing the store settings
  * @return returns a set of actions
  */

@@ -83,7 +83,7 @@ it('check store.dispatch -> async store.subscribe', (done) => {
     testStep.dispatch({ data: 'test-2' });
 });
 
-it('check state.dispatch.before -> state.subscribe', () => {
+it('check action.dispatch.before -> action.subscribe', () => {
     expect.assertions(1);
     const target = testStore(3);
     const { testStep } = target.actions;
@@ -93,7 +93,7 @@ it('check state.dispatch.before -> state.subscribe', () => {
     });
 });
 
-it('check state.dispatch.after -> state.subscribe', (done) => {
+it('check action.dispatch.after -> action.subscribe', (done) => {
     expect.assertions(1);
     const target = testStore(4);
     const { testStep } = target.actions;

@@ -181,7 +181,7 @@ export interface Manager {
      */
     compareStates: (targetAction: AnyAction) => boolean;
     /**
-     * Сompare state and repository
+     * Сompare state and store
      * WARNING: states should not contain methods
      * @return boolean
      */
@@ -194,7 +194,7 @@ export interface Manager {
      */
     compareStateWithInstance: <T>(instance: T) => boolean;
     /**
-     * compare repository and instance object
+     * compare store and instance object
      * WARNING: states should not contain methods
      * @param instance object for compare
      * @return boolean
@@ -205,12 +205,12 @@ export interface Manager {
      * Clones the selected storage and its state.
      * WARNING: It is best to avoid using this method,
      * as the best practice would be to do initialization of repositories in one place.
-     * Copying the repository can lead to code support difficulties.
+     * Copying the store can lead to code support difficulties.
      * @param name name for the new storage
      */
     clone: <T = {}>(name: string) => Store<T>;
     /**
-     * Updates the status of the repository.
+     * Updates the status of the store.
      * This method is equivalent to dispatch(...)
      */
     update: () => void;
