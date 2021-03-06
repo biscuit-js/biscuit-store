@@ -7,7 +7,7 @@ import {
 	DepsAction,
 	ModifyDispatch,
 } from './interfaces';
-import { Dispatch } from '@biscuit-store/types';
+import { Dispatch, AnyAction } from '@biscuit-store/types';
 
 /**
  * ### Observer
@@ -64,7 +64,7 @@ declare function useDispatch(...actions: DepsAction): Dispatch[];
  * @return dispatch list
  */
 declare function useDispatchThrottle(
-	action: DepsAction,
+	action: AnyAction,
 	count: number
 ): ModifyDispatch[];
 
@@ -78,7 +78,7 @@ declare function useDispatchThrottle(
  * @return dispatch list
  */
 declare function useDispatchDebounce(
-	action: DepsAction,
+	action: AnyAction,
 	count: number,
 	immediate: boolean
 ): ModifyDispatch[];
