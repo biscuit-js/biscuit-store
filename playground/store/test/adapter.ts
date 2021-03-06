@@ -14,20 +14,14 @@ const fetchFunc = async (
 
 const adapter = createAdapter();
 
-adapter.action < ITestStore,
-	ITestStore,
-	ITestStore >
-		('test/add',
-		(payload, state, { getAction }) => {
-			getAction('test/step').dispatch <
-				BranchName >
-				{ name: 'prev: ' + state.value };
-			return { value: payload.value * 10 };
-		});
+adapter.action('test/add', (payload, state, { getAction }) => {
+	getAction('test/step').dispatch <
+		BranchName >
+		{ name: 'prev: ' + state.value };
+	return { value: payload.value * 10 };
+});
 
-adapter.call < TestFetchPayload,
-	TestFetchPayload,
-	ITestStore > ('test/fetch', fetchFunc);
+adapter.call('test/fetch', fetchFunc);
 
 const chan = adapter.makeChannel();
 
