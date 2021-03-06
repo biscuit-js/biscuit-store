@@ -12,6 +12,13 @@
 - 038a474: add useDispatchThrottle test
 - 038a474: add useDispatch unit test
 
+### Patch Changes
+  - @biscuit-store/core@1.0.0
+
+## 1.0.0
+### Patch Changes
+  - @biscuit-store/core@1.0.0
+
 ## 0.9.99
 ### Patch Changes
 
