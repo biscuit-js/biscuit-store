@@ -1,6 +1,37 @@
 # @biscuit-store/react
 
 ## 1.0.0
+### Major Changes
+
+- 038a474: fix useDebounce hook
+- 038a474: fix unsubscribe to susscribe decorator
+- 038a474: add subscribe test
+- 038a474: add useDispatchDebounce hook
+- 038a474: add observer test
+- 038a474: add useSubscribe test
+- 038a474: add useDispatchThrottle test
+- 038a474: add useDispatch unit test
+
+### Patch Changes
+
+- Updated dependencies [ec22884]
+- Updated dependencies [038a474]
+- Updated dependencies [7cca360]
+- Updated dependencies [ec22884]
+- Updated dependencies [038a474]
+- Updated dependencies [442379a]
+- Updated dependencies [038a474]
+- Updated dependencies [ec22884]
+- Updated dependencies [7cca360]
+- Updated dependencies [ec22884]
+- Updated dependencies [7cca360]
+- Updated dependencies [ec22884]
+- Updated dependencies [79d022f]
+- Updated dependencies [442379a]
+- Updated dependencies [7cca360]
+  - @biscuit-store/core@1.0.0
+
+## 1.0.0
 ### Patch Changes
 
 - Updated dependencies [442379a]
