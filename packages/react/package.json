@@ -82,7 +82,7 @@
     }
   },
   "sideEffects": true,
-  "gitHead": "d235e885dcb52466ace16947909f4de34e4bd467",
+  "gitHead": "4943375955482cc2b5af818ee80b1138bea4b120",
   "dependencies": {
     "@babel/plugin-transform-react-jsx-self": "^7.12.13",
     "cross-env": "^7.0.3",
