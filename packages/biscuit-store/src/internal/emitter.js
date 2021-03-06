@@ -96,12 +96,12 @@ function createEmitter() {
 			if (taskBuffer[name]) {
 				for (let task of taskBuffer[name]) {
 					if (task.type === type) {
-						task.listener();
+						task.listener({ name, type: task.type });
 						continue;
 					}
 
 					if (task.type === undefined) {
-						task.listener();
+						task.listener({ name, type: undefined });
 					}
 				}
 				return;

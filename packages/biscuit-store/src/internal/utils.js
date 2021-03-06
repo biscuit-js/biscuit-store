@@ -26,17 +26,25 @@ export function throttle(callback, limit) {
  * @param {number} limit counter
  * @return {function}
  */
-export function debounce(callback, limit) {
-	let isCooldown = false;
+export function debounce(callback, limit, immediate) {
+	let timeout;
+	function debounced(...args) {
+		const that = this;
+		const later = () => {
+			callback.apply(that, args);
+		};
+		clearTimeout(timeout);
+		if (immediate) {
+			later();
+		};
+		timeout = setTimeout(later, limit);
+	}
 
-	return function () {
-		if (isCooldown) {
-			return;
-		}
-		callback.apply(this, arguments);
-		isCooldown = true;
-		setTimeout(() => isCooldown = false, limit);
+	debounced.clear = () => {
+		clearTimeout(timeout);
 	};
+
+	return debounced;
 }
 
 /**
@@ -49,15 +57,15 @@ export function debounce(callback, limit) {
 export const sandbox = (fn) => {
 	return {
 		run: (function () {
-			let throt = null;
+			let than = null;
 
 			/** initial run
              * @param {function} call target function
              * @param {number} timer timeout
             */
-			const initialThrottle = (call, timer) => {
-				if (!throt) {
-					throt = fn(call, timer);
+			const initial = (call, timer, immediate = undefined) => {
+				if (!than) {
+					than = fn(call, timer, immediate);
 				}
 			};
 
@@ -65,8 +73,8 @@ export const sandbox = (fn) => {
              * @param {args[any]} args arguments
              * @return {function}
              */
-			const throttleCaller = (...args) => {
-				return throt(...args);
+			const caller = (...args) => {
+				return than(...args);
 			};
 
 			/** initial
@@ -74,30 +82,11 @@ export const sandbox = (fn) => {
             * @param {number} timer timeout
             * @return {function} throttleCaller
             */
-			return (call, timer) => {
-				initialThrottle(call, timer);
-				return throttleCaller;
+			return (call, timer, immediate) => {
+				initial(call, timer, immediate);
+				return caller;
 			};
 		})(),
-	};
-};
-
-/**
- * memoized function
- * @param {function} fn target function
- * @return {function}
-*/
-export const memoize = (fn) => {
-	const cache = {};
-	return (...args) => {
-		const n = args[0];
-		if (n in cache) {
-			return cache[n];
-		} else {
-			const result = fn(n);
-			cache[n] = result;
-			return result;
-		}
 	};
 };
 

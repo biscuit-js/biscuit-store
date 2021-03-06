@@ -3,6 +3,7 @@ import { utils } from '@biscuit-store/core';
 import { loopDeps, getData } from './utils';
 
 const { emitter, CreateError } = utils;
+
 /**
  * ### Observer
  * The observer for the states of a component
@@ -31,7 +32,7 @@ export function observer(Element, deps) {
 
 			/** Creating a subscription to the store state */
 			task = emitter.subscribeActions(deps, (e) => {
-				initial = { ...initial, ...getData(e.name, e.state) };
+				initial = { ...initial, ...getData(e.name, e.type) };
 				/** Trigger an update */
 				setState((prev) => ({ ...prev, ...initial }));
 			});

@@ -1,5 +1,5 @@
 
 export interface ITestStore {
-    value: number;
-    data?: string;
+	value: number;
+	data?: string;
 }

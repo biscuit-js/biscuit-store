@@ -374,12 +374,18 @@ function createEmitter() {
           var task = _step3.value;
 
           if (task.type === type) {
-            task.listener();
+            task.listener({
+              name: name,
+              type: task.type
+            });
             continue;
           }
 
           if (task.type === undefined) {
-            task.listener();
+            task.listener({
+              name: name,
+              type: undefined
+            });
           }
         }
 
@@ -421,19 +427,33 @@ function throttle(callback, limit) {
  * @return {function}
  */
 
-function debounce(callback, limit) {
-  var isCooldown = false;
-  return function () {
-    if (isCooldown) {
-      return;
+function debounce(callback, limit, immediate) {
+  var timeout;
+
+  function debounced() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    callback.apply(this, arguments);
-    isCooldown = true;
-    setTimeout(function () {
-      return isCooldown = false;
-    }, limit);
+    var that = this;
+
+    var later = function later() {
+      callback.apply(that, args);
+    };
+
+    clearTimeout(timeout);
+
+    if (immediate) {
+      later();
+    }
+    timeout = setTimeout(later, limit);
+  }
+
+  debounced.clear = function () {
+    clearTimeout(timeout);
   };
+
+  return debounced;
 }
 /**
  * This method set allows you to. save the state of functions
@@ -446,15 +466,19 @@ function debounce(callback, limit) {
 var sandbox = function sandbox(fn) {
   return {
     run: function () {
-      var throt = null;
+      var than = null;
       /** initial run
                 * @param {function} call target function
                 * @param {number} timer timeout
                */
 
-      var initialThrottle = function initialThrottle(call, timer) {
-        if (!throt) {
-          throt = fn(call, timer);
+      var initial = function initial(call, timer, immediate) {
+        if (immediate === void 0) {
+          immediate = undefined;
+        }
+
+        if (!than) {
+          than = fn(call, timer, immediate);
         }
       };
       /** initial run
@@ -463,8 +487,8 @@ var sandbox = function sandbox(fn) {
                 */
 
 
-      var throttleCaller = function throttleCaller() {
-        return throt.apply(void 0, arguments);
+      var caller = function caller() {
+        return than.apply(void 0, arguments);
       };
       /** initial
                * @param {function} call target function
@@ -473,9 +497,9 @@ var sandbox = function sandbox(fn) {
                */
 
 
-      return function (call, timer) {
-        initialThrottle(call, timer);
-        return throttleCaller;
+      return function (call, timer, immediate) {
+        initial(call, timer, immediate);
+        return caller;
       };
     }()
   };
@@ -1962,14 +1986,16 @@ function stateCollection() {
      * @return {import('../../types/state').StateAction[]} state list
      * @public
      */
-    outOfState: function outOfState(stateName) {
-      var out = null;
-      Object.keys(collection).forEach(function (key) {
-        out = collection[key].filter(function (_ref) {
+    outOfState: function outOfState(actionName) {
+      var out = [];
+
+      for (var key in collection) {
+        out = [].concat(out, collection[key].filter(function (_ref) {
           var type = _ref.type;
-          return type === stateName;
-        });
-      });
+          return type === actionName;
+        }));
+      }
+
       return out;
     }
   };

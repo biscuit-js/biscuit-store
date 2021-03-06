@@ -9,3 +9,4 @@ lerna-debug.log
 packages/*/lib
 backup
 *.log
+.husky

@@ -55,7 +55,7 @@ export function subscribe(stateToProps, dispatchToProps) {
 
 			/** unmount update event */
 			componentWillUnmount() {
-				for (let task in this.buf) {
+				for (let task of this.buf) {
 					task.remove();
 				}
 			}
