@@ -111,7 +111,7 @@
     "semi": ["error", "always"],
     "semi-spacing": "error",
     "quotes": ["error", "single"],
-    "max-len": ["error", { "code": 100, "ignoreStrings": true }],
+    "max-len": ["error", { "code": 80, "ignoreStrings": true }],
     "global-require": 0,
     "no-unused-vars": "off",
     "sonarjs/no-identical-functions": 0,
@@ -127,11 +127,11 @@
 
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/semi": ["error", "always"],
-    "@typescript-eslint/no-extra-parens": ["error"],
+    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/member-delimiter-style": ["error", { "multiline": { "delimiter": "semi", "requireLast": true } }],
     "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/brace-style": ["error", "1tbs"],
-    "@typescript-eslint/indent": ["error", 4],
+    "@typescript-eslint/indent": ["error", "tab"],
     "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/func-call-spacing": ["error", "never"],
     "@typescript-eslint/no-useless-constructor": ["error"],
@@ -146,6 +146,7 @@
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/prefer-regexp-exec": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
-    "@typescript-eslint/require-await": "off"
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/no-this-alias": "off"
   }
 }

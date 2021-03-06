@@ -6,5 +6,5 @@ export const states = {};
 export const middlewares = {};
 /** store settings */
 export const settings = {
-    strictMode: {},
+	strictMode: {},
 };

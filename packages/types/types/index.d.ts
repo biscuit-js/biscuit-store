@@ -1,23 +1,23 @@
 import {
-    StoreSettings,
-    StoreParams,
-    Store,
-    MiddlewareParams,
-    DebuggerListener,
-    Context,
+	StoreSettings,
+	StoreParams,
+	Store,
+	MiddlewareParams,
+	DebuggerListener,
+	Context,
 } from './store';
 import {
-    StateAction,
-    SubscribeListner,
-    Dispatcher,
-    ActionCreator,
-    StateItem,
-    StateCollection,
-    Manager,
-    Dispatch,
-    DispatchPayload,
-    StaticAction,
-    AnyAction,
+	StateAction,
+	SubscribeListner,
+	Dispatcher,
+	ActionCreator,
+	StateItem,
+	StateCollection,
+	Manager,
+	Dispatch,
+	DispatchPayload,
+	StaticAction,
+	AnyAction,
 } from './state';
 
 /**
@@ -27,7 +27,8 @@ import {
  * @return returns a set of actions
  */
 export function createStore
-<T extends StoreSettings, A extends StateAction, I>(options: T): StoreParams<A, I>;
+<T extends StoreSettings, A extends StateAction, I>
+(options: T): StoreParams<A, I>;
 
 /**
  * This is one of the most important methods.
@@ -40,7 +41,8 @@ export function createStore
  * @return promise
  * @async
  */
-export function subscribeToState<T>(action: AnyAction, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToState<T>
+(action: AnyAction, fn?: SubscribeListner<T>): Promise<T>;
 
 /**
  * This is one of the most important methods.
@@ -52,7 +54,8 @@ export function subscribeToState<T>(action: AnyAction, fn?: SubscribeListner<T>)
  * @param fn callback
  * @async
  */
-export function subscribeToStore<T>(target: string | Store, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToStore<T>
+(target: string | Store, fn?: SubscribeListner<T>): Promise<T>;
 
 /**
  * This is one of the most important methods.
@@ -87,22 +90,22 @@ export function getState<T>(action: AnyAction): T;
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param target repository name or store
+ * @param target store name or store
  * @return storage data
  */
 export function getStore<T>(target: string | Store): T;
 
 /**
- * This method allows you to add new values to the repository.
+ * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param target repository name or store
+ * @param target store name or store
  * @param instance object with added data
  */
 export function addStore<T>(target: string | Store, instance: T): void;
 
 /**
- * This method is responsible for creating a new repository.
- * Takes as the first argument a string with the repository name.
+ * This method is responsible for creating a new store.
+ * Takes as the first argument a string with the store name.
  * and the initial state of the storage as the second argument
  * @param name storage name
  * @param initial initial object
@@ -126,8 +129,8 @@ export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
  * @return actions
  */
 export function initialActions(
-    createActions: ActionCreator,
-    actions: (string | StateItem)[]
+	createActions: ActionCreator,
+	actions: (string | StateItem)[]
 ): StateAction[];
 
 /**
@@ -136,13 +139,6 @@ export function initialActions(
  * @return returns the "compile" method
  */
 export function stateCollection(): StateCollection;
-
-/**
- * This helper method can combine multiple collections of actions.
- * Accepts "stateCollection(...action)"
- * @param collections array StateCollection
- */
-export function combineStateCollections(...collections: StateCollection[]): StateCollection;
 
 /**
  * This method allows you to add middleware for the state handler.
@@ -157,32 +153,33 @@ export function middleware<T = {}>(store: Store<T>): MiddlewareParams;
  * @param store store object
  * @param fn debugger callback function
  */
-export function createDebuger<T = {}>(store: Store<T>, fn: DebuggerListener): void;
+export function createDebuger<T = {}>
+(store: Store<T>, fn: DebuggerListener): void;
 
 /**
  * Monolithic method for creating a biscuit storage.
- * This is the preferred method for creating a repository.
+ * This is the preferred method for creating a store.
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
 export function createManager(action: AnyAction): Manager;
 
 export {
-    StateAction,
-    SubscribeListner,
-    Dispatcher,
-    ActionCreator,
-    StateItem,
-    StateCollection,
-    Manager,
-    DispatchPayload,
-    StoreSettings,
-    StoreParams,
-    Store,
-    MiddlewareParams,
-    DebuggerListener,
-    StaticAction,
-    Dispatch,
-    AnyAction,
-    Context,
+	StateAction,
+	SubscribeListner,
+	Dispatcher,
+	ActionCreator,
+	StateItem,
+	StateCollection,
+	Manager,
+	DispatchPayload,
+	StoreSettings,
+	StoreParams,
+	Store,
+	MiddlewareParams,
+	DebuggerListener,
+	StaticAction,
+	Dispatch,
+	AnyAction,
+	Context,
 };

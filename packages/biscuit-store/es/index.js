@@ -260,56 +260,53 @@ function createEmitter() {
   var taskBuffer = {};
   return {
     /**
-    * This method allows you to subscribe to an action.
-    * Creates a task that puts its own callback function,
-    * which should then be started by the dispatcher
-    * @param {string} stateName name of the state to subscribe to
-    * @param {function} listener callback function
-    * @param {string} state store state
-    * @return {object{params: object, remove: function}} returned task id
-    */
-    subscribeAction: function subscribeAction(taskName, listener, state) {
+     * This method allows you to subscribe to an action.
+     * Creates a task that puts its own callback function,
+     * which should then be started by the dispatcher
+     * @param {string} stateName name of the state to subscribe to
+     * @param {function} listener callback function
+     * @param {string} state store state
+     * @return {object{params: object, remove: function}} returned task id
+     */
+    subscribeAction: function subscribeAction(_ref, listener) {
+      var name = _ref.name,
+          type = _ref.type;
+
       if (typeof listener !== 'function') {
-        throw new CreateError(messages.noListener, taskName);
+        throw new CreateError(messages.noListener, name);
       }
 
-      if (!taskBuffer[taskName]) {
-        taskBuffer[taskName] = [];
+      if (!taskBuffer[name]) {
+        taskBuffer[name] = [];
       }
       /** create task */
 
 
-      var task = {
-        state: state,
-        name: taskName,
-        todo: listener,
-        id: taskBuffer[taskName].length
-      };
-      /** write task to buffer */
+      taskBuffer[name].push({
+        listener: listener,
+        type: type
+      });
+      /** create index */
 
-      taskBuffer[task.name][task.id] = task;
-      new Log("subscribe -> store: " + taskName + ", state: " + state, taskName);
+      var index = taskBuffer[name].length;
+      new Log("subscribe -> " + name, name);
       return {
-        /** task params */
-        params: task,
-
-        /**
-        * Remove listner
-        */
+        /** Remove listner */
         remove: function remove() {
-          new Log("unsubscribe -> store: " + task.name + ", state: " + task.state, task.name);
-          taskBuffer[task.name].splice(task.id, 1);
+          taskBuffer[name] = taskBuffer[name].slice(index, 1);
+          new Log("unsubscribe -> " + name);
         }
       };
     },
 
     /**
-    * This method allows you to subscribe to multiple actions.
-    * Creates multiple tasks that run a single callback function.
-    * @param {actions[object{name: string, type: string}]} actions array actions
-    * @param {function} listener callback
-    * @return {}
-    */
+     * This method allows you to subscribe to multiple actions.
+     * Creates multiple tasks that run a single callback function.
+     * @param {actions[object{name: string, type: string}]} actions
+     * array actions
+     * @param {function} listener callback
+     * @return {}
+     */
     subscribeActions: function subscribeActions(actions, listener) {
       if (typeof listener !== 'function') {
         throw new CreateError(messages.noListener);
@@ -318,80 +315,84 @@ function createEmitter() {
       var tasks = [];
 
       for (var _iterator = _createForOfIteratorHelperLoose(actions), _step; !(_step = _iterator()).done;) {
-        var action = _step.value;
-        new Log("subscribe -> name: " + action.name + ", type: " + action.state, action.name);
+        var _step$value = _step.value,
+            name = _step$value.name,
+            type = _step$value.type;
 
-        if (!action.name) {
+        if (!name) {
           throw new CreateError(messages.noValidAction);
         }
 
-        if (!taskBuffer[action.name]) {
-          taskBuffer[action.name] = [];
+        if (!taskBuffer[name]) {
+          taskBuffer[name] = [];
         }
-        /** create task */
-
-
-        var task = {
-          state: action.type,
-          name: action.name,
-          todo: listener,
-          id: taskBuffer[action.name].length
-        };
         /** write task to buffer */
 
-        taskBuffer[task.name][task.id] = task;
-        /** write tasks to an array, for subsequent
-        *  deletion via the remove method */
 
-        tasks.push(task);
+        taskBuffer[name].push({
+          listener: listener,
+          type: type
+        });
+        /** write tasks to an array, for subsequent
+         *  deletion via the remove method */
+
+        tasks.push({
+          name: name,
+          index: taskBuffer[name].length
+        });
+        new Log("subscribe -> " + name, name);
       }
 
       return {
-        /** tasks array */
-        params: tasks,
-
-        /**
-        * Remove listners
-        */
+        /** Remove listners */
         remove: function remove() {
           for (var _iterator2 = _createForOfIteratorHelperLoose(tasks), _step2; !(_step2 = _iterator2()).done;) {
-            var task = _step2.value;
-            new Log("unsubscribe -> name: " + task.name + ", type: " + task.state, task.name);
-            taskBuffer[task.name].splice(task.id, 1);
+            var _step2$value = _step2.value,
+                name = _step2$value.name,
+                index = _step2$value.index;
+            taskBuffer[name] = taskBuffer[name].slice(index, 1);
+            new Log("unsubscribe -> " + name, name);
           }
         }
       };
     },
 
     /**
-    * Starts all tasks that match the specified state name
-    * and passes data to their callback functions.
-    * @param {object{name: string, type: string}} action action params
-    * @async
-    * @public
-    */
-    dispatchAction: function dispatchAction(action) {
-      new Log("dispatch -> name: " + action.name + ", type: " + action.type, action.name);
+     * Starts all tasks that match the specified state name
+     * and passes data to their callback functions.
+     * @param {object{name: string, type: string}} action action params
+     * @async
+     * @public
+     */
+    dispatchAction: function dispatchAction(_ref2) {
+      var name = _ref2.name,
+          type = _ref2.type;
+      new Log("dispatch -> name: " + name + ", type: " + type, name);
 
-      if (taskBuffer[action.name]) {
-        taskBuffer[action.name].forEach(function (task) {
-          /**
-          * If the status field is not defined,
-          * then run the task without additional checks, if the field is found,
-          * then perform a state comparison
-          */
-          if (task.state === action.type) {
-            task.todo(task);
+      if (taskBuffer[name]) {
+        for (var _iterator3 = _createForOfIteratorHelperLoose(taskBuffer[name]), _step3; !(_step3 = _iterator3()).done;) {
+          var task = _step3.value;
+
+          if (task.type === type) {
+            task.listener({
+              name: name,
+              type: task.type
+            });
+            continue;
           }
 
-          if (task.state === undefined) {
-            task.todo(task);
+          if (task.type === undefined) {
+            task.listener({
+              name: name,
+              type: undefined
+            });
           }
-        });
+        }
+
         return;
       }
 
-      new Warning("store \"" + action.name + "\" has no active subscriptions.", action.name);
+      new Warning("store \"" + name + "\" has no active subscriptions.", name);
     }
   };
 }
@@ -426,19 +427,33 @@ function throttle(callback, limit) {
  * @return {function}
  */
 
-function debounce(callback, limit) {
-  var isCooldown = false;
-  return function () {
-    if (isCooldown) {
-      return;
+function debounce(callback, limit, immediate) {
+  var timeout;
+
+  function debounced() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    callback.apply(this, arguments);
-    isCooldown = true;
-    setTimeout(function () {
-      return isCooldown = false;
-    }, limit);
+    var that = this;
+
+    var later = function later() {
+      callback.apply(that, args);
+    };
+
+    clearTimeout(timeout);
+
+    if (immediate) {
+      later();
+    }
+    timeout = setTimeout(later, limit);
+  }
+
+  debounced.clear = function () {
+    clearTimeout(timeout);
   };
+
+  return debounced;
 }
 /**
  * This method set allows you to. save the state of functions
@@ -451,36 +466,40 @@ function debounce(callback, limit) {
 var sandbox = function sandbox(fn) {
   return {
     run: function () {
-      var throt = null;
+      var than = null;
       /** initial run
-       * @param {function} call target function
-       * @param {number} timer timeout
-      */
+                * @param {function} call target function
+                * @param {number} timer timeout
+               */
 
-      var initialThrottle = function initialThrottle(call, timer) {
-        if (!throt) {
-          throt = fn(call, timer);
+      var initial = function initial(call, timer, immediate) {
+        if (immediate === void 0) {
+          immediate = undefined;
+        }
+
+        if (!than) {
+          than = fn(call, timer, immediate);
         }
       };
       /** initial run
-       * @param {args[any]} args arguments
-       * @return {function}
-       */
+                * @param {args[any]} args arguments
+                * @return {function}
+                */
 
 
-      var throttleCaller = function throttleCaller() {
-        return throt.apply(void 0, arguments);
+      var caller = function caller() {
+        return than.apply(void 0, arguments);
       };
       /** initial
-      * @param {function} call target function
-      * @param {number} timer timeout
-      * @return {function} throttleCaller
-      */
+               * @param {function} call target function
+               * @param {number} timer timeout
+               * @return {function} throttleCaller
+               */
 
 
-      return function (call, timer) {
-        initialThrottle(call, timer);
-        return throttleCaller;
+      return function (call, timer, immediate) {
+        initial(call, timer, immediate);
+        return caller;
       };
     }()
   };
@@ -1246,33 +1265,33 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
-* Get store link
-* @param {string} name
-*/
+ * Get store link
+ * @param {string} name
+ */
 
 function getStateLink(action) {
   return states["\"" + action.type + "\""][action.name];
 }
 /**
-* Get store content
-* @param {string} name
-*/
+ * Get store content
+ * @param {string} name
+ */
 
 function getStoreContent(name) {
   return repositories[name].content;
 }
 /**
-* Get store actions
-* @param {string} name
-*/
+ * Get store actions
+ * @param {string} name
+ */
 
 function getStoreContentActions(name) {
   return repositories[name].actions;
 }
 /**
-* To obtain the name of the store depending on the type of
-* @param {object | string} target
-*/
+ * To obtain the name of the store depending on the type of
+ * @param {object | string} target
+ */
 
 function getStoreName(target) {
   if (typeof target === 'string') {
@@ -1282,9 +1301,9 @@ function getStoreName(target) {
   return target.name;
 }
 /**
-* Validating an action
-* @param {import('../../types/state').AnyAction} action
-*/
+ * Validating an action
+ * @param {import('../../types/state').AnyAction} action
+ */
 
 var actionError = function actionError(action) {
   if (!action || !action.name || !action.type) {
@@ -1368,7 +1387,7 @@ function compareObject(first, last) {
     return true;
   }
 
-  if (first === null || typeof first !== 'object' || last === null && typeof last !== 'object') {
+  if (first === null || typeof first !== 'object' || last === null || typeof last !== 'object') {
     return false;
   }
 
@@ -1406,18 +1425,18 @@ function dispatchProto(_ref) {
       payData = _ref.payData;
 
   /**
-  * Call before state change
-  * @param {function} fn callback
-  * @public
-  */
+   * Call before state change
+   * @param {function} fn callback
+   * @public
+   */
   this.before = function (fn) {
     fn(prev);
     return _this;
   };
   /**
-  * Merge state into store
-  * @public
-  */
+   * Merge state into store
+   * @public
+   */
 
 
   this.merge = function () {
@@ -1425,11 +1444,11 @@ function dispatchProto(_ref) {
     return _this;
   };
   /**
-  * Call after state change
-  * @param {function} fn callback
-  * @async
-  * @public
-  */
+   * Call after state change
+   * @param {function} fn callback
+   * @async
+   * @public
+   */
 
 
   this.after = function _callee(fn) {
@@ -1445,9 +1464,9 @@ function dispatchProto(_ref) {
 
             _context.next = 3;
             return regenerator.awrap(new Promise(function (resolve) {
-              task = emitter.subscribeAction(action.name, function () {
+              task = emitter.subscribeAction(action, function () {
                 return call(resolve);
-              }, action.type);
+              });
             }).then(fn));
 
           case 3:
@@ -1507,10 +1526,15 @@ function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { 
  * @async
  */
 
-var subscriber = function subscriber(name, fn, type) {
+var subscriber = function subscriber(params, fn) {
   var task;
+  var name = params.name,
+      type = params.type;
   var promise = new Promise(function (resolve) {
-    task = emitter.subscribeAction(name, function () {
+    task = emitter.subscribeAction({
+      name: name,
+      type: type
+    }, function () {
       /** if there is a state then pick it up */
       var data = type ? getState({
         name: name,
@@ -1520,7 +1544,7 @@ var subscriber = function subscriber(name, fn, type) {
       resolve({
         data: data
       });
-    }, type);
+    });
   });
   var resolve = this.resolve(promise);
   resolve['unsubscribe'] = task.remove;
@@ -1529,7 +1553,8 @@ var subscriber = function subscriber(name, fn, type) {
 /**
  * This method allows you to add new values to the store.
  * Accepts the storage name and object.
- * @param {string | import('../../../types').Store} target store name or store
+ * @param {string | import('../../../types').Store} target
+ * store name or store
  * @param {object} instance object with added data
  * @public
  */
@@ -1553,7 +1578,8 @@ function addStore(target, instance) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param {string | import('../../../types').Store} target store name or store
+ * @param {string | import('../../../types').Store} target
+ * store name or store
  * @return {object} storage data
  * @public
  */
@@ -1572,7 +1598,8 @@ function getStore(target) {
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "dispatch (...)"
  * method or with an implementation via "manager".
- * @param {import('../../types/state').AnyAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action
+ * the parameters of the action
  * @return {object} state data
  * @public
  */
@@ -1591,7 +1618,8 @@ function getState(action) {
  * as an argument and returns a new state.
  *
  * Dispatch also returns several methods for working with states.
- * @param {import('../../types/state').AnyAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action
+ * the parameters of the action
  * @param {object | import('../../types/state').DispatchPayload} payload
  * payload data or callback function
  * @return {import('../../types/state').Dispatcher}
@@ -1655,6 +1683,7 @@ function dispatch(action, payload) {
       }
     }, null, null, null, Promise);
   }
+
   var task = promise();
   return _objectSpread$2({
     wait: task
@@ -1666,7 +1695,8 @@ function dispatch(action, payload) {
  * The first argument takes the parameters of the action.
  * results can be obtained through the callback of the second
  * argument or through the return promise.
- * @param {import('../../types/state').AnyAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action
+ * the parameters of the action
  * @param {import('../../types/subscribe').SubscribeListner} fn callback
  * @return {Promise<any>}
  * @async
@@ -1684,7 +1714,7 @@ function subscribeToState(action, fn) {
 
   try {
     actionError(action);
-    return subscriber.call(that, action.name, fn, action.type);
+    return subscriber.call(that, action, fn);
   } catch (e) {
     return that.reject(e);
   }
@@ -1717,7 +1747,10 @@ function subscribeToStore(target, fn) {
       throw new CreateError(messages.noStore(storeName));
     }
 
-    return subscriber.call(that, storeName, fn);
+    return subscriber.call(that, {
+      name: storeName,
+      type: undefined
+    }, fn);
   } catch (e) {
     return that.reject(e);
   }
@@ -1806,11 +1839,12 @@ function createActionTo(params) {
 
   return {
     /** This method binds the state to the selected storagee
-    * @param {string} action state name
-     * @param {import('../../types/state').StateOptions} options state options
+     * @param {string} action state name
+     * @param {import('../../types/state').StateOptions} options
+     * state options
      * @return {import('../../types/state').StateAction}
-    * @public
-    */
+     * @public
+     */
     bind: function bind(action, options) {
       var _objectSpread2;
 
@@ -1834,10 +1868,10 @@ function createActionTo(params) {
 
       var returnedParams = _objectSpread$3(_objectSpread$3({}, actionParams), {}, {
         /**
-        * Update state
-        * @param {import('../../types/state').DispatchPayload} payload
-        * @public
-        */
+         * Update state
+         * @param {import('../../types/state').DispatchPayload} payload
+         * @public
+         */
         dispatch: function dispatch$1(payload) {
           if (payload === void 0) {
             payload = {};
@@ -1847,18 +1881,19 @@ function createActionTo(params) {
         },
 
         /**
-        * Subscribe to state
-        * @param {import('../../types/subscribe').SubscribeListner} fn callback
-        * @public
-        */
+         * Subscribe to state
+         * @param {import('../../types/subscribe').SubscribeListner} fn
+         * callback
+         * @public
+         */
         subscribe: function subscribe(fn) {
           return subscribeToState(actionParams, fn);
         },
 
         /**
-        * Get state
-        * @public
-        */
+         * Get state
+         * @public
+         */
         getState: function getState$1() {
           return getState(actionParams);
         }
@@ -1890,7 +1925,8 @@ function initialActions(createActions, actions) {
 }
 /**
  * This helper method converts the actions received via the argument to an array
- * @return {import('../../types/state').StateCollection} returns the "compile" method
+ * @return {import('../../types/state').StateCollection}
+ * returns the "compile" method
  * @public
  */
 
@@ -1898,10 +1934,11 @@ function stateCollection() {
   var collection = {};
   return {
     /**
-    * compile state collection
-    * @return {import('../../types/state').StateCollectionRepo} actions collection
-    * @public
-    */
+     * compile state collection
+     * @return {import('../../types/state').StateCollectionRepo}
+     * actions collection
+     * @public
+     */
     compile: function compile() {
       for (var _len = arguments.length, actions = new Array(_len), _key = 0; _key < _len; _key++) {
         actions[_key] = arguments[_key];
@@ -1924,7 +1961,8 @@ function stateCollection() {
 
     /**
      * Get the entire collection actions
-     * @return {import('../../types/state').StateCollectionRepo} collections instance
+     * @return {import('../../types/state').StateCollectionRepo}
+     * collections instance
      * @public
      */
     all: function all() {
@@ -1934,7 +1972,8 @@ function stateCollection() {
     /**
      * Get a collection by matching the storage name
      * @param {string} name storage name
-     * @return {import('../../types/state').StateAction[]} collections instance
+     * @return {import('../../types/state').StateAction[]}
+     * collections instance
      * @public
      */
     fromStore: function fromStore(name) {
@@ -1947,51 +1986,25 @@ function stateCollection() {
      * @return {import('../../types/state').StateAction[]} state list
      * @public
      */
-    outOfState: function outOfState(stateName) {
-      var out = null;
-      Object.keys(collection).forEach(function (key) {
-        out = collection[key].filter(function (_ref) {
-          var state = _ref.state;
-          return state === stateName;
-        });
-      });
+    outOfState: function outOfState(actionName) {
+      var out = [];
+
+      for (var key in collection) {
+        out = [].concat(out, collection[key].filter(function (_ref) {
+          var type = _ref.type;
+          return type === actionName;
+        }));
+      }
+
       return out;
     }
   };
 }
 /**
- * This helper method can combine multiple collections of actions.
- * Accepts "stateCollection(...action)"
- * @param {import('../../types/state').StateCollection} collection array StateCollection
- * @public
- */
-
-function combineStateCollections() {
-  var allState = [];
-
-  for (var _len2 = arguments.length, collections = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    collections[_key2] = arguments[_key2];
-  }
-
-  var _loop = function _loop() {
-    var collection = _collections[_i2];
-    Object.keys(collection.all()).forEach(function (storeName) {
-      allState = [].concat(allState, collection.fromStore(storeName));
-    });
-  };
-
-  for (var _i2 = 0, _collections = collections; _i2 < _collections.length; _i2++) {
-    _loop();
-  }
-
-  var sc = stateCollection();
-  sc.compile.apply(null, allState);
-  return sc;
-}
-/**
  * This method allows you to add middleware for the state handler.
  * @param {import('../../types/store').Store} store the store params
- * @return {import('../../types/store').MiddlewareParams} returns a set of methods
+ * @return {import('../../types/store').MiddlewareParams}
+ * returns a set of methods
  * @public
  */
 
@@ -2003,10 +2016,10 @@ function middleware(store) {
   var s = store.name;
   return {
     /**
-    * Adds a handler to the middleware task list.
-    * @param {function} fn middle function
-    * @public
-    */
+     * Adds a handler to the middleware task list.
+     * @param {function} fn middle function
+     * @public
+     */
     add: function add(fn) {
       if (typeof fn !== 'function') {
         throw new CreateError(messages.middleNoFunc, s);
@@ -2024,7 +2037,8 @@ function middleware(store) {
  * This method allows you to add your own debugger.
  * The debugger will accept and output logs instead of the standard debugger.
  * @param {import('../../types/store').Store} store store object
- * @param {import('../../types/store').DebuggerListener} fn debugger callback function
+ * @param {import('../../types/store').DebuggerListener} fn
+ * debugger callback function
  * @public
  */
 
@@ -2113,7 +2127,8 @@ function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { 
  * The State Manager allows you to manage the storage and its state.
  * Provides a set of methods for two-way merge, replace, copy,
  * and other actions between the selected storage and state.
- * @param {import('../../types/state').AnyAction} action the parameters of the action
+ * @param {import('../../types/state').AnyAction} action
+ * the parameters of the action
  * @return {object} returns a set of methods
  * @public
  */
@@ -2122,7 +2137,8 @@ function createManager(action) {
   actionError(action);
   return {
     /**
-     * This method will combine data from the state with data from the storage.
+     * This method will combine data
+     * from the state with data from the storage.
      * @public
      */
     merge: function merge() {
@@ -2130,7 +2146,8 @@ function createManager(action) {
     },
 
     /**
-     * This method will merge data from the storage with data from the state.
+     * This method will merge data
+     * from the storage with data from the state.
      * @public
      */
     pull: function pull() {
@@ -2146,7 +2163,8 @@ function createManager(action) {
     },
 
     /**
-     * This method will replace the data from the state with the storage data.
+     * This method will replace the data
+     * from the state with the storage data.
      * @public
      */
     replaceState: function replaceState() {
@@ -2240,4 +2258,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addStore, combineStateCollections, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };

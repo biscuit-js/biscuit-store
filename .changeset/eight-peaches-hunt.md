@@ -2,4 +2,4 @@
 "@biscuit-store/core": major
 ---
 
-renamed subsidiary of the kernel function
+Renamed subsidiary of the kernel function
