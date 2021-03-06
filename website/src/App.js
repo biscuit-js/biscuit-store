@@ -5,18 +5,18 @@ import { Docs } from './components/screen/Docs';
 import './styles.css';
 
 export default function App() {
-    return (
-        <div className="App">
-            <Router>
-                <Switch>
-                    <Route path={'/docs'}>
-                        <Docs />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
-    );
+	return (
+		<div className='App'>
+			<Router>
+				<Switch>
+					<Route path={'/docs'}>
+						<Docs />
+					</Route>
+					<Route path='/'>
+						<Home />
+					</Route>
+				</Switch>
+			</Router>
+		</div>
+	);
 }

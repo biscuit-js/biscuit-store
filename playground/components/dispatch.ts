@@ -8,34 +8,35 @@ type BrenchState = ITestStore & BranchName;
 
 export function dispatchPreview() {
 
-    testAdd.subscribe<ITestStore>((state) => {
-        console.log(state);
-    });
+	testAdd.subscribe<ITestStore>((state) => {
+		console.log(state);
+	});
 
-    testStep.subscribe<BrenchState>((state) => {
-        console.log(state.name);
-    });
+	testStep.subscribe<BrenchState>((state) => {
+		console.log(state.name);
+	});
 
-    testFetch.subscribe<ITestStore>((state) => {
-        console.log(state.data);
-    });
+	testFetch.subscribe<ITestStore>((state) => {
+		console.log(state.data);
+	});
 
-    (async function () {
-        const arr = new Array(5).fill(1);
-        for (let key of arr) {
-            await testAdd.dispatch<TestStorePayload>((prev) => ({ value: prev.value + key })).wait;
-        }
-    }());
+	(async function () {
+		const arr = new Array(5).fill(1);
+		for (let key of arr) {
+			await testAdd.dispatch<TestStorePayload>((prev) =>
+				({ value: prev.value + key })).wait;
+		}
+	}());
 
-    testFetch.dispatch({ data: 'Ready!!!' });
+	testFetch.dispatch({ data: 'Ready!!!' });
 
-    testExecute.subscribe((state) => {
-        console.log(state);
-    });
+	testExecute.subscribe((state) => {
+		console.log(state);
+	});
 
-    setTimeout(() => {
-        testInclude.dispatch({ data: 'Box' });
-    }, 2000);
+	setTimeout(() => {
+		testInclude.dispatch({ data: 'Box' });
+	}, 2000);
 
-    testExecute.dispatch({ title: 'delivered' });
+	testExecute.dispatch({ title: 'delivered' });
 }

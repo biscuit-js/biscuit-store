@@ -8,8 +8,8 @@ export type Send = (newPayload: any) => void;
 
 /** adapter action context */
 export interface AdapterActionCtx {
-    getAction: GetAction;
-    send: Send;
+	getAction: GetAction;
+	send: Send;
 }
 
 /**
@@ -18,8 +18,11 @@ export interface AdapterActionCtx {
  * @param state state data
  * @param ctx response methods
  */
-export type ActionListner<T, P, S> =
-    (payload: P, state: S, ctx: AdapterActionCtx) => T | Promise<T>;
+export type ActionListner<T, P, S> = (
+	payload: P,
+	state: S,
+	ctx: AdapterActionCtx
+) => T | Promise<T>;
 
 /**
  * Type of the result handler
@@ -27,54 +30,63 @@ export type ActionListner<T, P, S> =
  * @param state state data
  * @param ctx response methods
  */
-export type CallHandler<T, S> =
-    (result: T, state: S, ctx: AdapterActionCtx) => any;
+export type CallHandler<T, S> = (
+	result: T,
+	state: S,
+	ctx: AdapterActionCtx
+) => any;
 
 /** Channel type */
 export interface Channel {
-    /**
-     * The function writes data to the channel.
-     * @param  payload the data for a send
-     */
-    include: <T>(payload: T) => void;
+	/**
+	 * The function writes data to the channel.
+	 * @param  payload the data for a send
+	 */
+	include: <T>(payload: T) => void;
 
-    /**
-     * Function for extracting data from a channel.
-     * @param payload the data for a mail merge
-     * @return Promise
-     */
-    extract: <T>(payload: T) => Promise<any>;
+	/**
+	 * Function for extracting data from a channel.
+	 * @param payload the data for a mail merge
+	 * @return Promise
+	 */
+	extract: <T>(payload: T) => Promise<any>;
 }
 
 /** Adapter returned interface */
 export interface Adapter {
-    /**
-     * Connector for biscuit middleware
-     * launches tasks from the scheduler when an action is triggered
-     * @param context contains action parameters
-     * @param next callback function
-     */
-    connect: (context: Context, next: <T>(newPayload?: T) => void) => void;
-    /**
-     * Create action
-     * adds an action to the scheduler
-     * @param actionName action name
-     * @param fn callback function
-     */
-    action: <T = {}, P = {}, S = {}>(actionName: string, fn: ActionListner<T, P, S>) => void;
+	/**
+	 * Connector for biscuit middleware
+	 * launches tasks from the scheduler when an action is triggered
+	 * @param context contains action parameters
+	 * @param next callback function
+	 */
+	connect: (context: Context, next: <T>(newPayload?: T) => void) => void;
+	/**
+	 * Create action
+	 * adds an action to the scheduler
+	 * @param actionName action name
+	 * @param fn callback function
+	 */
+	action: <T = {}, P = {}, S = {}>(
+		actionName: string,
+		fn: ActionListner<T, P, S>
+	) => void;
 
-    /**
-     * Сall async method
-     * сalls an asynchronous function and handler in the scheduler.
-     * @param ctionName action name
-     * @param fn async function
-     * @param handler handler of the received result
-     */
-    call: <T = {}, P = {}, S = {}>
-    (actionName: string, fn: ActionListner<T, P, T>, handler?: CallHandler<T, S>) => void;
+	/**
+	 * Сall async method
+	 * сalls an asynchronous function and handler in the scheduler.
+	 * @param ctionName action name
+	 * @param fn async function
+	 * @param handler handler of the received result
+	 */
+	call: <T = {}, P = {}, S = {}>(
+		actionName: string,
+		fn: ActionListner<T, P, T>,
+		handler?: CallHandler<T, S>
+	) => void;
 
-    /**
-     * Function for creating a channel
-     */
-    makeChannel: () => Channel;
+	/**
+	 * Function for creating a channel
+	 */
+	makeChannel: () => Channel;
 }

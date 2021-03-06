@@ -1,7 +1,13 @@
 import { ReactComponent } from './component';
-import { DispatchToProps, StateToProps, Deps, Dep, DepsAction, ModifyDispatch } from './interfaces';
+import {
+	DispatchToProps,
+	StateToProps,
+	Deps,
+	Dep,
+	DepsAction,
+	ModifyDispatch,
+} from './interfaces';
 import { Dispatch } from '@biscuit-store/types';
-
 
 /**
  * ### Observer
@@ -13,8 +19,8 @@ import { Dispatch } from '@biscuit-store/types';
  * @return React component
  */
 declare function observer<T = any>(
-    Element: ReactComponent<T>,
-    deps: Deps
+	Element: ReactComponent<T>,
+	deps: Deps
 ): ReactComponent<T | any>;
 
 /**
@@ -25,9 +31,9 @@ declare function observer<T = any>(
  * @param dispatchToProps dispatch list
  * @return React component
  */
-declare function subscribe<S = {}, R = {}, P = any, >(
-    stateToProps: StateToProps<S, R>,
-    dispatchToProps: DispatchToProps
+declare function subscribe<S = {}, R = {}, P = any>(
+	stateToProps: StateToProps<S, R>,
+	dispatchToProps: DispatchToProps
 ): (Element: ReactComponent<P>) => ReactComponent<P | any>;
 
 /**
@@ -57,7 +63,10 @@ declare function useDispatch(...actions: DepsAction): Dispatch[];
  * @param actions actions list
  * @return dispatch list
  */
-declare function useDispatchThrottle(count: number, ...actions: DepsAction): ModifyDispatch[];
+declare function useDispatchThrottle(
+	count: number,
+	...actions: DepsAction
+): ModifyDispatch[];
 
 /**
  * ### useDispatchDebounce
@@ -68,4 +77,7 @@ declare function useDispatchThrottle(count: number, ...actions: DepsAction): Mod
  * @param actions actions list
  * @return dispatch list
  */
-declare function useDispatchDebounce(count: number, ...actions: DepsAction): ModifyDispatch[];
+declare function useDispatchDebounce(
+	count: number,
+	...actions: DepsAction
+): ModifyDispatch[];

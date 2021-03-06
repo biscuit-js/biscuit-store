@@ -7,13 +7,13 @@
  * @param {*} next
  */
 export async function runAction(connector, context, next) {
-    const update = connector.fn(
-        context.payload,
-        context.state,
-        { send: next, getAction: context.getAction }
-    );
+	const update = connector.fn(
+		context.payload,
+		context.state,
+		{ send: next, getAction: context.getAction }
+	);
 
-    if (update) {
-        next(update);
-    }
+	if (update) {
+		next(update);
+	}
 };

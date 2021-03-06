@@ -821,9 +821,9 @@ var makeChannel = function makeChannel() {
   var chan = null;
   return {
     /**
-     * The function writes data to the channel.
-     * @param {object} payload the data for a send
-     */
+           * The function writes data to the channel.
+           * @param {object} payload the data for a send
+           */
     include: function include(payload) {
       var _chan;
 
@@ -834,10 +834,10 @@ var makeChannel = function makeChannel() {
     },
 
     /**
-     * Function for extracting data from a channel.
-     * @param {object} payload the data for a mail merge
-     * @return {Promise}
-     */
+           * Function for extracting data from a channel.
+           * @param {object} payload the data for a mail merge
+           * @return {Promise}
+           */
     extract: function extract(payload) {
       return new Promise(function (resolve) {
         chan = {
@@ -864,7 +864,7 @@ var tasks = {
  * This is a feature for creating middleware for the biscuit-store.
  * Allows you to create a manageable condition.
  * @public
-*/
+ */
 
 function createAdapter() {
   var connectors = [];
@@ -970,7 +970,8 @@ function createAdapter() {
      * Сreate action
      * dds an action to the scheduler
      * @param {string} actionName action name
-     * @param {import('../../types/adapter').ActionListner} fn callback function
+     * @param {import('../../types/adapter').ActionListner} fn
+     * callback function
      */
     action: function action(actionName, fn) {
       connectors.push({
@@ -985,8 +986,10 @@ function createAdapter() {
      * Сall async method
      * сalls an asynchronous function and handler in the scheduler.
      * @param {string} actionName action name
-     * @param {import('../../types/adapter').ActionListner} fn async function
-     * @param {import('../../types/adapter').CallHandler} handler handler of the received result
+     * @param {import('../../types/adapter').ActionListner} fn
+     * async function
+     * @param {import('../../types/adapter').CallHandler} handler
+     * handler of the received result
      */
     call: function call(actionName, fn, handler) {
       if (handler === void 0) {
