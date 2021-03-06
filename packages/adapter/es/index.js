@@ -1,3 +1,18 @@
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function createCommonjsModule(fn) {
   var module = { exports: {} };
 	return fn(module, module.exports), module.exports;
@@ -795,21 +810,6 @@ function runCall(connector, context, next) {
   }, null, null, null, Promise);
 }
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -849,11 +849,9 @@ var makeChannel = function makeChannel() {
   };
 };
 
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /** A collection of tasks for the scheduler */
 
 var tasks = {
@@ -867,7 +865,80 @@ var tasks = {
  */
 
 function createAdapter() {
-  var connectors = [];
+  var connectors = {};
+  /**
+   * Function for processing the task
+   * @param {object} connector
+   * @param {object} context
+   * @param {function} next
+   * @return {bool}
+   */
+
+  var runWork = function _callee(connector, context, next) {
+    var task;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!connector) {
+              _context.next = 9;
+              break;
+            }
+
+            task = function task() {
+              return tasks[connector.type](connector, context, next);
+            };
+
+            if (!connector.await) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 5;
+            return regenerator.awrap(task());
+
+          case 5:
+            _context.next = 8;
+            break;
+
+          case 7:
+            task();
+
+          case 8:
+            return _context.abrupt("return", true);
+
+          case 9:
+            return _context.abrupt("return", false);
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, null, Promise);
+  };
+  /**
+   * The function creates a task
+   * @param {object} params
+   */
+
+
+  var createWork = function createWork(_ref) {
+    var _objectSpread2;
+
+    var type = _ref.type,
+        actionName = _ref.actionName,
+        fn = _ref.fn,
+        handler = _ref.handler,
+        aw = _ref.aw;
+    connectors[type] = _objectSpread$1(_objectSpread$1({}, connectors[type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + actionName + "\""] = {
+      fn: fn,
+      type: type,
+      handler: handler,
+      await: aw
+    }, _objectSpread2));
+  };
+
   return {
     /** connector for biscuit middleware
      * launches tasks from the scheduler when an action is triggered
@@ -876,89 +947,45 @@ function createAdapter() {
      * @public
      */
     connect: function connect(context, next) {
-      var resolve, _loop, _iterator, _step, _ret;
-
+      var resolve, key, connector;
       return regenerator.async(function connect$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               resolve = false;
+              _context2.t0 = regenerator.keys(tasks);
 
-              _loop = function _callee() {
-                var connector, task;
-                return regenerator.async(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        connector = _step.value;
-
-                        if (!(connector.act === context.action)) {
-                          _context.next = 11;
-                          break;
-                        }
-
-                        task = function task() {
-                          return tasks[connector.type](connector, context, next);
-                        };
-
-                        if (!connector.await) {
-                          _context.next = 8;
-                          break;
-                        }
-
-                        _context.next = 6;
-                        return regenerator.awrap(task());
-
-                      case 6:
-                        _context.next = 9;
-                        break;
-
-                      case 8:
-                        task();
-
-                      case 9:
-                        resolve = true;
-                        return _context.abrupt("return", "break");
-
-                      case 11:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, null, null, null, Promise);
-              };
-
-              _iterator = _createForOfIteratorHelperLoose(connectors);
-
-            case 3:
-              if ((_step = _iterator()).done) {
-                _context2.next = 11;
+            case 2:
+              if ((_context2.t1 = _context2.t0()).done) {
+                _context2.next = 12;
                 break;
               }
 
-              _context2.next = 6;
-              return regenerator.awrap(_loop());
+              key = _context2.t1.value;
 
-            case 6:
-              _ret = _context2.sent;
-
-              if (!(_ret === "break")) {
-                _context2.next = 9;
+              if (!connectors[key]) {
+                _context2.next = 10;
                 break;
               }
 
-              return _context2.abrupt("break", 11);
+              connector = connectors[key]["\"" + context.action + "\""];
+              _context2.next = 8;
+              return regenerator.awrap(runWork(connector, context, next));
 
-            case 9:
-              _context2.next = 3;
+            case 8:
+              resolve = _context2.sent;
+              return _context2.abrupt("break", 12);
+
+            case 10:
+              _context2.next = 2;
               break;
 
-            case 11:
+            case 12:
               if (!resolve) {
                 next(context.payload);
               }
 
-            case 12:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -974,11 +1001,12 @@ function createAdapter() {
      * callback function
      */
     action: function action(actionName, fn) {
-      connectors.push({
-        act: actionName,
+      var type = 'action';
+      createWork({
+        type: type,
+        actionName: actionName,
         fn: fn,
-        type: 'action',
-        await: false
+        aw: false
       });
     },
 
@@ -996,12 +1024,13 @@ function createAdapter() {
         handler = null;
       }
 
-      connectors.push({
-        act: actionName,
+      var type = 'call';
+      createWork({
+        type: type,
+        actionName: actionName,
         fn: fn,
         handler: handler,
-        type: 'call',
-        await: true
+        aw: true
       });
     },
 
