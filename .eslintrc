@@ -127,7 +127,7 @@
 
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/semi": ["error", "always"],
-    "@typescript-eslint/no-extra-parens": ["error"],
+    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/member-delimiter-style": ["error", { "multiline": { "delimiter": "semi", "requireLast": true } }],
     "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/brace-style": ["error", "1tbs"],
@@ -146,6 +146,7 @@
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/prefer-regexp-exec": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
-    "@typescript-eslint/require-await": "off"
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/no-this-alias": "off"
   }
 }

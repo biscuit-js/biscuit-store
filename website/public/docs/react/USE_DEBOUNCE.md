@@ -7,7 +7,7 @@ import { useDispatchDebounce } from "@biscuit-store/react";
 import { addDebounceText } from "./store/test";
 
 function Input() {
-  const [setText] = useDispatchDebounce(500, addDebounceText);
+  const setText = useDispatchDebounce(addDebounceText, 500, true);
 
   const handleChange = (e) => {
     if (e.target) {

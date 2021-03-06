@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {
-    dispatchPreview,
+	dispatchPreview,
 } from './components/dispatch';
 
 

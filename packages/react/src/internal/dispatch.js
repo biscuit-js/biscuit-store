@@ -25,10 +25,8 @@ export function useDispatch(...actions) {
  * @return {import('../../types/interfaces').ModifyDispatch[]}  dispatch list
  * @public
  */
-export function useDispatchThrottle(count, ...actions) {
-	return actions.map((action) => (payload = {}) =>
-		boxThrottle.run(dispatch, count)(action, payload)
-	);
+export function useDispatchThrottle(action, count) {
+	return (payload = {}) => boxThrottle.run(dispatch, count)(action, payload);
 }
 
 /**
@@ -41,8 +39,7 @@ export function useDispatchThrottle(count, ...actions) {
  * @return {import('../../types/interfaces').ModifyDispatch[]}  dispatch list
  * @public
  */
-export function useDispatchDebounce(count, ...actions) {
-	return actions.map((action) => (payload = {}) =>
-		boxDebounce.run(dispatch, count)(action, payload)
-	);
+export function useDispatchDebounce(action, count, immediate) {
+	return (payload = {}) =>
+		boxDebounce.run(dispatch, count, immediate)(action, payload);
 }
