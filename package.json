@@ -32,7 +32,7 @@
     "changelog:add": "changeset add",
     "changelog:ver": "changeset version",
     "changelog:publish": "changeset publish",
-    "version": "lerna run --parallel ver",
+    "version": "lerna version patch",
     "update": "lerna run --parallel update",
     "pub:main": "lerna run --parallel publish:main",
     "pub:second": "lerna run --parallel publish:second",
@@ -44,7 +44,8 @@
     "web:start": "lerna run web:start",
     "web:test": "lerna run --parallel web:test",
     "web:build": "lerna run --parallel web:build:prod",
-    "postinstall": "husky install"
+    "deps:update": "node ./scripts/update-deps",
+    "package:create": "yarn test && yarn build && yarn run version && yarn deps:update && yarn readme:copy && yarn release:publish:latest && yarn readme:restore"
   },
   "dependencies": {
     "@biscuit-store/core": "^0.9.99",
