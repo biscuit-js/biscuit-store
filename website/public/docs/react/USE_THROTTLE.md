@@ -6,7 +6,7 @@ import { useDispatchThrottle } from "@biscuit-store/react";
 import { addThrottleText } from "./store/test";
 
 function Input() {
-  const [setText] = useDispatchThrottle(500, addThrottleText);
+  const setText = useDispatchThrottle(addThrottleText, 500);
 
   const handleChange = (e) => {
    setText({ throttleText: e.currentTarget.value });

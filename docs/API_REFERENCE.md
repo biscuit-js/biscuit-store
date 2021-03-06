@@ -527,13 +527,6 @@ param action:
     type AnyAction
 ```
 
-#### manager.remove
-This method removes the storage and its copies from all states.
-
-> This method can be useful for optimization,
-but it can make the code non-obvious,
-which will lead to difficulties in support.
-
 #### manager.compareStates
 This method compares two states.
 > States should not contain methods
@@ -573,24 +566,6 @@ params:
 - **instance***: *object*;
 
 return: boolean
-
-#### manager.clone
-Clones the selected storage and its state.
-
-> It is best to avoid using this method, as the best practice would be to do initialization of stores in one place. Copying the store can lead to code support difficulties.
-
-params:
-- **name***: *string*;
-
-return: object
-
-
-Typescript types:
- ```
-param name: string
-
-return: Store<T>
-```
 
 #### manager.update
 Updates the state of the store.
