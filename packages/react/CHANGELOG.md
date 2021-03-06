@@ -13,33 +13,10 @@
 - 038a474: add useDispatch unit test
 
 ### Patch Changes
-
-- Updated dependencies [ec22884]
-- Updated dependencies [038a474]
-- Updated dependencies [7cca360]
-- Updated dependencies [ec22884]
-- Updated dependencies [038a474]
-- Updated dependencies [442379a]
-- Updated dependencies [038a474]
-- Updated dependencies [ec22884]
-- Updated dependencies [7cca360]
-- Updated dependencies [ec22884]
-- Updated dependencies [7cca360]
-- Updated dependencies [ec22884]
-- Updated dependencies [79d022f]
-- Updated dependencies [442379a]
-- Updated dependencies [7cca360]
   - @biscuit-store/core@1.0.0
 
 ## 1.0.0
 ### Patch Changes
-
-- Updated dependencies [442379a]
-- Updated dependencies [undefined]
-- Updated dependencies [undefined]
-- Updated dependencies [undefined]
-- Updated dependencies [undefined]
-- Updated dependencies [442379a]
   - @biscuit-store/core@1.0.0
 
 ## 0.9.99
