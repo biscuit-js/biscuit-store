@@ -64,8 +64,8 @@ declare function useDispatch(...actions: DepsAction): Dispatch[];
  * @return dispatch list
  */
 declare function useDispatchThrottle(
-	count: number,
-	...actions: DepsAction
+	action: DepsAction,
+	count: number
 ): ModifyDispatch[];
 
 /**
@@ -78,6 +78,7 @@ declare function useDispatchThrottle(
  * @return dispatch list
  */
 declare function useDispatchDebounce(
+	action: DepsAction,
 	count: number,
-	...actions: DepsAction
+	immediate: boolean
 ): ModifyDispatch[];
