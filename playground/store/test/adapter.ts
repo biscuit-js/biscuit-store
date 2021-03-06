@@ -22,6 +22,7 @@ adapter.action<ITestStore, ITestStore, ITestStore>('test/add', (payload, state, 
 
 adapter.call<TestFetchPayload, TestFetchPayload, ITestStore>('test/fetch', fetchFunc);
 
+
 const chan = adapter.makeChannel();
 
 adapter.action('test/include', (payload) => {

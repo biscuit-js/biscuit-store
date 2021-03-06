@@ -14,7 +14,43 @@ const tasks = {
  * @public
  */
 export function createAdapter() {
-	const connectors = [];
+	const connectors = {};
+
+	/**
+	 * Function for processing the task
+	 * @param {object} connector
+	 * @param {object} context
+	 * @param {function} next
+	 * @return {bool}
+	 */
+	const runWork = async (connector, context, next) => {
+		if (connector) {
+			const task = () => tasks[connector.type](connector, context, next);
+			if (connector.await) {
+				await task();
+			} else {
+				task();
+			}
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * The function creates a task
+	 * @param {object} params
+	 */
+	const createWork = ({ type, actionName, fn, handler, aw }) => {
+		connectors[type] = {
+			...connectors[type],
+			[`"${actionName}"`]: {
+				fn,
+				type,
+				handler,
+				await: aw,
+			},
+		};
+	};
 
 	return {
 		/** connector for biscuit middleware
@@ -25,18 +61,11 @@ export function createAdapter() {
 		 */
 		connect: async (context, next) => {
 			let resolve = false;
-			for (let connector of connectors) {
-				if (connector.act === context.action) {
-					const task = () =>
-						tasks[connector.type](connector, context, next);
 
-					if (connector.await) {
-						await task();
-					} else {
-						task();
-					}
-
-					resolve = true;
+			for (let key in tasks) {
+				if (connectors[key]) {
+					const connector = connectors[key][`"${context.action}"`];
+					resolve = await runWork(connector, context, next);
 					break;
 				}
 			}
@@ -54,12 +83,8 @@ export function createAdapter() {
 		 * callback function
 		 */
 		action: (actionName, fn) => {
-			connectors.push({
-				act: actionName,
-				fn,
-				type: 'action',
-				await: false,
-			});
+			const type = 'action';
+			createWork({ type, actionName, fn, aw: false });
 		},
 
 		/**
@@ -72,13 +97,8 @@ export function createAdapter() {
 		 * handler of the received result
 		 */
 		call: (actionName, fn, handler = null) => {
-			connectors.push({
-				act: actionName,
-				fn,
-				handler,
-				type: 'call',
-				await: true,
-			});
+			const type = 'call';
+			createWork({ type, actionName, fn, handler, aw: true });
 		},
 
 		/**
