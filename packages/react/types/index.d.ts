@@ -1,3 +1,4 @@
+//
 import { ReactComponent } from './component';
 import {
 	DispatchToProps,
@@ -82,3 +83,13 @@ declare function useDispatchDebounce(
 	count: number,
 	immediate: boolean
 ): ModifyDispatch;
+
+/**
+ * object
+ */
+declare function listen(
+	event: AnyAction,
+	exp: object
+): {
+	render: any;
+};

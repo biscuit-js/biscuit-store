@@ -6,7 +6,7 @@ import { BranchName, TestStorePayload } from '../common/types';
 
 type BrenchState = ITestStore & BranchName;
 
-export function dispatchPreview() {
+export function dispatchPreview(): void {
 
 	testAdd.subscribe<ITestStore>((state) => {
 		console.log(state);
