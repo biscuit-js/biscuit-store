@@ -11,14 +11,13 @@ const Test = ({ test, value }) => {
 	);
 };
 
-const RTest = listen(testStore, { state: true, text: 'ready' }).render(Test);
+const ListenTest = listen(testStore, { state: true }).render(Test);
 
 export default ({ value }) => {
 	return (
 		<div className='App'>
-			<h1>Hello CodeSandbox</h1>
-			<h2>{value}</h2>
-			<RTest test={'test'} />
+			<h1>Biscuit-store playground-react</h1>
+			<ListenTest test={'test'} />
 			<button
 				onClick={() =>
 					step.dispatch((prev) => ({
