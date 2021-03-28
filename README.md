@@ -64,6 +64,16 @@ npm install @biscuit-store/react
 
 --------
 
+### What's new
+**Update 1.1.0** introduced several major changes to the behavior of the adapter and react modules. New features have also been added:
+- **Core**
+- - [**container**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md#container) - Allows you to store actions in an isolated container.
+- - [**initialCall**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md) - A field in createStore that allows you to run an asynchronous method when initializing the storage and write the result to the storage.
+- **Adapter**
+- - [**includeContext**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md#context-modification) - Allows you to write parameters to the adapter context
+- **React**
+- - [**listen**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/react/LISTEN.md) - The listen method listens to a store or action. If the values of the storage object match the values of the mask object specified in the parameters, then the react component will be manipulated depending on the method called.
+
 ### Basic exemple
 The easiest way to create a new store is to use the [createStore](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md) function. The function accepts a set of parameters that can consist of the fields initial, name, actions, middleware and debug. name and initial is a required fields.
 

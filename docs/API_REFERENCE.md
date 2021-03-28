@@ -18,6 +18,7 @@ This section contains all the current methods from all the biscuit-store package
 - [createManager](#createManager)
 - [initialActions](#initialActions)
 - [stateCollection](#stateCollection)
+- [container](#container)
 
 #### [Store api:](#Biscuit-store-store-api)
 - [store.subscribe](#storesubscribe)
@@ -88,6 +89,7 @@ let's take a closer look at the fields of this method in more detail:
 | actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
+| initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
 
 
@@ -699,6 +701,54 @@ param statename: string
 return: StateAction[]
 ```
 
+### container
+Allows you to store actions in an isolated container and retrieve them if necessary. It can be useful for eliminating cyclic dependencies.
+
+
+include actions
+```javascript
+import { createStore, container } from '@biscuit-store/core';
+
+export const { actions, store } = createStore({
+	name: 'test',
+	initial: { value: 0 },
+	actions: {
+		start: 'start/action',
+	}
+});
+
+container.include(actions);
+```
+
+extract actions
+```javascript
+const { start } = container.extract('test');
+
+start.dispatch({ value: 10 });
+```
+#### container.include
+The method allows you to put actions in a container
+
+params:
+- **actions***: *object* - actions object
+
+Typescript types:
+```
+param actions: {[propName: string]: StateAction}
+```
+
+#### container.extract
+The method allows you to put actions in a container
+params:
+- **storeName***: *string* - store name
+
+return: object
+
+Typescript types:
+```
+param storeName: string
+return: {[propName: string]: StateAction}
+```
 ### Biscuit-store store API
 
 ### store.subscribe
