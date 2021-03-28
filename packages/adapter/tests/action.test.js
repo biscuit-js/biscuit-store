@@ -6,7 +6,7 @@ it('calling action', (done) => {
 	expect.assertions(2);
 
 	const adapter = createAdapter();
-	adapter.action('add/action', (payload) => {
+	adapter.action('add/action', ({ payload }) => {
 		expect(payload.value).toEqual(1);
 		return payload;
 	});
@@ -24,9 +24,9 @@ it('check payload and store', (done) => {
 	expect.assertions(2);
 
 	const adapter = createAdapter();
-	adapter.action('add/action', (payload, store) => {
+	adapter.action('add/action', ({ payload, state }) => {
 		expect(payload.value).toEqual(1);
-		expect(store.value).toEqual(0);
+		expect(state.value).toEqual(0);
 		done();
 	});
 
@@ -40,12 +40,12 @@ it('calling multiple actions', (done) => {
 
 	const adapter = createAdapter();
 
-	adapter.action('add/action', (payload) => {
+	adapter.action('add/action', ({ payload }) => {
 		expect(payload.value).toEqual(1);
 		return payload;
 	});
 
-	adapter.action('add/remove', (payload) => {
+	adapter.action('add/remove', ({ payload }) => {
 		expect(payload.value).toEqual(2);
 		return payload;
 	});
@@ -70,7 +70,7 @@ it('check context.send', (done) => {
 	expect.assertions(1);
 
 	const adapter = createAdapter();
-	adapter.action('add/action', (payload, _, { send }) => {
+	adapter.action('add/action', ({ payload, send }) => {
 		setTimeout(() => {
 			send({ value: payload.value + 2 });
 		}, 1000);
@@ -91,12 +91,12 @@ it('check context.getAction', (done) => {
 	expect.assertions(2);
 
 	const adapter = createAdapter();
-	adapter.action('add/action', (payload, _, { getAction }) => {
+	adapter.action('add/action', ({ payload, getAction }) => {
 		getAction('remove/action').dispatch({ value: 10 });
 		return payload;
 	});
 
-	adapter.action('add/remove', (payload, _, { send }) => {
+	adapter.action('add/remove', ({ send }) => {
 		send({ value: 5 });
 	});
 
@@ -119,13 +119,13 @@ it('not send', (done) => {
 	expect.assertions(1);
 
 	const adapter = createAdapter();
-	adapter.action('add/action', (payload) => {
+	adapter.action('add/action', ({ payload }) => {
 		expect(payload.value).toEqual(5);
 	});
 
 	const { add } = testStore('test-6', adapter);
 
-	add.subscribe((state) => {
+	add.subscribe(() => {
 		done();
 	});
 

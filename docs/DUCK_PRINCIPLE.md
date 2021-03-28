@@ -38,7 +38,7 @@ action('duck/fly', () => {
     return { value: "the duck swam" };
 });
 
-action('duck/quack', (payload, state, { send }) => {
+action('duck/quack', ({ payload, state, send }) => {
     return { value: "duck quacks" };
 });
 

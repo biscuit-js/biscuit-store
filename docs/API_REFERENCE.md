@@ -18,6 +18,7 @@ This section contains all the current methods from all the biscuit-store package
 - [createManager](#createManager)
 - [initialActions](#initialActions)
 - [stateCollection](#stateCollection)
+- [container](#container)
 
 #### [Store api:](#Biscuit-store-store-api)
 - [store.subscribe](#storesubscribe)
@@ -88,6 +89,7 @@ let's take a closer look at the fields of this method in more detail:
 | actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
+| initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
 
 
@@ -699,6 +701,54 @@ param statename: string
 return: StateAction[]
 ```
 
+### container
+Allows you to store actions in an isolated container and retrieve them if necessary. It can be useful for eliminating cyclic dependencies.
+
+
+include actions
+```javascript
+import { createStore, container } from '@biscuit-store/core';
+
+export const { actions, store } = createStore({
+	name: 'test',
+	initial: { value: 0 },
+	actions: {
+		start: 'start/action',
+	}
+});
+
+container.include(actions);
+```
+
+extract actions
+```javascript
+const { start } = container.extract('test');
+
+start.dispatch({ value: 10 });
+```
+#### container.include
+The method allows you to put actions in a container
+
+params:
+- **actions***: *object* - actions object
+
+Typescript types:
+```
+param actions: {[propName: string]: StateAction}
+```
+
+#### container.extract
+The method allows you to put actions in a container
+params:
+- **storeName***: *string* - store name
+
+return: object
+
+Typescript types:
+```
+param storeName: string
+return: {[propName: string]: StateAction}
+```
 ### Biscuit-store store API
 
 ### store.subscribe
@@ -796,12 +846,12 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("counter/add", (payload, state, { getAction }) => {
+adapter.action("counter/add", ({ payload, state,  getAction }) => {
   getAction("counter/prev").dispatch({prev: state.value});
   return { value: state.value + payload.value };
 });
 
-adapter.action("counter/clear", (payload, store, { send, getAction }) => {
+adapter.action("counter/clear", ({ payload, store, send, getAction }) => {
   send({ value: 0 });
 });
 
@@ -826,9 +876,10 @@ action callback returns:
 - **context** - Contains two methods:
 - - **send** - It is used for asynchronous data sending and is used instead of synchronous return.;
 - - **getAction** - Used to get an action by a string name.
+- **includeContext** - Allows you to include the dataset in the adapter context. **Available from version 1.1.0**
 
 ```javascript
-adapter.action("counter/add", (payload, state, { getAction }) => {
+adapter.action("counter/add", ({ payload, state, getAction }) => {
   getAction("counter/prev").dispatch({prev: state.value});
   return { value: state.value + payload.value };
 });
@@ -880,7 +931,7 @@ import { createAdapter } from '@ibscuit-store/adapter';
 
 const adapter = createAdapter();
 
-const fetchFunc = async (payload) => {
+const fetchFunc = async ({ payload }) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(payload);
@@ -911,18 +962,18 @@ The makeChannel function contains only two methods:
 
 example:
 ```javascript
-import { createAdapter } from '../../../packages/adapter';
+import { createAdapter } from '@ibscuit-store/adapter';
 
 const adapter = createAdapter();
 
 const chan = adapter.makeChannel();
 
-adapter.action('test/include', (payload) => {
+adapter.action('test/include', ({ payload }) => {
     chan.include(payload);
     return {};
 });
 
-adapter.action('test/execute', async (payload) => {
+adapter.action('test/execute', async ({ payload }) => {
     return await chan.extract(payload);
 });
 
@@ -941,4 +992,47 @@ Now when the 'test/execute' action is called, it will lock at the middleware lev
 
     testExecute.dispatch({ title: 'delivered' });
 }
+```
+
+#### adapter.includeContext
+
+Allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
+
+example:
+```javascript
+import { createAdapter } from "@biscuit-store/adapter";
+import { container } from '@biscuit-store/core';
+const { action, connect, includeContext } = createAdapter();
+
+includeContext(() => container.extract('test'));
+
+action("counter/add", ({ payload, state, info }) => {
+  info.dispatch({info: "iteration"});
+  return { value: state.value + payload.value };
+});
+
+action("counter/info", ({ payload, store }) => {
+  console.log(payload.info);
+  return {}
+});
+
+export const adapter = connect;
+```
+In this case, we write a set of actions received from the container to the adapter context.
+```javascript
+import { createStore, container } from "@biscuit-store/core";
+import adapter from "./adapter";
+
+export const { store, actions } = createStore({
+  name: "counter",
+  initial: { value: 0, info: "" },
+  actions: {
+    counterAdd: "counter/add",
+    counterClear: "counter/clear",
+    info: "counter/info"
+  },
+  middleware: [adapter]
+});
+
+container.include(actions);
 ```

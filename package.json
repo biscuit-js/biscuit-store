@@ -4,6 +4,8 @@
   "author": "Zhulev Philipp",
   "workspaces": [
     "packages/*",
+    "playground/*",
+    "playground-react",
     "website"
   ],
   "homepage": "https://biscuit-js.org/",
@@ -44,13 +46,17 @@
     "web:start": "lerna run web:start",
     "web:test": "lerna run --parallel web:test",
     "web:build": "lerna run --parallel web:build:prod",
-    "deps:update": "node ./scripts/update-deps.js"
+    "deps:update": "node ./scripts/update-deps.js",
+    "react:start": "lerna run pr:start"
   },
   "dependencies": {
     "@biscuit-store/core": "^1.0.0",
+    "@biscuit-store/react": "^1.0.3",
     "custom-env": "^2.0.1",
     "fs-extra": "^9.1.0",
     "global": "^4.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript-eslint": "^0.0.1-alpha.0"
   },
   "husky": {
@@ -71,9 +77,9 @@
     "@babel/plugin-proposal-decorators": "^7.12.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.17",
     "@babel/plugin-transform-regenerator": "^7.12.13",
-    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -117,7 +123,8 @@
     "rollup": "^2.7.2",
     "rollup-plugin-terser": "^7.0.2",
     "sonarjs": "^1.0.0",
-    "typescript": "3.8.3"
+    "typescript": "3.8.3",
+    "webpack": "4.42.0"
   },
   "browserslist": [
     "last 2 Chrome versions"

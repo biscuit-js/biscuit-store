@@ -4,6 +4,7 @@ import {
 	Store,
 	MiddlewareParams,
 	DebuggerListener,
+	Container,
 } from './store';
 import {
 	StateAction,
@@ -160,3 +161,20 @@ export function createDebuger<T = {}>
  * @return returns a set of actions
  */
 export function createManager(action: AnyAction): Manager;
+
+/**
+ * The method makes an asynchronous call
+ * and pours the result into the storage.
+ * @param store the parameters of the action
+ * @param fn callback
+ * @async
+ * @public
+ */
+export function callFromStore<T>(store: Store<T>, fn: () => object): void;
+
+/**
+ * Allows you to store actions in an isolated container
+ * and retrieve them if necessary. It can be useful
+ * for eliminating cyclic dependencies.
+ */
+export const container: Container;

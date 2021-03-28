@@ -4,6 +4,7 @@
   "useWorkspaces": true,
   "packages": [
     "packages/*",
+    "playground/*",
     "website"
   ]
 }

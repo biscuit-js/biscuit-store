@@ -1,3 +1,4 @@
+//
 import { ReactComponent } from './component';
 import {
 	DispatchToProps,
@@ -6,8 +7,10 @@ import {
 	Dep,
 	DepsAction,
 	ModifyDispatch,
+	ListenMethod,
+	ListenReplace,
 } from './interfaces';
-import { Dispatch, AnyAction } from '@biscuit-store/types';
+import { Dispatch, AnyAction, StateAction, Store } from '@biscuit-store/types';
 
 /**
  * ### Observer
@@ -82,3 +85,41 @@ declare function useDispatchDebounce(
 	count: number,
 	immediate: boolean
 ): ModifyDispatch;
+
+/**
+ * The listen method listens to a store or action.
+ * If the values of the storage object match the values
+ * of the mask object specified in the parameters.
+ * then the react component will be manipulated
+ * depending on the method called from the closure.
+ * @param event action and store (not static action)
+ * @param exp mask object
+ * @return methods
+ */
+declare function listen<T, P = any>(
+	event: StateAction | Store,
+	exp: T
+): {
+	/**
+	 * The render method mounts the component
+	 * if the mask and storage parameters match,
+	 * and unmounts it if it does not match.
+	 * @param Component react component
+	 * @return react component
+	 */
+	render: ListenMethod<P>;
+	/**
+	 * The method replaces the component with the specified one
+	 * if the mask and storage parameters match.
+	 * @param {ReactComponent} Component react component
+	 * @param {ReactComponent} NewComponent new react component
+	 * @return {ReactComponent} react component
+	 */
+	repcace: ListenReplace<P>;
+	/**
+	 * Updating a component when the mask and storage values match
+	 * @param Component react component
+	 * @return react component
+	 */
+	update: ListenMethod<P | any>;
+};

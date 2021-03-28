@@ -12,6 +12,7 @@ import {
 import { typeOf } from './utils';
 import { actionError } from './helper';
 import { messages } from './messages';
+import { callFromStore } from './callFromStore';
 
 /**
  * This method is responsible for creating a new store.
@@ -319,6 +320,14 @@ export function createStore(options) {
 	/** Adding debuger to the store */
 	if (params.debugger) {
 		createDebuger(store, params.debugger);
+	}
+
+	/**
+	 * Runs a method that writes the object
+	 * to the store during initialization
+	 */
+	if (params.initialCall) {
+		callFromStore(store, params.initialCall);
 	}
 
 	/** Strict mod */

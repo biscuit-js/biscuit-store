@@ -7,11 +7,10 @@
  * @param {*} next
  */
 export async function runCall(connector, context, next) {
+	let { payload, state, getAction, current } = context;
 	let handleData = null;
 	const update = await connector.fn(
-		context.payload,
-		context.state,
-		{ getAction: context.getAction }
+		{ ...context.current, payload, state, getAction, current }
 	);
 
 	if (connector.handler) {

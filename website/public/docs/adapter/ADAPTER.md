@@ -6,18 +6,19 @@ The CreateAdapter function contains methods:
 - **adapter.connect** - It is used to connect the adapter to the store.
 - **adapter.call** - Calls an asynchronous function and handler. **Available from version 0.9.97**
 - **adapter.makeChannel** - Creates a channel for communication between actions. **Available from version 0.9.97**
+- **adapter.includeContext** - Allows you to include the dataset in the adapter context. **Available from version 1.1.0**
 
 Creating an adapter is extremely simple:
 ```javascript
 import { createAdapter } from "@biscuit-store/adapter";
 const { action, connect } = createAdapter();
 
-action("counter/add", (payload, state, { getAction }) => {
+action("counter/add", ({ payload, state, getAction }) => {
   getAction("counter/prev").dispatch({prev: state.value});
   return { value: state.value + payload.value };
 });
 
-action("counter/clear", (payload, store, { send }) => {
+action("counter/clear", ({ payload, store, send }) => {
   send({ value: 0 });
 });
 
@@ -47,6 +48,7 @@ export const { store, actions } = createStore({
 ```
 ### Calling asynchronous functions
 > available from version 0.9.97
+
 The call method allows you to call an asynchronous function and send its response directly to the state.
 
 example:
@@ -54,7 +56,7 @@ example:
 import { createAdapter } from '@biscuit-store/adapter';
 const { call, connect } = createAdapter();
 
-const fetchFunc = async (payload) => {
+const fetchFunc = async ({ payload }) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(payload);
@@ -73,6 +75,7 @@ export const adapter = connect;
 
 ### Using channels
 > available from version 0.9.97
+
 A channel is a means of communication between actions. You can put data from one action in the channel and pick it up in another. in this case, the action is blocked until the data appears in the channel.
 
 the channel is created using the method **adapter.makeChannel**
@@ -88,12 +91,12 @@ const { makeChannel, action, connect } = createAdapter();
 
 const chan = makeChannel();
 
-action('test/include', (payload) => {
+action('test/include', ({ payload }) => {
     chan.include(payload);
     return {};
 });
 
-action('test/execute', async (payload) => {
+action('test/execute', async ({ payload }) => {
     return await chan.extract(payload);
 });
 
@@ -112,6 +115,51 @@ setTimeout(() => {
 testExecute.dispatch({ title: 'delivered' });
 ```
 
+### Context modification
+> available from version 1.1.0
+
+Allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
+
+example:
+```javascript
+import { createAdapter } from "@biscuit-store/adapter";
+import { container } from '@biscuit-store/core';
+const { action, connect, includeContext } = createAdapter();
+
+includeContext(() => container.extract('test'));
+
+action("counter/add", ({ payload, state, info }) => {
+  info.dispatch({info: "iteration"});
+  return { value: state.value + payload.value };
+});
+
+action("counter/info", ({ payload, store }) => {
+  console.log(payload.info);
+  return {}
+});
+
+export const adapter = connect;
+```
+In this case, we write a set of actions received from the container to the adapter context.
+```javascript
+import { createStore, container } from "@biscuit-store/core";
+import adapter from "./adapter";
+
+export const { store, actions } = createStore({
+  name: "counter",
+  initial: { value: 0, info: "" },
+  actions: {
+    counterAdd: "counter/add",
+    counterClear: "counter/clear",
+    info: "counter/info"
+  },
+  middleware: [adapter]
+});
+
+container.include(actions);
+```
+
+### Structure
 I recommend using this storage structure when using the adapter:
 
 ```

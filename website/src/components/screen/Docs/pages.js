@@ -74,6 +74,12 @@ export const items = [
 		hidden: true,
 	},
 	{
+		file: 'react/LISTEN',
+		url: '/docs/react/listen',
+		title: 'Listen',
+		hidden: true,
+	},
+	{
 		file: 'react/USE_SUBSCRIBE',
 		url: '/docs/react/usesubscribe',
 		title: 'useSubscribe',

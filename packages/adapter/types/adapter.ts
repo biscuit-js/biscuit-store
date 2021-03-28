@@ -86,6 +86,18 @@ export interface Adapter {
 	) => void;
 
 	/**
+	 * Allows you to include the dataset in the adapter context
+	 * can get data from asynchronous asynchronous function
+	 * @param ctxCreator context creator function
+	 * @param options behavioral options
+	 * @async
+	 */
+	includeContext: <T = object>(
+		ctxCreator: () => T,
+		options?: { catche: boolean }
+	) => void;
+
+	/**
 	 * Function for creating a channel
 	 */
 	makeChannel: () => Channel;

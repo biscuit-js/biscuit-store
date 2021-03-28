@@ -64,8 +64,16 @@ npm install @biscuit-store/react
 - [Dictionary](/docs/dictionary)
 
 --------
-
-### Basic exemple
+### What's new
+**Update 1.1.0** introduced several major changes to the behavior of the adapter and react modules. New features have also been added:
+- **Core**
+- - [**container**](/docs/api#container) - Allows you to store actions in an isolated container.
+- - [**initialCall**](/docs/store) - A field in createStore that allows you to run an asynchronous method when initializing the storage and write the result to the storage.
+- **Adapter**
+- - [**includeContext**](/docs/adapter#context-modification) - Allows you to write parameters to the adapter context
+- **React**
+- - [**listen**](/docs/react/listen) - The listen method listens to a store or action. If the values of the storage object match the values of the mask object specified in the parameters, then the react component will be manipulated depending on the method called.
+- ### Basic exemple
 The easiest way to create a new store is to use the [createStore](/docs/store) function accepts a set of parameters that can consist of the fields initial, name, actions, middleware and debug. name and initial is a required fields.
 
 store/counter/index.js
@@ -119,13 +127,13 @@ import { createAdapter } from "@biscuit-store/adapter";
 const { action, connect } = createAdapter();
 
 // Create action
-action("counter/add", (payload, state) => {
+action("counter/add", ({ payload, state }) => {
   return { ...payload, value: state.value + 1 };
 });
 
 // You should also know that Biscuit out of the box is asynchronous.
 // this means that you can use asynchronous capabilities in the adapter.
-action("counter/clear", (payload, store, { send }) => {
+action("counter/clear", ({ payload, store, send }) => {
   send({ value: 0 });
 });
 
@@ -167,7 +175,8 @@ import { counterAdd, counterClear } from "./store/counter";
 // The observer allows you to update the component
 // and get data from the associated stores.
 const App = observer(
-  ({ value }) => {
+  ({ counter }) => {
+    const { value } = counter;
     return (
       <div className="counter">
         <p>output: {value}</p>

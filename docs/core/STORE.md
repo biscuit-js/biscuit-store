@@ -40,6 +40,7 @@ const helloStore = createStore({
         },
     }, 
     middleware: [middleFunc],
+    initialCall: async () => ({ value: 100 })
     debugger: (e) => {
         console.log(e);
     },
@@ -58,6 +59,7 @@ let's take a closer look at the fields of this method in more detail:
 | actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
+| initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
 
 
