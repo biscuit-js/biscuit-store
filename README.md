@@ -68,7 +68,7 @@ npm install @biscuit-store/react
 **Update 1.1.0** introduced several major changes to the behavior of the adapter and react modules. New features have also been added:
 - **Core**
 - - [**container**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md#container) - Allows you to store actions in an isolated container.
-- - [**initialCall**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md) - A field in createStore that allows you to run an asynchronous method when initializing the storage and write the result to the storage.
+- - [**initialCall**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/core/STORE.md#creating-a-store-using-the-createstore-method-monolithic) - A field in createStore that allows you to run an asynchronous method when initializing the storage and write the result to the storage.
 - **Adapter**
 - - [**includeContext**](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/adapter/ADAPTER.md#context-modification) - Allows you to write parameters to the adapter context
 - **React**
