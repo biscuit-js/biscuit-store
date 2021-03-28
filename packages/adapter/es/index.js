@@ -1062,14 +1062,14 @@ function createAdapter() {
 
             case 10:
               if ((_context3.t6 = _context3.t5()).done) {
-                _context3.next = 21;
+                _context3.next = 20;
                 break;
               }
 
               key = _context3.t6.value;
 
               if (!connectors[key]) {
-                _context3.next = 19;
+                _context3.next = 18;
                 break;
               }
 
@@ -1079,24 +1079,18 @@ function createAdapter() {
 
             case 16:
               resolve = _context3.sent;
+              return _context3.abrupt("break", 20);
 
-              if (!connector.final) {
-                _context3.next = 19;
-                break;
-              }
-
-              return _context3.abrupt("break", 21);
-
-            case 19:
+            case 18:
               _context3.next = 10;
               break;
 
-            case 21:
+            case 20:
               if (!resolve) {
                 next(ctx.payload);
               }
 
-            case 22:
+            case 21:
             case "end":
               return _context3.stop();
           }
@@ -1117,8 +1111,7 @@ function createAdapter() {
         type: type,
         actionName: actionName,
         fn: fn,
-        await: false,
-        final: true
+        await: false
       });
     },
 
@@ -1142,8 +1135,7 @@ function createAdapter() {
         actionName: actionName,
         fn: fn,
         handler: handler,
-        await: true,
-        final: true
+        await: true
       });
     },
 

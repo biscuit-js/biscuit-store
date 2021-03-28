@@ -64,10 +64,7 @@ export function createAdapter() {
 				if (connectors[key]) {
 					const connector = connectors[key][`"${ctx.action}"`];
 					resolve = await runWork(connector, ctx, next);
-
-					if (connector.final) {
-						break;
-					}
+					break;
 				}
 			}
 
@@ -85,7 +82,7 @@ export function createAdapter() {
 		 */
 		action: (actionName, fn) => {
 			const type = 'action';
-			createWork({ type, actionName, fn, await: false, final: true });
+			createWork({ type, actionName, fn, await: false });
 		},
 
 		/**
@@ -105,7 +102,6 @@ export function createAdapter() {
 				fn,
 				handler,
 				await: true,
-				final: true,
 			});
 		},
 

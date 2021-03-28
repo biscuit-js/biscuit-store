@@ -7,12 +7,12 @@ it('calling async function', (done) => {
 
 	const adapter = createAdapter();
 
-	const func = async (payload, store) => {
-		expect(store.value).toEqual(0);
+	const func = async ({ payload, state }) => {
+		expect(state.value).toEqual(0);
 		expect(payload.value).toEqual(10);
 		return await new Promise((resolve) => {
 			setTimeout(() => {
-				resolve({ value: payload.value + store.value });
+				resolve({ value: payload.value + state.value });
 			}, 1000);
 		});
 	};
@@ -34,10 +34,10 @@ it('calling async function and handling', (done) => {
 
 	const adapter = createAdapter();
 
-	const func = async (payload, store) => {
+	const func = async ({ payload, state }) => {
 		return await new Promise((resolve) => {
 			setTimeout(() => {
-				resolve({ value: payload.value + store.value });
+				resolve({ value: payload.value + state.value });
 			}, 1000);
 		});
 	};
@@ -62,7 +62,7 @@ it('multy calling', (done) => {
 
 	const adapter = createAdapter();
 
-	const func = async (payload, _, { getAction }) => {
+	const func = async ({ payload, getAction }) => {
 		getAction('remove/action').dispatch({ value: 100 });
 		return await new Promise((resolve) => {
 			setTimeout(() => {
@@ -71,7 +71,7 @@ it('multy calling', (done) => {
 		});
 	};
 
-	const func2 = async (payload) => {
+	const func2 = async ({ payload }) => {
 		return await new Promise((resolve) => {
 			resolve({ ...payload });
 		});

@@ -11,5 +11,6 @@ it('create new adapter', () => {
 	expect(typeof adapter.call).toEqual('function');
 	expect(typeof adapter.makeChannel).toEqual('function');
 	expect(typeof adapter.connect).toEqual('function');
+	expect(typeof adapter.includeContext).toEqual('function');
 });
 

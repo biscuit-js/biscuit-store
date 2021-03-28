@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-	render,
-	unmountComponentAtNode,
-} from '../../../website/src/node_modules/react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { listen } from '../src/index';
 import { testStore } from './testStore.js';
@@ -19,19 +16,21 @@ afterEach(() => {
 	container = null;
 });
 
-it('renderer test', (done) => {
-	expect.assertions(1);
-	const { add, store } = testStore('test-renderer-1');
+it('render test', (done) => {
+	expect.assertions(2);
+	const { add, store } = testStore('testrenderer');
 	let iteration = 0;
-	function TestComponent({ value }) {
+	function TestComponent({ testrenderer, field }) {
+		const { value } = testrenderer;
 		useEffect(() => {
 			iteration += 1;
 
 			if (iteration === 1) {
+				expect(field).toBe('test-start');
 				expect(value).toBe('test-sucсess');
 				done();
 			}
-		}, [value]);
+		}, [value, field]);
 
 		return (
 			<div>
@@ -43,7 +42,7 @@ it('renderer test', (done) => {
 	const RTestComponent = listen(store, { state: true }).render(TestComponent);
 
 	act(() => {
-		render(<RTestComponent value={'test-start'} />, container);
+		render(<RTestComponent field={'test-start'} />, container);
 	});
 
 	add.dispatch({ state: true, value: 'test-sucсess' });

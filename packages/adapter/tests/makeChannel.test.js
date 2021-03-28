@@ -6,12 +6,12 @@ it('calling action', (done) => {
 	const adapter = createAdapter();
 	const chan = adapter.makeChannel();
 
-	adapter.action('add/action', (payload) => {
+	adapter.action('add/action', ({ payload }) => {
 		chan.include(payload);
 		return payload;
 	});
 
-	adapter.action('remove/action', async (payload) => {
+	adapter.action('remove/action', async ({ payload }) => {
 		return await chan.extract(payload);
 	});
 

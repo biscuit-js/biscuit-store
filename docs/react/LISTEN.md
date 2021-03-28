@@ -3,7 +3,7 @@ The listen method listens to a store or action. If the values of the storage obj
 
 ```javascript
 import { listen } from '@biscuit-store/react';
-import { personStore } from './store/person';
+import { personStore, added } from './store/person';
 
 const Element = ({ name, person }) => {
     return (
@@ -20,7 +20,7 @@ export default () => (
         <ListenElement name={'John'} />
         <button
             onClick={() =>
-                step.dispatch((prev) => ({
+                added.dispatch((prev) => ({
                     state: !prev.state,
                     lastName: 'White',
                 }))
