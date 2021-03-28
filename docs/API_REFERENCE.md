@@ -796,12 +796,12 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("counter/add", (payload, state, { getAction }) => {
+adapter.action("counter/add", ({ payload, state,  getAction }) => {
   getAction("counter/prev").dispatch({prev: state.value});
   return { value: state.value + payload.value };
 });
 
-adapter.action("counter/clear", (payload, store, { send, getAction }) => {
+adapter.action("counter/clear", ({ payload, store, send, getAction }) => {
   send({ value: 0 });
 });
 
@@ -826,9 +826,10 @@ action callback returns:
 - **context** - Contains two methods:
 - - **send** - It is used for asynchronous data sending and is used instead of synchronous return.;
 - - **getAction** - Used to get an action by a string name.
+- **includeContext** - Allows you to include the dataset in the adapter context. **Available from version 1.1.0**
 
 ```javascript
-adapter.action("counter/add", (payload, state, { getAction }) => {
+adapter.action("counter/add", ({ payload, state, getAction }) => {
   getAction("counter/prev").dispatch({prev: state.value});
   return { value: state.value + payload.value };
 });
@@ -880,7 +881,7 @@ import { createAdapter } from '@ibscuit-store/adapter';
 
 const adapter = createAdapter();
 
-const fetchFunc = async (payload) => {
+const fetchFunc = async ({ payload }) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(payload);
@@ -911,18 +912,18 @@ The makeChannel function contains only two methods:
 
 example:
 ```javascript
-import { createAdapter } from '../../../packages/adapter';
+import { createAdapter } from '@ibscuit-store/adapter';
 
 const adapter = createAdapter();
 
 const chan = adapter.makeChannel();
 
-adapter.action('test/include', (payload) => {
+adapter.action('test/include', ({ payload }) => {
     chan.include(payload);
     return {};
 });
 
-adapter.action('test/execute', async (payload) => {
+adapter.action('test/execute', async ({ payload }) => {
     return await chan.extract(payload);
 });
 
@@ -941,4 +942,47 @@ Now when the 'test/execute' action is called, it will lock at the middleware lev
 
     testExecute.dispatch({ title: 'delivered' });
 }
+```
+
+#### adapter.includeContext
+
+Allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
+
+example:
+```javascript
+import { createAdapter } from "@biscuit-store/adapter";
+import { container } from '@biscuit-store/core';
+const { action, connect, includeContext } = createAdapter();
+
+includeContext(() => container.extract('test'));
+
+action("counter/add", ({ payload, state, info }) => {
+  info.dispatch({info: "iteration"});
+  return { value: state.value + payload.value };
+});
+
+action("counter/info", ({ payload, store }) => {
+  console.log(payload.info);
+  return {}
+});
+
+export const adapter = connect;
+```
+In this case, we write a set of actions received from the container to the adapter context.
+```javascript
+import { createStore, container } from "@biscuit-store/core";
+import adapter from "./adapter";
+
+export const { store, actions } = createStore({
+  name: "counter",
+  initial: { value: 0, info: "" },
+  actions: {
+    counterAdd: "counter/add",
+    counterClear: "counter/clear",
+    info: "counter/info"
+  },
+  middleware: [adapter]
+});
+
+container.include(actions);
 ```

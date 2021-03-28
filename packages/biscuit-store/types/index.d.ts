@@ -4,6 +4,7 @@ import {
 	Store,
 	MiddlewareParams,
 	DebuggerListener,
+	Container,
 } from './store';
 import {
 	StateAction,
@@ -170,3 +171,10 @@ export function createManager(action: AnyAction): Manager;
  * @public
  */
 export function callFromStore<T>(store: Store<T>, fn: () => object): void;
+
+/**
+ * Allows you to store actions in an isolated container
+ * and retrieve them if necessary. It can be useful
+ * for eliminating cyclic dependencies.
+ */
+export const container: Container;

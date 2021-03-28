@@ -42,4 +42,4 @@ This function is perfect for the case when you need to bind multiple repositorie
 [![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/SubscribeExample.tsx)
 
 ## Learn more
-- [useSubscribe](/docs/react/usesubscribe)
+- [Listen](/docs/react/listen))

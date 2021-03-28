@@ -245,11 +245,11 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("increment/action", (payload, state) => {
+adapter.action("increment/action", ({ payload, state }) => {
     return {value: state.value + payload.value};
 });
 
-adapter.action("decrement/action", (payload, state, { send }) => {
+adapter.action("decrement/action", ({ payload, state, send }) => {
     send({ ...payload, value: state.value - value });
 });
 

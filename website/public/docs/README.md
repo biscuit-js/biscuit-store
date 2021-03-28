@@ -119,13 +119,13 @@ import { createAdapter } from "@biscuit-store/adapter";
 const { action, connect } = createAdapter();
 
 // Create action
-action("counter/add", (payload, state) => {
+action("counter/add", ({ payload, state }) => {
   return { ...payload, value: state.value + 1 };
 });
 
 // You should also know that Biscuit out of the box is asynchronous.
 // this means that you can use asynchronous capabilities in the adapter.
-action("counter/clear", (payload, store, { send }) => {
+action("counter/clear", ({ payload, store, send }) => {
   send({ value: 0 });
 });
 
@@ -167,7 +167,8 @@ import { counterAdd, counterClear } from "./store/counter";
 // The observer allows you to update the component
 // and get data from the associated stores.
 const App = observer(
-  ({ value }) => {
+  ({ counter }) => {
+    const { value } = counter;
     return (
       <div className="counter">
         <p>output: {value}</p>

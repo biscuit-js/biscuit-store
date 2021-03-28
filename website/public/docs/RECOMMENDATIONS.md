@@ -55,11 +55,11 @@ import { createAdapter } from "@biscuit-store/adapter";
 
 const adapter = createAdapter();
 
-adapter.action("user/get",, (payload, state, send) => {
+adapter.action("user/get", ({ payload, state, send }) => {
     ...
 });
 
-adapter.action("user/add", (payload, state, send) => {
+adapter.action("user/add", ({ payload, state, send }) => {
     ...
 });
 

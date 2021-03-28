@@ -10,7 +10,8 @@ import { observer, } from "@biscuit-store/react";
 import { counterAdd, counterClear } from "./store/counter";
 
 export const App = observer(
-  ({ value }) => {
+  ({ counter }) => {
+    const { value } = counter;
     return (
       <div className="counter">
         <p>output: {value}</p>
@@ -27,24 +28,6 @@ Observer supports working with multiple stores, meaning you can add several acti
 
 > Still, I recommend thinking through your architecture so that your observer components have as few dependencies as possible.
 
-#### Sequence principle
-One of the principles that you should keep in mind is that data from dependencies is collected in turn. Accordingly, if you have several repositories that have objects with the same keys, for example:
-
-```javascript
-// storeA {id: 1, name: "A"}
-// storeB {data: {...}, name: "B"}
-
-export const Component = observer(
-  ({ name }) => {
-      console.log(name); // B
-      ...
-  },
-  [storeA, storeB]
-);
-```
-We have the dependencies ```StoreA``` and ```StoreB```, they contain they contain fields with the identical key ```"name"```. The ```"name"``` field from the StoreB dependency will be included in the component parameters , since it was the second one according to the sequence principle and overwritten the ```"name"``` field from ```StoreA```.
-
-The same behavior should be taken into account when working with branches.
 
 [![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
 #### Dependencies are required

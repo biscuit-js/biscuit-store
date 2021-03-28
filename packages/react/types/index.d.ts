@@ -110,8 +110,7 @@ declare function listen<T, P = any>(
 	render: ListenMethod<P>;
 	/**
 	 * The method replaces the component with the specified one
-	 * if the mask and storage parameters match,
-	 * and unmounts it if it does not match.
+	 * if the mask and storage parameters match.
 	 * @param {ReactComponent} Component react component
 	 * @param {ReactComponent} NewComponent new react component
 	 * @return {ReactComponent} react component

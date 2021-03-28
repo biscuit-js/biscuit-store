@@ -2300,16 +2300,32 @@ function createManager(action) {
 function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 var box = null;
+/**
+ * Allows you to store actions in an isolated container
+ * and retrieve them if necessary. It can be useful
+ * for eliminating cyclic dependencies.
+ */
+
 var container = {
+  /**
+   * The method allows you to put actions in a container
+   * @param {object} actions actions object
+   */
   include: function include(actions) {
     for (var key in actions) {
       var _objectSpread2;
 
+      actionError(actions[key]);
       box = _objectSpread$5(_objectSpread$5({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
     }
   },
+
+  /**
+   * The method allows you to put actions in a container
+   * @param {string} storeName store name
+   * @return {object} actions
+   */
   extract: function extract(storeName) {
     return box[storeName];
   }

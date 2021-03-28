@@ -18,11 +18,11 @@ export const twoStep = `import { createAdapter } from "@biscuit-store/adapter";
 
 const { action, connect } = createAdapter();
 
-action("increment/action", (payload, state) => {
+action("increment/action", ({ payload, state }) => {
     return { value: state.value + 1 };
 });
 
-action("decrement/action", (payload, state, { send }) => {
+action("decrement/action", ({ payload, state, send }) => {
     send({ value: state.value - 1 });
 });
 
@@ -33,7 +33,8 @@ import { observer, useDispatch } from "@biscuit-store/react";
 import { increment, decrement } from "./store/counter";
 
 export const App = observer(
-  ({ value }) => {
+  ({ counter }) => {
+    const { value } = counter;
     const [add, remove] = useDispatch(increpent, decrement);
 
     return (
