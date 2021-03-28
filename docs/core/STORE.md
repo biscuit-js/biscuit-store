@@ -40,7 +40,7 @@ const helloStore = createStore({
         },
     }, 
     middleware: [middleFunc],
-    initialCall: async () => ({ value: 100 })
+    initialCall: async () => ({ value: 100 }),
     debugger: (e) => {
         console.log(e);
     },
