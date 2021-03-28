@@ -1,5 +1,17 @@
 # @biscuit-store/react
 
+## 1.1.0
+### Major Changes
+
+- Added listen function
+- Refactor objerver function
+
+### Patch Changes
+
+- Updated dependencies [undefined]
+- Updated dependencies [undefined]
+  - @biscuit-store/core@2.0.0
+
 ## 1.0.0
 ### Major Changes
 

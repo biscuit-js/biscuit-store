@@ -73,7 +73,7 @@ npm install @biscuit-store/react
 - - [**includeContext**](/docs/adapter#context-modification) - Allows you to write parameters to the adapter context
 - **React**
 - - [**listen**](/docs/react/listen) - The listen method listens to a store or action. If the values of the storage object match the values of the mask object specified in the parameters, then the react component will be manipulated depending on the method called.
-### Basic exemple
+- ### Basic exemple
 The easiest way to create a new store is to use the [createStore](/docs/store) function accepts a set of parameters that can consist of the fields initial, name, actions, middleware and debug. name and initial is a required fields.
 
 store/counter/index.js

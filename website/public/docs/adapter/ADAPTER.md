@@ -117,7 +117,7 @@ testExecute.dispatch({ title: 'delivered' });
 
 ### Context modification
 > available from version 1.1.0
->
+
 Allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
 
 example:
