@@ -1,6 +1,7 @@
 import { runAction } from './action';
 import { runCall } from './call';
 import { makeChannel } from './makeChannel';
+import { includeContext } from './includeContext';
 
 /** A collection of tasks for the scheduler */
 const tasks = {
@@ -15,6 +16,7 @@ const tasks = {
  */
 export function createAdapter() {
 	const connectors = {};
+	let includes = { modify: async () => ({}) };
 
 	/**
 	 * Function for processing the task
@@ -40,15 +42,10 @@ export function createAdapter() {
 	 * The function creates a task
 	 * @param {object} params
 	 */
-	const createWork = ({ type, actionName, fn, handler, aw }) => {
-		connectors[type] = {
-			...connectors[type],
-			[`"${actionName}"`]: {
-				fn,
-				type,
-				handler,
-				await: aw,
-			},
+	const createWork = (params) => {
+		connectors[params.type] = {
+			...connectors[params.type],
+			[`"${params.actionName}"`]: params,
 		};
 	};
 
@@ -61,17 +58,21 @@ export function createAdapter() {
 		 */
 		connect: async (context, next) => {
 			let resolve = false;
+			const ctx = { ...context, current: await includes.modify() };
 
 			for (let key in tasks) {
 				if (connectors[key]) {
-					const connector = connectors[key][`"${context.action}"`];
-					resolve = await runWork(connector, context, next);
-					break;
+					const connector = connectors[key][`"${ctx.action}"`];
+					resolve = await runWork(connector, ctx, next);
+
+					if (connector.final) {
+						break;
+					}
 				}
 			}
 
 			if (!resolve) {
-				next(context.payload);
+				next(ctx.payload);
 			}
 		},
 
@@ -84,7 +85,7 @@ export function createAdapter() {
 		 */
 		action: (actionName, fn) => {
 			const type = 'action';
-			createWork({ type, actionName, fn, aw: false });
+			createWork({ type, actionName, fn, await: false, final: true });
 		},
 
 		/**
@@ -98,8 +99,24 @@ export function createAdapter() {
 		 */
 		call: (actionName, fn, handler = null) => {
 			const type = 'call';
-			createWork({ type, actionName, fn, handler, aw: true });
+			createWork({
+				type,
+				actionName,
+				fn,
+				handler,
+				await: true,
+				final: true,
+			});
 		},
+
+		/**
+		 * Allows you to include the dataset in the adapter context
+		 * can get data from asynchronous asynchronous function
+		 * @param {function} ctxCreator context creator function
+		 * @param {object} options behavioral options
+		 * @async
+		 */
+		includeContext: includeContext.bind(includes),
 
 		/**
 		 * Function for creating a channel

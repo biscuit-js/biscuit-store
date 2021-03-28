@@ -1756,6 +1756,46 @@ function subscribeToStore(target, fn) {
   }
 }
 
+/**
+ * The method makes an asynchronous call
+ * and pours the result into the storage.
+ * @param {import('../../types/store').Store} store
+ * the parameters of the action
+ * @param {function} fn callback
+ * @async
+ * @public
+ */
+
+function callFromStore(store, fn) {
+  var result;
+  return regenerator.async(function callFromStore$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return regenerator.awrap(fn(getStore(store)));
+
+        case 2:
+          result = _context.sent;
+
+          if (!(typeOf(result) !== 'object')) {
+            _context.next = 5;
+            break;
+          }
+
+          throw new CreateError('The result of the call must return an object.');
+
+        case 5:
+          addStore(store, result);
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, null, Promise);
+}
+
 function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
@@ -2113,6 +2153,15 @@ function createStore(options) {
   if (params.debugger) {
     createDebuger(store, params.debugger);
   }
+  /**
+   * Runs a method that writes the object
+   * to the store during initialization
+   */
+
+
+  if (params.initialCall) {
+    callFromStore(store, params.initialCall);
+  }
   /** Strict mod */
 
 
@@ -2248,6 +2297,24 @@ function createManager(action) {
   };
 }
 
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var box = null;
+var container = {
+  include: function include(actions) {
+    for (var key in actions) {
+      var _objectSpread2;
+
+      box = _objectSpread$5(_objectSpread$5({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
+    }
+  },
+  extract: function extract(storeName) {
+    return box[storeName];
+  }
+};
+
 var utils = {
   createLog: createLog,
   CreateError: CreateError,
@@ -2258,4 +2325,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addStore, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, callFromStore, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };

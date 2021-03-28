@@ -7,6 +7,8 @@ import {
 	Dep,
 	DepsAction,
 	ModifyDispatch,
+	ListenMethod,
+	ListenReplace,
 } from './interfaces';
 import { Dispatch, AnyAction, StateAction, Store } from '@biscuit-store/types';
 
@@ -105,5 +107,20 @@ declare function listen<T, P = any>(
 	 * @param Component react component
 	 * @return react component
 	 */
-	render: (Component: ReactComponent<P>) => ReactComponent<P | any>;
+	render: ListenMethod<P>;
+	/**
+	 * The method replaces the component with the specified one
+	 * if the mask and storage parameters match,
+	 * and unmounts it if it does not match.
+	 * @param {ReactComponent} Component react component
+	 * @param {ReactComponent} NewComponent new react component
+	 * @return {ReactComponent} react component
+	 */
+	repcace: ListenReplace<P>;
+	/**
+	 * Updating a component when the mask and storage values match
+	 * @param Component react component
+	 * @return react component
+	 */
+	update: ListenMethod<P | any>;
 };

@@ -1,32 +1,54 @@
-import React from 'react';
-import { listen } from '@biscuit-store/react';
+import React, { useEffect } from 'react';
+import { listen, observer } from '@biscuit-store/react';
 import { testStore, step } from './store/test';
 import './styles.css';
 
-const Test = ({ test, value }) => {
+const Test = ({ field, test }) => {
 	return (
 		<div>
-			{test}_{value}
+			{field}_{test.data}
 		</div>
 	);
 };
 
-const ListenTest = listen(testStore, { state: true }).render(Test);
-
-export default ({ value }) => {
+const TestTwo = ({ field, test }) => {
 	return (
-		<div className='App'>
-			<h1>Biscuit-store playground-react</h1>
-			<ListenTest test={'test'} />
-			<button
-				onClick={() =>
-					step.dispatch((prev) => ({
-						state: !prev.state,
-						text: 'ready',
-					}))
-				}>
-				click
-			</button>
+		<div>
+			two {test.value} {field}
 		</div>
 	);
 };
+
+const ListenTest = listen(testStore, { state: true }).replace(Test, TestTwo);
+
+export default observer(
+	({ test }) => {
+		const { value } = test;
+
+		useEffect(() => {
+			const counter = setInterval(() => {
+				step.dispatch((prev) => ({ value: (prev.value += 1) }));
+			}, 1000);
+
+			return () => clearInterval(counter);
+		}, []);
+
+		return (
+			<div className='App'>
+				<h1>Biscuit-store playground-react</h1>
+				<p>{value}</p>
+				<ListenTest field={'test'} />
+				<button
+					onClick={() =>
+						step.dispatch((prev) => ({
+							state: !prev.state,
+							data: 'ready',
+						}))
+					}>
+					click
+				</button>
+			</div>
+		);
+	},
+	[step]
+);

@@ -106,7 +106,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "max-lines": ["error", {"max": 320, "skipBlankLines": true, "skipComments": true}],
     "max-params": ["error", 3],
-    "max-nested-callbacks": ["error", 3],
+    "max-nested-callbacks": ["error", 4],
     "camelcase": "off",
     "semi": ["error", "always"],
     "semi-spacing": "error",

@@ -22,6 +22,8 @@ export {
 } from './internal/store';
 
 export { createManager } from './internal/manager';
+export { callFromStore } from './internal/callFromStore';
+export { container } from './internal/container';
 
 export const utils = {
 	createLog,

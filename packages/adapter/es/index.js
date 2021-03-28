@@ -744,6 +744,10 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 var regenerator = runtime_1;
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 /**
  * A function that performs the logic
  * of an action processing task
@@ -752,27 +756,34 @@ var regenerator = runtime_1;
  * @param {*} next
  */
 function runAction(connector, context, next) {
-  var update;
+  var payload, state, getAction, current, update;
   return regenerator.async(function runAction$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          update = connector.fn(context.payload, context.state, {
+          payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+          update = connector.fn(_objectSpread(_objectSpread({}, current), {}, {
+            payload: payload,
+            state: state,
             send: next,
-            getAction: context.getAction
-          });
+            getAction: getAction
+          }));
 
           if (update) {
             next(update);
           }
 
-        case 2:
+        case 3:
         case "end":
           return _context.stop();
       }
     }
   }, null, null, null, Promise);
 }
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
  * A function that performs the logic
@@ -782,18 +793,22 @@ function runAction(connector, context, next) {
  * @param {*} next
  */
 function runCall(connector, context, next) {
-  var handleData, update;
+  var payload, state, getAction, current, handleData, update;
   return regenerator.async(function runCall$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
+          payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
           handleData = null;
-          _context.next = 3;
-          return regenerator.awrap(connector.fn(context.payload, context.state, {
-            getAction: context.getAction
-          }));
+          _context.next = 4;
+          return regenerator.awrap(connector.fn(_objectSpread$1(_objectSpread$1({}, context.current), {}, {
+            payload: payload,
+            state: state,
+            getAction: getAction,
+            current: current
+          })));
 
-        case 3:
+        case 4:
           update = _context.sent;
 
           if (connector.handler) {
@@ -802,7 +817,7 @@ function runCall(connector, context, next) {
 
           next(handleData || update);
 
-        case 6:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -810,9 +825,9 @@ function runCall(connector, context, next) {
   }, null, null, null, Promise);
 }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
  * Function for creating a channel
@@ -828,7 +843,7 @@ var makeChannel = function makeChannel() {
       var _chan;
 
       if ((_chan = chan) != null && _chan.resolve) {
-        chan.resolve(_objectSpread(_objectSpread({}, payload), chan.payload));
+        chan.resolve(_objectSpread$2(_objectSpread$2({}, payload), chan.payload));
         chan = null;
       }
     },
@@ -849,9 +864,81 @@ var makeChannel = function makeChannel() {
   };
 };
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var ctxTempl = {
+  send: 1,
+  getAction: 1,
+  payload: 1,
+  state: 1
+};
+/**
+ * Allows you to include the dataset in the adapter context
+ * can get data from asynchronous asynchronous function
+ * @param {function} ctxCreator context creator function
+ * @param {object} options behavioral options
+ * @async
+ */
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function includeContext(ctxCreator, options) {
+  if (options === void 0) {
+    options = {
+      catche: true
+    };
+  }
+
+  var counter = 0;
+
+  var ctxWork = function _callee() {
+    var check, ctx;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            check = true;
+
+            if (options.catche) {
+              check = counter === 0;
+            }
+
+            if (!check) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 5;
+            return regenerator.awrap(ctxCreator());
+
+          case 5:
+            ctx = _context.sent;
+
+            if (!Object.keys(ctx).some(function (el) {
+              return ctxTempl[el];
+            })) {
+              _context.next = 8;
+              break;
+            }
+
+            throw new Error('An attempt to overwrite the standard context fields was detected.');
+
+          case 8:
+            return _context.abrupt("return", ctx);
+
+          case 9:
+            counter += 1;
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, null, Promise);
+  };
+
+  this.modify = ctxWork;
+}
+
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /** A collection of tasks for the scheduler */
 
 var tasks = {
@@ -866,6 +953,22 @@ var tasks = {
 
 function createAdapter() {
   var connectors = {};
+  var includes = {
+    modify: function modify() {
+      return regenerator.async(function modify$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", {});
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, null, null, Promise);
+    }
+  };
   /**
    * Function for processing the task
    * @param {object} connector
@@ -876,12 +979,12 @@ function createAdapter() {
 
   var runWork = function _callee(connector, context, next) {
     var task;
-    return regenerator.async(function _callee$(_context) {
+    return regenerator.async(function _callee$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             if (!connector) {
-              _context.next = 9;
+              _context2.next = 9;
               break;
             }
 
@@ -890,29 +993,29 @@ function createAdapter() {
             };
 
             if (!connector.await) {
-              _context.next = 7;
+              _context2.next = 7;
               break;
             }
 
-            _context.next = 5;
+            _context2.next = 5;
             return regenerator.awrap(task());
 
           case 5:
-            _context.next = 8;
+            _context2.next = 8;
             break;
 
           case 7:
             task();
 
           case 8:
-            return _context.abrupt("return", true);
+            return _context2.abrupt("return", true);
 
           case 9:
-            return _context.abrupt("return", false);
+            return _context2.abrupt("return", false);
 
           case 10:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
     }, null, null, null, Promise);
@@ -923,20 +1026,10 @@ function createAdapter() {
    */
 
 
-  var createWork = function createWork(_ref) {
+  var createWork = function createWork(params) {
     var _objectSpread2;
 
-    var type = _ref.type,
-        actionName = _ref.actionName,
-        fn = _ref.fn,
-        handler = _ref.handler,
-        aw = _ref.aw;
-    connectors[type] = _objectSpread$1(_objectSpread$1({}, connectors[type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + actionName + "\""] = {
-      fn: fn,
-      type: type,
-      handler: handler,
-      await: aw
-    }, _objectSpread2));
+    connectors[params.type] = _objectSpread$3(_objectSpread$3({}, connectors[params.type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + params.actionName + "\""] = params, _objectSpread2));
   };
 
   return {
@@ -947,47 +1040,65 @@ function createAdapter() {
      * @public
      */
     connect: function connect(context, next) {
-      var resolve, key, connector;
-      return regenerator.async(function connect$(_context2) {
+      var resolve, ctx, key, connector;
+      return regenerator.async(function connect$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               resolve = false;
-              _context2.t0 = regenerator.keys(tasks);
+              _context3.t0 = _objectSpread$3;
+              _context3.t1 = _objectSpread$3({}, context);
+              _context3.t2 = {};
+              _context3.next = 6;
+              return regenerator.awrap(includes.modify());
 
-            case 2:
-              if ((_context2.t1 = _context2.t0()).done) {
-                _context2.next = 12;
-                break;
-              }
-
-              key = _context2.t1.value;
-
-              if (!connectors[key]) {
-                _context2.next = 10;
-                break;
-              }
-
-              connector = connectors[key]["\"" + context.action + "\""];
-              _context2.next = 8;
-              return regenerator.awrap(runWork(connector, context, next));
-
-            case 8:
-              resolve = _context2.sent;
-              return _context2.abrupt("break", 12);
+            case 6:
+              _context3.t3 = _context3.sent;
+              _context3.t4 = {
+                current: _context3.t3
+              };
+              ctx = (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4);
+              _context3.t5 = regenerator.keys(tasks);
 
             case 10:
-              _context2.next = 2;
-              break;
-
-            case 12:
-              if (!resolve) {
-                next(context.payload);
+              if ((_context3.t6 = _context3.t5()).done) {
+                _context3.next = 21;
+                break;
               }
 
-            case 13:
+              key = _context3.t6.value;
+
+              if (!connectors[key]) {
+                _context3.next = 19;
+                break;
+              }
+
+              connector = connectors[key]["\"" + ctx.action + "\""];
+              _context3.next = 16;
+              return regenerator.awrap(runWork(connector, ctx, next));
+
+            case 16:
+              resolve = _context3.sent;
+
+              if (!connector.final) {
+                _context3.next = 19;
+                break;
+              }
+
+              return _context3.abrupt("break", 21);
+
+            case 19:
+              _context3.next = 10;
+              break;
+
+            case 21:
+              if (!resolve) {
+                next(ctx.payload);
+              }
+
+            case 22:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
       }, null, null, null, Promise);
@@ -1006,7 +1117,8 @@ function createAdapter() {
         type: type,
         actionName: actionName,
         fn: fn,
-        aw: false
+        await: false,
+        final: true
       });
     },
 
@@ -1030,9 +1142,19 @@ function createAdapter() {
         actionName: actionName,
         fn: fn,
         handler: handler,
-        aw: true
+        await: true,
+        final: true
       });
     },
+
+    /**
+     * Allows you to include the dataset in the adapter context
+     * can get data from asynchronous asynchronous function
+     * @param {function} ctxCreator context creator function
+     * @param {object} options behavioral options
+     * @async
+     */
+    includeContext: includeContext.bind(includes),
 
     /**
      * Function for creating a channel

@@ -40,9 +40,9 @@ export type Middleware = (
  */
 export interface MiddlewareParams {
 	/**
-     * Adds a handler to the middleware task list.
-     * @param fn middleware listner function
-     */
+	 * Adds a handler to the middleware task list.
+	 * @param fn middleware listner function
+	 */
 	add: (fn: (Middleware)) => void;
 }
 
@@ -54,18 +54,18 @@ export interface Store<I = any> {
 	/** Returns the name of the store */
 	name: string;
 	/**
-     * Subscribe by change
-     * @param fn listener
-     */
+	 * Subscribe by change
+	 * @param fn listener
+	 */
 	subscribe: <T extends I>(fn?: SubscribeListner<T>) => Promise<T>;
 	/**
-     * Get reposiory
-     */
+	 * Get reposiory
+	 */
 	get: () => I;
 	/**
-     * Add to reposiory
-     * @param instance object
-     */
+	 * Add to reposiory
+	 * @param instance object
+	 */
 	add: (instance: I) => void;
 }
 
@@ -93,6 +93,11 @@ export interface StoreSettings {
 	middleware?: Middleware[];
 	/** Debugger function */
 	debugger?: DebuggerListener;
+	/**
+	 * Runs a method that writes the object
+	 * to the store during initialization
+	 */
+	initialCall?: <T>(store?: T) => void;
 	/** Enable or disable strict mode */
 	strictMode?: boolean;
 }

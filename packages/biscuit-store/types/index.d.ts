@@ -160,3 +160,13 @@ export function createDebuger<T = {}>
  * @return returns a set of actions
  */
 export function createManager(action: AnyAction): Manager;
+
+/**
+ * The method makes an asynchronous call
+ * and pours the result into the storage.
+ * @param store the parameters of the action
+ * @param fn callback
+ * @async
+ * @public
+ */
+export function callFromStore<T>(store: Store<T>, fn: () => object): void;

@@ -32,7 +32,7 @@ export function observer(Element, deps) {
 
 			/** Creating a subscription to the store state */
 			task = emitter.subscribeActions(deps, (e) => {
-				initial = { ...initial, ...getData(e.name, e.type) };
+				initial = { ...initial, [e.name]: getData(e.name, e.type) };
 				/** Trigger an update */
 				setState((prev) => ({ ...prev, ...initial }));
 			});

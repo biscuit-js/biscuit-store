@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getData } from './utils';
+import { getData, checkState } from './utils';
 
 /**
  * The listen method listens to a store or action.
@@ -14,24 +14,68 @@ import { getData } from './utils';
 export function listen(event, exp) {
 	const expLen = Object.keys(exp).length;
 
-	/** checking the storage by mask and starting the update */
-	const checkState = (current, setState) => {
+	/** checking the storage by mask and starting the render */
+	const renderTask = (current, set) => {
 		let active = false;
-		let success = 0;
-		for (let key in exp) {
-			if (
-				typeof current[key] !== 'undefined' &&
-				current[key] === exp[key]
-			) {
-				success += 1;
-			}
-		}
-
-		if (success === expLen) {
+		checkState({ current, event, exp, expLen }, () => {
 			active = true;
-		}
+		});
+		set({ current, active });
+	};
 
-		setState({ current, active });
+	/** checking the storage by mask and starting the update */
+	const updateTask = (current, set) => {
+		checkState({ current, event, exp, expLen }, () => set({ current }));
+	};
+
+	/** Template for rendering or replacing */
+	const renderer = (Component, NewComponent) => {
+		return (props) => {
+			const [state, setState] = useState({
+				active: false,
+				current: { [event.name]: getData(event.name, event.type) },
+			});
+
+			useEffect(() => {
+				renderTask(state.current, setState);
+				const task = event.subscribe((current) => {
+					renderTask({ [event.name]: current }, setState);
+				});
+				return () => task.unsubscribe();
+			}, []);
+
+			if (NewComponent) {
+				const p = { ...state.current, ...props };
+
+				if (!state.active) {
+					return <Component {...p} />;
+				}
+				return <NewComponent {...p} />;
+			}
+
+			return state.active ? (
+				<Component {...{ ...state.current, ...props }} />
+			) : null;
+		};
+	};
+
+	/** Template for updating */
+	const updater = (Component) => {
+		return (props) => {
+			const [state, setState] = useState({
+				current: { [event.name]: getData(event.name, event.type) },
+			});
+
+			useEffect(() => {
+				updateTask(state.current, setState);
+				const task = event.subscribe((current) => {
+					updateTask({ [event.name]: current }, setState);
+				});
+				return () => task.unsubscribe();
+			}, []);
+
+			return <Component {...{ ...state.current, ...props }} />;
+		};
 	};
 
 	return {
@@ -42,25 +86,23 @@ export function listen(event, exp) {
 		 * @param {ReactComponent} Component react component
 		 * @return {ReactComponent} react component
 		 */
-		render: (Component) => {
-			return (props) => {
-				const [state, setState] = useState({
-					active: false,
-					current: getData(event.name, event.type),
-				});
+		render: (Component) => renderer(Component),
 
-				useEffect(() => {
-					checkState(state.current, setState);
-					const task = event.subscribe((current) => {
-						checkState(current, setState);
-					});
-					return () => task.unsubscribe();
-				}, []);
+		/**
+		 * The method replaces the component with the specified one
+		 * if the mask and storage parameters match,
+		 * and unmounts it if it does not match.
+		 * @param {ReactComponent} Component react component
+		 * @param {ReactComponent} NewComponent new react component
+		 * @return {ReactComponent} react component
+		 */
+		replace: (Component, NewComponent) => renderer(Component, NewComponent),
 
-				return state.active ? (
-					<Component {...{ ...state.current, ...props }} />
-				) : null;
-			};
-		},
+		/**
+		 * Updating a component when the mask and storage values match
+		 * @param {ReactComponent} Component react component
+		 * @return {ReactComponent} react component
+		 */
+		update: (Component) => updater(Component),
 	};
 }

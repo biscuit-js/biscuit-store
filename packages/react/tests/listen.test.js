@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import {
+	render,
+	unmountComponentAtNode,
+} from '../../../website/src/node_modules/react-dom';
 import { act } from 'react-dom/test-utils';
 import { listen } from '../src/index';
 import { testStore } from './testStore.js';
