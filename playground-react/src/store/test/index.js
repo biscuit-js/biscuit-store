@@ -16,6 +16,13 @@ const { actions, store } = createStore({
 		start: 'start/action',
 		step: 'step/action',
 		fetch: 'fetch/action',
+		branchAction: {
+			name: 'branch/action',
+			branch: true,
+			initial: {
+				main: 10,
+			},
+		},
 	},
 	middleware: [connect],
 	initialCall: Test,
@@ -24,4 +31,4 @@ const { actions, store } = createStore({
 container.include(actions);
 
 export const testStore = store;
-export const { start, step } = actions;
+export const { start, step, branchAction } = actions;

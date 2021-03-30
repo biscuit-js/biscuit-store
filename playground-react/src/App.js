@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { listen, observer } from '@biscuit-store/react';
-import { testStore, step } from './store/test';
+import { testStore, step, branchAction } from './store/test';
 import './styles.css';
 
 const Test = ({ field, test }) => {
@@ -23,7 +23,7 @@ const ListenTest = listen(testStore, { state: true }).replace(Test, TestTwo);
 
 export default observer(
 	({ test }) => {
-		const { value } = test;
+		const { value, main } = test;
 
 		useEffect(() => {
 			const counter = setInterval(() => {
@@ -38,6 +38,7 @@ export default observer(
 				<h1>Biscuit-store playground-react</h1>
 				<p>{value}</p>
 				<ListenTest field={'test'} />
+				{main}
 				<button
 					onClick={() =>
 						step.dispatch((prev) => ({
@@ -50,5 +51,5 @@ export default observer(
 			</div>
 		);
 	},
-	[step]
+	[step, branchAction]
 );

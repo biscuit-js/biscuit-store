@@ -7,7 +7,9 @@ export type GetAction = (actionName: string) => StateAction;
 export type Send = (newPayload: any) => void;
 
 /** adapter action context */
-export interface AdapterActionCtx {
+export interface AdapterActionCtx<P = object, S = object> {
+	payload: P;
+	state: S;
 	getAction: GetAction;
 	send: Send;
 }
@@ -19,9 +21,7 @@ export interface AdapterActionCtx {
  * @param ctx response methods
  */
 export type ActionListner<T, P, S> = (
-	payload: P,
-	state: S,
-	ctx: AdapterActionCtx
+	ctx: AdapterActionCtx<P, S>
 ) => T | Promise<T>;
 
 /**
@@ -30,11 +30,7 @@ export type ActionListner<T, P, S> = (
  * @param state state data
  * @param ctx response methods
  */
-export type CallHandler<T, S> = (
-	result: T,
-	state: S,
-	ctx: AdapterActionCtx
-) => any;
+export type CallHandler<T, S> = (result: T, ctx: AdapterActionCtx<S>) => any;
 
 /** Channel type */
 export interface Channel {

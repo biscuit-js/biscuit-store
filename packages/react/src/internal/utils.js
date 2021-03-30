@@ -17,7 +17,10 @@ export const loopDeps = (deps, res) => {
 	}
 	let result = res;
 	for (let dep of deps) {
-		result = { ...result, [dep.name]: getData(dep.name, dep.type) };
+		result[dep.name] = {
+			...result[dep.name],
+			...getData(dep.name, dep.type),
+		};
 	}
 	return result;
 };

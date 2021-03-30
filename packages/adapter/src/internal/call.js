@@ -14,7 +14,7 @@ export async function runCall(connector, context, next) {
 	);
 
 	if (connector.handler) {
-		handleData = connector.handler(update);
+		handleData = await connector.handler(update);
 	}
 
 	next(handleData || update);

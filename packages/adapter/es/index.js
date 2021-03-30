@@ -811,13 +811,21 @@ function runCall(connector, context, next) {
         case 4:
           update = _context.sent;
 
-          if (connector.handler) {
-            handleData = connector.handler(update);
+          if (!connector.handler) {
+            _context.next = 9;
+            break;
           }
 
+          _context.next = 8;
+          return regenerator.awrap(connector.handler(update));
+
+        case 8:
+          handleData = _context.sent;
+
+        case 9:
           next(handleData || update);
 
-        case 7:
+        case 10:
         case "end":
           return _context.stop();
       }
@@ -1033,7 +1041,8 @@ function createAdapter() {
   };
 
   return {
-    /** connector for biscuit middleware
+    /**
+     * Сonnector for biscuit middleware
      * launches tasks from the scheduler when an action is triggered
      * @param {object} context context contains action parameters
      * @param {function} next callback function
@@ -1068,7 +1077,7 @@ function createAdapter() {
 
               key = _context3.t6.value;
 
-              if (!connectors[key]) {
+              if (!(connectors[key] && connectors[key]["\"" + ctx.action + "\""])) {
                 _context3.next = 18;
                 break;
               }
