@@ -30,6 +30,7 @@ export default () => (
     </div>
 );
 ```
+[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/biscuit-store-javascript-74pfo)
 Also, listen returns the associated storage data to the component properties.
 
 > Listen is not able to work with nested objects. It is possible to compare only top-level primitive fields.
