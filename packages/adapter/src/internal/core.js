@@ -50,7 +50,8 @@ export function createAdapter() {
 	};
 
 	return {
-		/** connector for biscuit middleware
+		/**
+		 * Сonnector for biscuit middleware
 		 * launches tasks from the scheduler when an action is triggered
 		 * @param {object} context context contains action parameters
 		 * @param {function} next callback function
@@ -61,7 +62,7 @@ export function createAdapter() {
 			const ctx = { ...context, current: await includes.modify() };
 
 			for (let key in tasks) {
-				if (connectors[key]) {
+				if (connectors[key] && connectors[key][`"${ctx.action}"`]) {
 					const connector = connectors[key][`"${ctx.action}"`];
 					resolve = await runWork(connector, ctx, next);
 					break;

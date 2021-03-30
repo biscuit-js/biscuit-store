@@ -1,6 +1,7 @@
 {
   "name": "playground-react",
-  "version": "1.0.0",
+  "private": true,
+  "version": "1.0.1",
   "description": "React example starter project",
   "keywords": [
     "react",
