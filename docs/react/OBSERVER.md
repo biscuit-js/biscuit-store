@@ -33,4 +33,4 @@ Observer supports working with multiple stores, meaning you can add several acti
 #### Dependencies are required
 Dependencies are necessary for two reasons. First, without them, the component simply does not understand when it needs to be updated. Secondly, the obvious indication of dependencies makes the code more readable, you can always understand what storage or state the component is bound to, and determine what data it accepts.
 ### Learn more
-- [Subscribe](/docs/SUBSCRIBE.md)
+- [Subscribe](/docs/react/SUBSCRIBE.md)

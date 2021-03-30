@@ -118,7 +118,7 @@ testExecute.dispatch({ title: 'delivered' });
 ### Context modification
 > available from version 1.1.0
 >
-Allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
+**IncludeContext** method allows you to include the dataset in the adapter. Context can get data from asynchronous asynchronous function.
 
 example:
 ```javascript
@@ -126,7 +126,7 @@ import { createAdapter } from "@biscuit-store/adapter";
 import { container } from '@biscuit-store/core';
 const { action, connect, includeContext } = createAdapter();
 
-includeContext(() => container.extract('test'));
+includeContext(() => container.extract('counter'));
 
 action("counter/add", ({ payload, state, info }) => {
   info.dispatch({info: "iteration"});
