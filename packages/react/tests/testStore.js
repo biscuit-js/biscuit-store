@@ -7,6 +7,11 @@ export const testStore = (name, value = 0) => {
 		actions: {
 			add: 'add/action',
 			remove: 'remove/action',
+			sandbox: {
+				name: 'sandbox/action',
+				branch: true,
+				initial: { data: 'test-200' },
+			},
 		},
 		strictMode: false,
 	});
@@ -15,5 +20,6 @@ export const testStore = (name, value = 0) => {
 		store,
 		add: actions.add,
 		remove: actions.remove,
+		sandbox: actions.sandbox,
 	};
 };

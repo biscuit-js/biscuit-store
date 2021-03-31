@@ -6,6 +6,7 @@ export const testStore = (name, adapter) => {
 		initial: { value: 0 },
 		actions: {
 			add: 'add/action',
+			step: 'step/action',
 			remove: 'remove/action',
 		},
 		middleware: [adapter.connect],
@@ -15,6 +16,7 @@ export const testStore = (name, adapter) => {
 	return {
 		store,
 		add: actions.add,
+		step: actions.step,
 		remove: actions.remove,
 	};
 };

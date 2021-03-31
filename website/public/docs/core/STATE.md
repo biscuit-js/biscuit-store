@@ -27,7 +27,7 @@ createStore({
     }
 })
 ```
-Under the hood, the state store will look like this:
+Under the hood, the store will look like this:
 ```
 _states:
 |____add/action:

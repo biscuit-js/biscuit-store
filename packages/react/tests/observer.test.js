@@ -188,3 +188,48 @@ it('observer test store', (done) => {
 		remove.dispatch({ value: 50 });
 	}, 100);
 });
+
+it('observer branck test', (done) => {
+	expect.assertions(7);
+	const { store, add, sandbox } = testStore('testobs200');
+
+	let iteration = 0;
+	const TestComponent = observer(
+		({ testobs200, field }) => {
+			const { value, data } = testobs200;
+			useEffect(() => {
+				iteration += 1;
+				if (iteration === 1) {
+					expect(data).toBe('test-200');
+					expect(value).toBe(0);
+				}
+
+				if (iteration === 2) {
+					expect(data).toBe('test-200');
+					expect(value).toBe(40);
+				}
+
+				if (iteration === 3) {
+					expect(data).toBe('test-400');
+					expect(value).toBe(0);
+					done();
+				}
+			}, [value, data]);
+			return (
+				<div>
+					{field}
+					{value}
+				</div>
+			);
+		},
+		[sandbox, store]
+	);
+
+	act(() => {
+		render(<TestComponent field={'test'} />, container);
+	});
+	expect(container.textContent).toBe('test0');
+
+	add.dispatch({ value: 40 });
+	sandbox.dispatch({ data: 'test-400' });
+});
