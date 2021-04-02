@@ -2331,6 +2331,51 @@ var container = {
   }
 };
 
+function combineActions(proto) {
+  var actions = {};
+  var middle = {};
+
+  for (var key in proto) {
+    actions[key] = key + "/action";
+    middle[actions[key]] = proto[key];
+  }
+
+  return {
+    actions: actions,
+    middleware: [function _callee(_ref, next) {
+      var action, state, payload, res;
+      return regenerator.async(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              action = _ref.action, state = _ref.state, payload = _ref.payload;
+              _context.next = 3;
+              return regenerator.awrap(middle[action](state, payload));
+
+            case 3:
+              res = _context.sent;
+
+              if (!res) {
+                _context.next = 7;
+                break;
+              }
+
+              next(res);
+              return _context.abrupt("return");
+
+            case 7:
+              next(state);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, null, null, Promise);
+    }]
+  };
+}
+
 var utils = {
   createLog: createLog,
   CreateError: CreateError,
@@ -2341,4 +2386,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addStore, callFromStore, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, callFromStore, combineActions, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };

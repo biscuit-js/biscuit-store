@@ -5,6 +5,7 @@ import {
 	MiddlewareParams,
 	DebuggerListener,
 	Container,
+	CombineProto,
 } from './store';
 import {
 	StateAction,
@@ -16,6 +17,7 @@ import {
 	Manager,
 	DispatchPayload,
 	AnyAction,
+	CombineActions,
 } from './state';
 
 /**
@@ -178,3 +180,12 @@ export function callFromStore<T>(store: Store<T>, fn: () => object): void;
  * for eliminating cyclic dependencies.
  */
 export const container: Container;
+
+/**
+ * This method allows you to add combined state
+ * containers to the createStore structure
+ * @param proto actions object
+ * @return a set of parameters containing the actions and middleware fields
+*/
+export function combineActions<S = object>
+(proto: CombineProto<S>): CombineActions;

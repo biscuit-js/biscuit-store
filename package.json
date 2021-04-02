@@ -50,6 +50,7 @@
     "react:start": "lerna run pr:start"
   },
   "dependencies": {
+    "@babel/helper-create-regexp-features-plugin": "^7.12.17",
     "@biscuit-store/core": "^1.0.0",
     "@biscuit-store/react": "^1.0.3",
     "custom-env": "^2.0.1",
