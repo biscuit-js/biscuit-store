@@ -13,6 +13,8 @@ import { typeOf } from './utils';
 import { actionError } from './helper';
 import { messages } from './messages';
 import { callFromStore } from './callFromStore';
+import { container } from './container';
+import { combineActions } from './combineActions';
 
 /**
  * This method is responsible for creating a new store.
@@ -295,6 +297,13 @@ export function createStore(options) {
 		actions: {},
 	};
 
+	/** Combine actions */
+	if (params.combineActions) {
+		const data = combineActions(params.combineActions);
+		params.actions = { ...params.actions, ...data.actions };
+		middleware(store).add(data.middleware[0]);
+	}
+
 	/** Adding States to the store */
 	if (params.actions) {
 		for (const key in params.actions) {
@@ -328,6 +337,11 @@ export function createStore(options) {
 	 */
 	if (params.initialCall) {
 		callFromStore(store, params.initialCall);
+	}
+
+	/** Add to container */
+	if (params.addToСontainer) {
+		container.include(output.actions);
 	}
 
 	/** Strict mod */

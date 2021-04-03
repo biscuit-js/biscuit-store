@@ -1796,15 +1796,111 @@ function callFromStore(store, fn) {
   }, null, null, null, Promise);
 }
 
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var box = null;
+/**
+ * Allows you to store actions in an isolated container
+ * and retrieve them if necessary. It can be useful
+ * for eliminating cyclic dependencies.
+ */
+
+var container = {
+  /**
+   * The method allows you to put actions in a container
+   * @param {object} actions actions object
+   */
+  include: function include(actions) {
+    for (var key in actions) {
+      var _objectSpread2;
+
+      actionError(actions[key]);
+      box = _objectSpread$3(_objectSpread$3({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
+    }
+  },
+
+  /**
+   * The method allows you to put actions in a container
+   * @param {string} storeName store name
+   * @return {object} actions
+   */
+  extract: function extract(storeName) {
+    return box[storeName];
+  }
+};
+
+/**
+ * This method allows you to add combined state
+ * containers to the createStore structure
+ * @param {import('../../types/store').CombineProto} proto actions object
+ * @return {import('../../types/store').CombineActions}
+ *  a set of parameters containing the actions and middleware fields
+*/
+function combineActions(proto) {
+  var actions = {};
+  var middle = {};
+
+  for (var key in proto) {
+    actions[key] = key + "/action";
+    middle[actions[key]] = proto[key];
+  }
+
+  return {
+    actions: actions,
+    middleware: [function _callee(_ref, next) {
+      var action, state, payload, res;
+      return regenerator.async(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              action = _ref.action, state = _ref.state, payload = _ref.payload;
+
+              if (middle[action]) {
+                _context.next = 4;
+                break;
+              }
+
+              next(payload);
+              return _context.abrupt("return");
+
+            case 4:
+              _context.next = 6;
+              return regenerator.awrap(middle[action](state, payload));
+
+            case 6:
+              res = _context.sent;
+
+              if (!res) {
+                _context.next = 10;
+                break;
+              }
+
+              next(res);
+              return _context.abrupt("return");
+
+            case 10:
+              next(state);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, null, null, Promise);
+    }]
+  };
+}
+
 function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
 
 function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * This method is responsible for creating a new store.
  * Takes as the first argument a string with the store name.
@@ -1873,7 +1969,7 @@ function createActionTo(params) {
     }
 
     return {
-      content: _objectSpread$3(_objectSpread$3({}, repositories[params.name].content), stns.initial)
+      content: _objectSpread$4(_objectSpread$4({}, repositories[params.name].content), stns.initial)
     };
   };
 
@@ -1900,13 +1996,13 @@ function createActionTo(params) {
       }
 
       var actionStr = "\"" + action + "\"";
-      states[actionStr] = _objectSpread$3(_objectSpread$3({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
+      states[actionStr] = _objectSpread$4(_objectSpread$4({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
       var actionParams = {
         name: params.name,
         type: action
       };
 
-      var returnedParams = _objectSpread$3(_objectSpread$3({}, actionParams), {}, {
+      var returnedParams = _objectSpread$4(_objectSpread$4({}, actionParams), {}, {
         /**
          * Update state
          * @param {import('../../types/state').DispatchPayload} payload
@@ -1989,14 +2085,14 @@ function stateCollection() {
         actionError(action);
 
         if (!collection[action.name]) {
-          collection[action.name] = [_objectSpread$3({}, action)];
+          collection[action.name] = [_objectSpread$4({}, action)];
           continue;
         }
 
-        collection[action.name].push(_objectSpread$3({}, action));
+        collection[action.name].push(_objectSpread$4({}, action));
       }
 
-      return _objectSpread$3({}, collection);
+      return _objectSpread$4({}, collection);
     },
 
     /**
@@ -2006,7 +2102,7 @@ function stateCollection() {
      * @public
      */
     all: function all() {
-      return _objectSpread$3({}, collection);
+      return _objectSpread$4({}, collection);
     },
 
     /**
@@ -2110,7 +2206,7 @@ function createStore(options) {
   /** DefaultParams */
 
 
-  var params = _objectSpread$3({
+  var params = _objectSpread$4({
     strictMode: true
   }, options);
   /** Create a new storage */
@@ -2121,10 +2217,18 @@ function createStore(options) {
   /** Set of storage parameters */
 
   var output = {
-    store: _objectSpread$3({}, store),
+    store: _objectSpread$4({}, store),
     actions: {}
   };
+  /** Combine actions */
+
+  if (params.combineActions) {
+    var data = combineActions(params.combineActions);
+    params.actions = _objectSpread$4(_objectSpread$4({}, params.actions), data.actions);
+    middleware(store).add(data.middleware[0]);
+  }
   /** Adding States to the store */
+
 
   if (params.actions) {
     for (var key in params.actions) {
@@ -2162,6 +2266,12 @@ function createStore(options) {
   if (params.initialCall) {
     callFromStore(store, params.initialCall);
   }
+  /** Add to container */
+
+
+  if (params.addToСontainer) {
+    container.include(output.actions);
+  }
   /** Strict mod */
 
 
@@ -2169,9 +2279,9 @@ function createStore(options) {
   return output;
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * The State Manager allows you to manage the storage and its state.
  * Provides a set of methods for two-way merge, replace, copy,
@@ -2191,7 +2301,7 @@ function createManager(action) {
      * @public
      */
     merge: function merge() {
-      repositories[action.name].content = _objectSpread$4(_objectSpread$4({}, getStoreContent(action.name)), getStateLink(action).content);
+      repositories[action.name].content = _objectSpread$5(_objectSpread$5({}, getStoreContent(action.name)), getStateLink(action).content);
     },
 
     /**
@@ -2200,7 +2310,7 @@ function createManager(action) {
      * @public
      */
     pull: function pull() {
-      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink(action).content), getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread$5(_objectSpread$5({}, getStateLink(action).content), getStoreContent(action.name));
     },
 
     /**
@@ -2208,7 +2318,7 @@ function createManager(action) {
      * @public
      */
     replaceStore: function replaceStore() {
-      repositories[action.name].content = _objectSpread$4({}, getStateLink(action).content);
+      repositories[action.name].content = _objectSpread$5({}, getStateLink(action).content);
     },
 
     /**
@@ -2217,7 +2327,7 @@ function createManager(action) {
      * @public
      */
     replaceState: function replaceState() {
-      getStateLink(action).content = _objectSpread$4({}, getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread$5({}, getStoreContent(action.name));
     },
 
     /**
@@ -2229,7 +2339,7 @@ function createManager(action) {
      */
     mergeState: function mergeState(targetAction) {
       actionError(targetAction);
-      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink({
+      getStateLink(action).content = _objectSpread$5(_objectSpread$5({}, getStateLink({
         type: targetAction.type,
         name: action.name
       }).content), getStateLink(action).content);
@@ -2294,85 +2404,6 @@ function createManager(action) {
      * @public
      */
     props: action
-  };
-}
-
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var box = null;
-/**
- * Allows you to store actions in an isolated container
- * and retrieve them if necessary. It can be useful
- * for eliminating cyclic dependencies.
- */
-
-var container = {
-  /**
-   * The method allows you to put actions in a container
-   * @param {object} actions actions object
-   */
-  include: function include(actions) {
-    for (var key in actions) {
-      var _objectSpread2;
-
-      actionError(actions[key]);
-      box = _objectSpread$5(_objectSpread$5({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
-    }
-  },
-
-  /**
-   * The method allows you to put actions in a container
-   * @param {string} storeName store name
-   * @return {object} actions
-   */
-  extract: function extract(storeName) {
-    return box[storeName];
-  }
-};
-
-function combineActions(proto) {
-  var actions = {};
-  var middle = {};
-
-  for (var key in proto) {
-    actions[key] = key + "/action";
-    middle[actions[key]] = proto[key];
-  }
-
-  return {
-    actions: actions,
-    middleware: [function _callee(_ref, next) {
-      var action, state, payload, res;
-      return regenerator.async(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              action = _ref.action, state = _ref.state, payload = _ref.payload;
-              _context.next = 3;
-              return regenerator.awrap(middle[action](state, payload));
-
-            case 3:
-              res = _context.sent;
-
-              if (!res) {
-                _context.next = 7;
-                break;
-              }
-
-              next(res);
-              return _context.abrupt("return");
-
-            case 7:
-              next(state);
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, null, null, null, Promise);
-    }]
   };
 }
 

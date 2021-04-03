@@ -6,6 +6,7 @@ import {
 	DebuggerListener,
 	Container,
 	CombineProto,
+	CombineActions,
 } from './store';
 import {
 	StateAction,
@@ -17,7 +18,6 @@ import {
 	Manager,
 	DispatchPayload,
 	AnyAction,
-	CombineActions,
 } from './state';
 
 /**

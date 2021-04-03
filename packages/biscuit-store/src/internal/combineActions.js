@@ -18,6 +18,11 @@ export function combineActions(proto) {
 		actions,
 		middleware: [
 			async ({ action, state, payload }, next) => {
+				if (!middle[action]) {
+					next(payload);
+					return;
+				}
+
 				const res = await middle[action](state, payload);
 				if (res) {
 					next(res);
