@@ -7,6 +7,8 @@ dist/*
 *.lock
 lerna-debug.log
 packages/*/lib
+packages/*/es
+packages/*/dist
 backup
 *.log
 .husky
