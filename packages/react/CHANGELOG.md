@@ -1,5 +1,15 @@
 # @biscuit-store/react
 
+## 2.0.0
+### Patch Changes
+
+- Updated dependencies [undefined]
+- Updated dependencies [undefined]
+- Updated dependencies [undefined]
+- Updated dependencies [undefined]
+- Updated dependencies [undefined]
+  - @biscuit-store/core@2.0.0
+
 ## 1.1.0
 ### Major Changes
 
