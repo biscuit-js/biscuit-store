@@ -1,5 +1,5 @@
-
-import { settings } from './repositories';
+import { repositories, settings } from './repositories';
+import { messages } from './messages';
 
 /** debuger list */
 export const debugCollection = {};
@@ -90,4 +90,24 @@ export class CreateError extends Error {
 		this.name = 'Biscuit error';
 		writeLog.call(this, 'error', message, storeName);
 	}
+}
+
+/**
+ * This method allows you to add your own debugger.
+ * The debugger will accept and output logs instead of the standard debugger.
+ * @param {import('../../types/store').Store} store store object
+ * @param {import('../../types/store').DebuggerListener} fn
+ * debugger callback function
+ * @public
+ */
+export function createDebuger(store, fn) {
+	if (!repositories[store.name]) {
+		throw new CreateError(messages.noStore(store.name));
+	}
+
+	if (typeof fn !== 'function') {
+		throw new CreateError(messages.debuggerNoFunc);
+	}
+
+	debugCollection[store.name] = fn;
 }

@@ -2,15 +2,13 @@ import { createLog, CreateError, Warning } from './internal/debugger';
 import { emitter } from './internal/emitter';
 import { throttle, debounce, sandbox } from './internal/utils';
 
-export {
-	createStore,
-	newStore,
-	createActionTo,
-	initialActions,
-	stateCollection,
-	middleware,
-	createDebuger,
-} from './internal/creator';
+export { createStore } from './internal/createStore';
+export { newStore } from './internal/newStore';
+export { createActionTo } from './internal/createActionTo';
+export { initialActions } from './internal/initialActions';
+export { stateCollection } from './internal/stateCollection';
+export { middleware } from './internal/middleware';
+export { createDebuger } from './internal/debugger';
 
 export {
 	dispatch,
