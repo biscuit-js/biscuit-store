@@ -9,6 +9,10 @@
 - added combineAction field to createStore
 - refactor creator
 
+## 1.1.0
+### Major Changes
+- added container function
+- added initialCall  function
 
 ## 1.0.0
 ### Major Changes
