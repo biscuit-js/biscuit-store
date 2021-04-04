@@ -8,6 +8,7 @@
 - added checking the existence of a repository by name
 - added combineAction field to createStore
 - refactor creator
+- added test for new functions
 
 ## 1.1.0
 ### Major Changes
