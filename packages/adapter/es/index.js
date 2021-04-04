@@ -833,6 +833,51 @@ function runCall(connector, context, next) {
   }, null, null, null, Promise);
 }
 
+/**
+ * This method implements the logic identical to promise.all.
+ * @param {*} connector
+ * @param {*} context
+ * @param {*} next
+ */
+function runPromiseFunc(connector, context, next) {
+  var payload, state, getAction, current, runtime, res, handleData;
+  return regenerator.async(function runPromiseFunc$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+
+          runtime = function runtime(ctx) {
+            return connector.fns.map(function (fn) {
+              return fn(ctx);
+            });
+          };
+
+          _context.next = 4;
+          return regenerator.awrap(Promise[connector.type](runtime({
+            payload: payload,
+            state: state,
+            getAction: getAction,
+            current: current
+          })));
+
+        case 4:
+          res = _context.sent;
+          _context.next = 7;
+          return regenerator.awrap(connector.handler(res));
+
+        case 7:
+          handleData = _context.sent;
+          next(handleData);
+
+        case 9:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, null, null, Promise);
+}
+
 function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -951,7 +996,9 @@ function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { 
 
 var tasks = {
   action: runAction,
-  call: runCall
+  call: runCall,
+  all: runPromiseFunc,
+  race: runPromiseFunc
 };
 /**
  * This is a feature for creating middleware for the biscuit-store.
@@ -1143,6 +1190,56 @@ function createAdapter() {
         type: type,
         actionName: actionName,
         fn: fn,
+        handler: handler,
+        await: true
+      });
+    },
+
+    /**
+     * This method implements the logic identical to promise.all.
+     * @param {string} actionName action name
+     * @param {function} handler handler of the received result
+     * @param {function[]} fns arrauy async functions
+     */
+    all: function all(actionName, handler, fns) {
+      if (handler === void 0) {
+        handler = null;
+      }
+
+      if (fns === void 0) {
+        fns = [];
+      }
+
+      var type = 'all';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fns: fns,
+        handler: handler,
+        await: true
+      });
+    },
+
+    /**
+     * This method implements the logic identical to promise.race.
+     * @param {string} actionName action name
+     * @param {function} handler handler of the received result
+     * @param {function[]} fns arrauy async functions
+     */
+    race: function race(actionName, handler, fns) {
+      if (handler === void 0) {
+        handler = null;
+      }
+
+      if (fns === void 0) {
+        fns = [];
+      }
+
+      var type = 'race';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fns: fns,
         handler: handler,
         await: true
       });

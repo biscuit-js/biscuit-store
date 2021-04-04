@@ -1,5 +1,6 @@
 import { runAction } from './action';
 import { runCall } from './call';
+import { runPromiseFunc } from './promiseFunc';
 import { makeChannel } from './makeChannel';
 import { includeContext } from './includeContext';
 
@@ -7,6 +8,8 @@ import { includeContext } from './includeContext';
 const tasks = {
 	action: runAction,
 	call: runCall,
+	all: runPromiseFunc,
+	race: runPromiseFunc,
 };
 
 /**
@@ -101,6 +104,40 @@ export function createAdapter() {
 				type,
 				actionName,
 				fn,
+				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method implements the logic identical to promise.all.
+		 * @param {string} actionName action name
+		 * @param {function} handler handler of the received result
+		 * @param {function[]} fns arrauy async functions
+		 */
+		all: (actionName, handler = null, fns = []) => {
+			const type = 'all';
+			createWork({
+				type,
+				actionName,
+				fns,
+				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method implements the logic identical to promise.race.
+		 * @param {string} actionName action name
+		 * @param {function} handler handler of the received result
+		 * @param {function[]} fns arrauy async functions
+		 */
+		race: (actionName, handler = null, fns = []) => {
+			const type = 'race';
+			createWork({
+				type,
+				actionName,
+				fns,
 				handler,
 				await: true,
 			});
