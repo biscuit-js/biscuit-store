@@ -136,7 +136,7 @@ it('manager test pull', () => {
 });
 
 it('manager test pull', () => {
-	const { actions, store } = testStore(7);
+	const { actions, store } = testStore(77);
 	const manager = createManager(actions.testBranch9);
 	expect(store.get()).toEqual({ data: 123 });
 	expect(actions.testBranch9.getState()).toEqual({ data: 222, value: 333 });
@@ -163,7 +163,7 @@ it('manager test replaceStore', () => {
 
 it('manager test update', (done) => {
 	expect.assertions(1);
-	const { actions } = testStore(9);
+	const { actions } = testStore(10);
 	const manager = createManager(actions.testBranch9);
 
 	actions.testBranch9.subscribe((current) => {

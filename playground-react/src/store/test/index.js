@@ -20,7 +20,7 @@ const { actions, store } = createStore({
 			name: 'branch/action',
 			branch: true,
 			initial: {
-				main: 10,
+				main: '1.1.0',
 			},
 		},
 	},
