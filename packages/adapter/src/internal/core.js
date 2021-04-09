@@ -3,6 +3,7 @@ import { runCall } from './call';
 import { runPromiseFunc } from './promiseFunc';
 import { makeChannel } from './makeChannel';
 import { includeContext } from './includeContext';
+import { runDebounce, runThrottle } from './debounce';
 
 /** A collection of tasks for the scheduler */
 const tasks = {
@@ -10,6 +11,8 @@ const tasks = {
 	call: runCall,
 	all: runPromiseFunc,
 	race: runPromiseFunc,
+	actionDebounce: runDebounce,
+	actionThrottle: runThrottle,
 };
 
 /**
@@ -20,6 +23,7 @@ const tasks = {
 export function createAdapter() {
 	const connectors = {};
 	let includes = { modify: async () => ({}) };
+	const taskCache = {};
 
 	/**
 	 * Function for processing the task
@@ -30,15 +34,18 @@ export function createAdapter() {
 	 */
 	const runWork = async (connector, context, next) => {
 		if (connector) {
-			const task = () => tasks[connector.type](connector, context, next);
-			if (connector.await) {
-				await task();
-			} else {
-				task();
+			const n = connector.actionName;
+			if (!taskCache[n]) {
+				taskCache[n] = tasks[connector.type](connector);
 			}
+
+			if (connector.await) {
+				await taskCache[n](context, next);
+				return true;
+			}
+			taskCache[n](context, next);
 			return true;
 		}
-		return false;
 	};
 
 	/**
@@ -61,8 +68,8 @@ export function createAdapter() {
 		 * @public
 		 */
 		connect: async (context, next) => {
-			let resolve = false;
-			const ctx = { ...context, current: await includes.modify() };
+			let resolve;
+			const ctx = { ...context, current: await includes.modify(context) };
 
 			for (let key in tasks) {
 				if (connectors[key] && connectors[key][`"${ctx.action}"`]) {
@@ -139,6 +146,42 @@ export function createAdapter() {
 				actionName,
 				fns,
 				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method allows you to call an action with the debounce effect
+		 * @param {string} actionName action name
+		 * @param {function} fn listner function
+		 * @param {number} limit time limit
+		 * @param {bool} immediate first call
+		 */
+		actionDebounce: (actionName, fn, limit = 0, immediate = true) => {
+			const type = 'actionDebounce';
+			createWork({
+				type,
+				actionName,
+				fn,
+				limit,
+				immediate,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method allows you to call an action with the throttle effect
+		 * @param {string} actionName action name
+		 * @param {function} fn listner function
+		 * @param {number} limit time limit
+		 */
+		actionThrottle: (actionName, fn, limit = 0) => {
+			const type = 'actionThrottle';
+			createWork({
+				type,
+				actionName,
+				fn,
+				limit,
 				await: true,
 			});
 		},

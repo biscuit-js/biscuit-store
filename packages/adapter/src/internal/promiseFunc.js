@@ -4,19 +4,21 @@
  * @param {*} context
  * @param {*} next
  */
-export async function runPromiseFunc(connector, context, next) {
-	let { payload, state, getAction, current } = context;
+export function runPromiseFunc({ fns, handler, type }) {
+	return async (context, next) => {
+		let { payload, state, getAction, current } = context;
 
-	const runtime = (ctx) => {
-		return connector.fns.map((fn) => {
-			return fn(ctx);
-		});
+		const runtime = (ctx) => {
+			return fns.map((fn) => {
+				return fn(ctx);
+			});
+		};
+
+		const res = await Promise
+			[type](runtime({ payload, state, getAction, current }));
+
+		let handleData = await handler(res);
+
+		next(handleData);
 	};
-
-	const res = await Promise
-		[connector.type](runtime({ payload, state, getAction, current }));
-
-	let handleData = await connector.handler(res);
-
-	next(handleData);
 };

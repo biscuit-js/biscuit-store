@@ -6,13 +6,16 @@
  * @param {*} context
  * @param {*} next
  */
-export async function runAction(connector, context, next) {
-	let { payload, state, getAction, current } = context;
-	const update = connector.fn(
-		{ ...current, payload, state, send: next, getAction }
-	);
+export function runAction({ fn }) {
+	return async (context, next) => {
+		let { payload, state, getAction, current } = context;
+		const prevState = { ...state };
+		const update = fn(
+			{ ...current, payload, state, send: next, getAction }
+		);
 
-	if (update) {
-		next(update);
-	}
+		if (update && prevState !== state) {
+			next(update || state);
+		}
+	};
 };
