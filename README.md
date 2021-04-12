@@ -129,11 +129,11 @@ const { actions } = createStore({
 
 const { increment, decrement } = actions;
 
-increment.dispatch().before(({ value }) => {
+increment.dispatch().after(({ value }) => {
    console.log("count:", value);
 });
 ```
-[![Edit Biscuit-store/example-javascript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storeexample-javascript-4mp86?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit Biscuit-store/example-javascript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storeexample-javascript-forked-yn1x1?fontsize=14&hidenavigation=1&theme=dark)
 
 ### Some more examples
 - [Asynchronous data fetching](https://codesandbox.io/s/biscuit-storeasynchronous-data-fetching-vce5e?file=/src/store/counter/adapter.js)
