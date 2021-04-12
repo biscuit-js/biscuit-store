@@ -34,8 +34,7 @@
   "plugins": [
     "sonarjs",
     "optimize-regex",
-    "@typescript-eslint",
-    "prettier"
+    "@typescript-eslint"
   ],
   "rules": {
     "no-shadow": ["error"],
