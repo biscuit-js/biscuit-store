@@ -1,12 +1,18 @@
 import { runAction } from './action';
 import { runCall } from './call';
+import { runPromiseFunc } from './promiseFunc';
 import { makeChannel } from './makeChannel';
 import { includeContext } from './includeContext';
+import { runCallEffect } from './debounce';
 
 /** A collection of tasks for the scheduler */
 const tasks = {
 	action: runAction,
 	call: runCall,
+	all: runPromiseFunc,
+	race: runPromiseFunc,
+	debounce: runCallEffect,
+	throttle: runCallEffect,
 };
 
 /**
@@ -17,6 +23,7 @@ const tasks = {
 export function createAdapter() {
 	const connectors = {};
 	let includes = { modify: async () => ({}) };
+	const taskCache = {};
 
 	/**
 	 * Function for processing the task
@@ -27,15 +34,18 @@ export function createAdapter() {
 	 */
 	const runWork = async (connector, context, next) => {
 		if (connector) {
-			const task = () => tasks[connector.type](connector, context, next);
-			if (connector.await) {
-				await task();
-			} else {
-				task();
+			const n = connector.actionName;
+			if (!taskCache[n]) {
+				taskCache[n] = tasks[connector.type](connector);
 			}
+
+			if (connector.await) {
+				await taskCache[n](context, next);
+				return true;
+			}
+			taskCache[n](context, next);
 			return true;
 		}
-		return false;
 	};
 
 	/**
@@ -58,8 +68,8 @@ export function createAdapter() {
 		 * @public
 		 */
 		connect: async (context, next) => {
-			let resolve = false;
-			const ctx = { ...context, current: await includes.modify() };
+			let resolve;
+			const ctx = { ...context, current: await includes.modify(context) };
 
 			for (let key in tasks) {
 				if (connectors[key] && connectors[key][`"${ctx.action}"`]) {
@@ -102,6 +112,75 @@ export function createAdapter() {
 				actionName,
 				fn,
 				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method implements the logic identical to promise.all.
+		 * @param {string} actionName action name
+		 * @param {function} handler handler of the received result
+		 * @param {function[]} fns arrauy async functions
+		 */
+		all: (actionName, handler = null, fns = []) => {
+			const type = 'all';
+			createWork({
+				type,
+				actionName,
+				fns,
+				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method implements the logic identical to promise.race.
+		 * @param {string} actionName action name
+		 * @param {function} handler handler of the received result
+		 * @param {function[]} fns arrauy async functions
+		 */
+		race: (actionName, handler = null, fns = []) => {
+			const type = 'race';
+			createWork({
+				type,
+				actionName,
+				fns,
+				handler,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method allows you to call an action with the debounce effect
+		 * @param {string} actionName action name
+		 * @param {function} fn listner function
+		 * @param {number} limit time limit
+		 * @param {bool} immediate first call
+		 */
+		debounce: (actionName, fn, limit = 0) => {
+			const type = 'debounce';
+			createWork({
+				type,
+				actionName,
+				fn,
+				limit,
+				await: true,
+			});
+		},
+
+		/**
+		 * This method allows you to call an action with the throttle effect
+		 * @param {string} actionName action name
+		 * @param {function} fn listner function
+		 * @param {number} limit time limit
+		 */
+		throttle: (actionName, fn, limit = 0) => {
+			const type = 'throttle';
+			createWork({
+				type,
+				actionName,
+				fn,
+				limit,
 				await: true,
 			});
 		},

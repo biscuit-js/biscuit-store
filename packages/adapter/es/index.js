@@ -755,30 +755,47 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  * @param {*} context
  * @param {*} next
  */
-function runAction(connector, context, next) {
-  var payload, state, getAction, current, update;
-  return regenerator.async(function runAction$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-          update = connector.fn(_objectSpread(_objectSpread({}, current), {}, {
-            payload: payload,
-            state: state,
-            send: next,
-            getAction: getAction
-          }));
+function runAction(_ref) {
+  var fn = _ref.fn;
+  return function _callee(context, next) {
+    var payload, state, getAction, current, checkSend, update;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+            _context.t0 = fn;
+            _context.t1 = _objectSpread;
+            _context.t2 = _objectSpread({}, current);
+            _context.t3 = {};
+            _context.t4 = payload;
+            _context.t5 = state;
+            _context.t6 = getAction;
+            _context.t7 = {
+              payload: _context.t4,
+              state: _context.t5,
 
-          if (update) {
-            next(update);
-          }
+              get send() {
+                checkSend = true;
+                return next;
+              },
 
-        case 3:
-        case "end":
-          return _context.stop();
+              getAction: _context.t6
+            };
+            _context.t8 = (0, _context.t1)(_context.t2, _context.t3, _context.t7);
+            update = (0, _context.t0)(_context.t8);
+
+            if (!checkSend) {
+              next(update || state);
+            }
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
       }
-    }
-  }, null, null, null, Promise);
+    }, null, null, null, Promise);
+  };
 }
 
 function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -792,45 +809,99 @@ function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { 
  * @param {*} context
  * @param {*} next
  */
-function runCall(connector, context, next) {
-  var payload, state, getAction, current, handleData, update;
-  return regenerator.async(function runCall$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-          handleData = null;
-          _context.next = 4;
-          return regenerator.awrap(connector.fn(_objectSpread$1(_objectSpread$1({}, context.current), {}, {
-            payload: payload,
-            state: state,
-            getAction: getAction,
-            current: current
-          })));
+function runCall(_ref) {
+  var fn = _ref.fn,
+      handler = _ref.handler;
+  return function _callee(context, next) {
+    var payload, state, getAction, current, handleData, update;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+            handleData = null;
+            _context.next = 4;
+            return regenerator.awrap(fn(_objectSpread$1(_objectSpread$1({}, context.current), {}, {
+              payload: payload,
+              state: state,
+              getAction: getAction,
+              current: current
+            })));
 
-        case 4:
-          update = _context.sent;
+          case 4:
+            update = _context.sent;
 
-          if (!connector.handler) {
-            _context.next = 9;
-            break;
-          }
+            if (!handler) {
+              _context.next = 9;
+              break;
+            }
 
-          _context.next = 8;
-          return regenerator.awrap(connector.handler(update));
+            _context.next = 8;
+            return regenerator.awrap(handler(update));
 
-        case 8:
-          handleData = _context.sent;
+          case 8:
+            handleData = _context.sent;
 
-        case 9:
-          next(handleData || update);
+          case 9:
+            next(handleData || update);
 
-        case 10:
-        case "end":
-          return _context.stop();
+          case 10:
+          case "end":
+            return _context.stop();
+        }
       }
-    }
-  }, null, null, null, Promise);
+    }, null, null, null, Promise);
+  };
+}
+
+/**
+ * This method implements the logic identical to promise.all.
+ * @param {*} connector
+ * @param {*} context
+ * @param {*} next
+ */
+function runPromiseFunc(_ref) {
+  var fns = _ref.fns,
+      handler = _ref.handler,
+      type = _ref.type;
+  return function _callee(context, next) {
+    var payload, state, getAction, current, runtime, res, handleData;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+
+            runtime = function runtime(ctx) {
+              return fns.map(function (fn) {
+                return fn(ctx);
+              });
+            };
+
+            _context.next = 4;
+            return regenerator.awrap(Promise[type](runtime({
+              payload: payload,
+              state: state,
+              getAction: getAction,
+              current: current
+            })));
+
+          case 4:
+            res = _context.sent;
+            _context.next = 7;
+            return regenerator.awrap(handler(res));
+
+          case 7:
+            handleData = _context.sent;
+            next(handleData);
+
+          case 9:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, null, Promise);
+  };
 }
 
 function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -895,7 +966,7 @@ function includeContext(ctxCreator, options) {
 
   var counter = 0;
 
-  var ctxWork = function _callee() {
+  var ctxWork = function _callee(current) {
     var check, ctx;
     return regenerator.async(function _callee$(_context) {
       while (1) {
@@ -913,7 +984,7 @@ function includeContext(ctxCreator, options) {
             }
 
             _context.next = 5;
-            return regenerator.awrap(ctxCreator());
+            return regenerator.awrap(ctxCreator(current));
 
           case 5:
             ctx = _context.sent;
@@ -944,14 +1015,114 @@ function includeContext(ctxCreator, options) {
   this.modify = ctxWork;
 }
 
+/**
+ * Creates a throttled function that only invokes func
+ * at most once per every wait milliseconds.
+ * @param {function} callback target function
+ * @param {number} limit counter
+ * @return {function}
+ */
+function throttle(callback, limit) {
+  var waiting = false;
+  return function () {
+    if (!waiting) {
+      callback.apply(this, arguments);
+      waiting = true;
+      setTimeout(function () {
+        waiting = false;
+      }, limit);
+    }
+  };
+}
+/**
+ * Creates a debounced function that delays invoking func
+ * until after wait milliseconds have elapsed since
+ * the last time the debounced function was invoked.
+ * @param {function} callback target function
+ * @param {number} limit counter
+ * @return {function}
+ */
+
+function debounce(callback, limit) {
+  var timeout;
+
+  function debounced() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var that = this;
+
+    var later = function later() {
+      callback.apply(that, args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, limit);
+  }
+
+  debounced.clear = function () {
+    clearTimeout(timeout);
+  };
+
+  return debounced;
+}
+
 function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var types = {
+  debounce: debounce,
+  throttle: throttle
+};
+/**
+ * This method allows you to call an action with the debounce effect
+ * @param {string} actionName action name
+ * @param {function} fn listner function
+ * @param {number} limit time limit
+ * @param {bool} immediate first call
+ */
+
+function runCallEffect(_ref) {
+  var fn = _ref.fn,
+      limit = _ref.limit,
+      type = _ref.type;
+  var func = types[type](fn, limit);
+  return function _callee(context, next) {
+    var payload, state, getAction, current;
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
+            func(_objectSpread$3(_objectSpread$3({}, current), {}, {
+              payload: payload,
+              state: state,
+              getAction: getAction,
+              send: next
+            }));
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, null, Promise);
+  };
+}
+
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /** A collection of tasks for the scheduler */
 
 var tasks = {
   action: runAction,
-  call: runCall
+  call: runCall,
+  all: runPromiseFunc,
+  race: runPromiseFunc,
+  debounce: runCallEffect,
+  throttle: runCallEffect
 };
 /**
  * This is a feature for creating middleware for the biscuit-store.
@@ -977,6 +1148,7 @@ function createAdapter() {
       }, null, null, null, Promise);
     }
   };
+  var taskCache = {};
   /**
    * Function for processing the task
    * @param {object} connector
@@ -986,7 +1158,7 @@ function createAdapter() {
    */
 
   var runWork = function _callee(connector, context, next) {
-    var task;
+    var n;
     return regenerator.async(function _callee$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -996,32 +1168,28 @@ function createAdapter() {
               break;
             }
 
-            task = function task() {
-              return tasks[connector.type](connector, context, next);
-            };
+            n = connector.actionName;
+
+            if (!taskCache[n]) {
+              taskCache[n] = tasks[connector.type](connector);
+            }
 
             if (!connector.await) {
               _context2.next = 7;
               break;
             }
 
-            _context2.next = 5;
-            return regenerator.awrap(task());
+            _context2.next = 6;
+            return regenerator.awrap(taskCache[n](context, next));
 
-          case 5:
-            _context2.next = 8;
-            break;
+          case 6:
+            return _context2.abrupt("return", true);
 
           case 7:
-            task();
-
-          case 8:
+            taskCache[n](context, next);
             return _context2.abrupt("return", true);
 
           case 9:
-            return _context2.abrupt("return", false);
-
-          case 10:
           case "end":
             return _context2.stop();
         }
@@ -1037,7 +1205,7 @@ function createAdapter() {
   var createWork = function createWork(params) {
     var _objectSpread2;
 
-    connectors[params.type] = _objectSpread$3(_objectSpread$3({}, connectors[params.type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + params.actionName + "\""] = params, _objectSpread2));
+    connectors[params.type] = _objectSpread$4(_objectSpread$4({}, connectors[params.type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + params.actionName + "\""] = params, _objectSpread2));
   };
 
   return {
@@ -1054,14 +1222,13 @@ function createAdapter() {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              resolve = false;
-              _context3.t0 = _objectSpread$3;
-              _context3.t1 = _objectSpread$3({}, context);
+              _context3.t0 = _objectSpread$4;
+              _context3.t1 = _objectSpread$4({}, context);
               _context3.t2 = {};
-              _context3.next = 6;
-              return regenerator.awrap(includes.modify());
+              _context3.next = 5;
+              return regenerator.awrap(includes.modify(context));
 
-            case 6:
+            case 5:
               _context3.t3 = _context3.sent;
               _context3.t4 = {
                 current: _context3.t3
@@ -1069,37 +1236,37 @@ function createAdapter() {
               ctx = (0, _context3.t0)(_context3.t1, _context3.t2, _context3.t4);
               _context3.t5 = regenerator.keys(tasks);
 
-            case 10:
+            case 9:
               if ((_context3.t6 = _context3.t5()).done) {
-                _context3.next = 20;
+                _context3.next = 19;
                 break;
               }
 
               key = _context3.t6.value;
 
               if (!(connectors[key] && connectors[key]["\"" + ctx.action + "\""])) {
-                _context3.next = 18;
+                _context3.next = 17;
                 break;
               }
 
               connector = connectors[key]["\"" + ctx.action + "\""];
-              _context3.next = 16;
+              _context3.next = 15;
               return regenerator.awrap(runWork(connector, ctx, next));
 
-            case 16:
+            case 15:
               resolve = _context3.sent;
-              return _context3.abrupt("break", 20);
+              return _context3.abrupt("break", 19);
 
-            case 18:
-              _context3.next = 10;
+            case 17:
+              _context3.next = 9;
               break;
 
-            case 20:
+            case 19:
               if (!resolve) {
                 next(ctx.payload);
               }
 
-            case 21:
+            case 20:
             case "end":
               return _context3.stop();
           }
@@ -1144,6 +1311,99 @@ function createAdapter() {
         actionName: actionName,
         fn: fn,
         handler: handler,
+        await: true
+      });
+    },
+
+    /**
+     * This method implements the logic identical to promise.all.
+     * @param {string} actionName action name
+     * @param {function} handler handler of the received result
+     * @param {function[]} fns arrauy async functions
+     */
+    all: function all(actionName, handler, fns) {
+      if (handler === void 0) {
+        handler = null;
+      }
+
+      if (fns === void 0) {
+        fns = [];
+      }
+
+      var type = 'all';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fns: fns,
+        handler: handler,
+        await: true
+      });
+    },
+
+    /**
+     * This method implements the logic identical to promise.race.
+     * @param {string} actionName action name
+     * @param {function} handler handler of the received result
+     * @param {function[]} fns arrauy async functions
+     */
+    race: function race(actionName, handler, fns) {
+      if (handler === void 0) {
+        handler = null;
+      }
+
+      if (fns === void 0) {
+        fns = [];
+      }
+
+      var type = 'race';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fns: fns,
+        handler: handler,
+        await: true
+      });
+    },
+
+    /**
+     * This method allows you to call an action with the debounce effect
+     * @param {string} actionName action name
+     * @param {function} fn listner function
+     * @param {number} limit time limit
+     * @param {bool} immediate first call
+     */
+    debounce: function debounce(actionName, fn, limit) {
+      if (limit === void 0) {
+        limit = 0;
+      }
+
+      var type = 'debounce';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fn: fn,
+        limit: limit,
+        await: true
+      });
+    },
+
+    /**
+     * This method allows you to call an action with the throttle effect
+     * @param {string} actionName action name
+     * @param {function} fn listner function
+     * @param {number} limit time limit
+     */
+    throttle: function throttle(actionName, fn, limit) {
+      if (limit === void 0) {
+        limit = 0;
+      }
+
+      var type = 'throttle';
+      createWork({
+        type: type,
+        actionName: actionName,
+        fn: fn,
+        limit: limit,
         await: true
       });
     },

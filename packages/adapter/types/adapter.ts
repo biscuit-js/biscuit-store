@@ -22,7 +22,7 @@ export interface AdapterActionCtx<P = object, S = object> {
  */
 export type ActionListner<T, P, S> = (
 	ctx: AdapterActionCtx<P, S>
-) => T | Promise<T>;
+) => T | Promise<T> | void;
 
 /**
  * Type of the result handler
@@ -48,6 +48,10 @@ export interface Channel {
 	extract: <T>(payload: T) => Promise<any>;
 }
 
+export type ListnerItem<A, B> = <P = A, S = B, T = any>(
+	ctx: AdapterActionCtx<P, S>
+) => T | Promise<T | P | S>;
+
 /** Adapter returned interface */
 export interface Adapter {
 	/**
@@ -66,6 +70,54 @@ export interface Adapter {
 	action: <T = {}, P = {}, S = {}>(
 		actionName: string,
 		fn: ActionListner<T, P, S>
+	) => void;
+
+	/**
+	 * This method implements the logic identical to promise.all.
+	 * @param actionName action name
+	 * @param handler handler of the received result
+	 * @param fns arrauy async functions
+	 */
+	all: <A, B, C>(
+		actionName: string,
+		handler: (result: C) => void,
+		fns: Array<ListnerItem<A, B>>
+	) => void;
+
+	/**
+	 * This method implements the logic identical to promise.race.
+	 * @param actionName action name
+	 * @param handler handler of the received result
+	 * @param fns arrauy async functions
+	 */
+	race: <A, B, C>(
+		actionName: string,
+		handler: (result: C) => void,
+		fns: Array<ListnerItem<A, B>>
+	) => void;
+
+	/**
+	 * This method allows you to call an action with the debounce effect
+	 * @param actionName action name
+	 * @param fn listner function
+	 * @param limit time limit
+	 */
+	debounce: <T = {}, P = {}, S = {}>(
+		actionName: string,
+		fn: ActionListner<T, P, S>,
+		limit: number
+	) => void;
+
+	/**
+	 * This method allows you to call an action with the debounce effect
+	 * @param actionName action name
+	 * @param fn listner function
+	 * @param limit time limit
+	 */
+	throttle: <T = {}, P = {}, S = {}>(
+		actionName: string,
+		fn: ActionListner<T, P, S>,
+		limit: number
 	) => void;
 
 	/**

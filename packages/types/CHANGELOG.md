@@ -1,5 +1,9 @@
 # @biscuit-store/adapter
 
+## 1.2.0
+### Patch Changes
+- Update core types
+
 ## 0.9.99
 ### Patch Changes
 
