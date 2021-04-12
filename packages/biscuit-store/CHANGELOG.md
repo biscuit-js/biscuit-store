@@ -3,17 +3,17 @@
 ## 1.2.0
 ### Major Changes
 
-- added combineActions function
-- added addToContainer field to createStore
-- added checking the existence of a repository by name
-- added combineAction field to createStore
-- refactor creator
-- added test for new functions
+- Added combineActions function
+- Added addToContainer field to createStore
+- Added checking the existence of a repository by name
+- Added combineAction field to createStore
+- Refactor creator
+- Added test for new functions
 
 ## 1.1.0
 ### Major Changes
-- added container function
-- added initialCall function
+- Added container function
+- Added initialCall function
 
 ## 1.0.0
 ### Major Changes
