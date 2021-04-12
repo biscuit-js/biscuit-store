@@ -101,7 +101,7 @@ action("increment/action", ({ payload, state }) => {
   state.value += payload.value;
 });
 
-action("decrement/action", ({ payload, store }) => {
+action("decrement/action", ({ payload, state }) => {
   state.value -= payload.value;
 });
 
