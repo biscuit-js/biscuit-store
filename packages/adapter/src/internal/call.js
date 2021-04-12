@@ -6,16 +6,18 @@
  * @param {*} context
  * @param {*} next
  */
-export async function runCall(connector, context, next) {
-	let { payload, state, getAction, current } = context;
-	let handleData = null;
-	const update = await connector.fn(
-		{ ...context.current, payload, state, getAction, current }
-	);
+export function runCall({ fn, handler }) {
+	return async (context, next) => {
+		let { payload, state, getAction, current } = context;
+		let handleData = null;
+		const update = await fn(
+			{ ...context.current, payload, state, getAction, current }
+		);
 
-	if (connector.handler) {
-		handleData = await connector.handler(update);
-	}
+		if (handler) {
+			handleData = await handler(update);
+		}
 
-	next(handleData || update);
+		next(handleData || update);
+	};
 };

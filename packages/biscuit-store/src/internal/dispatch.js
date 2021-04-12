@@ -1,6 +1,11 @@
 import { repositories } from './repositories';
-import { activeMiddlewares, getStateLink, getStoreContentActions } from './helper';
+import {
+	activeMiddlewares,
+	getStateLink,
+	getStoreContentActions,
+} from './helper';
 import { emitter } from './emitter';
+
 export function dispatchProto({ action, prev, payData }) {
 	/**
 	 * Call before state change

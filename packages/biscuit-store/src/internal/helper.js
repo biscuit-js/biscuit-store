@@ -39,6 +39,19 @@ export function getStoreName(target) {
 }
 
 /**
+ * Сhecking the existence of a repository by name
+ * @param {string} name
+ */
+export function checkStoreName(name) {
+	if (repositories[name]) {
+		throw new CreateError(
+			`Мore than one store uses the name <${name}>.`,
+			name
+		);
+	}
+}
+
+/**
  * Validating an action
  * @param {import('../../types/state').AnyAction} action
  */

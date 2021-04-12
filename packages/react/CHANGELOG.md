@@ -1,5 +1,10 @@
 # @biscuit-store/react
 
+## 1.2.0
+### Minor Changes
+
+- Updated dependencies
+
 ## 1.1.0
 ### Major Changes
 

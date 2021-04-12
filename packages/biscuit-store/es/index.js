@@ -110,6 +110,29 @@ var settings = {
   strictMode: {}
 };
 
+/** debug messages */
+var messages = {
+  noStore: function noStore(name) {
+    return "store <" + name + "> not found.";
+  },
+  noState: function noState(name) {
+    return "state <" + name + "> not found.";
+  },
+  initialType: 'The initial must be an object.',
+  noListener: 'The subscriber\'s listener must be a function.',
+  noValidAction: 'An invalid dependencies was processed.',
+  storageNameError: function storageNameError(fnName) {
+    return "biscuit " + fnName + " error: storage name is not a string.";
+  },
+  noStoreParams: 'The createStore method must contain the storage parameters.',
+  noStoreName: 'The store name is a required field.',
+  middleNoFunc: 'Middleware should be provided as a feature.',
+  debuggerNoFunc: 'Debugger should be provided as a feature.',
+  actionString: 'The state name must be a string.',
+  storeNotFind: 'store not found.',
+  storeExists: 'A store with this name already exists.'
+};
+
 /** debuger list */
 
 var debugCollection = {};
@@ -220,29 +243,26 @@ var CreateError = /*#__PURE__*/function (_Error3) {
 
   return CreateError;
 }( /*#__PURE__*/_wrapNativeSuper(Error));
+/**
+ * This method allows you to add your own debugger.
+ * The debugger will accept and output logs instead of the standard debugger.
+ * @param {import('../../types/store').Store} store store object
+ * @param {import('../../types/store').DebuggerListener} fn
+ * debugger callback function
+ * @public
+ */
 
-/** debug messages */
-var messages = {
-  noStore: function noStore(name) {
-    return "store <" + name + "> not found.";
-  },
-  noState: function noState(name) {
-    return "state <" + name + "> not found.";
-  },
-  initialType: 'The initial must be an object.',
-  noListener: 'The subscriber\'s listener must be a function.',
-  noValidAction: 'An invalid dependencies was processed.',
-  storageNameError: function storageNameError(fnName) {
-    return "biscuit " + fnName + " error: storage name is not a string.";
-  },
-  noStoreParams: 'The createStore method must contain the storage parameters.',
-  noStoreName: 'The store name is a required field.',
-  middleNoFunc: 'Middleware should be provided as a feature.',
-  debuggerNoFunc: 'Debugger should be provided as a feature.',
-  actionString: 'The state name must be a string.',
-  storeNotFind: 'store not found.',
-  storeExists: 'A store with this name already exists.'
-};
+function createDebuger(store, fn) {
+  if (!repositories[store.name]) {
+    throw new CreateError(messages.noStore(store.name));
+  }
+
+  if (typeof fn !== 'function') {
+    throw new CreateError(messages.debuggerNoFunc);
+  }
+
+  debugCollection[store.name] = fn;
+}
 
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
@@ -1301,6 +1321,16 @@ function getStoreName(target) {
   return target.name;
 }
 /**
+ * Сhecking the existence of a repository by name
+ * @param {string} name
+ */
+
+function checkStoreName(name) {
+  if (repositories[name]) {
+    throw new CreateError("\u041Core than one store uses the name <" + name + ">.", name);
+  }
+}
+/**
  * Validating an action
  * @param {import('../../types/state').AnyAction} action
  */
@@ -1796,64 +1826,139 @@ function callFromStore(store, fn) {
   }, null, null, null, Promise);
 }
 
-function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
-
-function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var box = null;
 /**
- * This method is responsible for creating a new store.
- * Takes as the first argument a string with the store name.
- * and the initial state of the storage as the second argument
- * @param {string} name storage name
- * @param {import('../../types/store').Store} initial initial object
+ * Allows you to store actions in an isolated container
+ * and retrieve them if necessary. It can be useful
+ * for eliminating cyclic dependencies.
+ */
+
+var container = {
+  /**
+   * The method allows you to put actions in a container
+   * @param {object} actions actions object
+   */
+  include: function include(actions) {
+    for (var key in actions) {
+      var _objectSpread2;
+
+      actionError(actions[key]);
+      box = _objectSpread$3(_objectSpread$3({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
+    }
+  },
+
+  /**
+   * The method allows you to put actions in a container
+   * @param {string} storeName store name
+   * @return {object} actions
+   */
+  extract: function extract(storeName) {
+    return box[storeName];
+  }
+};
+
+/**
+ * This method allows you to add combined state
+ * containers to the createStore structure
+ * @param {import('../../types/store').CombineProto} proto actions object
+ * @return {import('../../types/store').CombineActions}
+ *  a set of parameters containing the actions and middleware fields
+*/
+function combineActions(proto) {
+  var actions = {};
+  var middle = {};
+
+  for (var key in proto) {
+    actions[key] = key + "/action";
+    middle[actions[key]] = proto[key];
+  }
+
+  return {
+    actions: actions,
+    middleware: [function _callee(_ref, next) {
+      var action, state, payload, res;
+      return regenerator.async(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              action = _ref.action, state = _ref.state, payload = _ref.payload;
+
+              if (middle[action]) {
+                _context.next = 4;
+                break;
+              }
+
+              next(payload);
+              return _context.abrupt("return");
+
+            case 4:
+              _context.next = 6;
+              return regenerator.awrap(middle[action](state, payload));
+
+            case 6:
+              res = _context.sent;
+
+              if (!res) {
+                _context.next = 10;
+                break;
+              }
+
+              next(res);
+              return _context.abrupt("return");
+
+            case 10:
+              next(state);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, null, null, Promise);
+    }]
+  };
+}
+
+/**
+ * This method allows you to add middleware for the state handler.
+ * @param {import('../../types/store').Store} store the store params
+ * @return {import('../../types/store').MiddlewareParams}
+ * returns a set of methods
  * @public
  */
 
-function newStore(name, initial) {
-  if (initial === void 0) {
-    initial = {};
+function middleware(store) {
+  if (!repositories[store.name]) {
+    throw new CreateError(messages.noStore(store.name));
   }
 
-  if (!name) {
-    throw new CreateError(messages.noStoreName);
-  }
-
-  if (typeof name !== 'string') {
-    throw new CreateError(messages.storageNameError('newStore'));
-  }
-
-  if (typeOf(initial) !== 'object') {
-    throw new CreateError(messages.initialType, name);
-  }
-
-  repositories[name] = {
-    content: initial,
-    actions: {}
-  };
+  var s = store.name;
   return {
-    name: name,
+    /**
+     * Adds a handler to the middleware task list.
+     * @param {function} fn middle function
+     * @public
+     */
+    add: function add(fn) {
+      if (typeof fn !== 'function') {
+        throw new CreateError(messages.middleNoFunc, s);
+      }
 
-    /** Subscribe by change @param {function} fn */
-    subscribe: function subscribe(fn) {
-      return subscribeToStore(name, fn);
-    },
-
-    /** get reposiory */
-    get: function get() {
-      return getStore(name);
-    },
-
-    /** add to reposiory @param {object} instance */
-    add: function add(instance) {
-      return addStore(name, instance);
+      if (middlewares[s]) {
+        middlewares[s].push(fn);
+      } else {
+        middlewares[s] = [fn];
+      }
     }
   };
 }
+
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * This method binds states to the storage via the "add" method.
  * Gets the storage name string as an argument.
@@ -1873,7 +1978,7 @@ function createActionTo(params) {
     }
 
     return {
-      content: _objectSpread$3(_objectSpread$3({}, repositories[params.name].content), stns.initial)
+      content: _objectSpread$4(_objectSpread$4({}, repositories[params.name].content), stns.initial)
     };
   };
 
@@ -1900,13 +2005,13 @@ function createActionTo(params) {
       }
 
       var actionStr = "\"" + action + "\"";
-      states[actionStr] = _objectSpread$3(_objectSpread$3({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
+      states[actionStr] = _objectSpread$4(_objectSpread$4({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
       var actionParams = {
         name: params.name,
         type: action
       };
 
-      var returnedParams = _objectSpread$3(_objectSpread$3({}, actionParams), {}, {
+      var returnedParams = _objectSpread$4(_objectSpread$4({}, actionParams), {}, {
         /**
          * Update state
          * @param {import('../../types/state').DispatchPayload} payload
@@ -1947,152 +2052,67 @@ function createActionTo(params) {
     name: params.name
   };
 }
+
 /**
- * This helper method takes the first parameter "createactionsTo"
- * and adds actions to it from the string array of the second argument.
- * @param {import('../../types/state').ActionCreator} createActions
- * createactionsto(storage name) method
- * @param {array[string]} actions actions string array
- * @return {{import('../types/state').StateAction}[]} actions
+ * This method is responsible for creating a new store.
+ * Takes as the first argument a string with the store name.
+ * and the initial state of the storage as the second argument
+ * @param {string} name storage name
+ * @param {import('../../types/store').Store} initial initial object
  * @public
  */
 
-function initialActions(createActions, actions) {
-  return actions.map(function (item) {
-    var args = typeof item === 'string' ? [item] : [item.name, item.options];
-    return createActions.bind.apply(null, args);
-  });
-}
-/**
- * This helper method converts the actions received via the argument to an array
- * @return {import('../../types/state').StateCollection}
- * returns the "compile" method
- * @public
- */
+function newStore(name, initial) {
+  if (initial === void 0) {
+    initial = {};
+  }
 
-function stateCollection() {
-  var collection = {};
+  if (!name) {
+    throw new CreateError(messages.noStoreName);
+  }
+
+  if (typeof name !== 'string') {
+    throw new CreateError(messages.storageNameError('newStore'));
+  }
+
+  if (typeOf(initial) !== 'object') {
+    throw new CreateError(messages.initialType, name);
+  }
+
+  checkStoreName(name);
+  repositories[name] = {
+    content: initial,
+    actions: {}
+  };
   return {
-    /**
-     * compile state collection
-     * @return {import('../../types/state').StateCollectionRepo}
-     * actions collection
-     * @public
-     */
-    compile: function compile() {
-      for (var _len = arguments.length, actions = new Array(_len), _key = 0; _key < _len; _key++) {
-        actions[_key] = arguments[_key];
-      }
+    name: name,
 
-      for (var _i = 0, _actions = actions; _i < _actions.length; _i++) {
-        var action = _actions[_i];
-        actionError(action);
-
-        if (!collection[action.name]) {
-          collection[action.name] = [_objectSpread$3({}, action)];
-          continue;
-        }
-
-        collection[action.name].push(_objectSpread$3({}, action));
-      }
-
-      return _objectSpread$3({}, collection);
+    /** Subscribe by change @param {function} fn */
+    subscribe: function subscribe(fn) {
+      return subscribeToStore(name, fn);
     },
 
-    /**
-     * Get the entire collection actions
-     * @return {import('../../types/state').StateCollectionRepo}
-     * collections instance
-     * @public
-     */
-    all: function all() {
-      return _objectSpread$3({}, collection);
+    /** get reposiory */
+    get: function get() {
+      return getStore(name);
     },
 
-    /**
-     * Get a collection by matching the storage name
-     * @param {string} name storage name
-     * @return {import('../../types/state').StateAction[]}
-     * collections instance
-     * @public
-     */
-    fromStore: function fromStore(name) {
-      return [].concat(collection[name]);
-    },
-
-    /**
-     * Get the result filtered by state name
-     * @param {string} stateName state name
-     * @return {import('../../types/state').StateAction[]} state list
-     * @public
-     */
-    outOfState: function outOfState(actionName) {
-      var out = [];
-
-      for (var key in collection) {
-        out = [].concat(out, collection[key].filter(function (_ref) {
-          var type = _ref.type;
-          return type === actionName;
-        }));
-      }
-
-      return out;
+    /** add to reposiory @param {object} instance */
+    add: function add(instance) {
+      return addStore(name, instance);
     }
   };
 }
-/**
- * This method allows you to add middleware for the state handler.
- * @param {import('../../types/store').Store} store the store params
- * @return {import('../../types/store').MiddlewareParams}
- * returns a set of methods
- * @public
- */
 
-function middleware(store) {
-  if (!repositories[store.name]) {
-    throw new CreateError(messages.noStore(store.name));
-  }
+function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
-  var s = store.name;
-  return {
-    /**
-     * Adds a handler to the middleware task list.
-     * @param {function} fn middle function
-     * @public
-     */
-    add: function add(fn) {
-      if (typeof fn !== 'function') {
-        throw new CreateError(messages.middleNoFunc, s);
-      }
+function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
 
-      if (middlewares[s]) {
-        middlewares[s].push(fn);
-      } else {
-        middlewares[s] = [fn];
-      }
-    }
-  };
-}
-/**
- * This method allows you to add your own debugger.
- * The debugger will accept and output logs instead of the standard debugger.
- * @param {import('../../types/store').Store} store store object
- * @param {import('../../types/store').DebuggerListener} fn
- * debugger callback function
- * @public
- */
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function createDebuger(store, fn) {
-  if (!repositories[store.name]) {
-    throw new CreateError(messages.noStore(store.name));
-  }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-  if (typeof fn !== 'function') {
-    throw new CreateError(messages.debuggerNoFunc);
-  }
-
-  debugCollection[store.name] = fn;
-}
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Monolithic method for creating a biscuit storage.
  * This is the preferred method for creating a store.
@@ -2110,7 +2130,7 @@ function createStore(options) {
   /** DefaultParams */
 
 
-  var params = _objectSpread$3({
+  var params = _objectSpread$5({
     strictMode: true
   }, options);
   /** Create a new storage */
@@ -2121,10 +2141,18 @@ function createStore(options) {
   /** Set of storage parameters */
 
   var output = {
-    store: _objectSpread$3({}, store),
+    store: _objectSpread$5({}, store),
     actions: {}
   };
+  /** Combine actions */
+
+  if (params.combineActions) {
+    var data = combineActions(params.combineActions);
+    params.actions = _objectSpread$5(_objectSpread$5({}, params.actions), data.actions);
+    middleware(store).add(data.middleware[0]);
+  }
   /** Adding States to the store */
+
 
   if (params.actions) {
     for (var key in params.actions) {
@@ -2162,6 +2190,12 @@ function createStore(options) {
   if (params.initialCall) {
     callFromStore(store, params.initialCall);
   }
+  /** Add to container */
+
+
+  if (params.addToСontainer) {
+    container.include(output.actions);
+  }
   /** Strict mod */
 
 
@@ -2169,9 +2203,106 @@ function createStore(options) {
   return output;
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/**
+ * This helper method takes the first parameter "createactionsTo"
+ * and adds actions to it from the string array of the second argument.
+ * @param {import('../../types/state').ActionCreator} createActions
+ * createactionsto(storage name) method
+ * @param {array[string]} actions actions string array
+ * @return {{import('../types/state').StateAction}[]} actions
+ * @public
+ */
+function initialActions(createActions, actions) {
+  return actions.map(function (item) {
+    var args = typeof item === 'string' ? [item] : [item.name, item.options];
+    return createActions.bind.apply(null, args);
+  });
+}
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/**
+ * This helper method converts the actions received via the argument to an array
+ * @return {import('../../types/state').StateCollection}
+ * returns the "compile" method
+ * @public
+ */
+
+function stateCollection() {
+  var collection = {};
+  return {
+    /**
+     * compile state collection
+     * @return {import('../../types/state').StateCollectionRepo}
+     * actions collection
+     * @public
+     */
+    compile: function compile() {
+      for (var _len = arguments.length, actions = new Array(_len), _key = 0; _key < _len; _key++) {
+        actions[_key] = arguments[_key];
+      }
+
+      for (var _i = 0, _actions = actions; _i < _actions.length; _i++) {
+        var action = _actions[_i];
+        actionError(action);
+
+        if (!collection[action.name]) {
+          collection[action.name] = [_objectSpread$6({}, action)];
+          continue;
+        }
+
+        collection[action.name].push(_objectSpread$6({}, action));
+      }
+
+      return _objectSpread$6({}, collection);
+    },
+
+    /**
+     * Get the entire collection actions
+     * @return {import('../../types/state').StateCollectionRepo}
+     * collections instance
+     * @public
+     */
+    all: function all() {
+      return _objectSpread$6({}, collection);
+    },
+
+    /**
+     * Get a collection by matching the storage name
+     * @param {string} name storage name
+     * @return {import('../../types/state').StateAction[]}
+     * collections instance
+     * @public
+     */
+    fromStore: function fromStore(name) {
+      return [].concat(collection[name]);
+    },
+
+    /**
+     * Get the result filtered by state name
+     * @param {string} stateName state name
+     * @return {import('../../types/state').StateAction[]} state list
+     * @public
+     */
+    outOfState: function outOfState(actionName) {
+      var out = [];
+
+      for (var key in collection) {
+        out = [].concat(out, collection[key].filter(function (_ref) {
+          var type = _ref.type;
+          return type === actionName;
+        }));
+      }
+
+      return out;
+    }
+  };
+}
+
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * The State Manager allows you to manage the storage and its state.
  * Provides a set of methods for two-way merge, replace, copy,
@@ -2191,7 +2322,7 @@ function createManager(action) {
      * @public
      */
     merge: function merge() {
-      repositories[action.name].content = _objectSpread$4(_objectSpread$4({}, getStoreContent(action.name)), getStateLink(action).content);
+      repositories[action.name].content = _objectSpread$7(_objectSpread$7({}, getStoreContent(action.name)), getStateLink(action).content);
     },
 
     /**
@@ -2200,7 +2331,7 @@ function createManager(action) {
      * @public
      */
     pull: function pull() {
-      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink(action).content), getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread$7(_objectSpread$7({}, getStateLink(action).content), getStoreContent(action.name));
     },
 
     /**
@@ -2208,7 +2339,7 @@ function createManager(action) {
      * @public
      */
     replaceStore: function replaceStore() {
-      repositories[action.name].content = _objectSpread$4({}, getStateLink(action).content);
+      repositories[action.name].content = _objectSpread$7({}, getStateLink(action).content);
     },
 
     /**
@@ -2217,7 +2348,7 @@ function createManager(action) {
      * @public
      */
     replaceState: function replaceState() {
-      getStateLink(action).content = _objectSpread$4({}, getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread$7({}, getStoreContent(action.name));
     },
 
     /**
@@ -2229,7 +2360,7 @@ function createManager(action) {
      */
     mergeState: function mergeState(targetAction) {
       actionError(targetAction);
-      getStateLink(action).content = _objectSpread$4(_objectSpread$4({}, getStateLink({
+      getStateLink(action).content = _objectSpread$7(_objectSpread$7({}, getStateLink({
         type: targetAction.type,
         name: action.name
       }).content), getStateLink(action).content);
@@ -2297,40 +2428,6 @@ function createManager(action) {
   };
 }
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var box = null;
-/**
- * Allows you to store actions in an isolated container
- * and retrieve them if necessary. It can be useful
- * for eliminating cyclic dependencies.
- */
-
-var container = {
-  /**
-   * The method allows you to put actions in a container
-   * @param {object} actions actions object
-   */
-  include: function include(actions) {
-    for (var key in actions) {
-      var _objectSpread2;
-
-      actionError(actions[key]);
-      box = _objectSpread$5(_objectSpread$5({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
-    }
-  },
-
-  /**
-   * The method allows you to put actions in a container
-   * @param {string} storeName store name
-   * @return {object} actions
-   */
-  extract: function extract(storeName) {
-    return box[storeName];
-  }
-};
-
 var utils = {
   createLog: createLog,
   CreateError: CreateError,
@@ -2341,4 +2438,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addStore, callFromStore, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, callFromStore, combineActions, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };

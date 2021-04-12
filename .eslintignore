@@ -5,3 +5,6 @@ dist/*
 lib*
 es*
 build
+packages/*/lib
+packages/*/es
+packages/*/dist

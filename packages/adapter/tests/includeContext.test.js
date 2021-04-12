@@ -6,7 +6,9 @@ it('includeContext test', (done) => {
 
 	const adapter = createAdapter();
 
-	adapter.includeContext(() => ({ value: 'ctx_ready' }));
+	adapter.includeContext((ctx) => {
+		return { value: 'ctx_ready' };
+	});
 
 	adapter.action('add/action', ({ payload, value }) => {
 		expect(value).toEqual('ctx_ready');

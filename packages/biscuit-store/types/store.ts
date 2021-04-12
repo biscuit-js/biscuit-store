@@ -98,6 +98,11 @@ export interface StoreSettings {
 	 * to the store during initialization
 	 */
 	initialCall?: <T>(store?: T) => void;
+	/** Combined actions */
+	combineActions?: {
+		[propName: string]:
+		<S = object, P = object>(state?: S, payload?: P) => void;
+	};
 	/** Enable or disable strict mode */
 	strictMode?: boolean;
 }
@@ -136,3 +141,14 @@ export interface Container {
 	 */
 	extract: (storeName: string) => {[propName: string]: StateAction};
 }
+
+/** The type describes the arguments of the combineActions method */
+export interface CombineProto<S = object> {
+	[propName: string]: <P = object>(state?: S, payload?: P) => void;
+}
+
+/** The interface describes the returned combineActions parameters */
+export interface CombineActions {
+	middleware: Middleware[];
+	actions: Actions;
+};

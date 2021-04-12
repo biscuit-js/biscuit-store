@@ -10,14 +10,14 @@ const ctxTempl = { send: 1, getAction: 1, payload: 1, state: 1 };
 export function includeContext(ctxCreator, options = { catche: true }) {
 	let counter = 0;
 
-	const ctxWork = async () => {
+	const ctxWork = async (current) => {
 		let check = true;
 		if (options.catche) {
 			check = counter === 0;
 		}
 
 		if (check) {
-			const ctx = await ctxCreator();
+			const ctx = await ctxCreator(current);
 			if (Object.keys(ctx).some((el) => ctxTempl[el])) {
 				throw new Error(
 					'An attempt to overwrite the standard context fields was detected.'
