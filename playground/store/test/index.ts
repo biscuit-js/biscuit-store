@@ -1,5 +1,5 @@
 import { createStore } from '../../../packages/biscuit-store';
-import { adapter } from './adapter';
+import { connect } from './adapter';
 
 const { actions, store } = createStore({
 	name: 'user',
@@ -16,7 +16,7 @@ const { actions, store } = createStore({
 		testInclude: 'test/include',
 		testExecute: 'test/execute',
 	},
-	middleware: [adapter.connect],
+	middleware: [connect],
 });
 
 export const testStore = store;

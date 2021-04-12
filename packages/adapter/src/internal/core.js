@@ -3,7 +3,7 @@ import { runCall } from './call';
 import { runPromiseFunc } from './promiseFunc';
 import { makeChannel } from './makeChannel';
 import { includeContext } from './includeContext';
-import { runDebounce, runThrottle } from './debounce';
+import { runCallEffect } from './debounce';
 
 /** A collection of tasks for the scheduler */
 const tasks = {
@@ -11,8 +11,8 @@ const tasks = {
 	call: runCall,
 	all: runPromiseFunc,
 	race: runPromiseFunc,
-	actionDebounce: runDebounce,
-	actionThrottle: runThrottle,
+	debounce: runCallEffect,
+	throttle: runCallEffect,
 };
 
 /**
@@ -157,14 +157,13 @@ export function createAdapter() {
 		 * @param {number} limit time limit
 		 * @param {bool} immediate first call
 		 */
-		actionDebounce: (actionName, fn, limit = 0, immediate = true) => {
-			const type = 'actionDebounce';
+		debounce: (actionName, fn, limit = 0) => {
+			const type = 'debounce';
 			createWork({
 				type,
 				actionName,
 				fn,
 				limit,
-				immediate,
 				await: true,
 			});
 		},
@@ -175,8 +174,8 @@ export function createAdapter() {
 		 * @param {function} fn listner function
 		 * @param {number} limit time limit
 		 */
-		actionThrottle: (actionName, fn, limit = 0) => {
-			const type = 'actionThrottle';
+		throttle: (actionName, fn, limit = 0) => {
+			const type = 'throttle';
 			createWork({
 				type,
 				actionName,

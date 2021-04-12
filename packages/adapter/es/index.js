@@ -758,25 +758,38 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function runAction(_ref) {
   var fn = _ref.fn;
   return function _callee(context, next) {
-    var payload, state, getAction, current, prevState, update;
+    var payload, state, getAction, current, checkSend, update;
     return regenerator.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-            prevState = _objectSpread({}, state);
-            update = fn(_objectSpread(_objectSpread({}, current), {}, {
-              payload: payload,
-              state: state,
-              send: next,
-              getAction: getAction
-            }));
+            _context.t0 = fn;
+            _context.t1 = _objectSpread;
+            _context.t2 = _objectSpread({}, current);
+            _context.t3 = {};
+            _context.t4 = payload;
+            _context.t5 = state;
+            _context.t6 = getAction;
+            _context.t7 = {
+              payload: _context.t4,
+              state: _context.t5,
 
-            if (update && prevState !== state) {
+              get send() {
+                checkSend = true;
+                return next;
+              },
+
+              getAction: _context.t6
+            };
+            _context.t8 = (0, _context.t1)(_context.t2, _context.t3, _context.t7);
+            update = (0, _context.t0)(_context.t8);
+
+            if (!checkSend) {
               next(update || state);
             }
 
-          case 4:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -1030,7 +1043,7 @@ function throttle(callback, limit) {
  * @return {function}
  */
 
-function debounce(callback, limit, immediate) {
+function debounce(callback, limit) {
   var timeout;
 
   function debounced() {
@@ -1045,10 +1058,6 @@ function debounce(callback, limit, immediate) {
     };
 
     clearTimeout(timeout);
-
-    if (immediate) {
-      later();
-    }
     timeout = setTimeout(later, limit);
   }
 
@@ -1062,6 +1071,10 @@ function debounce(callback, limit, immediate) {
 function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var types = {
+  debounce: debounce,
+  throttle: throttle
+};
 /**
  * This method allows you to call an action with the debounce effect
  * @param {string} actionName action name
@@ -1070,69 +1083,28 @@ function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { 
  * @param {bool} immediate first call
  */
 
-function runDebounce(_ref) {
+function runCallEffect(_ref) {
   var fn = _ref.fn,
       limit = _ref.limit,
-      immediate = _ref.immediate;
-  var deb = debounce(fn, limit, immediate);
+      type = _ref.type;
+  var func = types[type](fn, limit);
   return function _callee(context, next) {
-    var payload, state, getAction, current, update;
+    var payload, state, getAction, current;
     return regenerator.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-            update = deb(_objectSpread$3(_objectSpread$3({}, current), {}, {
+            func(_objectSpread$3(_objectSpread$3({}, current), {}, {
               payload: payload,
               state: state,
-              send: next,
-              getAction: getAction
+              getAction: getAction,
+              send: next
             }));
 
-            if (update) {
-              next(update);
-            }
-
-          case 3:
+          case 2:
           case "end":
             return _context.stop();
-        }
-      }
-    }, null, null, null, Promise);
-  };
-}
-/**
- * This method allows you to call an action with the throttle effect
- * @param {string} actionName action name
- * @param {function} fn listner function
- * @param {number} limit time limit
- */
-
-function runThrottle(_ref2) {
-  var fn = _ref2.fn,
-      limit = _ref2.limit;
-  var thr = throttle(fn, limit);
-  return function _callee2(context, next) {
-    var payload, state, getAction, current, update;
-    return regenerator.async(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-            update = thr(_objectSpread$3(_objectSpread$3({}, current), {}, {
-              payload: payload,
-              state: state,
-              send: next,
-              getAction: getAction
-            }));
-
-            if (update) {
-              next(update);
-            }
-
-          case 3:
-          case "end":
-            return _context2.stop();
         }
       }
     }, null, null, null, Promise);
@@ -1149,8 +1121,8 @@ var tasks = {
   call: runCall,
   all: runPromiseFunc,
   race: runPromiseFunc,
-  actionDebounce: runDebounce,
-  actionThrottle: runThrottle
+  debounce: runCallEffect,
+  throttle: runCallEffect
 };
 /**
  * This is a feature for creating middleware for the biscuit-store.
@@ -1400,22 +1372,17 @@ function createAdapter() {
      * @param {number} limit time limit
      * @param {bool} immediate first call
      */
-    actionDebounce: function actionDebounce(actionName, fn, limit, immediate) {
+    debounce: function debounce(actionName, fn, limit) {
       if (limit === void 0) {
         limit = 0;
       }
 
-      if (immediate === void 0) {
-        immediate = true;
-      }
-
-      var type = 'actionDebounce';
+      var type = 'debounce';
       createWork({
         type: type,
         actionName: actionName,
         fn: fn,
         limit: limit,
-        immediate: immediate,
         await: true
       });
     },
@@ -1426,12 +1393,12 @@ function createAdapter() {
      * @param {function} fn listner function
      * @param {number} limit time limit
      */
-    actionThrottle: function actionThrottle(actionName, fn, limit) {
+    throttle: function throttle(actionName, fn, limit) {
       if (limit === void 0) {
         limit = 0;
       }
 
-      var type = 'actionThrottle';
+      var type = 'throttle';
       createWork({
         type: type,
         actionName: actionName,

@@ -26,7 +26,7 @@ export function throttle(callback, limit) {
  * @param {number} limit counter
  * @return {function}
  */
-export function debounce(callback, limit, immediate) {
+export function debounce(callback, limit) {
 	let timeout;
 	function debounced(...args) {
 		const that = this;
@@ -34,9 +34,6 @@ export function debounce(callback, limit, immediate) {
 			callback.apply(that, args);
 		};
 		clearTimeout(timeout);
-		if (immediate) {
-			later();
-		};
 		timeout = setTimeout(later, limit);
 	}
 

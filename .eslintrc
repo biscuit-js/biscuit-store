@@ -18,8 +18,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:sonarjs/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "prettier"
 
   ],
   "parser": "@typescript-eslint/parser",
@@ -34,7 +34,8 @@
   "plugins": [
     "sonarjs",
     "optimize-regex",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
     "no-shadow": ["error"],
@@ -150,6 +151,6 @@
     "@typescript-eslint/no-this-alias": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off"
+    "@typescript-eslint/no-unsafe-member-access": "off",
   }
 }

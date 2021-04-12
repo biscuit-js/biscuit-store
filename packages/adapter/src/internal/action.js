@@ -9,12 +9,15 @@
 export function runAction({ fn }) {
 	return async (context, next) => {
 		let { payload, state, getAction, current } = context;
-		const prevState = { ...state };
+		let checkSend;
 		const update = fn(
-			{ ...current, payload, state, send: next, getAction }
+			{ ...current, payload, state, get send() {
+				checkSend = true;
+				return next;
+			}, getAction }
 		);
 
-		if (update && prevState !== state) {
+		if (!checkSend) {
 			next(update || state);
 		}
 	};
