@@ -1,4 +1,4 @@
-# @biscuit-store/adapter
+# @biscuit-store/types
 
 ## 1.2.1
 ### Patch Changes
