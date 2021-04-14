@@ -813,39 +813,39 @@ function runCall(_ref) {
   var fn = _ref.fn,
       handler = _ref.handler;
   return function _callee(context, next) {
-    var payload, state, getAction, current, handleData, update;
+    var payload, state, getAction, current, handleData, ctx, update;
     return regenerator.async(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
             handleData = null;
-            _context.next = 4;
-            return regenerator.awrap(fn(_objectSpread$1(_objectSpread$1({}, context.current), {}, {
+            ctx = _objectSpread$1(_objectSpread$1({}, current), {}, {
               payload: payload,
               state: state,
-              getAction: getAction,
-              current: current
-            })));
+              getAction: getAction
+            });
+            _context.next = 5;
+            return regenerator.awrap(fn(ctx));
 
-          case 4:
+          case 5:
             update = _context.sent;
 
             if (!handler) {
-              _context.next = 9;
+              _context.next = 10;
               break;
             }
 
-            _context.next = 8;
-            return regenerator.awrap(handler(update));
-
-          case 8:
-            handleData = _context.sent;
+            _context.next = 9;
+            return regenerator.awrap(handler(update, ctx));
 
           case 9:
-            next(handleData || update);
+            handleData = _context.sent;
 
           case 10:
+            next(handleData || update);
+
+          case 11:
           case "end":
             return _context.stop();
         }

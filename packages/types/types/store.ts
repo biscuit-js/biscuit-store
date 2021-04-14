@@ -104,6 +104,8 @@ export interface StoreSettings {
 		[propName: string]:
 		<S = object, P = object>(state?: S, payload?: P) => void;
 	};
+	/** Add actions container */
+	addToContainer: boolean;
 	/** Enable or disable strict mode */
 	strictMode?: boolean;
 }
