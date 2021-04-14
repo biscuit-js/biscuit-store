@@ -157,13 +157,14 @@ export function createAdapter() {
 		 * @param {number} limit time limit
 		 * @param {bool} immediate first call
 		 */
-		debounce: (actionName, fn, limit = 0) => {
+		debounce: (actionName, fn, limit = 0, immediate = false) => {
 			const type = 'debounce';
 			createWork({
 				type,
 				actionName,
 				fn,
 				limit,
+				immediate,
 				await: true,
 			});
 		},
@@ -181,6 +182,7 @@ export function createAdapter() {
 				actionName,
 				fn,
 				limit,
+				immediate: false,
 				await: true,
 			});
 		},

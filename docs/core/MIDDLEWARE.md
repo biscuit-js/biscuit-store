@@ -101,7 +101,7 @@ error.subscribe((state) => {
 });
 
 ```
-[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/recursing-bird-vdbv2?file=/src/store/counter/service.js)
+[![Edit Biscuit-store/react](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storereact-vdbv2?fontsize=14&hidenavigation=1&theme=dark)
 
 Congratulations! Now you have a better understanding of how middleware work in Biscuit.
 

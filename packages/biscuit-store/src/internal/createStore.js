@@ -78,7 +78,7 @@ export function createStore(options) {
 	}
 
 	/** Add to container */
-	if (params.addToСontainer) {
+	if (params.addToContainer) {
 		container.include(output.actions);
 	}
 

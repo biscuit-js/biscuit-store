@@ -30,7 +30,7 @@ export default () => (
     </div>
 );
 ```
-[![N|Solid](https://raw.githubusercontent.com/biscuit-js/biscuit-store/HEAD/docs/assets/exemple-button.png)](https://codesandbox.io/s/biscuit-store-javascript-74pfo)
+[![Edit Biscuit-store javascript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-store-javascript-74pfo?fontsize=14&hidenavigation=1&theme=dark)
 
 
 Also, listen returns the associated storage data to the component properties.

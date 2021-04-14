@@ -91,7 +91,7 @@ let's take a closer look at the fields of this method in more detail:
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
 | initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
-
+| addToContainer       | Add actions to the [container](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md#container) | boolean | false     | no |
 
 Description for the states object:
 | field   | description                                                      | type    | default   | require |
