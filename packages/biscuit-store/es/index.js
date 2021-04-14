@@ -2079,7 +2079,10 @@ function newStore(name, initial) {
     throw new CreateError(messages.initialType, name);
   }
 
-  checkStoreName(name);
+  if (settings.strictMode[name]) {
+    checkStoreName(name);
+  }
+
   repositories[name] = {
     content: initial,
     actions: {}
@@ -2193,7 +2196,7 @@ function createStore(options) {
   /** Add to container */
 
 
-  if (params.addToСontainer) {
+  if (params.addToContainer) {
     container.include(output.actions);
   }
   /** Strict mod */

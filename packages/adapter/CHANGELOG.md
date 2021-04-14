@@ -1,5 +1,11 @@
 # @biscuit-store/adapter
 
+## 1.2.1
+### Patch Changes
+- Added ctx to call method handler
+- Now you can combine return with free field changes.
+- Added immediate to debounce
+
 ## 1.2.0
 ### Major Changes
 - Added debounce function

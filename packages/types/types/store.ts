@@ -104,6 +104,8 @@ export interface StoreSettings {
 		[propName: string]:
 		<S = object, P = object>(state?: S, payload?: P) => void;
 	};
+	/** Add actions container */
+	addToContainer: boolean;
 	/** Enable or disable strict mode */
 	strictMode?: boolean;
 }
@@ -145,7 +147,7 @@ export interface Container {
 
 /** The type describes the arguments of the combineActions method */
 export type CombineProto<S = object> =
-	{ [propName: string]: <P = object>(state?: S, payload?: P) => void };
+{ [propName: string]: <P = object>(state?: S, payload?: P) => void };
 
 /** The interface describes the returned combineActions parameters */
 export interface CombineActions {

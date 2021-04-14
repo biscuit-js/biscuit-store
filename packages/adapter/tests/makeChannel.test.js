@@ -1,7 +1,7 @@
 import { createAdapter } from '../src/index';
 import { testStore } from './testStore.js';
 
-it('calling action', (done) => {
+it('calling makeChannel', (done) => {
 	expect.assertions(2);
 	const adapter = createAdapter();
 	const chan = adapter.makeChannel();

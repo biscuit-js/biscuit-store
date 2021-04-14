@@ -1,5 +1,9 @@
 # @biscuit-store/react
 
+## 1.2.1
+### Patch Changes
+- Update core deps
+
 ## 1.2.0
 ### Minor Changes
 

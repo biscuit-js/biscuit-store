@@ -105,7 +105,8 @@ export interface Adapter {
 	debounce: <T = {}, P = {}, S = {}>(
 		actionName: string,
 		fn: ActionListner<T, P, S>,
-		limit: number
+		limit: number,
+		immediate: boolean
 	) => void;
 
 	/**

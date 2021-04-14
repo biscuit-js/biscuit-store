@@ -1,5 +1,5 @@
 import { CreateError } from './debugger';
-import { repositories } from './repositories';
+import { repositories, settings } from './repositories';
 import { getStore, subscribeToStore, addStore } from './store';
 import { typeOf } from './utils';
 import { checkStoreName } from './helper';
@@ -26,7 +26,9 @@ export function newStore(name, initial = {}) {
 		throw new CreateError(messages.initialType, name);
 	}
 
-	checkStoreName(name);
+	if (settings.strictMode[name]) {
+		checkStoreName(name);
+	}
 
 	repositories[name] = { content: initial, actions: {} };
 
