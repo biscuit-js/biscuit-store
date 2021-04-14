@@ -28,7 +28,7 @@ it('container test', () => {
 			step: 'step/action',
 		},
 		strictMode: false,
-		addToСontainer: true,
+		addToContainer: true,
 	});
 
 	const { start, step } = container.extract('test2');

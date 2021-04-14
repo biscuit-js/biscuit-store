@@ -10,7 +10,8 @@ export function runCall({ fn, handler }) {
 	return async (context, next) => {
 		let { payload, state, getAction, current } = context;
 		let handleData = null;
-		const ctx = { ...current, payload, state, getAction };
+		const ctx = { ...current, payload,
+			state, getAction };
 		const update = await fn(ctx);
 
 		if (handler) {
@@ -18,6 +19,6 @@ export function runCall({ fn, handler }) {
 				await handler(update, ctx);
 		}
 
-		next(handleData || update);
+		next({ ...state, ...(handleData ? handleData : update) });
 	};
 };

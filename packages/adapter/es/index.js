@@ -764,32 +764,38 @@ function runAction(_ref) {
         switch (_context.prev = _context.next) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-            _context.t0 = fn;
-            _context.t1 = _objectSpread;
-            _context.t2 = _objectSpread({}, current);
-            _context.t3 = {};
-            _context.t4 = payload;
-            _context.t5 = state;
-            _context.t6 = getAction;
-            _context.t7 = {
-              payload: _context.t4,
-              state: _context.t5,
+            _context.t0 = regenerator;
+            _context.t1 = fn;
+            _context.t2 = _objectSpread;
+            _context.t3 = _objectSpread({}, current);
+            _context.t4 = {};
+            _context.t5 = payload;
+            _context.t6 = state;
+            _context.t7 = getAction;
+            _context.t8 = {
+              payload: _context.t5,
+              state: _context.t6,
 
               get send() {
                 checkSend = true;
                 return next;
               },
 
-              getAction: _context.t6
+              getAction: _context.t7
             };
-            _context.t8 = (0, _context.t1)(_context.t2, _context.t3, _context.t7);
-            update = (0, _context.t0)(_context.t8);
+            _context.t9 = (0, _context.t2)(_context.t3, _context.t4, _context.t8);
+            _context.t10 = (0, _context.t1)(_context.t9);
+            _context.next = 14;
+            return _context.t0.awrap.call(_context.t0, _context.t10);
+
+          case 14:
+            update = _context.sent;
 
             if (!checkSend) {
-              next(update || state);
+              next(update ? _objectSpread(_objectSpread({}, state), update) : state);
             }
 
-          case 12:
+          case 16:
           case "end":
             return _context.stop();
         }
@@ -843,7 +849,7 @@ function runCall(_ref) {
             handleData = _context.sent;
 
           case 10:
-            next(handleData || update);
+            next(_objectSpread$1(_objectSpread$1({}, state), handleData ? handleData : update));
 
           case 11:
           case "end":
@@ -1043,7 +1049,7 @@ function throttle(callback, limit) {
  * @return {function}
  */
 
-function debounce(callback, limit) {
+function debounce(callback, limit, immediate) {
   var timeout;
 
   function debounced() {
@@ -1058,6 +1064,10 @@ function debounce(callback, limit) {
     };
 
     clearTimeout(timeout);
+
+    if (immediate) {
+      later();
+    }
     timeout = setTimeout(later, limit);
   }
 
@@ -1086,8 +1096,9 @@ var types = {
 function runCallEffect(_ref) {
   var fn = _ref.fn,
       limit = _ref.limit,
-      type = _ref.type;
-  var func = types[type](fn, limit);
+      type = _ref.type,
+      immediate = _ref.immediate;
+  var func = types[type](fn, limit, immediate);
   return function _callee(context, next) {
     var payload, state, getAction, current;
     return regenerator.async(function _callee$(_context) {
@@ -1372,9 +1383,13 @@ function createAdapter() {
      * @param {number} limit time limit
      * @param {bool} immediate first call
      */
-    debounce: function debounce(actionName, fn, limit) {
+    debounce: function debounce(actionName, fn, limit, immediate) {
       if (limit === void 0) {
         limit = 0;
+      }
+
+      if (immediate === void 0) {
+        immediate = false;
       }
 
       var type = 'debounce';
@@ -1383,6 +1398,7 @@ function createAdapter() {
         actionName: actionName,
         fn: fn,
         limit: limit,
+        immediate: immediate,
         await: true
       });
     },
@@ -1404,6 +1420,7 @@ function createAdapter() {
         actionName: actionName,
         fn: fn,
         limit: limit,
+        immediate: false,
         await: true
       });
     },

@@ -7,8 +7,8 @@ const types = { debounce, throttle };
  * @param {number} limit time limit
  * @param {bool} immediate first call
  */
-export function runCallEffect({ fn, limit, type }) {
-	const func = types[type](fn, limit);
+export function runCallEffect({ fn, limit, type, immediate }) {
+	const func = types[type](fn, limit, immediate);
 	return async (context, next) => {
 		let { payload, state, getAction, current } = context;
 		func({

@@ -26,7 +26,7 @@ export function newStore(name, initial = {}) {
 		throw new CreateError(messages.initialType, name);
 	}
 
-	if (settings.strictMode[storeName]) {
+	if (settings.strictMode[name]) {
 		checkStoreName(name);
 	}
 

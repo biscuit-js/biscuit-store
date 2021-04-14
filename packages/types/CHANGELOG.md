@@ -1,5 +1,9 @@
 # @biscuit-store/adapter
 
+## 1.2.1
+### Patch Changes
+- Added type field addTocontainer
+
 ## 1.2.0
 ### Patch Changes
 - Update core types
