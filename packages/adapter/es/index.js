@@ -744,9 +744,9 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 var regenerator = runtime_1;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
  * A function that performs the logic
@@ -766,8 +766,13 @@ function runAction(_ref) {
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
             _context.t0 = regenerator;
             _context.t1 = fn;
+<<<<<<< Updated upstream
             _context.t2 = _objectSpread;
             _context.t3 = _objectSpread({}, current);
+=======
+            _context.t2 = _objectSpread$4;
+            _context.t3 = _objectSpread$4({}, current);
+>>>>>>> Stashed changes
             _context.t4 = {};
             _context.t5 = payload;
             _context.t6 = state;
@@ -792,7 +797,11 @@ function runAction(_ref) {
             update = _context.sent;
 
             if (!checkSend) {
+<<<<<<< Updated upstream
               next(update ? _objectSpread(_objectSpread({}, state), update) : state);
+=======
+              next(update ? _objectSpread$4(_objectSpread$4({}, state), update) : state);
+>>>>>>> Stashed changes
             }
 
           case 16:
@@ -804,9 +813,9 @@ function runAction(_ref) {
   };
 }
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
  * A function that performs the logic
@@ -826,7 +835,11 @@ function runCall(_ref) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
             handleData = null;
+<<<<<<< Updated upstream
             ctx = _objectSpread$1(_objectSpread$1({}, current), {}, {
+=======
+            ctx = _objectSpread$3(_objectSpread$3({}, current), {}, {
+>>>>>>> Stashed changes
               payload: payload,
               state: state,
               getAction: getAction
@@ -849,7 +862,11 @@ function runCall(_ref) {
             handleData = _context.sent;
 
           case 10:
+<<<<<<< Updated upstream
             next(_objectSpread$1(_objectSpread$1({}, state), handleData ? handleData : update));
+=======
+            next(_objectSpread$3(_objectSpread$3({}, state), handleData ? handleData : update));
+>>>>>>> Stashed changes
 
           case 11:
           case "end":
@@ -1078,9 +1095,9 @@ function debounce(callback, limit, immediate) {
   return debounced;
 }
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var types = {
   debounce: debounce,
   throttle: throttle
@@ -1106,7 +1123,7 @@ function runCallEffect(_ref) {
         switch (_context.prev = _context.next) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
-            func(_objectSpread$3(_objectSpread$3({}, current), {}, {
+            func(_objectSpread$1(_objectSpread$1({}, current), {}, {
               payload: payload,
               state: state,
               getAction: getAction,
@@ -1122,9 +1139,9 @@ function runCallEffect(_ref) {
   };
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /** A collection of tasks for the scheduler */
 
 var tasks = {
@@ -1216,7 +1233,7 @@ function createAdapter() {
   var createWork = function createWork(params) {
     var _objectSpread2;
 
-    connectors[params.type] = _objectSpread$4(_objectSpread$4({}, connectors[params.type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + params.actionName + "\""] = params, _objectSpread2));
+    connectors[params.type] = _objectSpread(_objectSpread({}, connectors[params.type]), {}, (_objectSpread2 = {}, _objectSpread2["\"" + params.actionName + "\""] = params, _objectSpread2));
   };
 
   return {
@@ -1233,8 +1250,8 @@ function createAdapter() {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.t0 = _objectSpread$4;
-              _context3.t1 = _objectSpread$4({}, context);
+              _context3.t0 = _objectSpread;
+              _context3.t1 = _objectSpread({}, context);
               _context3.t2 = {};
               _context3.next = 5;
               return regenerator.awrap(includes.modify(context));

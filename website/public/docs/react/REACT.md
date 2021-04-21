@@ -18,6 +18,7 @@ yarn add @biscuit-store/react
  **Decorators:**
  - [Observer](/docs/react/observer)
  - [Subscribe](/docs/react/subscribe)
+ - [Listen](/docs/react/listen)
 
  **Hooks:**
 - [useSubscribe](/docs/react/usesubscribe)

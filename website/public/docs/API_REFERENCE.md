@@ -71,7 +71,14 @@ const helloStore = createStore({
             initial: { version : 0 }
         },
     }, 
+    combineActions: {
+        change: (state, payload) => {
+            state.value = payload.value
+        }
+    },
     middleware: [middleFunc],
+    initialCall: async () => ({ value: 100 }),
+    addToContainer: true,
     debugger: (e) => {
         console.log(e);
     },
@@ -84,13 +91,15 @@ export const { increment, decrement, save } = helloStore.actions;
 let's take a closer look at the fields of this method in more detail:
 | field      | description                                                                                                                                                                                            | type                                  | default   | require |
 |------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|-----------|---------|
-| name       | The name of the store | undefined | yes     |
-| initial    | Storage source data | undefined | yes     |
-| actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string, usually written in uppercase. | object{[prop]: string \| object}      | undefined | no      |
+| name       | The name of the store | string | yes     |
+| initial    | Storage source data | object | yes     |
+| actions    | This field must contain a set of actions in the format key-value.  Key is the name of the variable that you want to get in the end,  and value is the action name string. | object{[prop]: string \| object}      | undefined | no      |
 | middleware | This is an array of middleware functions.  The callback of such a function returns two arguments:  the first is the context and the second is the sending function.                                    | array[function(callback)]             | undefined | no      |
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
 | initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
-| strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
+| strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                                | boolean                               | true      | no      |
+| addToContainer       | Add actions to the [container](/docs/api#container) | boolean | false     | no |
+| combineActions       | Allows you to create combined actions that are functions with encapsulated logic. | object | null     | no |
 
 
 Description for the states object:
@@ -1022,4 +1031,48 @@ export const { store, actions } = createStore({
 });
 
 container.include(actions);
+```
+#### adapter.race
+This method is similar to the Promise.race function. 
+Accepts a set of promises and gets the result of the first one that was fulfilled.
+```javascript
+const { race } = createAdapter();
+
+race('race/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+```
+The method take the action name, the handler function, and the promise array.
+
+
+#### adapter.all
+This method is similar to the Promise.all function. 
+Accepts a set of promises and returns the results after all of them are fulfilled.
+```javascript
+const { all } = createAdapter();
+
+all('race/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+```
+The method take the action name, the handler function, and the promise array.
+
+#### adapter.debounce
+Debounce, this ensures that all other calls will be ignored during ms.
+```javascript
+const { debounce } = createAdapter();
+
+debounce('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200, false);
+```
+
+#### adapter.throttle
+Throttle allows you to make a call no more than once in a given period of time.
+```javascript
+const { throttle } = createAdapter();
+
+throttle('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200);
 ```

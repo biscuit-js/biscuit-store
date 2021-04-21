@@ -21,7 +21,7 @@ function Input() {
 ```
 Learn more about [throttle](https://javascript.info/task/throttle)
 
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/DispatchThrottleExample.tsx)
+[![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)
 
 ### Learn more
 - [useDispatchDebounce](/docs/react/debounce)

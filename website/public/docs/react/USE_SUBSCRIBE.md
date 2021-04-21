@@ -30,6 +30,6 @@ Example with disabled state:
 ```javascript
 const [state, setState] = useSubscribe(counter, false);
 ```
-[![N|Solid](../assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/UseSubscribeExamole.tsx)
+[![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)
 ### Learn more
 - [useDispatch](/docs/react/dispatch)
