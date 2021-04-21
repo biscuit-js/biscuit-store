@@ -7,19 +7,26 @@ The CreateAdapter function contains methods:
 - **adapter.call** - Calls an asynchronous function and handler. **Available from version 0.9.97**
 - **adapter.makeChannel** - Creates a channel for communication between actions. **Available from version 0.9.97**
 - **adapter.includeContext** - Allows you to include the dataset in the adapter context. **Available from version 1.1.0**
-
+- **adapter.race** - This method implements the logic identical to promise.race. **Available from version 1.2.0**
+- **adapter.all** - This method implements the logic identical to promise.all. **Available from version 1.2.0**
+- **adapter.debounce** - This method allows you to call an action with the debounce effect. **Available from version 1.2.0**
+- **adapter.throttle** - This method allows you to call an action with the throttle effect. **Available from version 1.2.0**
+  
 Creating an adapter is extremely simple:
 ```javascript
 import { createAdapter } from "@biscuit-store/adapter";
 const { action, connect } = createAdapter();
 
-action("counter/add", ({ payload, state, getAction }) => {
-  getAction("counter/prev").dispatch({prev: state.value});
+action("counter/increment", ({ payload, state }) => {
   return { value: state.value + payload.value };
 });
 
-action("counter/clear", ({ payload, store, send }) => {
-  send({ value: 0 });
+action("counter/decrement", ({ payload, state }) => {
+  send({ value: state.value - payload.value });
+});
+
+action("counter/clear", ({ state }) => {
+  state.value = 0;
 });
 
 export const adapter = connect;
@@ -158,6 +165,61 @@ export const { store, actions } = createStore({
 
 container.include(actions);
 ```
+
+### Debounce and throttle
+Throttling and debouncing are widely used techniques to increase 
+the performance of code that is executed repeatedly with some frequency.
+```javascript
+  const { debounce } = createAdapter();
+
+	debounce(
+		'add/action', ({ payload, state, send }) => {
+			send({ value: state.value + payload.value });
+  }, 200, false);
+```
+
+```javascript
+  const { throttle } = createAdapter();
+
+	throttle(
+		'add/action', ({ payload, state, send }) => {
+			send({ value: state.value + payload.value });
+  }, 200);
+```
+
+### Debounce and throttle
+Throttling and debouncing are widely used techniques to increase 
+the performance of code that is executed repeatedly with some frequency.
+```javascript
+const { debounce } = createAdapter();
+
+debounce('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200, false);
+```
+Time effects functions, do not know how to work with mutable fields and returns. the send method is used for transmitting data.
+```javascript
+const { throttle } = createAdapter();
+
+throttle('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200);
+```
+
+### All and race
+The atomic methods all and race are identical in functionality to the Promise.all and Promise.race methods.
+```javascript
+const { race, all } = createAdapter();
+
+race('race/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+
+all('all/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+```
+The methods take the action name, the handler function, and the promise array.
 
 ### Structure
 I recommend using this storage structure when using the adapter:

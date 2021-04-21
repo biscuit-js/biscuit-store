@@ -39,7 +39,14 @@ const helloStore = createStore({
             initial: { version : 0 }
         },
     }, 
+    combineActions: {
+        change: (state, payload) => {
+            state.value = payload.value
+        }
+    },
     middleware: [middleFunc],
+    initialCall: async () => ({ value: 100 }),
+    addToContainer: true,
     debugger: (e) => {
         console.log(e);
     },
@@ -59,6 +66,8 @@ let's take a closer look at the fields of this method in more detail:
 | debugger   | This field must contain a function that will return the log.                                                                                                                                           | function(callback)                    | undefined | no      |
 | initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                                | boolean                               | true      | no      |
+| addToContainer       | Add actions to the [container](/docs/api#container) | boolean | false     | no |
+| combineActions       | Allows you to create combined actions that are functions with encapsulated logic. | object | null     | no |
 
 
 Description for the states object:

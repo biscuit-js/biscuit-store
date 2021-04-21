@@ -20,7 +20,7 @@ function Component() {
   );
 }
  ```
-[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/DispatchExample.tsx)
+[![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)
 
  ## Learn more
  - [useDispatchThrottle](/docs/react/throttle)

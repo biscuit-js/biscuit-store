@@ -38,7 +38,7 @@ function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -264,11 +264,11 @@ function createDebuger(store, fn) {
   debugCollection[store.name] = fn;
 }
 
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
  * Module of the library responsible for creating tasks and subscribing to them.
  * @param  {string} action action name
@@ -334,7 +334,7 @@ function createEmitter() {
 
       var tasks = [];
 
-      for (var _iterator = _createForOfIteratorHelperLoose(actions), _step; !(_step = _iterator()).done;) {
+      for (var _iterator = _createForOfIteratorHelperLoose$1(actions), _step; !(_step = _iterator()).done;) {
         var _step$value = _step.value,
             name = _step$value.name,
             type = _step$value.type;
@@ -366,7 +366,7 @@ function createEmitter() {
       return {
         /** Remove listners */
         remove: function remove() {
-          for (var _iterator2 = _createForOfIteratorHelperLoose(tasks), _step2; !(_step2 = _iterator2()).done;) {
+          for (var _iterator2 = _createForOfIteratorHelperLoose$1(tasks), _step2; !(_step2 = _iterator2()).done;) {
             var _step2$value = _step2.value,
                 name = _step2$value.name,
                 index = _step2$value.index;
@@ -390,7 +390,7 @@ function createEmitter() {
       new Log("dispatch -> name: " + name + ", type: " + type, name);
 
       if (taskBuffer[name]) {
-        for (var _iterator3 = _createForOfIteratorHelperLoose(taskBuffer[name]), _step3; !(_step3 = _iterator3()).done;) {
+        for (var _iterator3 = _createForOfIteratorHelperLoose$1(taskBuffer[name]), _step3; !(_step3 = _iterator3()).done;) {
           var task = _step3.value;
 
           if (task.type === type) {
@@ -1281,9 +1281,9 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 var regenerator = runtime_1;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Get store link
  * @param {string} name
@@ -1401,7 +1401,7 @@ function activeMiddlewares(context, fn) {
  */
 
 function gettter(instance) {
-  return Object.freeze(_objectSpread({}, instance));
+  return Object.freeze(_objectSpread$7({}, instance));
 }
 /**
  * Helper method for comparing two objects
@@ -1444,9 +1444,9 @@ function compareObject(first, last) {
   return equal;
 }
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 function dispatchProto(_ref) {
   var _this = this;
 
@@ -1470,7 +1470,7 @@ function dispatchProto(_ref) {
 
 
   this.merge = function () {
-    repositories[action.name].content = _objectSpread$1(_objectSpread$1({}, prev), payData);
+    repositories[action.name].content = _objectSpread$6(_objectSpread$6({}, prev), payData);
     return _this;
   };
   /**
@@ -1488,7 +1488,7 @@ function dispatchProto(_ref) {
         switch (_context.prev = _context.next) {
           case 0:
             call = function call(resolve) {
-              resolve(_objectSpread$1({}, getStateLink(action).content));
+              resolve(_objectSpread$6({}, getStateLink(action).content));
               task.remove();
             };
 
@@ -1544,9 +1544,9 @@ function dispatchInitMiddleware(_ref2) {
   }, null, null, null, Promise);
 }
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Allows you to subscribe to the store. and tracks its change.
  * @param {string} name store name
@@ -1601,7 +1601,7 @@ function addStore(target, instance) {
     throw new CreateError(messages.initialType);
   }
 
-  repositories[name].content = _objectSpread$2(_objectSpread$2({}, getStoreContent(name)), instance);
+  repositories[name].content = _objectSpread$5(_objectSpread$5({}, getStoreContent(name)), instance);
 }
 /**
  * This method is used to get data from the storage by its key.
@@ -1621,7 +1621,7 @@ function getStore(target) {
     throw new CreateError(messages.noStore(name));
   }
 
-  return gettter(_objectSpread$2({}, getStoreContent(name)));
+  return gettter(_objectSpread$5({}, getStoreContent(name)));
 }
 /**
  * This method is needed to get the storage state
@@ -1636,7 +1636,7 @@ function getStore(target) {
 
 function getState(action) {
   actionError(action);
-  return gettter(_objectSpread$2({}, getStateLink(action).content));
+  return gettter(_objectSpread$5({}, getStateLink(action).content));
 }
 /**
  * This is one of the most important methods.
@@ -1677,7 +1677,7 @@ function dispatch(action, payload) {
         switch (_context.prev = _context.next) {
           case 0:
             state = getStateLink(action);
-            prev = _objectSpread$2({}, state.content);
+            prev = _objectSpread$5({}, state.content);
             /** if the function
              * then pass the current state to the callback  */
 
@@ -1700,7 +1700,7 @@ function dispatch(action, payload) {
             payData = _context.sent;
 
             /** update state data */
-            getStateLink(action).content = _objectSpread$2(_objectSpread$2({}, state.content), payData);
+            getStateLink(action).content = _objectSpread$5(_objectSpread$5({}, state.content), payData);
             /** create dispatch action */
 
             emitter.dispatchAction(action);
@@ -1715,7 +1715,7 @@ function dispatch(action, payload) {
   }
 
   var task = promise();
-  return _objectSpread$2({
+  return _objectSpread$5({
     wait: task
   }, voids);
 }
@@ -1826,9 +1826,9 @@ function callFromStore(store, fn) {
   }, null, null, null, Promise);
 }
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var box = null;
 /**
  * Allows you to store actions in an isolated container
@@ -1846,7 +1846,7 @@ var container = {
       var _objectSpread2;
 
       actionError(actions[key]);
-      box = _objectSpread$3(_objectSpread$3({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
+      box = _objectSpread$4(_objectSpread$4({}, box), {}, (_objectSpread2 = {}, _objectSpread2[actions[key].name] = actions, _objectSpread2));
     }
   },
 
@@ -1956,9 +1956,9 @@ function middleware(store) {
   };
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * This method binds states to the storage via the "add" method.
  * Gets the storage name string as an argument.
@@ -1978,7 +1978,7 @@ function createActionTo(params) {
     }
 
     return {
-      content: _objectSpread$4(_objectSpread$4({}, repositories[params.name].content), stns.initial)
+      content: _objectSpread$3(_objectSpread$3({}, repositories[params.name].content), stns.initial)
     };
   };
 
@@ -2005,13 +2005,13 @@ function createActionTo(params) {
       }
 
       var actionStr = "\"" + action + "\"";
-      states[actionStr] = _objectSpread$4(_objectSpread$4({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
+      states[actionStr] = _objectSpread$3(_objectSpread$3({}, states[actionStr]), {}, (_objectSpread2 = {}, _objectSpread2[params.name] = createNewState(options), _objectSpread2));
       var actionParams = {
         name: params.name,
         type: action
       };
 
-      var returnedParams = _objectSpread$4(_objectSpread$4({}, actionParams), {}, {
+      var returnedParams = _objectSpread$3(_objectSpread$3({}, actionParams), {}, {
         /**
          * Update state
          * @param {import('../../types/state').DispatchPayload} payload
@@ -2107,15 +2107,15 @@ function newStore(name, initial) {
   };
 }
 
-function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Monolithic method for creating a biscuit storage.
  * This is the preferred method for creating a store.
@@ -2133,7 +2133,7 @@ function createStore(options) {
   /** DefaultParams */
 
 
-  var params = _objectSpread$5({
+  var params = _objectSpread$2({
     strictMode: true
   }, options);
   /** Create a new storage */
@@ -2144,14 +2144,14 @@ function createStore(options) {
   /** Set of storage parameters */
 
   var output = {
-    store: _objectSpread$5({}, store),
+    store: _objectSpread$2({}, store),
     actions: {}
   };
   /** Combine actions */
 
   if (params.combineActions) {
     var data = combineActions(params.combineActions);
-    params.actions = _objectSpread$5(_objectSpread$5({}, params.actions), data.actions);
+    params.actions = _objectSpread$2(_objectSpread$2({}, params.actions), data.actions);
     middleware(store).add(data.middleware[0]);
   }
   /** Adding States to the store */
@@ -2173,7 +2173,7 @@ function createStore(options) {
   if (params.middleware && params.middleware.length > 0) {
     var middle = middleware(store);
 
-    for (var _iterator = _createForOfIteratorHelperLoose$1(params.middleware), _step; !(_step = _iterator()).done;) {
+    for (var _iterator = _createForOfIteratorHelperLoose(params.middleware), _step; !(_step = _iterator()).done;) {
       var fn = _step.value;
       middle.add(fn);
     }
@@ -2222,9 +2222,9 @@ function initialActions(createActions, actions) {
   });
 }
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * This helper method converts the actions received via the argument to an array
  * @return {import('../../types/state').StateCollection}
@@ -2251,14 +2251,14 @@ function stateCollection() {
         actionError(action);
 
         if (!collection[action.name]) {
-          collection[action.name] = [_objectSpread$6({}, action)];
+          collection[action.name] = [_objectSpread$1({}, action)];
           continue;
         }
 
-        collection[action.name].push(_objectSpread$6({}, action));
+        collection[action.name].push(_objectSpread$1({}, action));
       }
 
-      return _objectSpread$6({}, collection);
+      return _objectSpread$1({}, collection);
     },
 
     /**
@@ -2268,7 +2268,7 @@ function stateCollection() {
      * @public
      */
     all: function all() {
-      return _objectSpread$6({}, collection);
+      return _objectSpread$1({}, collection);
     },
 
     /**
@@ -2303,9 +2303,9 @@ function stateCollection() {
   };
 }
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * The State Manager allows you to manage the storage and its state.
  * Provides a set of methods for two-way merge, replace, copy,
@@ -2325,7 +2325,7 @@ function createManager(action) {
      * @public
      */
     merge: function merge() {
-      repositories[action.name].content = _objectSpread$7(_objectSpread$7({}, getStoreContent(action.name)), getStateLink(action).content);
+      repositories[action.name].content = _objectSpread(_objectSpread({}, getStoreContent(action.name)), getStateLink(action).content);
     },
 
     /**
@@ -2334,7 +2334,7 @@ function createManager(action) {
      * @public
      */
     pull: function pull() {
-      getStateLink(action).content = _objectSpread$7(_objectSpread$7({}, getStateLink(action).content), getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread(_objectSpread({}, getStateLink(action).content), getStoreContent(action.name));
     },
 
     /**
@@ -2342,7 +2342,7 @@ function createManager(action) {
      * @public
      */
     replaceStore: function replaceStore() {
-      repositories[action.name].content = _objectSpread$7({}, getStateLink(action).content);
+      repositories[action.name].content = _objectSpread({}, getStateLink(action).content);
     },
 
     /**
@@ -2351,7 +2351,7 @@ function createManager(action) {
      * @public
      */
     replaceState: function replaceState() {
-      getStateLink(action).content = _objectSpread$7({}, getStoreContent(action.name));
+      getStateLink(action).content = _objectSpread({}, getStoreContent(action.name));
     },
 
     /**
@@ -2363,7 +2363,7 @@ function createManager(action) {
      */
     mergeState: function mergeState(targetAction) {
       actionError(targetAction);
-      getStateLink(action).content = _objectSpread$7(_objectSpread$7({}, getStateLink({
+      getStateLink(action).content = _objectSpread(_objectSpread({}, getStateLink({
         type: targetAction.type,
         name: action.name
       }).content), getStateLink(action).content);

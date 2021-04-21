@@ -28,7 +28,7 @@ Observer supports working with multiple stores, meaning you can add several acti
 
 > Still, I recommend thinking through your architecture so that your observer components have as few dependencies as possible.
 
-[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/pedantic-rosalind-r3neo?file=/src/index.js)
+[![Edit Biscuit-store/example-react](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storeexample-react-r3neo?fontsize=14&hidenavigation=1&theme=dark)
 #### Dependencies are required
 Dependencies are necessary for two reasons. First, without them, the component simply does not understand when it needs to be updated. Secondly, the obvious indication of dependencies makes the code more readable, you can always understand what storage or state the component is bound to, and determine what data it accepts.
 ### Learn more

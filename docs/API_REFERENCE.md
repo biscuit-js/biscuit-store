@@ -71,7 +71,14 @@ const helloStore = createStore({
             initial: { version : 0 }
         },
     }, 
+    combineActions: {
+        change: (state, payload) => {
+            state.value = payload.value
+        }
+    },
     middleware: [middleFunc],
+    initialCall: async () => ({ value: 100 }),
+    addToContainer: true,
     debugger: (e) => {
         console.log(e);
     },
@@ -92,6 +99,10 @@ let's take a closer look at the fields of this method in more detail:
 | initialCall    | Runs a method that writes the object to the store during initialization | function | undefined     | no     |
 | strictMode | When StrictMode is enabled, you will receive warnings. For example when you have a dispatch but no subscribe                                                                                           | boolean                               | true      | no      |
 | addToContainer       | Add actions to the [container](https://github.com/biscuit-js/biscuit-store/blob/HEAD/docs/API_REFERENCE.md#container) | boolean | false     | no |
+<<<<<<< Updated upstream
+=======
+| combineActions       | Allows you to create combined actions that are functions with encapsulated logic. | object | null     | no |
+>>>>>>> Stashed changes
 
 Description for the states object:
 | field   | description                                                      | type    | default   | require |
@@ -1035,4 +1046,49 @@ export const { store, actions } = createStore({
 });
 
 container.include(actions);
+```
+
+#### adapter.race
+This method is similar to the Promise.race function. 
+Accepts a set of promises and gets the result of the first one that was fulfilled.
+```javascript
+const { race } = createAdapter();
+
+race('race/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+```
+The method take the action name, the handler function, and the promise array.
+
+
+#### adapter.all
+This method is similar to the Promise.all function. 
+Accepts a set of promises and returns the results after all of them are fulfilled.
+```javascript
+const { all } = createAdapter();
+
+all('race/action', (result) => {
+    return { value: result.data };
+}, [promise1, promise2, promise3]);
+```
+The method take the action name, the handler function, and the promise array.
+
+#### adapter.debounce
+Debounce, this ensures that all other calls will be ignored during ms.
+```javascript
+const { debounce } = createAdapter();
+
+debounce('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200, false);
+```
+
+#### adapter.throttle
+Throttle allows you to make a call no more than once in a given period of time.
+```javascript
+const { throttle } = createAdapter();
+
+throttle('fetch/action', ({ payload, state, send }) => {
+    send({ value: state.value + payload.value });
+}, 200);
 ```
