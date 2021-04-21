@@ -24,4 +24,4 @@ function Input() {
 ```
 Learn more about [debounce](https://levelup.gitconnected.com/debounce-in-javascript-improve-your-applications-performance-5b01855e086#:~:text=A%20debounce%20is%20a%20cousin,to%20fetch%20typeahead%20search%20results.)
 
-[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/DispatchDebounceExample.tsx)
+[![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)

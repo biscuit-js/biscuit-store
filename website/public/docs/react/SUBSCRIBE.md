@@ -39,7 +39,7 @@ This function is perfect for the case when you need to bind multiple repositorie
 
 > It is recommended to use **Subscribe** in specific cases, and if possible, give preference to [Observer](/docs/react/observer).
 
-[![N|Solid](/docs/assets/exemple-button.png)](https://codesandbox.io/s/vigorous-kalam-fyhdc?file=/src/SubscribeExample.tsx)
+[![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Learn more
 - [Listen](/docs/react/listen))

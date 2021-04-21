@@ -242,18 +242,17 @@ Now let's write our adapter:
 *adapter.js*
 ``` javascript
 import { createAdapter } from "@biscuit-store/adapter";
+const { action, connect } = createAdapter();
 
-const adapter = createAdapter();
-
-adapter.action("increment/action", ({ payload, state }) => {
+action("increment/action", ({ payload, state }) => {
     return {value: state.value + payload.value};
 });
 
-adapter.action("decrement/action", ({ payload, state, send }) => {
+action("decrement/action", ({ payload, state, send }) => {
     send({ ...payload, value: state.value - value });
 });
 
-export adapter;
+export { connect };
 ```
 As you probably noticed, the adapter can synchronously return updated data via return, or asynchronously via the third argument-method.
 
@@ -262,7 +261,7 @@ Now let's upgrade our store:
 *helloWorldStore.js*
 ``` javascript
 import { createStore } from "@biscuit-store/core";
-import { adapter } from "./adapter.js";
+import { connect } from "./adapter.js";
 
 const helloWorldStore = createStore({
     name: "helloWorld",
@@ -271,7 +270,7 @@ const helloWorldStore = createStore({
         increment: "increment/action",
         decrement: "decrement/action",
     }, 
-    middleware: [adapter.connect]
+    middleware: [connect]
 });
 ```
 

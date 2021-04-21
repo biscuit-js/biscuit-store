@@ -88,6 +88,29 @@ Branches can be useful in many cases... For example, if you want to create some 
 
 > Branches are an interesting tool. But I urge you to be careful with it and not use it unnecessarily... Playing with bifurcated States, you can call the paradox of [Schrödinger cat](https://en.wikipedia.org/wiki/Schr%C3%B6dinger%27s_cat). =)
 
+### Combine actions
+Combined actions This is the built-in ability of biscuit to work with integrated functions for state management.
+
+example:
+```javascript
+import { createStore } from "@biscuit-store/core";
+
+const { actions } = createStore({
+  name: "counter",
+  initial: { value: 0 },
+  combineActions: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+  }
+});
+
+const { increment, decrement } = actions;
+```
+
 Next, we will study manager.
 
 ### Learn more

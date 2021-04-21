@@ -91,5 +91,28 @@ Branches can be useful in many cases... For example, if you want to create some 
 
 Next, we will study manager.
 
+### Combine actions
+Combined actions This is the built-in ability of biscuit to work with integrated functions for state management.
+
+example:
+```javascript
+import { createStore } from "@biscuit-store/core";
+
+const { actions } = createStore({
+  name: "counter",
+  initial: { value: 0 },
+  combineActions: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+  }
+});
+
+const { increment, decrement } = actions;
+```
+
 ### Learn more
 - [Manager](/docs/manager)
