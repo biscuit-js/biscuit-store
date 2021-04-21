@@ -147,10 +147,6 @@ increment.dispatch().after(({ value }) => {
    console.log("count:", value);
 });
 ```
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 [![Edit Biscuit-store/example-javascript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storeexample-javascript-forked-yn1x1?fontsize=14&hidenavigation=1&theme=dark)
 
 ### Some more examples
