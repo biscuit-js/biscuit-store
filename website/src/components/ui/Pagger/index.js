@@ -11,7 +11,7 @@ export function Pagger({ data }) {
 	return (
 		<div className='pagger'>
 			<div className='paggerButtons'>
-				{data.map(({ title, value }, i) => (
+				{data.map(({ title, value, smallOff }, i) => (
 					<div
 						className={offset === value ? 'active' : ''}
 						onClick={() => handleOffset(value)}

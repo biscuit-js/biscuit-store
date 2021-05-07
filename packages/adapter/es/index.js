@@ -766,13 +766,8 @@ function runAction(_ref) {
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
             _context.t0 = regenerator;
             _context.t1 = fn;
-<<<<<<< Updated upstream
-            _context.t2 = _objectSpread;
-            _context.t3 = _objectSpread({}, current);
-=======
             _context.t2 = _objectSpread$4;
             _context.t3 = _objectSpread$4({}, current);
->>>>>>> Stashed changes
             _context.t4 = {};
             _context.t5 = payload;
             _context.t6 = state;
@@ -797,11 +792,7 @@ function runAction(_ref) {
             update = _context.sent;
 
             if (!checkSend) {
-<<<<<<< Updated upstream
-              next(update ? _objectSpread(_objectSpread({}, state), update) : state);
-=======
               next(update ? _objectSpread$4(_objectSpread$4({}, state), update) : state);
->>>>>>> Stashed changes
             }
 
           case 16:
@@ -835,11 +826,7 @@ function runCall(_ref) {
           case 0:
             payload = context.payload, state = context.state, getAction = context.getAction, current = context.current;
             handleData = null;
-<<<<<<< Updated upstream
-            ctx = _objectSpread$1(_objectSpread$1({}, current), {}, {
-=======
             ctx = _objectSpread$3(_objectSpread$3({}, current), {}, {
->>>>>>> Stashed changes
               payload: payload,
               state: state,
               getAction: getAction
@@ -862,11 +849,7 @@ function runCall(_ref) {
             handleData = _context.sent;
 
           case 10:
-<<<<<<< Updated upstream
-            next(_objectSpread$1(_objectSpread$1({}, state), handleData ? handleData : update));
-=======
             next(_objectSpread$3(_objectSpread$3({}, state), handleData ? handleData : update));
->>>>>>> Stashed changes
 
           case 11:
           case "end":

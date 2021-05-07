@@ -36,3 +36,12 @@
 .pagger {
   margin-bottom: 25px;
 }
+
+@media all and (max-width: 600px) {
+  .paggerButtons > div {
+    margin: 15px 30px 15px 0;
+  }
+  .paggerButtons > div:nth-child(3) {
+    display: none;
+  }
+}

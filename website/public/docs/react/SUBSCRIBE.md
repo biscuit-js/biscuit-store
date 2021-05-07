@@ -42,4 +42,4 @@ This function is perfect for the case when you need to bind multiple repositorie
 [![Edit Biscuit-store/typescript](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/biscuit-storetypescript-fyhdc?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Learn more
-- [Listen](/docs/react/listen))
+- [Listen](/docs/react/listen)

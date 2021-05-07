@@ -21,6 +21,7 @@ const elements = [
 		target: <CodeBox code={combineActions} />,
 		title: 'Combine actions',
 		value: 600,
+		smallOff: true,
 	},
 	{
 		target: <CodeBox code={subscribe} />,

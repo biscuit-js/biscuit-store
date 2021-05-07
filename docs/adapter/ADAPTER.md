@@ -170,27 +170,6 @@ container.include(actions);
 Throttling and debouncing are widely used techniques to increase 
 the performance of code that is executed repeatedly with some frequency.
 ```javascript
-  const { debounce } = createAdapter();
-
-	debounce(
-		'add/action', ({ payload, state, send }) => {
-			send({ value: state.value + payload.value });
-  }, 200, false);
-```
-
-```javascript
-  const { throttle } = createAdapter();
-
-	throttle(
-		'add/action', ({ payload, state, send }) => {
-			send({ value: state.value + payload.value });
-  }, 200);
-```
-
-### Debounce and throttle
-Throttling and debouncing are widely used techniques to increase 
-the performance of code that is executed repeatedly with some frequency.
-```javascript
 const { debounce } = createAdapter();
 
 debounce('fetch/action', ({ payload, state, send }) => {
