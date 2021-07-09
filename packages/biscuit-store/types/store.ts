@@ -101,7 +101,7 @@ export interface StoreSettings<T = {[key: string]: any }> {
 	/** Combined actions */
 	combineActions?: {
 		[propName: string]:
-		<P = object>(state?: T, payload?: P) => void;
+		<P = object>(state: T, payload: P) => void;
 	};
 	/** Add actions container */
 	addToContainer?: boolean;
