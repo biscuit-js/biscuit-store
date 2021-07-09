@@ -7,7 +7,7 @@ export type GetAction = (actionName: string) => StateAction;
 export type Send = (newPayload: any) => void;
 
 /** adapter action context */
-export interface AdapterActionCtx<P = object, S = object> {
+export interface AdapterActionCtx<S = object, P = object> {
 	payload: P;
 	state: S;
 	getAction: GetAction;
@@ -20,9 +20,9 @@ export interface AdapterActionCtx<P = object, S = object> {
  * @param state state data
  * @param ctx response methods
  */
-export type ActionListner<T, P, S> = (
-	ctx: AdapterActionCtx<P, S>
-) => T | Promise<T> | void;
+export type ActionListner<S, P> = (
+	ctx: AdapterActionCtx<S, P>
+) => S | Promise<S> | void;
 
 /**
  * Type of the result handler
@@ -30,7 +30,7 @@ export type ActionListner<T, P, S> = (
  * @param state state data
  * @param ctx response methods
  */
-export type CallHandler<T, S> = (result: T, ctx: AdapterActionCtx<S>) => any;
+export type CallHandler<S> = (result: S, ctx: AdapterActionCtx<S>) => any;
 
 /** Channel type */
 export interface Channel {
@@ -48,9 +48,9 @@ export interface Channel {
 	extract: <T>(payload: T) => Promise<any>;
 }
 
-export type ListnerItem<A, B> = <P = A, S = B, T = any>(
-	ctx: AdapterActionCtx<P, S>
-) => T | Promise<T | P | S>;
+export type ListnerItem<S = any, P = any> = (
+	ctx: AdapterActionCtx<S, P>
+) => S | Promise<any>;
 
 /** Adapter returned interface */
 export interface Adapter {
@@ -67,9 +67,9 @@ export interface Adapter {
 	 * @param actionName action name
 	 * @param fn callback function
 	 */
-	action: <T = {}, P = {}, S = {}>(
+	action: <S = {}, P = {}>(
 		actionName: string,
-		fn: ActionListner<T, P, S>
+		fn: ActionListner<S, P>
 	) => void;
 
 	/**
@@ -78,22 +78,22 @@ export interface Adapter {
 	 * @param handler handler of the received result
 	 * @param fns arrauy async functions
 	 */
-	all: <A, B, C>(
+	all: <S = {}, P = {}, H = any>(
 		actionName: string,
-		handler: (result: C) => void,
-		fns: Array<ListnerItem<A, B>>
+		handler: (result: H) => void,
+		fns: Array<ListnerItem<S, P>>
 	) => void;
 
 	/**
 	 * This method implements the logic identical to promise.race.
 	 * @param actionName action name
 	 * @param handler handler of the received result
-	 * @param fns arrauy async functions
+	 * @param fns array async functions
 	 */
-	race: <A, B, C>(
+	race: <S = {}, P = {}, H = any>(
 		actionName: string,
-		handler: (result: C) => void,
-		fns: Array<ListnerItem<A, B>>
+		handler: (result: H) => void,
+		fns: Array<ListnerItem<S, P>>
 	) => void;
 
 	/**
@@ -102,9 +102,9 @@ export interface Adapter {
 	 * @param fn listner function
 	 * @param limit time limit
 	 */
-	debounce: <T = {}, P = {}, S = {}>(
+	debounce: <S = {}, P = {}>(
 		actionName: string,
-		fn: ActionListner<T, P, S>,
+		fn: ActionListner<S, P>,
 		limit: number,
 		immediate: boolean
 	) => void;
@@ -115,9 +115,9 @@ export interface Adapter {
 	 * @param fn listner function
 	 * @param limit time limit
 	 */
-	throttle: <T = {}, P = {}, S = {}>(
+	throttle: <S = {}, P = {}>(
 		actionName: string,
-		fn: ActionListner<T, P, S>,
+		fn: ActionListner<S, P>,
 		limit: number
 	) => void;
 
@@ -128,10 +128,10 @@ export interface Adapter {
 	 * @param fn async function
 	 * @param handler handler of the received result
 	 */
-	call: <T = {}, P = {}, S = {}>(
+	call: <S = {}, P = {}>(
 		actionName: string,
-		fn: ActionListner<T, P, T>,
-		handler?: CallHandler<T, S>
+		fn: ActionListner<S, P>,
+		handler?: CallHandler<S>
 	) => void;
 
 	/**

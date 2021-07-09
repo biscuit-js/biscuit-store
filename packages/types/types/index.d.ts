@@ -29,9 +29,9 @@ import {
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
-export function createStore
-<T extends StoreSettings, A extends StateAction, I>
-(options: T): StoreParams<A, I>;
+export function createStore<T = {[key: string]: any}>
+(options: StoreSettings<T>): StoreParams<T>;
+
 
 /**
  * This is one of the most important methods.
