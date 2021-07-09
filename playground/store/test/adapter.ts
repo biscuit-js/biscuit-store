@@ -1,34 +1,29 @@
 //
 import { createAdapter } from '../../../packages/adapter';
-import { AdapterActionCtx } from '../../../packages/adapter/types';
 import { ITestStore } from '../../common/interfaces';
 
-const { debounce, connect, makeChannel, race } = createAdapter();
+const { action, connect, makeChannel, race } = createAdapter();
 
 const chan = makeChannel();
 
-const testFirst = <P, S>
-({ payload }: AdapterActionCtx<P, S>): Promise<P> => {
+const testFirst = ({ payload }) => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(payload), 100);
 	});
 };
 
-const testLast = <P, S>
-({ payload }: AdapterActionCtx<P, S>): Promise<P> => {
+const testLast = ({ payload }) => {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(payload), 100);
 	});
 };
 
-debounce<ITestStore, ITestStore, ITestStore>('test/include', ({ payload, send }) => {
-	console.log("payload", payload);
+action<ITestStore, ITestStore>('test/include', ({ payload, send }) => {
 	send(payload);
-}, 300);
+});
 
 
-race<ITestStore, ITestStore, ITestStore>('test/execute', (result) => {
-	console.log("result", result);
+race<ITestStore, ITestStore>('test/execute', (result) => {
 	return result;
 }, [testFirst, testLast]);
 
