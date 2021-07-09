@@ -23,7 +23,7 @@ export function createStore(options) {
 	}
 
 	/** DefaultParams */
-	const params = { strictMode: true, ...options };
+	const params = { strictMode: false, ...options };
 
 	/** Create a new storage */
 	const store = newStore(params.name, params.initial);

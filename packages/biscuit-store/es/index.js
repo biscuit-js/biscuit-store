@@ -2134,7 +2134,7 @@ function createStore(options) {
 
 
   var params = _objectSpread$2({
-    strictMode: true
+    strictMode: false
   }, options);
   /** Create a new storage */
 

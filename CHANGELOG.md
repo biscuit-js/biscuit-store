@@ -1,5 +1,10 @@
 # @biscuit-store/core
 
+## 1.2.6
+### Major Changes
+
+- fix strict mode
+
 ## 1.2.3
 ### Major Changes
 
