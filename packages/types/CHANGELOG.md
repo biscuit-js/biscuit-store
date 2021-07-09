@@ -1,5 +1,9 @@
 # @biscuit-store/types
 
+## 1.2.3
+### Major Changes
+
+- fix types
 ## 1.2.1
 ### Patch Changes
 - Added type field addTocontainer

@@ -1,5 +1,10 @@
 # @biscuit-store/adapter
 
+## 1.2.3
+### Major Changes
+
+- fix types
+
 ## 1.2.1
 ### Patch Changes
 - Added ctx to call method handler
