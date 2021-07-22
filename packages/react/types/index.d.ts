@@ -22,7 +22,7 @@ import { Dispatch, AnyAction, StateAction, Store } from '@biscuit-store/types';
  * @return React component
  */
 declare function observer<S = any>(
-	Element: ReactComponent<S>,
+	Element: ReactComponent<any>,
 	deps: Deps<S>
 ): ReactComponent<any>;
 

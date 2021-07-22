@@ -11,7 +11,7 @@ export type SubscribeListner<T> = (state: T) => void;
 /**
  * This type defines the dispatch function
  */
-export type Dispatch = <T>(payload: T) => Dispatcher;
+export type Dispatch = <T>(payload?: T) => Dispatcher;
 
 /** The interface defines the action parameters for the state */
 export interface StateAction<T> {
