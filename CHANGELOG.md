@@ -1,5 +1,10 @@
 # @biscuit-store/core
 
+## 1.3.0
+### Major Changes
+
+- fix combineAction payload
+  
 ## 1.2.9
 ### Major Changes
 
