@@ -4,6 +4,7 @@ import {
 	Store,
 	MiddlewareParams,
 	DebuggerListener,
+	Context,
 	Container,
 	CombineProto,
 	CombineActions,
@@ -16,7 +17,9 @@ import {
 	StateItem,
 	StateCollection,
 	Manager,
+	Dispatch,
 	DispatchPayload,
+	StaticAction,
 	AnyAction,
 } from './state';
 
@@ -29,6 +32,7 @@ import {
 export function createStore<T = {[key: string]: any}>
 (options: StoreSettings<T>): StoreParams<T>;
 
+
 /**
  * This is one of the most important methods.
  * Allows you to subscribe to the state. and tracks its change.
@@ -40,8 +44,8 @@ export function createStore<T = {[key: string]: any}>
  * @return promise
  * @async
  */
-export function subscribeToState<T>
-(action: AnyAction, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToState<S = any>
+(action: AnyAction<S>, fn?: SubscribeListner<S>): Promise<S>;
 
 /**
  * This is one of the most important methods.
@@ -49,7 +53,7 @@ export function subscribeToState<T>
  * The first argument takes the name store.
  * results can be obtained through the callback of the
  * second argument or through the return promise.
- * @param target store name or store
+ * @param repo store name
  * @param fn callback
  * @async
  */
@@ -72,7 +76,7 @@ export function subscribeToStore<T>
  * @async
  */
 export function dispatch
-<P extends DispatchPayload>(action: AnyAction, payload?: P): Dispatcher;
+<P extends DispatchPayload>(action: AnyAction<any>, payload?: P): Dispatcher;
 
 /**
  * This method is needed to get the storage state
@@ -82,14 +86,14 @@ export function dispatch
  * @param action the parameters of the action
  * @return state data
  */
-export function getState<T>(action: AnyAction): T;
+export function getState<T = any>(action: AnyAction<T>): T;
 
 /**
  * This method is used to get data from the storage by its key.
  * Warning: Storage data cannot be changed directly.
  * You can replace the values either with the "addStore"
  * method or with state injection via "manager".
- * @param target storage name
+ * @param target store name or store
  * @return storage data
  */
 export function getStore<T>(target: string | Store): T;
@@ -117,7 +121,7 @@ export function newStore<T>(repo: string, initial: T): Store<T>;
  * @param params name of the linked storage
  * @return returns the "add" method
  */
-export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
+export function createActionTo<S = {}>(params: Store<S>): ActionCreator<S>;
 
 /**
  * This helper method takes the first parameter "createactionsTo"
@@ -127,17 +131,17 @@ export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
  * @param actions actions string array
  * @return actions
  */
-export function initialActions(
-	createActions: ActionCreator,
+export function initialActions<S = any>(
+	createActions: ActionCreator<S>,
 	actions: (string | StateItem)[]
-): StateAction[];
+): StateAction<S>[];
 
 /**
  * This helper method converts the actions
  * received via the argument to an array
  * @return returns the "compile" method
  */
-export function stateCollection(): StateCollection;
+export function stateCollection<S = any>(): StateCollection<S>;
 
 /**
  * This method allows you to add middleware for the state handler.
@@ -161,7 +165,7 @@ export function createDebuger<T = {}>
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
-export function createManager(action: AnyAction): Manager;
+export function createManager<S = any>(action: AnyAction<S>): Manager<S>;
 
 /**
  * The method makes an asynchronous call
@@ -188,3 +192,26 @@ export const container: Container;
 */
 export function combineActions<S = object>
 (proto: CombineProto<S>): CombineActions;
+
+export {
+	StateAction,
+	SubscribeListner,
+	Dispatcher,
+	ActionCreator,
+	StateItem,
+	StateCollection,
+	Manager,
+	DispatchPayload,
+	StoreSettings,
+	StoreParams,
+	Store,
+	MiddlewareParams,
+	DebuggerListener,
+	StaticAction,
+	Dispatch,
+	AnyAction,
+	Context,
+	Container,
+	CombineProto,
+	CombineActions,
+};

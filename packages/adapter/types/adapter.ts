@@ -1,7 +1,7 @@
 import { StateAction, Context } from '@biscuit-store/types';
 
 /** Type for getAction method */
-export type GetAction = (actionName: string) => StateAction;
+export type GetAction<S> = (actionName: string) => StateAction<S>;
 
 /** Type for send method */
 export type Send = (newPayload: any) => void;
@@ -10,7 +10,7 @@ export type Send = (newPayload: any) => void;
 export interface AdapterActionCtx<S = object, P = object> {
 	payload: P;
 	state: S;
-	getAction: GetAction;
+	getAction: GetAction<S>;
 	send: Send;
 }
 
@@ -60,7 +60,10 @@ export interface Adapter {
 	 * @param context contains action parameters
 	 * @param next callback function
 	 */
-	connect: (context: Context, next: <T>(newPayload?: T) => void) => void;
+	connect: <S = any, P = any>(
+		context: Context<S>,
+		next: (newPayload?: P) => void
+	) => void;
 	/**
 	 * Create action
 	 * adds an action to the scheduler

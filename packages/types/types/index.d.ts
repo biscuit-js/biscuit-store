@@ -44,8 +44,8 @@ export function createStore<T = {[key: string]: any}>
  * @return promise
  * @async
  */
-export function subscribeToState<T>
-(action: AnyAction, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToState<S = any>
+(action: AnyAction<S>, fn?: SubscribeListner<S>): Promise<S>;
 
 /**
  * This is one of the most important methods.
@@ -76,7 +76,7 @@ export function subscribeToStore<T>
  * @async
  */
 export function dispatch
-<P extends DispatchPayload>(action: AnyAction, payload?: P): Dispatcher;
+<P extends DispatchPayload>(action: AnyAction<any>, payload?: P): Dispatcher;
 
 /**
  * This method is needed to get the storage state
@@ -86,7 +86,7 @@ export function dispatch
  * @param action the parameters of the action
  * @return state data
  */
-export function getState<T>(action: AnyAction): T;
+export function getState<T = any>(action: AnyAction<T>): T;
 
 /**
  * This method is used to get data from the storage by its key.
@@ -121,7 +121,7 @@ export function newStore<T>(repo: string, initial: T): Store<T>;
  * @param params name of the linked storage
  * @return returns the "add" method
  */
-export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
+export function createActionTo<S = {}>(params: Store<S>): ActionCreator<S>;
 
 /**
  * This helper method takes the first parameter "createactionsTo"
@@ -131,17 +131,17 @@ export function createActionTo<T = {}>(params: Store<T>): ActionCreator;
  * @param actions actions string array
  * @return actions
  */
-export function initialActions(
-	createActions: ActionCreator,
+export function initialActions<S = any>(
+	createActions: ActionCreator<S>,
 	actions: (string | StateItem)[]
-): StateAction[];
+): StateAction<S>[];
 
 /**
  * This helper method converts the actions
  * received via the argument to an array
  * @return returns the "compile" method
  */
-export function stateCollection(): StateCollection;
+export function stateCollection<S = any>(): StateCollection<S>;
 
 /**
  * This method allows you to add middleware for the state handler.
@@ -165,7 +165,7 @@ export function createDebuger<T = {}>
  * @param options an object containing the store settings
  * @return returns a set of actions
  */
-export function createManager(action: AnyAction): Manager;
+export function createManager<S = any>(action: AnyAction<S>): Manager<S>;
 
 /**
  * The method makes an asynchronous call

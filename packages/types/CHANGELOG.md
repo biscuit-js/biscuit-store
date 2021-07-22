@@ -1,5 +1,9 @@
 # @biscuit-store/types
 
+## 1.2.7
+### Major Changes
+
+- fix types
 ## 1.2.6
 ### Major Changes
 

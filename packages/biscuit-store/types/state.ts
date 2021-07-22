@@ -11,15 +11,15 @@ export type SubscribeListner<T> = (state: T) => void;
 /**
  * This type defines the dispatch function
  */
-export type Dispatch = <T>(payload?: T) => Dispatcher;
+export type Dispatch = <T>(payload: T) => Dispatcher;
 
 /** The interface defines the action parameters for the state */
-export interface StateAction {
+export interface StateAction<T> {
 	name: string;
 	type: string;
 	dispatch: Dispatch;
-	subscribe: <T>(fn?: SubscribeListner<T>) => Promise<T>;
-	getState: <T>() => T;
+	subscribe: (fn?: SubscribeListner<T>) => Promise<T>;
+	getState: () => T;
 }
 
 /** This interface defines the initialization state parameter */
@@ -54,38 +54,38 @@ export interface StateItem {
  * This interface defines a field parameter
  * for initializing states in createStore
  */
-export interface StateCollectionRepo {
-	[propName: string]: StateAction[];
+export interface StateCollectionRepo<T> {
+	[propName: string]: StateAction<T>[];
 }
 
 /**
  * The interface defines a set of returned
  * methods from stateCollection
  */
-export interface StateCollection {
+export interface StateCollection<T> {
 	/**
 	 * compile state collection
 	 * @param actions actions args
 	 * @return actions collection
 	 */
-	compile: (...actions: StateAction[]) => StateCollectionRepo;
+	compile: (...actions: StateAction<T>[]) => StateCollectionRepo<T>;
 	/**
 	 * Get the entire collection actions
 	 * @return collections instance
 	 */
-	all: () => StateCollectionRepo;
+	all: () => StateCollectionRepo<T>;
 	/**
 	 * Get a collection by matching the store name
 	 * @param repo storage name
 	 * @return collections instance
 	 */
-	fromRepo: (repo: string) => StateAction[];
+	fromRepo: (repo: string) => StateAction<T>[];
 	/**
 	 * Get the result filtered by state name
 	 * @param stateName state name
 	 * @return collections instance
 	 */
-	outOfState: (stateName: string) => StateAction;
+	outOfState: (stateName: string) => StateAction<T>;
 }
 
 /**
@@ -119,14 +119,14 @@ export interface Dispatcher {
  * This interface describes the methods
  * that createActionTo returns
  */
-export interface ActionCreator {
+export interface ActionCreator<T> {
 	/**
 	 * This method binds the state to the selected storagee
 	 * @param action state name
 	 * @param options state options
 	 * @return new action
 	 */
-	bind: <T>(action: string, options?: StateOptions<T>) => StateAction;
+	bind: (action: string, options?: StateOptions<T>) => StateAction<T>;
 	/** store name */
 	name: string;
 }
@@ -135,7 +135,7 @@ export interface ActionCreator {
  * This interface describes
  * the methods that manager returns
  */
-export interface Manager {
+export interface Manager<T> {
 	/**
 	 * This method will combine data
 	 * from the state with data from the store.
@@ -162,7 +162,7 @@ export interface Manager {
 	 * @param targetAction action for merge
 	 * the action that you want to merge
 	 */
-	mergeState: (targetAction: AnyAction) => void;
+	mergeState: (targetAction: AnyAction<T>) => void;
 	/**
 	 * This method compares two states for identity
 	 * WARNING: states should not contain methods
@@ -170,7 +170,7 @@ export interface Manager {
 	 * the action that you want to compare
 	 * @return boolean
 	 */
-	compareStates: (targetAction: AnyAction) => boolean;
+	compareStates: (targetAction: AnyAction<T>) => boolean;
 	/**
 	 * Сompare state and store
 	 * WARNING: states should not contain methods
@@ -183,15 +183,14 @@ export interface Manager {
 	 * @param instance object for compare
 	 * @return boolean
 	 */
-	compareStateWithInstance: <T>(instance: T) => boolean;
+	compareStateWithInstance: (instance: T) => boolean;
 	/**
 	 * compare store and instance object
 	 * WARNING: states should not contain methods
 	 * @param instance object for compare
 	 * @return boolean
 	 */
-	compareRepoWithInstance: <T>(instance: T) => boolean;
-
+	compareRepoWithInstance: (instance: T) => boolean;
 	/**
 	 * Updates the status of the store.
 	 * This method is equivalent to dispatch(...)
@@ -200,7 +199,7 @@ export interface Manager {
 	/**
 	 * Returns parameters of the selected action
 	 */
-	props: StateAction;
+	props: StateAction<T>;
 }
 
 /** Static action params */
@@ -210,4 +209,4 @@ export interface StaticAction {
 }
 
 /** Static action or  StateAction */
-export type AnyAction = StateAction | StaticAction;
+export type AnyAction<T> = StateAction<T> | StaticAction;
