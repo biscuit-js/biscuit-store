@@ -101,7 +101,7 @@ export interface StoreParams <S = any> {
 	/** Combined actions */
 	combineActions?: {
 		[propName: string]:
-		(state: T, payload: { [key: string]: string }) => void;
+		(state: T, payload: any) => void;
 	};
 	/** Add actions container */
 	addToContainer?: boolean;

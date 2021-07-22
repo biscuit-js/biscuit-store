@@ -1,13 +1,20 @@
 # @biscuit-store/core
 
-## 1.2.8
+## 1.3.0
 ### Major Changes
 
 - fix types
-## 1.2.6
+- 
+## 1.2.9
 ### Major Changes
 
-- fix strict mode
+- fix types
+
+## 1.2.3
+### Major Changes
+
+- fix types
+
 
 ## 1.2.0
 ### Major Changes
