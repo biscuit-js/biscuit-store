@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "es2018",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "paths": {
+      "react": ["./index.d.ts"]
+    },
+    "baseUrl": ".",
+    "moduleResolution": "node"
+  }
+}
