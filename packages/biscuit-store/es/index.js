@@ -264,11 +264,11 @@ function createDebuger(store, fn) {
   debugCollection[store.name] = fn;
 }
 
-function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _createForOfIteratorHelperLoose$2(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+function _unsupportedIterableToArray$2(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
 
-function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
  * Module of the library responsible for creating tasks and subscribing to them.
  * @param  {string} action action name
@@ -334,7 +334,7 @@ function createEmitter() {
 
       var tasks = [];
 
-      for (var _iterator = _createForOfIteratorHelperLoose$1(actions), _step; !(_step = _iterator()).done;) {
+      for (var _iterator = _createForOfIteratorHelperLoose$2(actions), _step; !(_step = _iterator()).done;) {
         var _step$value = _step.value,
             name = _step$value.name,
             type = _step$value.type;
@@ -366,7 +366,7 @@ function createEmitter() {
       return {
         /** Remove listners */
         remove: function remove() {
-          for (var _iterator2 = _createForOfIteratorHelperLoose$1(tasks), _step2; !(_step2 = _iterator2()).done;) {
+          for (var _iterator2 = _createForOfIteratorHelperLoose$2(tasks), _step2; !(_step2 = _iterator2()).done;) {
             var _step2$value = _step2.value,
                 name = _step2$value.name,
                 index = _step2$value.index;
@@ -390,7 +390,7 @@ function createEmitter() {
       new Log("dispatch -> name: " + name + ", type: " + type, name);
 
       if (taskBuffer[name]) {
-        for (var _iterator3 = _createForOfIteratorHelperLoose$1(taskBuffer[name]), _step3; !(_step3 = _iterator3()).done;) {
+        for (var _iterator3 = _createForOfIteratorHelperLoose$2(taskBuffer[name]), _step3; !(_step3 = _iterator3()).done;) {
           var task = _step3.value;
 
           if (task.type === type) {
@@ -2107,11 +2107,11 @@ function newStore(name, initial) {
   };
 }
 
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _createForOfIteratorHelperLoose$1(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray$1(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -2173,7 +2173,7 @@ function createStore(options) {
   if (params.middleware && params.middleware.length > 0) {
     var middle = middleware(store);
 
-    for (var _iterator = _createForOfIteratorHelperLoose(params.middleware), _step; !(_step = _iterator()).done;) {
+    for (var _iterator = _createForOfIteratorHelperLoose$1(params.middleware), _step; !(_step = _iterator()).done;) {
       var fn = _step.value;
       middle.add(fn);
     }
@@ -2300,6 +2300,79 @@ function stateCollection() {
 
       return out;
     }
+  };
+}
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/**
+ * Simultaneous launch of several dispatchers
+ * @param { import("../../../types/types").StateAction[] } actions state actions
+ * @return {(...payload: {[prop: string]: any}) => void}
+ * method that accepts the payload
+*/
+function pipeline() {
+  for (var _len = arguments.length, actions = new Array(_len), _key = 0; _key < _len; _key++) {
+    actions[_key] = arguments[_key];
+  }
+
+  return function _callee() {
+    var i,
+        _len2,
+        payload,
+        _key2,
+        _iterator,
+        _step,
+        action,
+        p,
+        _args = arguments;
+
+    return regenerator.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            i = 0;
+
+            for (_len2 = _args.length, payload = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+              payload[_key2] = _args[_key2];
+            }
+
+            _iterator = _createForOfIteratorHelperLoose(actions);
+
+          case 3:
+            if ((_step = _iterator()).done) {
+              _context.next = 12;
+              break;
+            }
+
+            action = _step.value;
+            p = !payload[i] ? {} : payload[i];
+
+            if (!('dispatch' in action)) {
+              _context.next = 10;
+              break;
+            }
+
+            _context.next = 9;
+            return regenerator.awrap(action.dispatch(p));
+
+          case 9:
+            i += 1;
+
+          case 10:
+            _context.next = 3;
+            break;
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, null, null, Promise);
   };
 }
 
@@ -2441,4 +2514,4 @@ var utils = {
   sandbox: sandbox
 };
 
-export { addStore, callFromStore, combineActions, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, stateCollection, subscribeToState, subscribeToStore, utils };
+export { addStore, callFromStore, combineActions, container, createActionTo, createDebuger, createManager, createStore, dispatch, getState, getStore, initialActions, middleware, newStore, pipeline, stateCollection, subscribeToState, subscribeToStore, utils };

@@ -193,6 +193,15 @@ export const container: Container;
 export function combineActions<S = object>
 (proto: CombineProto<S>): CombineActions;
 
+/**
+ * Simultaneous launch of several dispatchers
+ * @param actions state actions
+ * @return method that accepts the payload
+*/
+export function pipeline(...actions: StateAction<any>[]): (
+	...payloads: { [props: string]: any }[]
+) => void;
+
 export {
 	StateAction,
 	SubscribeListner,

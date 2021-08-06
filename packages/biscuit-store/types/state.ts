@@ -18,7 +18,9 @@ export interface StateAction<T> {
 	name: string;
 	type: string;
 	dispatch: Dispatch;
-	subscribe: (fn?: SubscribeListner<T>) => Promise<T>;
+	subscribe: (
+		fn?: SubscribeListner<T>
+	) => (Promise<T> & { unsubscribe: () => void });
 	getState: () => T;
 }
 
@@ -183,14 +185,14 @@ export interface Manager<T> {
 	 * @param instance object for compare
 	 * @return boolean
 	 */
-	compareStateWithInstance: (instance: T) => boolean;
+	compareStateWithInstance: (instance: {[key: string]: any}) => boolean;
 	/**
 	 * compare store and instance object
 	 * WARNING: states should not contain methods
 	 * @param instance object for compare
 	 * @return boolean
 	 */
-	compareRepoWithInstance: (instance: T) => boolean;
+	compareRepoWithInstance: (instance: {[key: string]: any}) => boolean;
 	/**
 	 * Updates the status of the store.
 	 * This method is equivalent to dispatch(...)
