@@ -45,7 +45,9 @@ export function createStore<T = {[key: string]: any}>
  * @async
  */
 export function subscribeToState<S = any>
-(action: AnyAction<S>, fn?: SubscribeListner<S>): Promise<S>;
+(action: AnyAction<S>, fn?: SubscribeListner<S>): (
+	Promise<S> & { unsubscribe: () => void }
+);
 
 /**
  * This is one of the most important methods.
@@ -57,8 +59,10 @@ export function subscribeToState<S = any>
  * @param fn callback
  * @async
  */
-export function subscribeToStore<T>
-(target: string | Store, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToStore<S>
+(target: string | Store, fn?: SubscribeListner<S>): (
+	Promise<S> & { unsubscribe: () => void }
+);
 
 /**
  * This is one of the most important methods.
