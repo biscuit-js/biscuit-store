@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { pipeline } from '@biscuit-store/core';
 
 /**
@@ -8,6 +9,6 @@ import { pipeline } from '@biscuit-store/core';
  * @return callback
  * @public
  */
-export function usePipeline(...actions) {
-	return pipeline(...actions);
+export function usePipeline() {
+	return useMemo(() => pipeline.apply(this, arguments), [arguments]);
 }
