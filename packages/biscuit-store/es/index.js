@@ -131,7 +131,7 @@ var messages = {
   actionString: 'The state name must be a string.',
   storeNotFind: 'store not found.',
   storeExists: 'A store with this name already exists.',
-  pipelineNotAction: 'One of the arguments is not an action of the store'
+  pipelineNotAction: 'One of the arguments is not an action of the store.'
 };
 
 /** debuger list */
@@ -2366,7 +2366,7 @@ function pipeline() {
             return _context.abrupt("continue", 12);
 
           case 11:
-            throw CreateError(messages.pipelineNotAction);
+            throw new CreateError(messages.pipelineNotAction);
 
           case 12:
             _context.next = 3;

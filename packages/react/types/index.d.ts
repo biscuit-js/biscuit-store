@@ -52,6 +52,17 @@ declare function useSubscribe<S = any>(
 ): [S, Dispatch];
 
 /**
+ * ### usePipeline
+ * This hook synchronously launches several actions.
+ * Returns a callback that can accept one or more values,.
+ * @param actions state params
+ * @return callback
+ */
+declare function usePipeline<S = any>(...actions: DepsAction<S>): (
+	...payloads: { [props: string]: any }[]
+) => void;
+
+/**
  * ### useDispatch
  * State dispatcher hook
  * accepts multiple actions and returns them to dispatchers
