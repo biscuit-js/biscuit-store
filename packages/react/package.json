@@ -60,7 +60,8 @@
     "publish:second": "npm publish",
     "build:release": "babel src --out-dir lib",
     "test": "yarn test:jest",
-    "test:jest": "jest --verbose ./tests"
+    "test:jest": "jest --verbose ./tests",
+    "changelog": "auto-changelog -p  && git add CHANGELOG.md"
   },
   "browserslist": [
     "last 2 Chrome versions"

@@ -57,7 +57,8 @@
     "ver": "npm version major",
     "update": "yarn upgrade --ignore-engines --dev",
     "publish:second": "npm publish",
-    "build:release": "rollup -c"
+    "build:release": "rollup -c",
+    "changelog": "auto-changelog -p  && git add CHANGELOG.md"
   },
   "browserslist": [
     "last 2 Chrome versions"
