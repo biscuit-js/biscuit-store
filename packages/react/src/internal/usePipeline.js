@@ -9,6 +9,6 @@ import { pipeline } from '@biscuit-store/core';
  * @return callback
  * @public
  */
-export function usePipeline() {
-	return useMemo(() => pipeline.apply(this, arguments), [arguments]);
+export function usePipeline(...actions) {
+	return useMemo(() => pipeline(...actions), [actions]);
 }
