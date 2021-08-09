@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { pipeline } from '@biscuit-store/core';
 
 /**
@@ -10,5 +9,5 @@ import { pipeline } from '@biscuit-store/core';
  * @public
  */
 export function usePipeline(...actions) {
-	return useMemo(() => pipeline(...actions), [actions]);
+	return pipeline(...actions);
 }
