@@ -56,7 +56,7 @@
   },
   "scripts": {
     "update": "yarn upgrade && yarn upgrade --dev",
-    "ver": "npm version major",
+    "ver": "npm version",
     "publish:second": "npm publish",
     "build:release": "babel src --out-dir lib",
     "test": "yarn test:jest",

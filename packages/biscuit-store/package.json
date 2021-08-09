@@ -56,7 +56,7 @@
   "scripts": {
     "test": "yarn test:jest",
     "test:jest": "jest",
-    "ver": "npm version major",
+    "ver": "npm version",
     "publish:main": "npm publish",
     "build:release": "rollup -c",
     "changelog": "auto-changelog -p  && git add CHANGELOG.md"

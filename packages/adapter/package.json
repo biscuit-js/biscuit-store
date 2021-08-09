@@ -54,7 +54,7 @@
     "add:types": "yarn add @biscuit-store/types",
     "test": "yarn test:jest",
     "test:jest": "jest",
-    "ver": "npm version major",
+    "ver": "npm version",
     "update": "yarn upgrade --ignore-engines --dev",
     "publish:second": "npm publish",
     "build:release": "rollup -c",
