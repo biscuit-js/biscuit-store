@@ -22,7 +22,7 @@ export interface AdapterActionCtx<S = object, P = object> {
  */
 export type ActionListner<S, P> = (
 	ctx: AdapterActionCtx<S, P>
-) => S | Promise<S> | void;
+) => S | Promise<S> | Promise<void> | void;
 
 /**
  * Type of the result handler
@@ -144,7 +144,7 @@ export interface Adapter {
 	 * @param options behavioral options
 	 * @async
 	 */
-	includeContext: <T = object>(
+	includeContext: <T = any>(
 		ctxCreator: () => T,
 		options?: { catche: boolean }
 	) => void;

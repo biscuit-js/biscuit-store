@@ -16,4 +16,5 @@ export const messages = {
 	actionString: 'The state name must be a string.',
 	storeNotFind: 'store not found.',
 	storeExists: 'A store with this name already exists.',
+	pipelineNotAction: 'One of the arguments is not an action of the store.',
 };

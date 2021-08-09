@@ -9,6 +9,7 @@ export { initialActions } from './internal/initialActions';
 export { stateCollection } from './internal/stateCollection';
 export { middleware } from './internal/middleware';
 export { createDebuger } from './internal/debugger';
+export { pipeline } from './internal/pipeline';
 
 export {
 	dispatch,
