@@ -78,10 +78,11 @@ it('pipeline multy payload', (done) => {
 });
 
 it('pipeline not action', (done) => {
-	try {
-		pipeline({})({ value: 200 });
-		expect(true).toBe(false);
-	} catch (e) {
-		expect(e.message).toBe('UNKNOWN ERROR');
-	}
+	expect.assertions(1);
+	pipeline({})({ value: 200 }).catch((e) => {
+		expect(e.message).toEqual(
+			'One of the arguments is not an action of the store.'
+		);
+		done();
+	});
 });
