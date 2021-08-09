@@ -76,3 +76,12 @@ it('pipeline multy payload', (done) => {
 		}
 	});
 });
+
+it('pipeline not action', (done) => {
+	try {
+		pipeline({})({ value: 200 });
+		expect(true).toBe(false);
+	} catch (e) {
+		expect(e.message).toBe('UNKNOWN ERROR');
+	}
+});

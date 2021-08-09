@@ -130,7 +130,8 @@ var messages = {
   debuggerNoFunc: 'Debugger should be provided as a feature.',
   actionString: 'The state name must be a string.',
   storeNotFind: 'store not found.',
-  storeExists: 'A store with this name already exists.'
+  storeExists: 'A store with this name already exists.',
+  pipelineNotAction: 'One of the arguments is not an action of the store'
 };
 
 /** debuger list */
@@ -2308,13 +2309,13 @@ function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Sy
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 /**
  * Simultaneous launch of several dispatchers
  * @param { import("../../../types/types").StateAction[] } actions state actions
  * @return {(...payload: {[prop: string]: any}) => void}
  * method that accepts the payload
-*/
+ */
+
 function pipeline() {
   for (var _len = arguments.length, actions = new Array(_len), _key = 0; _key < _len; _key++) {
     actions[_key] = arguments[_key];
@@ -2345,7 +2346,7 @@ function pipeline() {
 
           case 3:
             if ((_step = _iterator()).done) {
-              _context.next = 12;
+              _context.next = 14;
               break;
             }
 
@@ -2353,7 +2354,7 @@ function pipeline() {
             p = !payload[i] ? {} : payload[i];
 
             if (!('dispatch' in action)) {
-              _context.next = 10;
+              _context.next = 11;
               break;
             }
 
@@ -2362,12 +2363,16 @@ function pipeline() {
 
           case 9:
             i += 1;
+            return _context.abrupt("continue", 12);
 
-          case 10:
+          case 11:
+            throw CreateError(messages.pipelineNotAction);
+
+          case 12:
             _context.next = 3;
             break;
 
-          case 12:
+          case 14:
           case "end":
             return _context.stop();
         }
