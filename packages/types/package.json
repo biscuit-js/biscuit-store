@@ -34,7 +34,9 @@
   },
   "scripts": {
     "publish:main": "npm publish",
-    "ver": "npm version",
+    "ver:minor": "npm version minor",
+    "ver:major": "npm version major",
+    "ver:patch": "npm version patch",
     "changelog": "auto-changelog -p  && git add CHANGELOG.md"
   },
   "files": [
