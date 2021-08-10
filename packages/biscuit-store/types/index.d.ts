@@ -45,7 +45,9 @@ export function createStore<T = {[key: string]: any}>
  * @async
  */
 export function subscribeToState<S = any>
-(action: AnyAction<S>, fn?: SubscribeListner<S>): Promise<S>;
+(action: AnyAction<S>, fn?: SubscribeListner<S>): (
+	Promise<S> & { unsubscribe: () => void }
+);
 
 /**
  * This is one of the most important methods.
@@ -57,8 +59,10 @@ export function subscribeToState<S = any>
  * @param fn callback
  * @async
  */
-export function subscribeToStore<T>
-(target: string | Store, fn?: SubscribeListner<T>): Promise<T>;
+export function subscribeToStore<S>
+(target: string | Store, fn?: SubscribeListner<S>): (
+	Promise<S> & { unsubscribe: () => void }
+);
 
 /**
  * This is one of the most important methods.
@@ -192,6 +196,15 @@ export const container: Container;
 */
 export function combineActions<S = object>
 (proto: CombineProto<S>): CombineActions;
+
+/**
+ * Simultaneous launch of several dispatchers
+ * @param actions state actions
+ * @return method that accepts the payload
+*/
+export function pipeline(...actions: StateAction<any>[]): (
+	...payloads: { [props: string]: any }[]
+) => void;
 
 export {
 	StateAction,

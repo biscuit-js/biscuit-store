@@ -1,6 +1,6 @@
 {
   "name": "@biscuit-store/react",
-  "version": "1.3.0",
+  "version": "1.4.1",
   "description": "Library for management javascript application states.",
   "author": "Zhulev Philipp",
   "license": "MIT",
@@ -56,11 +56,14 @@
   },
   "scripts": {
     "update": "yarn upgrade && yarn upgrade --dev",
-    "ver": "npm version major",
+    "ver:minor": "npm version minor",
+    "ver:major": "npm version major",
+    "ver:patch": "npm version patch",
     "publish:second": "npm publish",
     "build:release": "babel src --out-dir lib",
     "test": "yarn test:jest",
-    "test:jest": "jest --verbose ./tests"
+    "test:jest": "jest --verbose ./tests",
+    "changelog": "auto-changelog -p  && git add CHANGELOG.md"
   },
   "browserslist": [
     "last 2 Chrome versions"
@@ -69,8 +72,8 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@biscuit-store/core": "1.3.0",
-    "@biscuit-store/types": "1.3.0",
+    "@biscuit-store/core": "1.4.1",
+    "@biscuit-store/types": "1.4.1",
     "react": "^16.8.3 || ^17"
   },
   "types": "./index.d.ts",

@@ -31,10 +31,11 @@
     "prettier": "prettier ./packages/*/**/*.{js,ts}",
     "lint": "eslint ./packages/*/**/*.{js,ts} --fix",
     "release:publish": "lerna publish from-package --dist-tag next",
-    "changelog:add": "changeset add",
-    "changelog:ver": "changeset version",
-    "changelog:publish": "changeset publish",
-    "version": "lerna run --parallel ver",
+    "changelog": "auto-changelog -p  && git add CHANGELOG.md",
+    "changelog:packages": "lerna run --parallel changelog",
+    "version:major": "lerna run --parallel ver:major",
+    "version:minor": "lerna run --parallel ver:minor",
+    "version:patch": "lerna run --parallel ver:patch",
     "update": "lerna run --parallel update",
     "pub:main": "lerna run --parallel publish:main",
     "pub:second": "lerna run --parallel publish:second",
@@ -94,6 +95,7 @@
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^4.15.0",
+    "auto-changelog": "^2.3.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.1.0",
@@ -132,5 +134,6 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "version": "1.4.0"
 }
