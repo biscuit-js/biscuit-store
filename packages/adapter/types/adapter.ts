@@ -144,8 +144,8 @@ export interface Adapter {
 	 * @param options behavioral options
 	 * @async
 	 */
-	includeContext: <T = any>(
-		ctxCreator: () => T,
+	includeContext: <T = any, S = any>(
+		ctxCreator: (store: S) => T,
 		options?: { catche: boolean }
 	) => void;
 
